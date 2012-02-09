@@ -4,7 +4,7 @@ Introduction
 This bundle is used to share common features through all Snowcap project made with Symfony 2
 
 Installation
-============
+------------
 
   1. Add this bundle to your ``vendor/`` dir:
       * Using the vendors script.
