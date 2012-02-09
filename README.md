@@ -12,7 +12,7 @@ Installation
         Add the following lines in your ``deps`` file::
 
             [SnowcapCoreBundle]
-                git=git://github.com/Snowcap/SnowcapCoreBundle.git
+                git=git://github.com/snowcap/SnowcapCoreBundle.git
                 target=/bundles/Snowcap/CoreBundle
             
         Run the vendors script:
