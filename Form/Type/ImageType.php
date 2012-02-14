@@ -26,19 +26,19 @@ class ImageType extends AbstractType {
     public function getDefaultOptions(array $options)
     {
         return array(
-            'web_property' => null
+            'web_path' => null
         );
     }
 
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->setAttribute('web_property', $options['web_property'] ?: null);
+            ->setAttribute('web_path', $options['web_path'] ?: null);
     }
 
 
     public function buildView(FormView $view, FormInterface $form)
     {
-        $view->set('web_property', $form->getAttribute('web_property'));
+        $view->set('web_path', $form->getAttribute('web_path'));
     }
 }
