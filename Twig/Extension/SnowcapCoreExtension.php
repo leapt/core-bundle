@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 class SnowcapCoreExtension extends \Twig_Extension
 {
 
+    private $activeRoutes = array();
+
     /**
      * Get all available functions
      *
@@ -15,8 +17,20 @@ class SnowcapCoreExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'is_menu_active' => new \Twig_Function_Method($this, 'isMenuActive'),
+            'set_active_routes' => new \Twig_Function_Method($this, 'setActiveRoutes'),
+            'is_active_route' => new \Twig_Function_Method($this, 'isActiveRoute'),
         );
+    }
+
+    public function setActiveRoutes(array $active_routes)
+    {
+        $this->activeRoutes = $active_routes;
+        return true;
+    }
+
+    public function isActiveRoute($route)
+    {
+        return in_array($route, $this->activeRoutes);
     }
 
     /**
