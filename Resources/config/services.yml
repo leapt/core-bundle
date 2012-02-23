@@ -6,3 +6,8 @@ services:
         class: Snowcap\CoreBundle\Form\Type\ImageType
         tags:
             - { name: form.type, alias: image }
+    # Twig extensions
+    twig.extension.snowcap_core:
+        class: Snowcap\CoreBundle\Twig\Extension\SnowcapCoreExtension
+        tags:
+            - { name: twig.extension }
