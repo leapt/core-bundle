@@ -15,7 +15,7 @@ class ImageType extends AbstractType {
      */
     function getName()
     {
-        return 'image';
+        return 'snowcap_core_image';
     }
 
     public function getParent(array $options)
