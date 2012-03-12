@@ -1,11 +1,26 @@
 services:
+    # Load twig debug
     debug.twig.extension:
         class: Twig_Extensions_Extension_Debug
         tags: [{ name: 'twig.extension' }]
+
+    # Form types
     snowcap_core.image_type:
         class: Snowcap\CoreBundle\Form\Type\ImageType
         tags:
             - { name: form.type, alias: snowcap_core_image }
+    snowcap_core.file_type:
+        class: Snowcap\CoreBundle\Form\Type\FileType
+        tags:
+            - { name: form.type, alias: snowcap_core_file }
+
+    # Fiel entity event subscriber
+    snowcap_core.file_subscriber:
+        class: Snowcap\CoreBundle\Listener\FileSubscriber
+        arguments: [%kernel.root_dir%]
+        tags:
+            - { name: doctrine.event_subscriber}
+
     # Twig extensions
     twig.extension.snowcap_core:
         class: Snowcap\CoreBundle\Twig\Extension\SnowcapCoreExtension
