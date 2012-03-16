@@ -14,7 +14,7 @@ services:
         tags:
             - { name: form.type, alias: snowcap_core_file }
 
-    # Fiel entity event subscriber
+    # Field entity event subscriber
     snowcap_core.file_subscriber:
         class: Snowcap\CoreBundle\Listener\FileSubscriber
         arguments: [%kernel.root_dir%]

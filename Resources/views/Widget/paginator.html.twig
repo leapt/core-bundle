@@ -1,0 +1,7 @@
+<ul>
+    {% for i in 1..paginator.getNumPages %}
+        <li>
+            <a href="?page={{ i }}">{{ i }}</a>
+        </li>
+    {% endfor %}
+</ul>
