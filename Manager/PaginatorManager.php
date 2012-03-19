@@ -23,6 +23,11 @@ class PaginatorManager
     private $limitPerPage;
 
     /**
+     * @var int
+     */
+    private $count;
+
+    /**
      * @param \Doctrine\ORM\Query $query
      * @param int $page
      * @param int $limitPerPage
@@ -89,8 +94,10 @@ class PaginatorManager
      */
     public function getCount()
     {
-
-        return Paginate::getTotalQueryResults($this->query);
+        if(!isset($this->count)) {
+            $this->count = Paginate::getTotalQueryResults($this->query);
+        }
+        return $this->count;
     }
 
     /**
@@ -100,9 +107,15 @@ class PaginatorManager
      */
     public function getResult()
     {
-        $paginateQuery = Paginate::getPaginateQuery($this->query, $this->getOffset(), $this->limitPerPage);
+        // First we need to check if there are actual results
+        if($this->getCount() > 0) {
+            $query = Paginate::getPaginateQuery($this->query, $this->getOffset(), $this->limitPerPage);
+        }
+        else {
+            $query = $this->query;
+        }
 
-        return $paginateQuery->getResult();
+        return $query->getResult();
     }
 
     public function getNumPages()
