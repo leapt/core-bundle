@@ -24,5 +24,8 @@ services:
     # Twig extensions
     twig.extension.snowcap_core:
         class: Snowcap\CoreBundle\Twig\Extension\SnowcapCoreExtension
+        calls:
+            -
+                [ setActiveLocales, [ %locales% ] ]
         tags:
             - { name: twig.extension }
