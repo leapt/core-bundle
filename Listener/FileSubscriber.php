@@ -114,7 +114,7 @@ class FileSubscriber implements EventSubscriber
     private function preUpload($ea, $fileEntity, $file)
     {
         $propertyName = $file['property']->name;
-        if (null !== $fileEntity->$propertyName) {
+        if (isset($fileEntity->$propertyName) && null !== $fileEntity->$propertyName) {
             $getter = "get" . ucfirst(strtolower($file['mappedBy']));
             $setter = "set" . ucfirst(strtolower($file['mappedBy']));
             $oldValue = $fileEntity->$getter();
@@ -129,7 +129,7 @@ class FileSubscriber implements EventSubscriber
     private function upload(LifecycleEventArgs $ea, $fileEntity, $file)
     {
         $propertyName = $file['property']->name;
-        if (null === $fileEntity->$propertyName) {
+        if (!isset($fileEntity->$propertyName) || null === $fileEntity->$propertyName) {
             return;
         }
 
