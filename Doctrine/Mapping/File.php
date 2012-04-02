@@ -1,11 +1,11 @@
 <?php
 namespace Snowcap\CoreBundle\Doctrine\Mapping;
-use Doctrine\ORM\Mapping\Annotation;
 
+use Doctrine\Common\Annotations\Annotation;
 /**
  * @Annotation
  */
-class File implements Annotation {
+class File extends Annotation{
     /** @var string */
     public $path;
     /** @var string */
