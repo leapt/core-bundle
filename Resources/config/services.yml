@@ -9,6 +9,10 @@ services:
         class: Snowcap\CoreBundle\Form\Type\ImageType
         tags:
             - { name: form.type, alias: snowcap_core_image }
+    snowcap_core.video_type:
+        class: Snowcap\CoreBundle\Form\Type\VideoType
+        tags:
+            - { name: form.type, alias: snowcap_core_video }
     snowcap_core.file_type:
         class: Snowcap\CoreBundle\Form\Type\FileType
         tags:
