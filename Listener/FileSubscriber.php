@@ -5,11 +5,10 @@ namespace Snowcap\CoreBundle\Listener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Snowcap\CoreBundle\Entity\File;
 
 class FileSubscriber implements EventSubscriber
 {
-    private $config;
+    private $config = array();
 
     /**
      * @var string
