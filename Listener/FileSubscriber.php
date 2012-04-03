@@ -47,6 +47,7 @@ class FileSubscriber implements EventSubscriber
                     'property' => $property,
                     'path' => $annotation->path,
                     'mappedBy' => $annotation->mappedBy,
+                    'filename' => $annotation->filename,
                 );
             }
         }
@@ -120,6 +121,12 @@ class FileSubscriber implements EventSubscriber
             $oldValue = $fileEntity->$getter();
             $newValue = $file['path'] . '/' . uniqid() . '.' . $fileEntity->$propertyName->guessExtension();
             $fileEntity->$setter($newValue);
+
+            if ($file['filename'] !== null) {
+                $setter = "set" . ucfirst(strtolower($file['filename']));
+                $fileEntity->$setter($fileEntity->$propertyName->getClientOriginalName());
+
+            }
             /** @var $entityManager \Doctrine\ORM\EntityManager */
             $entityManager = $ea->getEntityManager();
             $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $file['mappedBy'], $oldValue, $newValue);

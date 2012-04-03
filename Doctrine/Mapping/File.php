@@ -10,4 +10,6 @@ class File extends Annotation{
     public $path;
     /** @var string */
     public $mappedBy;
+    /** @var string */
+    public $filename;
 }
