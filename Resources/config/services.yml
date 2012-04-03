@@ -1,8 +1,13 @@
 services:
     # Load twig debug
-    debug.twig.extension:
+    twig.extension.debug:
         class: Twig_Extensions_Extension_Debug
-        tags: [{ name: 'twig.extension' }]
+        tags: [ { name: 'twig.extension' } ]
+    # Load twig text
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags: [ { name: 'twig.extension' } ]
+
 
     # Form types
     snowcap_core.image_type:
