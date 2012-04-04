@@ -4,7 +4,7 @@ jQuery(function ($) {
         var self = this;
         var container = $(container);
         var button = $('<a href="#" class="btn btn-primary">+</a>');
-        container.parent().append(button);
+        container.after(button);
         // When the link is clicked we add the field to input another element
         button.click(function (event) {
             event.preventDefault();
