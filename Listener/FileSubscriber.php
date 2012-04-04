@@ -4,10 +4,14 @@ namespace Snowcap\CoreBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Snowcap\CoreBundle\Entity\File;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+
+use Snowcap\CoreBundle\Doctrine\ORM\Event\PreFlushEventArgs;
 
 class FileSubscriber implements EventSubscriber
 {
+    private $config = array();
+
     /**
      * @var string
      */
@@ -25,92 +29,153 @@ class FileSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array('prePersist', 'preUpdate', 'postPersist', 'postUpdate', 'postRemove');
+        return array('prePersist', 'postPersist', 'postUpdate', 'postRemove','loadClassMetadata','preFlush');
+    }
+
+    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
+    {
+        $reader = new \Doctrine\Common\Annotations\AnnotationReader();
+        $meta = $eventArgs->getClassMetadata();
+        foreach ($meta->getReflectionClass()->getProperties() as $property) {
+            if ($meta->isMappedSuperclass && !$property->isPrivate() ||
+                $meta->isInheritedField($property->name) ||
+                isset($meta->associationMappings[$property->name]['inherited'])
+            ) {
+                continue;
+            }
+            if ($annotation = $reader->getPropertyAnnotation($property, 'Snowcap\\CoreBundle\\Doctrine\\Mapping\\File')) {
+                $field = $property->getName();
+                $this->config[$meta->getTableName()]['fields'][$field] = array(
+                    'property' => $property,
+                    'path' => $annotation->path,
+                    'mappedBy' => $annotation->mappedBy,
+                    'filename' => $annotation->filename,
+                );
+            }
+        }
+    }
+
+    public function preFlush(PreFlushEventArgs $ea)
+    {
+        /** @var $unitOfWork \Doctrine\ORM\UnitOfWork */
+        $unitOfWork = $ea->getEntityManager()->getUnitOfWork();
+
+        $entityMaps = $unitOfWork->getIdentityMap();
+        foreach($entityMaps as $entities) {
+            foreach($entities as $entity) {
+                foreach($this->getFiles($entity,$ea->getEntityManager()) as $file) {
+                    $this->preUpload($ea, $entity,$file);
+                }
+            }
+        }
+    }
+
+    private function getFiles($entity, \Doctrine\ORM\EntityManager $entityManager)
+    {
+        $classMetaData = $entityManager->getClassMetaData(get_class($entity));
+        $tableName = $classMetaData->getTableName();
+
+        if(array_key_exists($tableName, $this->config)) {
+            return $this->config[$tableName]['fields'];
+        } else {
+            return array();
+        }
     }
 
     public function prePersist(LifecycleEventArgs $ea)
     {
         $entity = $ea->getEntity();
-        if ($entity instanceof File) {
-            $this->preUpload($entity);
-        }
-    }
-
-    public function preUpdate(LifecycleEventArgs $ea)
-    {
-        $entity = $ea->getEntity();
-        if ($entity instanceof File) {
-            $this->preUpload($entity);
+        foreach($this->getFiles($entity,$ea->getEntityManager()) as $file) {
+            $this->preUpload($ea, $entity,$file);
         }
     }
 
     public function postPersist(LifecycleEventArgs $ea)
     {
         $entity = $ea->getEntity();
-        if ($entity instanceof File) {
-            $this->upload($entity);
+        foreach($this->getFiles($entity,$ea->getEntityManager()) as $file) {
+            $this->upload($ea, $entity,$file);
         }
     }
 
     public function postUpdate(LifecycleEventArgs $ea)
     {
         $entity = $ea->getEntity();
-        if ($entity instanceof File) {
-            $this->upload($entity);
+        foreach($this->getFiles($entity,$ea->getEntityManager()) as $file) {
+            $this->upload($ea, $entity,$file);
         }
     }
 
     public function postRemove(LifecycleEventArgs $ea)
     {
         $entity = $ea->getEntity();
-        if ($entity instanceof File) {
-            $this->removeUpload($entity);
+        foreach($this->getFiles($entity,$ea->getEntityManager()) as $file) {
+            $this->removeUpload($entity,$file);
         }
     }
 
-
-    private function preUpload(File $fileEntity)
+    private function preUpload($ea, $fileEntity, $file)
     {
-        if (null !== $fileEntity->file) {
-            // do whatever you want to generate a unique name
-            $fileEntity->setPath(uniqid() . '.' . $fileEntity->file->guessExtension());
+        $propertyName = $file['property']->name;
+        if (isset($fileEntity->$propertyName) && null !== $fileEntity->$propertyName) {
+            $getter = "get" . ucfirst(strtolower($file['mappedBy']));
+            $setter = "set" . ucfirst(strtolower($file['mappedBy']));
+            $oldValue = $fileEntity->$getter();
+            $newValue = $file['path'] . '/' . uniqid() . '.' . $fileEntity->$propertyName->guessExtension();
+            $fileEntity->$setter($newValue);
+
+            if ($file['filename'] !== null) {
+                $setter = "set" . ucfirst(strtolower($file['filename']));
+                $fileEntity->$setter($fileEntity->$propertyName->getClientOriginalName());
+
+            }
+            /** @var $entityManager \Doctrine\ORM\EntityManager */
+            $entityManager = $ea->getEntityManager();
+            $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $file['mappedBy'], $oldValue, $newValue);
         }
     }
 
-    private function upload(File $fileEntity)
+    private function upload(LifecycleEventArgs $ea, $fileEntity, $file)
     {
-        if (null === $fileEntity->file) {
+        $propertyName = $file['property']->name;
+        if (!isset($fileEntity->$propertyName) || null === $fileEntity->$propertyName) {
             return;
         }
 
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $fileEntity->file->move($this->getUploadRootDir($fileEntity), $fileEntity->getPath());
+        $getter = "get" . ucfirst(strtolower($file['mappedBy']));
+        $filename = basename($fileEntity->$getter());
+        $path = dirname($fileEntity->$getter());
 
-        unset($fileEntity->file);
+        $fileEntity->$propertyName->move($this->getUploadRootDir() . $path, $filename);
+
+
+        // Remove previous file
+        $unitOfWork = $ea->getEntityManager()->getUnitOfWork();
+        $changeSet = $unitOfWork->getEntityChangeSet($fileEntity);
+        if(array_key_exists($file['mappedBy'],$changeSet)) {
+            $oldvalue = $changeSet[$file['mappedBy']][0];
+            if($oldvalue != '' && $oldvalue != NULL) {
+                unlink($this->getUploadRootDir($fileEntity) . '/' . $oldvalue);
+            }
+        }
+
+        unset($fileEntity->$propertyName);
     }
 
-    /**
-     * @ORM\PostRemove()
-     */
-    private function removeUpload(File $fileEntity)
+    private function removeUpload($fileEntity, $file)
     {
-        if ($file = $this->getAbsolutePath($fileEntity)) {
-            unlink($file);
+        if ($file['path'] != "") {
+            $getter = "get" . ucfirst(strtolower($file['mappedBy']));
+            $filePath = $fileEntity->$getter();
+            if($filePath != "") {
+                unlink($this->getUploadRootDir($fileEntity) . '/' . $fileEntity->$getter());
+            }
         }
     }
 
-    private function getUploadRootDir(File $fileEntity)
+    private function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return $this->rootDir . '/../web/' . $fileEntity->getUploadDir();
+        return $this->rootDir . '/../web/';
     }
-
-    private function getAbsolutePath(File $fileEntity)
-    {
-        return null === $fileEntity->getPath() ? null : $this->getUploadRootDir($fileEntity) . '/' . $fileEntity->getPath();
-    }
-
-
 }

@@ -1,14 +1,23 @@
 services:
     # Load twig debug
-    debug.twig.extension:
+    twig.extension.debug:
         class: Twig_Extensions_Extension_Debug
-        tags: [{ name: 'twig.extension' }]
+        tags: [ { name: 'twig.extension' } ]
+    # Load twig text
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags: [ { name: 'twig.extension' } ]
+
 
     # Form types
     snowcap_core.image_type:
         class: Snowcap\CoreBundle\Form\Type\ImageType
         tags:
             - { name: form.type, alias: snowcap_core_image }
+    snowcap_core.video_type:
+        class: Snowcap\CoreBundle\Form\Type\VideoType
+        tags:
+            - { name: form.type, alias: snowcap_core_video }
     snowcap_core.file_type:
         class: Snowcap\CoreBundle\Form\Type\FileType
         tags:
@@ -24,5 +33,8 @@ services:
     # Twig extensions
     twig.extension.snowcap_core:
         class: Snowcap\CoreBundle\Twig\Extension\SnowcapCoreExtension
+        calls:
+            -
+                [ setActiveLocales, [ %locales% ] ]
         tags:
             - { name: twig.extension }
