@@ -6,6 +6,8 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 
+use Snowcap\CoreBundle\Doctrine\ORM\Event\PreFlushEventArgs;
+
 class FileSubscriber implements EventSubscriber
 {
     private $config = array();
@@ -53,7 +55,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    public function preFlush(\Doctrine\ORM\Event\PreFlushEventArgs $ea)
+    public function preFlush(PreFlushEventArgs $ea)
     {
         /** @var $unitOfWork \Doctrine\ORM\UnitOfWork */
         $unitOfWork = $ea->getEntityManager()->getUnitOfWork();
