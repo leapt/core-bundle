@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Util\PropertyPath;
+use Symfony\Component\Form\Exception\MissingOptionsException;
 
 class ImageType extends AbstractType {
     /**
@@ -32,6 +34,9 @@ class ImageType extends AbstractType {
 
     public function buildForm(FormBuilder $builder, array $options)
     {
+        if(!isset($options['web_path'])) {
+            throw new MissingOptionsException('The "web_path" option is mandatory', array('web_path'));
+        }
         $builder
             ->setAttribute('web_path', $options['web_path'] ?: null);
     }
@@ -39,6 +44,9 @@ class ImageType extends AbstractType {
 
     public function buildView(FormView $view, FormInterface $form)
     {
-        $view->set('web_path', $form->getAttribute('web_path'));
+        $vars = $view->getParent()->getVars();
+        $image = $vars['value'];
+        $propertyPath = new PropertyPath($form->getAttribute('web_path'));
+        $view->set('image_src', $propertyPath->getValue($image));
     }
 }
