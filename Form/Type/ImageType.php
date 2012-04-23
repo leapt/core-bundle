@@ -28,7 +28,7 @@ class ImageType extends AbstractType {
     public function getDefaultOptions(array $options)
     {
         return array(
-            'web_path' => null
+            'web_path' => null,
         );
     }
 
@@ -38,7 +38,8 @@ class ImageType extends AbstractType {
             throw new MissingOptionsException('The "web_path" option is mandatory', array('web_path'));
         }
         $builder
-            ->setAttribute('web_path', $options['web_path'] ?: null);
+            ->setAttribute('web_path', $options['web_path'] ?: null)
+        ;
     }
 
 
