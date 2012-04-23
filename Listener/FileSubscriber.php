@@ -155,7 +155,7 @@ class FileSubscriber implements EventSubscriber
         if(array_key_exists($file['mappedBy'],$changeSet)) {
             $oldvalue = $changeSet[$file['mappedBy']][0];
             if($oldvalue != '' && $oldvalue != NULL) {
-                unlink($this->getUploadRootDir($fileEntity) . '/' . $oldvalue);
+                @unlink($this->getUploadRootDir($fileEntity) . '/' . $oldvalue);
             }
         }
 
@@ -168,7 +168,7 @@ class FileSubscriber implements EventSubscriber
             $getter = "get" . ucfirst(strtolower($file['mappedBy']));
             $filePath = $fileEntity->$getter();
             if($filePath != "") {
-                unlink($this->getUploadRootDir($fileEntity) . '/' . $fileEntity->$getter());
+                @unlink($this->getUploadRootDir($fileEntity) . '/' . $fileEntity->$getter());
             }
         }
     }
