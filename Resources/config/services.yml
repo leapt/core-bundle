@@ -33,8 +33,6 @@ services:
     # Twig extensions
     twig.extension.snowcap_core:
         class: Snowcap\CoreBundle\Twig\Extension\SnowcapCoreExtension
-        calls:
-            -
-                [ setActiveLocales, [ %locales% ] ]
+        arguments: [@service_container]
         tags:
             - { name: twig.extension }

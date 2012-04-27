@@ -10,7 +10,12 @@ class SnowcapCoreExtension extends \Twig_Extension
 
     private $activeRoutes = array();
 
-    private $activeLocales = array();
+    private $container;
+
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * Get all available functions
@@ -22,7 +27,6 @@ class SnowcapCoreExtension extends \Twig_Extension
         return array(
             'set_active_routes' => new \Twig_Function_Method($this, 'setActiveRoutes'),
             'is_active_route' => new \Twig_Function_Method($this, 'isActiveRoute'),
-            'get_active_locales' => new \Twig_Function_Method($this, 'getActiveLocales'),
         );
     }
 
@@ -34,7 +38,7 @@ class SnowcapCoreExtension extends \Twig_Extension
 
     public function isActiveRoute($route)
     {
-        return in_array($route, $this->activeRoutes);
+        return in_array($route, $this->activeRoutes) || $route === $this->container->get('request')->getRequestUri();
     }
 
     /**
@@ -155,28 +159,6 @@ class SnowcapCoreExtension extends \Twig_Extension
 
         }
         return $html;
-    }
-
-    public function setActiveLocales(array $locales)
-    {
-        $this->activeLocales = $locales;
-    }
-
-    public function getActiveLocales($locale = null)
-    {
-        if(empty($this->activeLocales)){
-            return array();
-        }
-        elseif($locale === null) {
-            $translatedLocales = $this->activeLocales;
-        }
-        else {
-            $displayLocales = Locale::getDisplayLocales($locale);
-            $translatedLocales = array_map(function($element) use($displayLocales){
-                return $displayLocales[$element];
-            }, $this->activeLocales);
-        }
-        return array_combine($this->activeLocales, $translatedLocales);
     }
 
     /**
