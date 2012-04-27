@@ -1,9 +1,8 @@
 <?php
 namespace Snowcap\CoreBundle\Twig\Extension;
 
-use Twig_Environment;
+use \Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Locale\Locale;
 
 class SnowcapCoreExtension extends \Twig_Extension
 {
@@ -12,7 +11,7 @@ class SnowcapCoreExtension extends \Twig_Extension
 
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
