@@ -46,8 +46,10 @@ class ImageType extends AbstractType {
     public function buildView(FormView $view, FormInterface $form)
     {
         $vars = $view->getParent()->getVars();
-        $image = $vars['value'];
-        $propertyPath = new PropertyPath($form->getAttribute('web_path'));
-        $view->set('image_src', $propertyPath->getValue($image));
+        $parentValue = $vars['value'];
+        if(!empty($parentValue)) {
+            $propertyPath = new PropertyPath($form->getAttribute('web_path'));
+            $view->set('image_src', $propertyPath->getValue($parentValue));
+        }
     }
 }
