@@ -31,8 +31,14 @@ services:
             - { name: doctrine.event_subscriber}
 
     # Twig extensions
-    twig.extension.snowcap_core:
-        class: Snowcap\CoreBundle\Twig\Extension\SnowcapCoreExtension
+    snowcap_core.twig:
+        class: Snowcap\CoreBundle\Twig\Extension\CoreExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+
+    snowcap_core.twig_google:
+        class: Snowcap\CoreBundle\Twig\Extension\GoogleExtension
         arguments: [@service_container]
         tags:
             - { name: twig.extension }

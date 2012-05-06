@@ -2,9 +2,8 @@
 namespace Snowcap\CoreBundle\Twig\Extension;
 
 use \Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
-class SnowcapCoreExtension extends \Twig_Extension
+class CoreExtension extends \Twig_Extension
 {
 
     private $activeRoutes = array();
@@ -127,7 +126,6 @@ class SnowcapCoreExtension extends \Twig_Extension
         return $interval;
 
     }
-
 
     /**
      * Helper used to close html tags
