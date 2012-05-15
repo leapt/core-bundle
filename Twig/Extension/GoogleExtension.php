@@ -42,9 +42,11 @@ class GoogleExtension extends \Twig_Extension
 
     public function getAnalyticsTrackingCode()
     {
-        $trackingId = $this->container->getParameter('google_tracking_id');
-        $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
-        return $template->render(array('tracking_id' => $trackingId));
+        if($this->container->hasParameter('google_tracking_id')) {
+            $trackingId = $this->container->getParameter('google_tracking_id');
+            $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
+            return $template->render(array('tracking_id' => $trackingId));
+        }
     }
 
     /**
