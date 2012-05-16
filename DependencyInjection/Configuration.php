@@ -19,6 +19,17 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('snowcap_core');
+        $rootNode
+            ->children()
+                ->arrayNode('google_analytics')
+                    ->children()
+                        ->scalarNode('account_id')->defaultNull()->end()
+                        ->scalarNode('domain_name')->defaultValue('auto')->end()
+                        ->scalarNode('allow_linker')->defaultValue('false')->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

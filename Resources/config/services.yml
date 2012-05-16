@@ -1,3 +1,8 @@
+parameters:
+    snowcap_core.google_analytics.account_id:
+    snowcap_core.google_analytics.domain_name:
+    snowcap_core.google_analytics.allow_linker:
+
 services:
     # Load twig debug
     twig.extension.debug:
@@ -39,7 +44,10 @@ services:
 
     snowcap_core.twig_google:
         class: Snowcap\CoreBundle\Twig\Extension\GoogleExtension
-        arguments: [@service_container]
+        arguments: [%snowcap_core.google_analytics.account_id%]
+        calls:
+            - [ setDomainName, [%snowcap_core.google_analytics.domain_name%] ]
+            - [ setAllowLinker, [%snowcap_core.google_analytics.allow_linker%] ]
         tags:
             - { name: twig.extension }
 

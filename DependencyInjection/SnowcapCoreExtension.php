@@ -24,5 +24,11 @@ class SnowcapCoreExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        if(isset($config['google_analytics'])) {
+            foreach(array('account_id', 'domain_name', 'allow_linker') as $option) {
+                $container->setParameter('snowcap_core.google_analytics.' . $option, $config['google_analytics'][$option]);
+            }
+        }
     }
 }

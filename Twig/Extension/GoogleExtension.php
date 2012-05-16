@@ -5,10 +5,6 @@ use \Symfony\Component\DependencyInjection\ContainerInterface;
 
 class GoogleExtension extends \Twig_Extension
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    private $container;
 
     /**
      * @var \Twig_Environment
@@ -16,11 +12,36 @@ class GoogleExtension extends \Twig_Extension
     private $twigEnvironment;
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @var string
      */
-    public function __construct(ContainerInterface $container)
+    private $accountId;
+
+    /**
+     * @var string
+     */
+    private $domainName;
+
+    /**
+     * @var string
+     */
+    private $allowLinker;
+
+    /**
+     * @param string $accountId
+     */
+    public function __construct($accountId)
     {
-        $this->container = $container;
+        $this->accountId = $accountId;
+    }
+
+    public function setDomainName($domainName)
+    {
+        $this->domainName = $domainName;
+    }
+
+    public function setAllowLinker($allowLinker)
+    {
+        $this->allowLinker = $allowLinker;
     }
 
     public function initRuntime(\Twig_Environment $environment)
@@ -42,10 +63,13 @@ class GoogleExtension extends \Twig_Extension
 
     public function getAnalyticsTrackingCode()
     {
-        if($this->container->hasParameter('google_tracking_id')) {
-            $trackingId = $this->container->getParameter('google_tracking_id');
+        if(null !== $this->accountId) {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
-            return $template->render(array('tracking_id' => $trackingId));
+            return $template->render(array(
+                'account_id' => $this->accountId,
+                'domain_name' => $this->domainName,
+                'allow_linker' => $this->allowLinker
+            ));
         }
     }
 
