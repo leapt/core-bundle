@@ -66,7 +66,7 @@ class GoogleExtension extends \Twig_Extension
         if(null !== $this->accountId) {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
             return $template->render(array(
-                'account_id' => $this->accountId,
+                'tracking_id' => $this->accountId,
                 'domain_name' => $this->domainName,
                 'allow_linker' => $this->allowLinker
             ));

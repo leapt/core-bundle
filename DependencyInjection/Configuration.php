@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('google_analytics')
                     ->children()
-                        ->scalarNode('account_id')->defaultNull()->end()
+                        ->scalarNode('tracking_id')->defaultNull()->end()
                         ->scalarNode('domain_name')->defaultValue('auto')->end()
                         ->scalarNode('allow_linker')->defaultValue('false')->end()
                     ->end()

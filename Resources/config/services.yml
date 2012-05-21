@@ -1,5 +1,5 @@
 parameters:
-    snowcap_core.google_analytics.account_id:
+    snowcap_core.google_analytics.tracking_id:
     snowcap_core.google_analytics.domain_name:
     snowcap_core.google_analytics.allow_linker:
 
@@ -44,7 +44,7 @@ services:
 
     snowcap_core.twig_google:
         class: Snowcap\CoreBundle\Twig\Extension\GoogleExtension
-        arguments: [%snowcap_core.google_analytics.account_id%]
+        arguments: [%snowcap_core.google_analytics.tracking_id%]
         calls:
             - [ setDomainName, [%snowcap_core.google_analytics.domain_name%] ]
             - [ setAllowLinker, [%snowcap_core.google_analytics.allow_linker%] ]
