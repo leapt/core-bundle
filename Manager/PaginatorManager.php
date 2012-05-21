@@ -139,7 +139,7 @@ class PaginatorManager
 
     private function getOffset()
     {
-        //Calculet offset for items based on current page number
+        //Calculate offset for items based on current page number
         return ($this->page - 1) * $this->limitPerPage;
     }
 
