@@ -1,6 +1,8 @@
 <script type="text/javascript">
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '{{ tracking_id }}']);
+    {% if tracking_id is not null %}
+        _gaq.push(['_setAccount', '{{ tracking_id }}']);
+    {% endif %}
     _gaq.push(['_setDomainName', '{{ domain_name }}']);
     _gaq.push(['_setAllowLinker', '{{ allow_linker }}']);
     _gaq.push(['_trackPageview']);

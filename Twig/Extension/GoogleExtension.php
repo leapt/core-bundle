@@ -63,7 +63,7 @@ class GoogleExtension extends \Twig_Extension
 
     public function getAnalyticsTrackingCode()
     {
-        if(null !== $this->accountId) {
+        if(null !== $this->accountId || $this->domainName === 'none') {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
             return $template->render(array(
                 'tracking_id' => $this->accountId,
