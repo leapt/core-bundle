@@ -10,9 +10,13 @@ class CoreExtension extends \Twig_Extension
 
     private $container;
 
+    /** @var \Symfony\Component\Translation\Translator $translator */
+    private $translator;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->translator = $container->get('translator');
     }
 
     /**
@@ -58,7 +62,7 @@ class CoreExtension extends \Twig_Extension
      * @param \Datetime|string $datetime
      * @return string
      */
-    public function timeAgo($datetime) {
+    public function timeAgo($datetime, $locale = null) {
         $interval = $this->relativeTime($datetime);
 
         $years = $interval->format('%y');
@@ -68,11 +72,15 @@ class CoreExtension extends \Twig_Extension
             $ago = $years . ' year(s) ago';
         } else {
             if ($months == 0 && $days == 0) {
-                $ago = 'Today';
+                $ago = $this->translator->trans('timeago.today', array(), 'SnowcapCoreBundle', $locale);
             } elseif ($months == 0 && $days == 1) {
-                $ago = 'Yesterday';
+                $ago = $this->translator->trans('timeago.yesterday', array(), 'SnowcapCoreBundle', $locale);
             } else {
-                $ago = ($months == 0 ? $days . ' day(s) ago' : $months . ' month(s) ago');
+                if($months == 0) {
+                    $ago = $this->translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'SnowcapCoreBundle', $locale);
+                } else {
+                    $ago = $this->translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'SnowcapCoreBundle', $locale);
+                }
             }
         }
 

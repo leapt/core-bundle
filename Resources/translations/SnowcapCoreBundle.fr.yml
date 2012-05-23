@@ -1,0 +1,5 @@
+timeago:
+    today: Aujourd'hui
+    yesterday: Hier
+    daysago: Il y a %days% jour|Il y a %days% jours
+    monthsago: Il y a %months% mois|Il y a %months% mois

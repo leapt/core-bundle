@@ -1,0 +1,5 @@
+timeago:
+    today: Today
+    yesterday: Yesterday
+    daysago: %days% day ago|%days% days ago
+    monthsago: %months% month ago|%months% months ago
