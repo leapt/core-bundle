@@ -68,20 +68,20 @@ class CoreExtension extends \Twig_Extension
         $years = $interval->format('%y');
         $months = $interval->format('%m');
         $days = $interval->format('%d');
+        $hours = (int) $interval->format('%H');
+        $minutes = (int) $interval->format('%i');
         if ($years != 0) {
-            $ago = $years . ' year(s) ago';
+            $ago = $this->translator->transChoice('timeago.yearsago', $years, array('%years%' => $years), 'SnowcapCoreBundle', $locale);
+        } elseif ($months == 0 && $days == 0 && $hours == 0 && $minutes == 0) {
+            $ago = $this->translator->trans('timeago.justnow', array(), 'SnowcapCoreBundle', $locale);
+        } elseif ($months == 0 && $days == 0 && $hours == 0) {
+            $ago = $this->translator->transChoice('timeago.minutesago', $minutes, array('%minutes%' => $minutes), 'SnowcapCoreBundle', $locale);
+        } elseif($months == 0 && $days == 0) {
+            $ago = $this->translator->transChoice('timeago.hoursago', $hours, array('%hours%' => $hours), 'SnowcapCoreBundle', $locale);
+        } elseif($months == 0) {
+            $ago = $this->translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'SnowcapCoreBundle', $locale);
         } else {
-            if ($months == 0 && $days == 0) {
-                $ago = $this->translator->trans('timeago.today', array(), 'SnowcapCoreBundle', $locale);
-            } elseif ($months == 0 && $days == 1) {
-                $ago = $this->translator->trans('timeago.yesterday', array(), 'SnowcapCoreBundle', $locale);
-            } else {
-                if($months == 0) {
-                    $ago = $this->translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'SnowcapCoreBundle', $locale);
-                } else {
-                    $ago = $this->translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'SnowcapCoreBundle', $locale);
-                }
-            }
+            $ago = $this->translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'SnowcapCoreBundle', $locale);
         }
 
         return $ago;

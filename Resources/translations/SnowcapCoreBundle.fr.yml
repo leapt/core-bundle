@@ -1,5 +1,7 @@
 timeago:
-    today: Aujourd'hui
-    yesterday: Hier
+    justnow: A l'instant
+    minutesago: Il y a %minutes% minute|Il y a %minutes% minutes
+    hoursago: Il y a %hours% heure|Il y a %hours% heures
     daysago: Il y a %days% jour|Il y a %days% jours
     monthsago: Il y a %months% mois|Il y a %months% mois
+    yearsago: Il y a %years% an|Il y a %years% ans
