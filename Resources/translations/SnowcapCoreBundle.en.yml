@@ -1,7 +1,7 @@
 timeago:
     justnow: Just now
     minutesago: %minutes% minute ago|%minutes% minutes ago
-    hoursago: %hours% hour ago|%hours% hour ago
+    hoursago: %hours% hour ago|%hours% hours ago
     daysago: %days% day ago|%days% days ago
     monthsago: %months% month ago|%months% months ago
     yearsago: %years% year ago|%years% years ago
