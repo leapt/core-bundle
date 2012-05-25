@@ -1,10 +1,15 @@
+{% spaceless %}
 <script type="text/javascript">
     var _gaq = _gaq || [];
     {% if tracking_id is not null %}
-        _gaq.push(['_setAccount', '{{ tracking_id }}']);
+    _gaq.push(['_setAccount', '{{ tracking_id }}']);
     {% endif %}
+    {% if domain_name != 'auto' %}
     _gaq.push(['_setDomainName', '{{ domain_name }}']);
-    _gaq.push(['_setAllowLinker', '{{ allow_linker }}']);
+    {% endif %}
+    {% if allow_linker != 'false' %}
+    _gaq.push(['_setAllowLinker', {{ allow_linker }}]);
+    {% endif %}
     _gaq.push(['_trackPageview']);
     (function () {
         var ga = document.createElement('script');
@@ -15,3 +20,4 @@
         s.parentNode.insertBefore(ga, s);
     })();
 </script>
+{% endspaceless %}
