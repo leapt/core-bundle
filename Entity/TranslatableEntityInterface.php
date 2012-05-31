@@ -6,7 +6,7 @@ interface TranslatableEntityInterface {
      * Get all translations for the entity
      *
      * @abstract
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection|\Doctrine\Common\Collections\ArrayCollection
      */
     public function getTranslations();
 
