@@ -14,7 +14,7 @@ if (isset($argv[1]) && in_array($argv[1], array('--transport=http', '--transport
 }
 
 $deps = array(
-    array('symfony', 'http://github.com/symfony/symfony', '2.0.15'),
+    array('symfony', 'http://github.com/symfony/symfony', 'v2.0.15'),
     array('twig', 'http://github.com/fabpot/Twig.git', 'v1.8.2'),
 );
 
