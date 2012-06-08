@@ -17,6 +17,9 @@ class CoreExtension extends \Twig_Extension implements ContainerAwareInterface
      */
     private $container;
 
+    /**
+     * @param null|ContainerInterface $container
+     */
     public function setContainer(ContainerInterface $container = null){
         $this->container = $container;
     }
