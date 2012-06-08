@@ -1,22 +1,24 @@
 <?php
 namespace Snowcap\CoreBundle\Twig\Extension;
 
-use \Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class CoreExtension extends \Twig_Extension
+class CoreExtension extends \Twig_Extension implements ContainerAwareInterface
 {
 
-    private $activeRoutes = array();
+    /**
+     * @var array
+     */
+    private $activePaths = array();
 
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
-    /** @var \Symfony\Component\Translation\Translator $translator */
-    private $translator;
-
-    public function __construct(ContainerInterface $container)
-    {
+    public function setContainer(ContainerInterface $container = null){
         $this->container = $container;
-        $this->translator = $container->get('translator');
     }
 
     /**
@@ -27,20 +29,9 @@ class CoreExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'set_active_routes' => new \Twig_Function_Method($this, 'setActiveRoutes'),
-            'is_active_route' => new \Twig_Function_Method($this, 'isActiveRoute'),
+            'set_active_paths' => new \Twig_Function_Method($this, 'setActivePaths'),
+            'is_active_path' => new \Twig_Function_Method($this, 'isActivePath'),
         );
-    }
-
-    public function setActiveRoutes(array $active_routes)
-    {
-        $this->activeRoutes = $active_routes;
-        return true;
-    }
-
-    public function isActiveRoute($route)
-    {
-        return in_array($route, $this->activeRoutes) || $route === $this->container->get('request')->getRequestUri();
     }
 
     /**
@@ -57,6 +48,27 @@ class CoreExtension extends \Twig_Extension
     }
 
     /**
+     * Set the paths to be considered as active (navigation-wise)
+     *
+     * @param array $paths an array of URI paths
+     */
+    public function setActivePaths(array $paths)
+    {
+        $this->activePaths = $paths;
+    }
+
+    /**
+     * Checks if the provided path is to be considered as active
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function isActivePath($path)
+    {
+        return in_array($path, $this->activePaths) || $path === $this->container->get('request')->getRequestUri();
+    }
+
+    /**
      * Filter used to display the time ago for a specific date
      *
      * @param \Datetime|string $datetime
@@ -65,23 +77,25 @@ class CoreExtension extends \Twig_Extension
     public function timeAgo($datetime, $locale = null) {
         $interval = $this->relativeTime($datetime);
 
+        $translator = $this->container->get('translator');
+
         $years = $interval->format('%y');
         $months = $interval->format('%m');
         $days = $interval->format('%d');
         $hours = (int) $interval->format('%H');
         $minutes = (int) $interval->format('%i');
         if ($years != 0) {
-            $ago = $this->translator->transChoice('timeago.yearsago', $years, array('%years%' => $years), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.yearsago', $years, array('%years%' => $years), 'SnowcapCoreBundle', $locale);
         } elseif ($months == 0 && $days == 0 && $hours == 0 && $minutes == 0) {
-            $ago = $this->translator->trans('timeago.justnow', array(), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->trans('timeago.justnow', array(), 'SnowcapCoreBundle', $locale);
         } elseif ($months == 0 && $days == 0 && $hours == 0) {
-            $ago = $this->translator->transChoice('timeago.minutesago', $minutes, array('%minutes%' => $minutes), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.minutesago', $minutes, array('%minutes%' => $minutes), 'SnowcapCoreBundle', $locale);
         } elseif($months == 0 && $days == 0) {
-            $ago = $this->translator->transChoice('timeago.hoursago', $hours, array('%hours%' => $hours), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.hoursago', $hours, array('%hours%' => $hours), 'SnowcapCoreBundle', $locale);
         } elseif($months == 0) {
-            $ago = $this->translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'SnowcapCoreBundle', $locale);
         } else {
-            $ago = $this->translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'SnowcapCoreBundle', $locale);
         }
 
         return $ago;

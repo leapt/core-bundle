@@ -38,7 +38,8 @@ services:
     # Twig extensions
     snowcap_core.twig:
         class: Snowcap\CoreBundle\Twig\Extension\CoreExtension
-        arguments: [@service_container]
+        calls:
+            - [ setContainer, [service_container] ]
         tags:
             - { name: twig.extension }
 
