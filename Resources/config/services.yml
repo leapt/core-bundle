@@ -36,10 +36,21 @@ services:
             - { name: doctrine.event_subscriber}
 
     # Twig extensions
-    snowcap_core.twig:
-        class: Snowcap\CoreBundle\Twig\Extension\CoreExtension
+    snowcap_core.twig_navigation:
+        class: Snowcap\CoreBundle\Twig\Extension\NavigationExtension
         calls:
             - [ setContainer, [@service_container] ]
+        tags:
+            - { name: twig.extension }
+
+    snowcap_core.twig_date:
+        class: Snowcap\CoreBundle\Twig\Extension\DateExtension
+        arguments: [@translator]
+        tags:
+            - { name: twig.extension }
+
+    snowcap_core.twig_text:
+        class: Snowcap\CoreBundle\Twig\Extension\TextExtension
         tags:
             - { name: twig.extension }
 

@@ -2,37 +2,20 @@
 
 namespace Snowcap\CoreBundle\Tests\Twig\Extension;
 
-use Snowcap\CoreBundle\Twig\Extension\CoreExtension;
+use Snowcap\CoreBundle\Twig\Extension\TextExtension;
+use Snowcap\CoreBundle\Tests\Twig\Extension\Mocks\TextExtensionMock;
 
-class CoreExtensionTest extends \PHPUnit_Framework_TestCase
+class TextExtensionTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var CoreExtension
+     * @var TextExtension
      */
     private $extension;
 
     public function setUp()
     {
-        $this->extension = new CoreExtension();
-    }
-
-    /**
-     * Test isActivePath method
-     */
-    public function testIsActivePath()
-    {
-        $fakeRequest = $this->getMock('Symfony\Component\HttpFoundation\Request');
-        $fakeRequest->expects($this->any())->method('getRequestUri')->will($this->returnValue('some/request/uri'));
-
-        $fakeContainer = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $fakeContainer->expects($this->any())->method('get')->with($this->equalTo('request'))->will($this->returnValue($fakeRequest));
-
-        $this->extension->setContainer($fakeContainer);
-
-        $this->extension->setActivePaths(array('some/specific/path'));
-        $this->assertTrue($this->extension->isActivePath('some/specific/path'));
-        $this->assertTrue($this->extension->isActivePath('some/request/uri'));
+        $this->extension = new TextExtension();
     }
 
     /**
@@ -51,6 +34,16 @@ class CoreExtensionTest extends \PHPUnit_Framework_TestCase
         $this->extension->setMultiByteString(false);
         $this->assertSafeTruncate();
         $this->extension->setMultiByteString(true);
+    }
+
+    /**
+     * @expectedException BadFunctionCallException
+     */
+    public function testSetMultiByteStringException()
+    {
+        $extension = new TextExtensionMock();
+
+        $extension->setMultiByteString(true);
     }
 
     /**
