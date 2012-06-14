@@ -7,11 +7,11 @@
     <id>{{ feed.id }}</id>
     {% for item in items %}
     <entry>
-        <title>{{ item.title }}k</title>
+        <title>{{ item.title }}</title>
         <link href="{{ item.link }}"/>
         <id>{{ item.id }}</id>
         <updated>{{ item.updatedAt|date(constant('DATE_ATOM')) }}</updated>
-        <content>{{ item.description }}</content>
+        <content type="html">{{ item.description }}</content>
         <author>
             <name>{{ item.author.name }}</name>
             <email>{{ item.author.email }}</email>

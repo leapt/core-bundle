@@ -63,13 +63,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    snowcap_core.twig_feed:
-        class: Snowcap\CoreBundle\Twig\Extension\FeedExtension
-        calls:
-            - [ setContainer, [@service_container]]
-        tags:
-            - { name: twig.extension }
-
     # RSS feeds
     snowcap_core.feed_manager:
         class: Snowcap\CoreBundle\Feed\FeedManager
