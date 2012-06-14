@@ -19,7 +19,7 @@ class FeedController extends Controller {
         $builtFeedItems = array();
         $items = $feed->getItems();
         foreach($items as $item) {
-            $builtFeedItems = $feed->buildItem($item);
+            $builtFeedItems[]= $feed->buildItem($item);
         }
 
         $locale = $this->getRequest()->getLocale();

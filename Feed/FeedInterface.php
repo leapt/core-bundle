@@ -61,5 +61,5 @@ interface FeedInterface {
      * @abstract
      * @return FeedItem
      */
-    public function buildItem();
+    public function buildItem($item);
 }
