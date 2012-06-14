@@ -18,6 +18,20 @@ class CoreExtension extends \Twig_Extension implements ContainerAwareInterface
     private $container;
 
     /**
+     * @var bool
+     */
+    private $useMultiByteString = false;
+
+    /**
+     * Core extension constructor
+     * Check if MultiByte string is available
+     */
+    public function __construct()
+    {
+        $this->useMultiByteString = $this->isMultiByteStringAvailable();
+    }
+
+    /**
      * @param null|ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container = null)
@@ -108,31 +122,42 @@ class CoreExtension extends \Twig_Extension implements ContainerAwareInterface
         return $ago;
     }
 
+    /**
+     * Filter used to safely truncate a string with html
+     *
+     * @param \Twig_Environment $env
+     * @param string            $value
+     * @param int               $length
+     * @param bool              $preserve
+     * @param string            $separator
+     *
+     * @return string
+     */
     public function safeTruncate(\Twig_Environment $env, $value, $length = 30, $preserve = true, $separator = '...')
     {
-        if (function_exists('mb_get_info')) {
+        $charset = $env->getCharset();
 
-            return $this->mbSafeTruncate($env, $value, $length, $preserve, $separator);
+        if ($this->useMultiByteString) {
+            $strlen = function($string, $encoding = null) {
+                return mb_strlen($string, $encoding);
+            };
+            $substr = function($string, $start, $length = null, $encoding = null) {
+                return mb_substr($string, $start, $length, $encoding);
+            };
+            $strpos = function($haystack, $needle, $offset = null, $encoding = null) {
+                return mb_strpos($haystack, $needle, $offset, $encoding);
+            };
+        } else {
+            $strlen = function($string, $encoding = null) {
+                return strlen($string);
+            };
+            $substr = function($string, $start, $length = null, $encoding = null) {
+                return substr($string, $start, $length);
+            };
+            $strpos = function($haystack, $needle, $offset = null, $encoding = null) {
+                return strpos($haystack, $needle, $offset);
+            };
         }
-
-        return $this->normalSafeTruncate($env, $value, $length, $preserve, $separator);
-
-
-    }
-
-    /**
-     * Filter used to safely truncate a string with html
-     *
-     * @param \Twig_Environment $env
-     * @param string            $value
-     * @param int               $length
-     * @param bool              $preserve
-     * @param string            $separator
-     *
-     * @return string
-     */
-    private function mbSafeTruncate(\Twig_Environment $env, $value, $length = 30, $preserve = true, $separator = '...')
-    {
         // First, strip tags to get a exact chars count
         $strippedValue = strip_tags($value);
 
@@ -141,8 +166,6 @@ class CoreExtension extends \Twig_Extension implements ContainerAwareInterface
 
         // Check if the string is bigger than the available length, otherwise, there is nothing to do
         if (strlen($strippedValue) > $length) {
-            // Get the extra length to remove because of the separator
-            $separatorLength = mb_strlen($separator, $env->getCharset());
             // Initialize the pipedValue used to replace spaces by pipe in html tags
             $pipedValue = $value;
 
@@ -160,20 +183,20 @@ class CoreExtension extends \Twig_Extension implements ContainerAwareInterface
             }
 
             // Initialize the available words
-            $words = explode(' ', mb_substr($strippedValue, 0, $breakpoint, $env->getCharset()));
+            $words = explode(' ', $substr($strippedValue, 0, $breakpoint, $charset));
             $availableWords = count($words);
             $lastWord = '';
 
             // If we have to preserve words
             if ($preserve) {
                 // First check if there is any spaces available in the string
-                if (false !== mb_strpos(mb_substr($strippedValue, 0, $length, $env->getCharset()), ' ')) {
+                if (false !== $strpos($substr($strippedValue, 0, $length, $charset), ' ', null, $charset)) {
                     // Get a breakpoint at the next space after the available length
-                    if (false !== ($nextSpace = mb_strpos(mb_substr($strippedValue, $length, mb_strlen($strippedValue, $env->getCharset()), $env->getCharset()), ' '))) {
+                    if (false !== ($nextSpace = $strpos($substr($strippedValue, $length, $strlen($strippedValue, $charset), $charset), ' ', null, $charset))) {
                         // Update breakpoint to next space
                         $breakpoint += $nextSpace;
                         // Split the string by spaces until the breakpoint
-                        $words = explode(' ', mb_substr($strippedValue, 0, $breakpoint, $env->getCharset()));
+                        $words = explode(' ', $substr($strippedValue, 0, $breakpoint, $charset));
                         // If the space is not the next char, we should remove last word
                         if ($nextSpace > 0) {
                             // Remove the last element which is outside the scope of defined length
@@ -221,105 +244,24 @@ class CoreExtension extends \Twig_Extension implements ContainerAwareInterface
     }
 
     /**
-     * Filter used to safely truncate a string with html
+     * Public method used to enable/disable MultiByte string
+     * Useful for Unit Testing
      *
-     * @param \Twig_Environment $env
-     * @param string            $value
-     * @param int               $length
-     * @param bool              $preserve
-     * @param string            $separator
-     *
-     * @return string
+     * @param bool $useMultiByteString
      */
-    private function normalSafeTruncate(\Twig_Environment $env, $value, $length = 30, $preserve = true, $separator = '...')
+    public function setMultiByteString($useMultiByteString) {
+        $this->useMultiByteString = $useMultiByteString && $this->isMultiByteStringAvailable();
+    }
+
+    /**
+     * Check if MultiByte string is available
+     *
+     * @return bool
+     */
+    private function isMultiByteStringAvailable()
     {
-        // First, strip tags to get a exact chars count
-        $strippedValue = strip_tags($value);
 
-        // Initialize the breakpoint to the exact length for now
-        $breakpoint = $length;
-
-        // Check if the string is bigger than the available length, otherwise, there is nothing to do
-        if (strlen($strippedValue) > $length) {
-            // Get the extra length to remove because of the separator
-            $separatorLength = strlen($separator);
-            // Remove the separator length from the available length
-            $breakpoint = $breakpoint - $separatorLength;
-            // Initialize the pipedValue used to replace spaces by pipe in html tags
-            $pipedValue = $value;
-
-            // Check if there is html tags in the original value
-            if ($strippedValue !== $value) {
-                // Replace spaces in html tags by pipes to easily split the string by spaces available in the text
-                $pipedValue = preg_replace_callback(
-                    '#<([^>]*)( )([^<]*)>#',
-                    function($matches)
-                    {
-                        return str_replace(' ', '|', $matches[0]);
-                    },
-                    $value
-                );
-            }
-
-            // Initialize the available words
-            $words = explode(' ', substr($strippedValue, 0, $breakpoint));
-            $availableWords = count($words);
-            $lastWord = '';
-
-            // If we have to preserve words
-            if ($preserve) {
-                // First check if there is any spaces available in the string
-                if (false !== strpos(substr($strippedValue, 0, $length), ' ')) {
-                    // Get a breakpoint at the next space after the available length
-                    if (false !== ($nextSpace = strpos(substr($strippedValue, $length), ' '))) {
-                        // Update breakpoint to next space
-                        $breakpoint += $nextSpace;
-                        // Split the string by spaces until the breakpoint
-                        $words = explode(' ', substr($strippedValue, 0, $breakpoint));
-                        // If the space is not the next char, we should remove last word
-                        if ($nextSpace > 0) {
-                            // Remove the last element which is outside the scope of defined length
-                            array_pop($words);
-                        }
-                        // Get the count of available words
-                        $availableWords = count($words);
-                    } else { // Otherwise remove the last word from the array
-                        $availableWords--;
-                    }
-                } else { // Otherwise remove the last word from the array
-                    $availableWords--;
-                }
-            } else { // Otherwise, preserve the last word part and remove it from the array
-                $lastWord = $words[count($words) - 1];
-                $availableWords--;
-            }
-
-            // Split the piped value by spaces
-            $words = explode(' ', $pipedValue);
-            // Remove words that are not in the scope defined by the length
-            $words = array_slice($words, 0, $availableWords);
-            if ($lastWord !== '') {
-                $words[] = $lastWord;
-            }
-
-            $pipedValue = implode(' ', $words);
-
-            // Replace back pipes in html tags to spaces
-            $value = preg_replace_callback(
-                '#<([^>]*)(|)([^<]*)>#',
-                function($matches)
-                {
-                    return str_replace('|', ' ', $matches[0]);
-                },
-                $pipedValue
-            );
-
-            // Finally close all unclosed tags and add trailing separator
-            return $this->closeTags($value) . $separator;
-        }
-
-        return $value;
-
+        return function_exists('mb_get_info');
     }
 
     /**

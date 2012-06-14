@@ -17,6 +17,9 @@ class CoreExtensionTest extends \PHPUnit_Framework_TestCase
         $this->extension = new CoreExtension();
     }
 
+    /**
+     * Test isActivePath method
+     */
     public function testIsActivePath()
     {
         $fakeRequest = $this->getMock('Symfony\Component\HttpFoundation\Request');
@@ -32,7 +35,28 @@ class CoreExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->extension->isActivePath('some/request/uri'));
     }
 
-    public function testSafeTruncate()
+    /**
+     * Test safeTruncate method with MultiByte string
+     */
+    public function testSafeTruncateWithMultiByteString()
+    {
+        $this->assertSafeTruncate();
+    }
+
+    /**
+     * Test safeTruncate method without MultiByte string
+     */
+    public function testSafeTruncateWithoutMultiByteString()
+    {
+        $this->extension->setMultiByteString(false);
+        $this->assertSafeTruncate();
+        $this->extension->setMultiByteString(true);
+    }
+
+    /**
+     * Assertions for safeTruncate tests
+     */
+    private function assertSafeTruncate()
     {
         $separator = '...';
 
@@ -60,5 +84,10 @@ class CoreExtensionTest extends \PHPUnit_Framework_TestCase
         // Special case with unclosed tag
         $test = '<div>Lorem <strong>ipsum</strong> dolor sit amet</div>';
         $this->assertEquals('<div>Lorem <strong>ipsum</strong></div>', $this->extension->safeTruncate($env, $test, 11, true, ''), 'safeTruncate: Should close tags');
+
+        // Testing the condition where there is no extra space after the defined length
+        $test = 'Lorem Ipsum DolorSitAmet';
+        $this->assertEquals('Lorem Ipsum' . $separator, $this->extension->safeTruncate($env, $test, 15, $separator), 'safeTruncate= Should trim after second word with separator');
+
     }
 }
