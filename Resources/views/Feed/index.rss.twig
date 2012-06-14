@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
     <channel>
-        <title>{{ feed.channelTitle|trans }}</title>
-        <link>{{ url('snowcap_core_feed', {'feedName': app.request.get('feedName')}) }}</link>
-        <description>{{ feed.channelDescription|trans }}</description>
+        <title>{{ feed.channelTitle }}</title>
+        <link>{{ url('snowcap_core_feed', {'feedName': feedName}) }}</link>
+        <description>{{ feed.channelDescription }}</description>
         <language>{{ locale }}</language>
-        <pubDate>{{ "now"|date(constant('DATE_RSS')) }}</pubDate>
+        <pubDate>{{ feed.updatedAt|date(constant('DATE_RSS')) }}</pubDate>
         {% for item in items %}
             <item>
-                <title>{{ feed.title(item) }}</title>
-                <link>{{ item_link(feed, item) }}</link>
-                <description>{{ feed.description(item) }}</description>
-                <pubDate>{{ feed.pubDate(item)|date(constant('DATE_RSS')) }}</pubDate>
+                <title>{{ item.title }}</title>
+                <link>{{ item.link }}</link>
+                <description>{{ item.description }}</description>
+                <pubDate>{{ item.createdAt|date(constant('DATE_RSS')) }}</pubDate>
             </item>
         {% endfor %}
     </channel>

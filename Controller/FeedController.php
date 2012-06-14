@@ -16,12 +16,19 @@ class FeedController extends Controller {
         $feedManager = $this->get('snowcap_core.feed_manager');
         $feed = $feedManager->getFeed($feedName);
 
+        $builtFeedItems = array();
+        $items = $feed->getItems();
+        foreach($items as $item) {
+            $builtFeedItems = $feed->buildItem($item);
+        }
+
         $locale = $this->getRequest()->getLocale();
 
         return array(
             'feed'=> $feed,
+            'feedName' => $feedName,
             'locale' => $locale,
-            'items' => $feed->getItems($this->getDoctrine()->getEntityManager())
+            'items' => $builtFeedItems
         );
     }
 }
