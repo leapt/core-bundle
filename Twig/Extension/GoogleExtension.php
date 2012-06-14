@@ -6,6 +6,8 @@ use \Symfony\Component\DependencyInjection\ContainerInterface;
 class GoogleExtension extends \Twig_Extension
 {
 
+    const INVALID_DOMAIN_NAME_EXCEPTION = 10;
+
     /**
      * @var \Twig_Environment
      */
@@ -34,16 +36,11 @@ class GoogleExtension extends \Twig_Extension
         $this->accountId = $accountId;
     }
 
-    public function setDomainName($domainName)
-    {
-        $this->domainName = $domainName;
-    }
-
-    public function setAllowLinker($allowLinker)
-    {
-        $this->allowLinker = $allowLinker;
-    }
-
+    /**
+     * @param \Twig_Environment $environment
+     *
+     * @codeCoverageIgnore
+     */
     public function initRuntime(\Twig_Environment $environment)
     {
         $this->twigEnvironment = $environment;
@@ -53,6 +50,8 @@ class GoogleExtension extends \Twig_Extension
      * Get all available functions
      *
      * @return array
+     *
+     * @codeCoverageIgnore
      */
     public function getFunctions()
     {
@@ -61,9 +60,67 @@ class GoogleExtension extends \Twig_Extension
         );
     }
 
+    /**
+     * Return the name of the extension
+     *
+     * @return string
+     *
+     * @codeCoverageIgnore
+     */
+    public function getName()
+    {
+        return 'snowcap_google';
+    }
+
+    /**
+     * @param string $domainName Available options are "auto" or "none"
+     */
+    public function setDomainName($domainName)
+    {
+        if (!in_array($domainName, array('auto', 'none'))) {
+            throw new \InvalidArgumentException('Expect "auto" or "none"', self::INVALID_DOMAIN_NAME_EXCEPTION);
+        }
+        $this->domainName = $domainName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountId()
+    {
+        return $this->accountId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDomainName()
+    {
+        return $this->domainName;
+    }
+
+    /**
+     * @param string $allowLinker
+     */
+    public function setAllowLinker($allowLinker)
+    {
+        $this->allowLinker = $allowLinker;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAllowLinker()
+    {
+        return $this->allowLinker;
+    }
+
+    /**
+     * @return string
+     */
     public function getAnalyticsTrackingCode()
     {
-        if(null !== $this->accountId || $this->domainName === 'none') {
+        if (null !== $this->accountId || $this->domainName === 'none') {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
             return $template->render(array(
                 'tracking_id' => $this->accountId,
@@ -71,15 +128,7 @@ class GoogleExtension extends \Twig_Extension
                 'allow_linker' => $this->allowLinker
             ));
         }
+        return '<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->';
     }
 
-    /**
-     * Return the name of the extension
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'snowcap_google';
-    }
 }

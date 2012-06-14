@@ -7,9 +7,10 @@ use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 $loader = new UniversalClassLoader();
 $loader->registerNamespaces(array(
-    'Symfony'                => array($vendorDir.'/symfony/symfony/src', $vendorDir.'/bundles'),
-    'Doctrine\\Common'       => array($vendorDir.'/doctrine/common/lib', $vendorDir.'/bundles'),
-    'Doctrine\\ORM'          => array($vendorDir.'/doctrine/orm/lib', $vendorDir.'/bundles'),
+    'Symfony\\Tests'         => $vendorDir.'/symfony/symfony/tests',
+    'Symfony'                => array($vendorDir.'/symfony/symfony/src'),
+    'Doctrine\\Common'       => array($vendorDir.'/doctrine/common/lib'),
+    'Doctrine\\ORM'          => array($vendorDir.'/doctrine/orm/lib'),
 ));
 $loader->registerPrefixes(array(
     'Twig_' => $vendorDir.'/twig/twig/lib',

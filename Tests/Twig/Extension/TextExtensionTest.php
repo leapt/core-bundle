@@ -37,7 +37,7 @@ class TextExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException BadFunctionCallException
+     * @expectedException \BadFunctionCallException
      */
     public function testSetMultiByteStringException()
     {
