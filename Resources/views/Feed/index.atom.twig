@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>{{ feed.title }}</title>
+    <link rel="alternate" href="{{ feed.link }}"/>
+    <link rel="self" href="{{ url('snowcap_core_feed', {'feedName': feedName, '_format': app.request.get('_format')}) }}"/>
+    <updated>{{ feed.updatedAt|date(constant('DATE_ATOM')) }}</updated>
+    <id>{{ feed.id }}</id>
+    {% for item in items %}
+    <entry>
+        <title>{{ item.title }}k</title>
+        <link href="{{ item.link }}"/>
+        <id>{{ item.id }}</id>
+        <updated>{{ item.updatedAt|date(constant('DATE_ATOM')) }}</updated>
+        <content>{{ item.description }}</content>
+        <author>
+            <name>{{ item.author.name }}</name>
+            <email>{{ item.author.email }}</email>
+        </author>
+    </entry>
+    {% endfor %}
+</feed>

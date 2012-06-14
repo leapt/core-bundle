@@ -73,6 +73,27 @@ class FeedItem
     public $link;
 
     /**
+     * Property used to build RSS and ATOM "author" elements
+     * This property should be built as an associative array, e.a :
+     * array('name' => 'John Doe', 'email' => 'john@doe.com')
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="array")
+     * @Assert\Collection(
+     *     fields = {
+     *         "name" = @Assert\NotBlank(),
+     *         "email" = {
+     *             @Assert\NotBlank(),
+     *             @Assert\Email()
+     *         }
+     *     }
+     * )
+     *
+     * @var array
+     */
+    public $author;
+
+    /**
      * Check that the feed item has at least a link or a description
      *
      * @param ExecutionContext $context

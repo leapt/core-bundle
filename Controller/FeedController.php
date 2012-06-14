@@ -19,7 +19,12 @@ class FeedController extends Controller {
         $builtFeedItems = array();
         $items = $feed->getItems();
         foreach($items as $item) {
-            $builtFeedItems[]= $feed->buildItem($item);
+            $builtItem = $feed->buildItem($item);
+            $errors = $this->get('validator')->validate($builtItem);
+            if(count($errors) > 0) {
+                throw new \ErrorException('Invalid feed item');
+            }
+            $builtFeedItems[]= $builtItem;
         }
 
         $locale = $this->getRequest()->getLocale();
