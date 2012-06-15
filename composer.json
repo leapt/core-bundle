@@ -1,6 +1,8 @@
 {
     "require": {
         "symfony/symfony": "v2.0.15",
-        "doctrine/orm": "2.1.7"
+        "doctrine/orm": "2.1.7",
+        "sensio/framework-extra-bundle": "2.0.*"
+
     }
 }

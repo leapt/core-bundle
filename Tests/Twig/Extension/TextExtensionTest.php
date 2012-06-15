@@ -13,30 +13,69 @@ class TextExtensionTest extends \PHPUnit_Framework_TestCase
      */
     private $extension;
 
+    /**
+     * Test that the constructor correctly set the default MultiByte string
+     */
+    public function testConstruct()
+    {
+        $this->assertSame($this->extension->isMultiByteStringAvailable(), $this->extension->getMultiByteString(), '__construct: Check that MultiByte string is correctly set');
+    }
+
+    /**
+     * Sets the extension
+     */
     public function setUp()
     {
         $this->extension = new TextExtension();
     }
 
     /**
-     * Test safeTruncate method with MultiByte string
+     * Test that the name is correctly set
      */
-    public function testSafeTruncateWithMultiByteString()
+    public function testGetName()
     {
-        $this->assertSafeTruncate();
+        $this->assertSame('snowcap_text', $this->extension->getName(), 'getName: ');
     }
 
     /**
-     * Test safeTruncate method without MultiByte string
+     * Test that the filters are correctly set
      */
-    public function testSafeTruncateWithoutMultiByteString()
+    public function testGetFilters()
     {
+        $filters = $this->extension->getFilters();
+        $this->assertInstanceOf('\Twig_Filter_Method', $filters['safe_truncate']);
+    }
+
+    /**
+     * Test the SafeTruncate method with and without MultiByte string
+     */
+    public function testSafeTruncate()
+    {
+        // Test SafeTruncate without MultiByte string
         $this->extension->setMultiByteString(false);
         $this->assertSafeTruncate();
-        $this->extension->setMultiByteString(true);
+
+        // Test SafeTruncate with MultiByte string if available
+        if (!$this->extension->isMultiByteStringAvailable()) {
+            $this->markTestSkipped('mb_string is not available.');
+        }
+        $this->assertSafeTruncate();
+
     }
 
     /**
+     * Test the getter and setter for MultiByte string
+     */
+    public function testSetMultiByteString()
+    {
+        $this->extension->setMultiByteString(true);
+
+        $this->assertSame(true, $this->extension->getMultiByteString());
+    }
+
+    /**
+     * Test that an exception is thrown if the MultiByte string is set and mb_string is unavailable
+     *
      * @expectedException \BadFunctionCallException
      */
     public function testSetMultiByteStringException()
@@ -44,6 +83,14 @@ class TextExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = new TextExtensionMock();
 
         $extension->setMultiByteString(true);
+    }
+
+    /**
+     * Test that isMultiByteStringAvailable method returns the same as function_exists('mb_get_info')
+     */
+    public function testIsMultiByteStringAvailable()
+    {
+        $this->assertSame(function_exists('mb_get_info'), $this->extension->isMultiByteStringAvailable());
     }
 
     /**

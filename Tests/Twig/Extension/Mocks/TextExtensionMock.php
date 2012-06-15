@@ -6,7 +6,7 @@ use Snowcap\CoreBundle\Twig\Extension\TextExtension;
 
 class TextExtensionMock extends TextExtension
 {
-    protected function isMultiByteStringAvailable()
+    public function isMultiByteStringAvailable()
     {
         return false;
     }

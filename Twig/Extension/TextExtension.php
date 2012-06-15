@@ -25,8 +25,6 @@ class TextExtension extends \Twig_Extension
      * Get all available filters
      *
      * @return array
-     *
-     * @codeCoverageIgnore
      */
     public function getFilters()
     {
@@ -39,8 +37,6 @@ class TextExtension extends \Twig_Extension
      * Return the name of the extension
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public function getName()
     {
@@ -63,23 +59,29 @@ class TextExtension extends \Twig_Extension
         $charset = $env->getCharset();
 
         if ($this->isMultiByteStringAvailable() && $this->getMultiByteString()) {
-            $strlen = function($string, $encoding = null) {
+            $strlen = function($string, $encoding = null)
+            {
                 return mb_strlen($string, $encoding);
             };
-            $substr = function($string, $start, $length = null, $encoding = null) {
+            $substr = function($string, $start, $length = null, $encoding = null)
+            {
                 return mb_substr($string, $start, $length, $encoding);
             };
-            $strpos = function($haystack, $needle, $offset = null, $encoding = null) {
+            $strpos = function($haystack, $needle, $offset = null, $encoding = null)
+            {
                 return mb_strpos($haystack, $needle, $offset, $encoding);
             };
         } else {
-            $strlen = function($string, $encoding = null) {
+            $strlen = function($string, $encoding = null)
+            {
                 return strlen($string);
             };
-            $substr = function($string, $start, $length = null, $encoding = null) {
+            $substr = function($string, $start, $length = null, $encoding = null)
+            {
                 return substr($string, $start, $length);
             };
-            $strpos = function($haystack, $needle, $offset = null, $encoding = null) {
+            $strpos = function($haystack, $needle, $offset = null, $encoding = null)
+            {
                 return strpos($haystack, $needle, $offset);
             };
         }
@@ -174,7 +176,8 @@ class TextExtension extends \Twig_Extension
      *
      * @param bool $useMultiByteString
      */
-    public function setMultiByteString($useMultiByteString) {
+    public function setMultiByteString($useMultiByteString)
+    {
         if ($useMultiByteString && !$this->isMultiByteStringAvailable()) {
             throw new \BadFunctionCallException('mbstring extension is not enabled', self::MISSING_EXTENSION_EXCEPTION);
         }
@@ -183,6 +186,7 @@ class TextExtension extends \Twig_Extension
 
     /**
      * Check if MultiByte string is used
+     *
      * @return boolean
      */
     public function getMultiByteString()
@@ -191,13 +195,12 @@ class TextExtension extends \Twig_Extension
     }
 
 
-
     /**
      * Check if MultiByte string is available
      *
      * @return bool
      */
-    protected function isMultiByteStringAvailable()
+    public function isMultiByteStringAvailable()
     {
 
         return function_exists('mb_get_info');
@@ -234,5 +237,4 @@ class TextExtension extends \Twig_Extension
         }
         return $html;
     }
-
 }

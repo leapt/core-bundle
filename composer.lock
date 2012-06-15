@@ -1,5 +1,5 @@
 {
-    "hash": "4ec9f3966670db2f5830eada99d3ba4f",
+    "hash": "5ad56d66811ac8c4472129b92085b811",
     "packages": [
         {
             "package": "doctrine/common",
@@ -20,15 +20,20 @@
             "version": "1.1.0"
         },
         {
-            "package": "swiftmailer/swiftmailer",
-            "version": "dev-master",
-            "source-reference": "d33d54cc8a081b0b85734744936ede1ba230dd64"
+            "package": "sensio/framework-extra-bundle",
+            "version": "2.0.x-dev",
+            "source-reference": "891359252711c424d5da8cac9fa1e757450a6db2"
         },
         {
             "package": "swiftmailer/swiftmailer",
             "version": "dev-master",
             "alias-pretty-version": "4.1.x-dev",
             "alias-version": "4.1.9999999.9999999-dev"
+        },
+        {
+            "package": "swiftmailer/swiftmailer",
+            "version": "dev-master",
+            "source-reference": "0ba1372991110629f44ed076dfc5b93240a4a19a"
         },
         {
             "package": "symfony/symfony",
@@ -43,7 +48,7 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "source-reference": "d4511d02b45725a56c8cc49127244bca640c9d13"
+            "source-reference": "120c44d68f07ced5b1e08f582f94016f4f2685d6"
         }
     ],
     "packages-dev": null,

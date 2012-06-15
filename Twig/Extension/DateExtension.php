@@ -25,8 +25,6 @@ class DateExtension extends \Twig_Extension
      * Get all available filters
      *
      * @return array
-     *
-     * @codeCoverageIgnore
      */
     public function getFilters()
     {
@@ -39,8 +37,6 @@ class DateExtension extends \Twig_Extension
      * Return the name of the extension
      *
      * @return string
-     *
-     * @codeCoverageIgnore
      */
     public function getName()
     {
