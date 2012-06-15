@@ -68,17 +68,4 @@ class GoogleExtensionTest extends \PHPUnit_Framework_TestCase
         $extension->setDomainName('auto');
         $this->assertEquals('<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->', $extension->getAnalyticsTrackingCode(), 'getAnalyticsTrackingCode: Should contain html comment with missing arguments');
     }
-
-    /**
-     * Test if the domain name throw an exception when the argument is not "auto" or "none"
-     *
-     * @expectedException \InvalidArgumentException
-     */
-    public function testSetDomainNameException()
-    {
-        $extension = new GoogleExtension(null);
-        $extension->initRuntime($this->env);
-        $extension->setDomainName('bad_parameter');
-    }
-
 }

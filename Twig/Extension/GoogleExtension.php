@@ -73,13 +73,10 @@ class GoogleExtension extends \Twig_Extension
     }
 
     /**
-     * @param string $domainName Available options are "auto" or "none"
+     * @param string $domainName Available options are "auto" or "none" or a real domain name
      */
     public function setDomainName($domainName)
     {
-        if (!in_array($domainName, array('auto', 'none'))) {
-            throw new \InvalidArgumentException('Expect "auto" or "none"', self::INVALID_DOMAIN_NAME_EXCEPTION);
-        }
         $this->domainName = $domainName;
     }
 
@@ -122,12 +119,14 @@ class GoogleExtension extends \Twig_Extension
     {
         if (null !== $this->accountId || $this->domainName === 'none') {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
+
             return $template->render(array(
                 'tracking_id' => $this->accountId,
                 'domain_name' => $this->domainName,
                 'allow_linker' => $this->allowLinker
             ));
         }
+
         return '<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->';
     }
 
