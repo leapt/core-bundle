@@ -8,16 +8,17 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 
-
-class ResetCommand extends Command
+/**
+ * Command used to reset database and optionally load fixtures
+ */
+class ResetDbCommand extends Command
 {
     protected function configure()
     {
         $this
-            ->setName('snowcap:core:reset')
+            ->setName('snowcap:core:resetdb')
             ->setDescription('Reset db with drop, create, ...')
-            ->addOption('fixtures', 'f', InputOption::VALUE_NONE, 'Load fixtures after reset')
-        ;
+            ->addOption('fixtures', 'f', InputOption::VALUE_NONE, 'Load fixtures after reset');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
