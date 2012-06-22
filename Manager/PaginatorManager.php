@@ -39,11 +39,12 @@ class PaginatorManager
      * @param int $page
      * @param int $limitPerPage
      */
-    public function __construct($query = null, $page = 1, $limitPerPage = 0)
+    public function __construct($query = null, $page = 1, $limitPerPage = 0, $limitRange = 10)
     {
         $this->query = $query;
         $this->page = $page > 0 ? $page : 1;
         $this->limitPerPage = $limitPerPage;
+        $this->limitRange = $limitRange;
     }
 
     /**
