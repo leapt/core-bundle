@@ -112,8 +112,8 @@ class TextExtensionTest extends \PHPUnit_Framework_TestCase
 
         // Text with html tags
         $test = 'Lorem <strong class="super" style="display: none;">ipsum dolor sit</strong> amet';
-        $this->assertEquals('Lorem <strong class="super" style="display: none;">ipsum</strong>' . $separator, $this->extension->safeTruncate($env, $test, 16, true, $separator), 'safeTruncate: Should trim after second word and add separator');
-        $this->assertEquals('Lorem <strong class="super" style="display: none;">ipsum dolo</strong>' . $separator, $this->extension->safeTruncate($env, $test, 16, false, $separator), 'safeTruncate: Should trim after 16 chars with separator');
+        $this->assertEquals('Lorem <strong class="super" style="display: none;">ipsum' . $separator . '</strong>', $this->extension->safeTruncate($env, $test, 16, true, $separator), 'safeTruncate: Should trim after second word and add separator');
+        $this->assertEquals('Lorem <strong class="super" style="display: none;">ipsum dolo' . $separator . '</strong>', $this->extension->safeTruncate($env, $test, 16, false, $separator), 'safeTruncate: Should trim after 16 chars with separator');
         $this->assertEquals('Lorem', $this->extension->safeTruncate($env, $test, 8, true, ''), 'safeTruncate: Should trim after first word without separator');
         $this->assertEquals($separator, $this->extension->safeTruncate($env, $test, 4, true, $separator), 'safeTruncate: Should only display separator');
         $this->assertEquals('Lore', $this->extension->safeTruncate($env, $test, 4, false, ''), 'safeTruncate: Should trim after 4 chars without separator');
