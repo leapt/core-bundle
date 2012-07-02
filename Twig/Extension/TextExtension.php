@@ -163,7 +163,7 @@ class TextExtension extends \Twig_Extension
             );
 
             // Finally close all unclosed tags and add trailing separator
-            return $this->closeTags($value) . $separator;
+            return $this->closeTags($value . $separator);
         }
 
         return $value;
