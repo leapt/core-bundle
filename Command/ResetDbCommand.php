@@ -16,7 +16,7 @@ class ResetDbCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('snowcap:core:resetdb')
+            ->setName('snowcap:reset:db')
             ->setDescription('Reset db with drop, create, ...')
             ->addOption('fixtures', 'f', InputOption::VALUE_NONE, 'Load fixtures after reset');
     }
