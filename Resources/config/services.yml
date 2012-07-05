@@ -71,3 +71,8 @@ services:
         class: Snowcap\CoreBundle\Listener\RequestListener
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    # Google sitemap
+    snowcap_core.sitemap_manager:
+        class: Snowcap\CoreBundle\Sitemap\SitemapManager
+        arguments: [@validator]
