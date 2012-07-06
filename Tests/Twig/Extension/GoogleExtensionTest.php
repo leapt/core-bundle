@@ -3,7 +3,7 @@
 namespace Snowcap\CoreBundle\Tests\Twig\Extension;
 
 use Snowcap\CoreBundle\Twig\Extension\GoogleExtension;
-use Symfony\Tests\Bridge\Twig\Extension\Fixtures\StubFilesystemLoader;
+use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
 
 class GoogleExtensionTest extends \PHPUnit_Framework_TestCase
 {
