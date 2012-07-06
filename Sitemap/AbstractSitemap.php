@@ -2,7 +2,10 @@
 
 namespace Snowcap\CoreBundle\Sitemap;
 
-abstract class AbstractSitemap {
+use Symfony\Component\Routing\Router;
+
+abstract class AbstractSitemap
+{
 
     const CHANGEFREQ_ALWAYS = 'always';
     const CHANGEFREQ_HOURLY = 'hourly';
@@ -18,6 +21,11 @@ abstract class AbstractSitemap {
     private $urls = array();
 
     /**
+     * @var string
+     */
+    private $alias;
+
+    /**
      * @param $loc
      * @param \DateTime $lastMod
      * @param string $changeFreq
@@ -29,18 +37,18 @@ abstract class AbstractSitemap {
         $url = array(
             'loc' => $loc
         );
-        if($lastMod !== null) {
+        if ($lastMod !== null) {
             $url['lastmod'] = $lastMod;
         }
-        if($changeFreq !== null) {
+        if ($changeFreq !== null) {
             $this->validateChangeFreq($changeFreq);
             $url['changefreq'] = $changeFreq;
         }
-        if($priority !== null) {
+        if ($priority !== null) {
             $this->validatePriority($priority);
             $url['priority'] = $priority;
         }
-        $this->urls[]= $url;
+        $this->urls[] = $url;
         return $this;
     }
 
@@ -48,8 +56,9 @@ abstract class AbstractSitemap {
      * @param string $changeFreq
      * @throws \InvalidArgumentException
      */
-    private function validateChangeFreq($changeFreq) {
-        if(!in_array($changeFreq, array(
+    private function validateChangeFreq($changeFreq)
+    {
+        if (!in_array($changeFreq, array(
             self::CHANGEFREQ_ALWAYS,
             self::CHANGEFREQ_HOURLY,
             self::CHANGEFREQ_DAILY,
@@ -57,7 +66,8 @@ abstract class AbstractSitemap {
             self::CHANGEFREQ_MONTHLY,
             self::CHANGEFREQ_YEARLY,
             self::CHANGEFREQ_NEVER
-        ))) {
+        ))
+        ) {
             throw new \InvalidArgumentException('The provided changefreq is invalid');
         }
     }
@@ -66,8 +76,9 @@ abstract class AbstractSitemap {
      * @param string $priority
      * @throws \InvalidArgumentException
      */
-    private function validatePriority($priority) {
-        if(!is_numeric($priority) || $priority > 1 || $priority < 0) {
+    private function validatePriority($priority)
+    {
+        if (!is_numeric($priority) || $priority > 1 || $priority < 0) {
             throw new \InvalidArgumentException('The priority parameter must be a number between 0 and 1');
         }
     }
@@ -75,8 +86,25 @@ abstract class AbstractSitemap {
     /**
      * @return array
      */
-    public function getUrls() {
+    public function getUrls()
+    {
         return $this->urls;
+    }
+
+    /**
+     * @param string $alias
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
     }
 
     /**
@@ -87,5 +115,6 @@ abstract class AbstractSitemap {
      * @abstract
      * @return mixed
      */
-    abstract public function build();
+    abstract public function build(Router $router);
+
 }

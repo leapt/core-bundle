@@ -20,7 +20,10 @@ class SitemapCompilerPass implements CompilerPassInterface
         }
         $definition = $container->getDefinition('snowcap_core.sitemap_manager');
         foreach ($container->findTaggedServiceIds('snowcap_core.sitemap') as $serviceId => $tag) {
-            $definition->addMethodCall('registerSitemap', array(new Reference($serviceId)));
+            $alias = isset($tag[0]['alias'])
+                ? $tag[0]['alias']
+                : $serviceId;
+            $definition->addMethodCall('registerSitemap', array($alias, new Reference($serviceId)));
         }
     }
 

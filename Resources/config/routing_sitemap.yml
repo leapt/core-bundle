@@ -1,5 +1,10 @@
-snowcap_core_feed:
+snowcap_core_sitemap_default:
     pattern: /sitemap.xml
-    defaults: { _controller: SnowcapCoreBundle:Sitemap:index, _format: xml }
+    defaults: { _controller: SnowcapCoreBundle:Sitemap:default, _format: xml }
+    requirements:
+          _format: xml
+snowcap_core_sitemap_sitemap:
+    pattern: /sitemap_{sitemap}.xml
+    defaults: { _controller: SnowcapCoreBundle:Sitemap:sitemap, _format: xml }
     requirements:
           _format: xml
