@@ -6,11 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormViewInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class VideoType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getName()
     {
@@ -18,7 +19,7 @@ class VideoType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getParent()
     {
@@ -26,7 +27,9 @@ class VideoType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $options
+     *
+     * @return array
      */
     public function getDefaultOptions(array $options)
     {
@@ -37,7 +40,20 @@ class VideoType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'video_id' => null,
+                'provider' => null)
+        );
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array                                        $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,7 +63,9 @@ class VideoType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Symfony\Component\Form\FormViewInterface $view
+     * @param \Symfony\Component\Form\FormInterface     $form
+     * @param array                                     $options
      */
     public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {

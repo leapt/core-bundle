@@ -8,11 +8,12 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Util\PropertyPath;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ImageType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getName()
     {
@@ -20,7 +21,7 @@ class ImageType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getParent()
     {
@@ -28,17 +29,18 @@ class ImageType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
-            'web_path' => null,
-        );
+        $resolver->setDefaults(array('web_path' => null));
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array                                        $options
+     *
+     * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -50,7 +52,9 @@ class ImageType extends AbstractType
 
 
     /**
-     * {@inheritdoc}
+     * @param \Symfony\Component\Form\FormViewInterface $view
+     * @param \Symfony\Component\Form\FormInterface     $form
+     * @param array                                     $options
      */
     public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
