@@ -3,26 +3,31 @@
 namespace Snowcap\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormViewInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class FileType extends AbstractType {
+class FileType extends AbstractType
+{
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
+     * {@inheritdoc}
      */
-    function getName()
+    public function getName()
     {
         return 'snowcap_core_file';
     }
 
-    public function getParent(array $options)
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
     {
         return 'file';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getDefaultOptions(array $options)
     {
         return array(
@@ -30,14 +35,19 @@ class FileType extends AbstractType {
         );
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAttribute('web_path', $options['web_path'] ?: null);
+            ->setAttribute('web_path', $options['web_path'] ? : null);
     }
 
-
-    public function buildView(FormView $view, FormInterface $form)
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
         $view->set('web_path', $form->getAttribute('web_path'));
     }

@@ -3,26 +3,31 @@
 namespace Snowcap\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormViewInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class VideoType extends AbstractType {
+class VideoType extends AbstractType
+{
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
+     * {@inheritdoc}
      */
-    function getName()
+    public function getName()
     {
         return 'snowcap_core_video';
     }
 
-    public function getParent(array $options)
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
     {
         return 'text';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getDefaultOptions(array $options)
     {
         return array(
@@ -31,15 +36,20 @@ class VideoType extends AbstractType {
         );
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setAttribute('video_id', $options['video_id'] ?: null)
-            ->setAttribute('provider', $options['provider'] ?: null);
+            ->setAttribute('video_id', $options['video_id'] ? : null)
+            ->setAttribute('provider', $options['provider'] ? : null);
     }
 
-
-    public function buildView(FormView $view, FormInterface $form)
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
         $view->set('video_id', $form->getAttribute('video_id'));
         $view->set('provider', $form->getAttribute('provider'));

@@ -3,28 +3,33 @@
 namespace Snowcap\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormViewInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Util\PropertyPath;
-use Symfony\Component\Form\Exception\MissingOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
-class ImageType extends AbstractType {
+class ImageType extends AbstractType
+{
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
+     * {@inheritdoc}
      */
-    function getName()
+    public function getName()
     {
         return 'snowcap_core_image';
     }
 
-    public function getParent(array $options)
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
     {
         return 'file';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getDefaultOptions(array $options)
     {
         return array(
@@ -32,22 +37,26 @@ class ImageType extends AbstractType {
         );
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if(!isset($options['web_path'])) {
+        if (!isset($options['web_path'])) {
             throw new MissingOptionsException('The "web_path" option is mandatory', array('web_path'));
         }
-        $builder
-            ->setAttribute('web_path', $options['web_path'] ?: null)
-        ;
+        $builder->setAttribute('web_path', $options['web_path'] ? : null);
     }
 
 
-    public function buildView(FormView $view, FormInterface $form)
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormViewInterface $view, FormInterface $form, array $options)
     {
         $vars = $view->getParent()->getVars();
         $parentValue = $vars['value'];
-        if(!empty($parentValue)) {
+        if (!empty($parentValue)) {
             $propertyPath = new PropertyPath($form->getAttribute('web_path'));
             $view->set('image_src', $propertyPath->getValue($parentValue));
         }
