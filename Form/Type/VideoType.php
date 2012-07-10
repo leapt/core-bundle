@@ -27,19 +27,6 @@ class VideoType extends AbstractType
     }
 
     /**
-     * @param array $options
-     *
-     * @return array
-     */
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'video_id' => null,
-            'provider' => null
-        );
-    }
-
-    /**
      * @param \Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -47,7 +34,8 @@ class VideoType extends AbstractType
         $resolver->setDefaults(
             array(
                 'video_id' => null,
-                'provider' => null)
+                'provider' => null
+            )
         );
     }
 
@@ -59,7 +47,8 @@ class VideoType extends AbstractType
     {
         $builder
             ->setAttribute('video_id', $options['video_id'] ? : null)
-            ->setAttribute('provider', $options['provider'] ? : null);
+            ->setAttribute('provider', $options['provider'] ? : null)
+        ;
     }
 
     /**

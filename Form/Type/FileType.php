@@ -41,8 +41,7 @@ class FileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->setAttribute('web_path', $options['web_path'] ? : null);
+        $builder->setAttribute('web_path', $options['web_path'] ? : null);
     }
 
     /**
