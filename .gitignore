@@ -5,4 +5,4 @@ phpunit.xml
 composer.lock
 composer.phar
 autoload.php
-vendor
+/vendor
