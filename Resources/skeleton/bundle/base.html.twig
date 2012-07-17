@@ -1,0 +1,61 @@
+{% if body_class is not defined %}
+    {% set body_class = 'default' %}
+{% endif %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>{{ meta_title|default('meta.default.title'|trans) }} - {{ 'sitename'|trans }}</title>
+        <meta name="description" content="{{ meta_description|default('meta.default.description'|trans) }}"/>
+        <meta name="keywords" content="{{ meta_keywords|default('meta.default.keywords'|trans) }}"/>
+        {% block stylesheets %}
+            {% stylesheets
+                'bundles/[%public_name%]/less/screen.less'
+                filter='lessphp,cssrewrite,?yui_css'
+                output='cache/assetic/css/all.css'
+            %}
+                <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+            {% endstylesheets %}
+            {% stylesheets
+                'bundles/[%public_name%]/less/ie.less'
+                filter='lessphp,cssrewrite,?yui_css'
+                output='cache/assetic/css/ie.css'
+            %}
+                <!--[if IE]>
+                <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+                <![endif]-->
+            {% endstylesheets %}
+        {% endblock stylesheets %}
+        {% javascripts
+            'bundles/snowcapcore/vendor/modernizr/modernizr.js'
+            filter='?yui_js'
+            output='cache/assetic/js/modernizr.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script src="{{ asset('bundles/snowcapcore/vendor/modernizr/modernizr-2.5.3.min.js') }}"></script>
+        <link rel="shortcut icon" href="{{ asset("favicon.ico") }}"/>
+    </head>
+    <body class="{{ body_class }}">
+        <div class="container">
+                {% for key, flash in app.session.getFlashes() %}
+                <div class="flash flash-{{ key }}">
+                    {{ flash | raw }}
+                </div>
+                {% endfor %}
+                <section>
+                    {% block body %}In the base template{% endblock %}
+                </section>
+        </div>
+        {% block javascripts %}
+            {% javascripts
+                'bundles/snowcapcore/vendor/jquery/jquery.js'
+                'bundles/[%public_name%]/js/screen.js'
+                filter='?yui_js'
+                output='cache/assetic/js/all.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
+</html>
