@@ -6,7 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 
-use Snowcap\CoreBundle\Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 
 class FileSubscriber implements EventSubscriber
 {
