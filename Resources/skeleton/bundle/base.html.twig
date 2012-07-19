@@ -31,6 +31,10 @@
                 <!--[if IE]>
                 <link href="{{ asset('bundles/[%public_name%]/less/ie.less') }}" rel="stylesheet" type="text/css" media="screen" />
                 <![endif]-->
+                <script type="text/javascript">
+                    var less = { env: "development" };
+                </script>
+                <script type="text/javascript" src="{{ 'bundles/snowcapcore/vendor/less/less.js' }}"></script>
             {% endif %}
         {% endblock stylesheets %}
         {% javascripts
