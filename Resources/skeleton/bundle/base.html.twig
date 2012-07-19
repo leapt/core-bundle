@@ -9,22 +9,29 @@
         <meta name="description" content="{{ meta_description|default('meta.default.description'|trans) }}"/>
         <meta name="keywords" content="{{ meta_keywords|default('meta.default.keywords'|trans) }}"/>
         {% block stylesheets %}
-            {% stylesheets
-                'bundles/[%public_name%]/less/screen.less'
-                filter='lessphp,cssrewrite,?yui_css'
-                output='cache/assetic/css/all.css'
-            %}
-                <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
-            {% endstylesheets %}
-            {% stylesheets
-                'bundles/[%public_name%]/less/ie.less'
-                filter='lessphp,cssrewrite,?yui_css'
-                output='cache/assetic/css/ie.css'
-            %}
+            {% if app.environment != 'dev' %}
+                {% stylesheets
+                    'bundles/[%public_name%]/less/screen.less'
+                    filter='lessphp,cssrewrite,?yui_css'
+                    output='cache/assetic/css/all.css'
+                %}
+                    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" media="screen" />
+                {% endstylesheets %}
+                {% stylesheets
+                    'bundles/[%public_name%]/less/ie.less'
+                    filter='lessphp,cssrewrite,?yui_css'
+                    output='cache/assetic/css/ie.css'
+                %}
+                    <!--[if IE]>
+                    <link href="{{ asset_url }}" rel="stylesheet" type="text/css" media="screen" />
+                    <![endif]-->
+                {% endstylesheets %}
+            {% else %}
+                <link href="{{ asset('bundles/[%public_name%]/less/screen.less') }}" rel="stylesheet/less" type="text/css" media="screen" />
                 <!--[if IE]>
-                <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
+                <link href="{{ asset('bundles/[%public_name%]/less/ie.less') }}" rel="stylesheet" type="text/css" media="screen" />
                 <![endif]-->
-            {% endstylesheets %}
+            {% endif %}
         {% endblock stylesheets %}
         {% javascripts
             'bundles/snowcapcore/vendor/modernizr/modernizr.js'
@@ -33,7 +40,6 @@
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        <script src="{{ asset('bundles/snowcapcore/vendor/modernizr/modernizr-2.5.3.min.js') }}"></script>
         <link rel="shortcut icon" href="{{ asset("favicon.ico") }}"/>
     </head>
     <body class="{{ body_class }}">
