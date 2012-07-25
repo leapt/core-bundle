@@ -3,7 +3,7 @@
 namespace Snowcap\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormViewInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Util\PropertyPath;
@@ -52,17 +52,17 @@ class ImageType extends AbstractType
 
 
     /**
-     * @param \Symfony\Component\Form\FormViewInterface $view
+     * @param \Symfony\Component\Form\FormView $view
      * @param \Symfony\Component\Form\FormInterface     $form
      * @param array                                     $options
      */
-    public function buildView(FormViewInterface $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $vars = $view->getParent()->getVars();
+        $vars = $view->parent->vars;
         $parentValue = $vars['value'];
         if (!empty($parentValue)) {
             $propertyPath = new PropertyPath($form->getAttribute('web_path'));
-            $view->set('image_src', $propertyPath->getValue($parentValue));
+            $view->vars['image_src'] = $propertyPath->getValue($parentValue);
         }
     }
 }

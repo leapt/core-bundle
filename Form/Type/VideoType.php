@@ -3,7 +3,7 @@
 namespace Snowcap\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormViewInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -52,13 +52,13 @@ class VideoType extends AbstractType
     }
 
     /**
-     * @param \Symfony\Component\Form\FormViewInterface $view
+     * @param \Symfony\Component\Form\FormView $view
      * @param \Symfony\Component\Form\FormInterface     $form
      * @param array                                     $options
      */
-    public function buildView(FormViewInterface $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->set('video_id', $form->getAttribute('video_id'));
-        $view->set('provider', $form->getAttribute('provider'));
+        $view->vars['video_id'] = $form->getAttribute('video_id');
+        $view->vars['provider'] = $form->getAttribute('provider');
     }
 }
