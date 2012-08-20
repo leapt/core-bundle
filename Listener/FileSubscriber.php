@@ -29,7 +29,7 @@ class FileSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array('prePersist', 'postPersist', 'preUpdate', 'postUpdate', 'postRemove','loadClassMetadata','preFlush');
+        return array('prePersist', 'postPersist', 'postUpdate', 'postRemove','loadClassMetadata','preFlush');
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
@@ -95,14 +95,6 @@ class FileSubscriber implements EventSubscriber
         $entity = $ea->getEntity();
         foreach($this->getFiles($entity,$ea->getEntityManager()) as $file) {
             $this->upload($ea, $entity,$file);
-        }
-    }
-
-    public function preUpdate(LifecycleEventArgs $ea)
-    {
-        $entity = $ea->getEntity();
-        foreach($this->getFiles($entity,$ea->getEntityManager()) as $file) {
-            $this->preUpload($ea, $entity,$file);
         }
     }
 
