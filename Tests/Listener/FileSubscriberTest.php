@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
 
 use Snowcap\CoreBundle\Listener\FileSubscriber;
+use Snowcap\CoreBundle\File\CondemnedFile;
 use Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User;
 use Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\Novel;
 
@@ -187,6 +188,25 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertFileNotExists($this->rootDir .'/' . $oldCvPath);
     }
 
+    public function testPostUpdateWithCondemnedFile()
+    {
+        $user = $this->buildUserToUpdate();
+        $cvPath = 'uploads/cvs/' . uniqid() . '.txt';
+        $this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/' . $cvPath);
+        $user->setCv($cvPath);
+
+        $this->assertFileExists($this->rootDir .'/' . $cvPath);
+        $user->setCvFile(new CondemnedFile());
+
+        $preFlushEventArgs = new PreFlushEventArgs($this->em);
+        $eventArgs = new LifecycleEventArgs($user, $this->em);
+        $this->subscriber->preFlush($preFlushEventArgs);
+        $this->subscriber->postUpdate($eventArgs);
+
+        $this->assertNull($user->getCvFile());
+        $this->assertFileNotExists($this->rootDir .'/' . $cvPath);
+    }
+
     public function testPostRemove()
     {
         $user = $this->buildUserToDelete();
@@ -197,6 +217,9 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertFileExists($this->rootDir .'/' . $cvPath);
 
         $eventArgs = new LifecycleEventArgs($user, $this->em);
+        $preFlushEventArgs = new PreFlushEventArgs($this->em);
+
+        $this->subscriber->preFlush($preFlushEventArgs);
         $this->subscriber->postRemove($eventArgs);
 
         $this->assertFileNotExists($this->rootDir .'/' . $cvPath);

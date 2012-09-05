@@ -8,12 +8,19 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 
+use Snowcap\CoreBundle\File\CondemnedFile;
+
 class FileSubscriber implements EventSubscriber
 {
     /**
      * @var array
      */
     private $config = array();
+
+    /**
+     * @var array
+     */
+    private $unlinkQueue = array();
 
     /**
      * @var string
@@ -82,9 +89,21 @@ class FileSubscriber implements EventSubscriber
         $unitOfWork = $ea->getEntityManager()->getUnitOfWork();
 
         $entitiesToInsertOrUpdate = array_merge($unitOfWork->getScheduledEntityInsertions(), $unitOfWork->getScheduledEntityUpdates());
-        foreach($entitiesToInsertOrUpdate as $entity) {
-            foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $file) {
-                $this->preUpload($ea, $entity, $file);
+        foreach($entitiesToInsertOrUpdate as $fileEntity) {
+            foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileConfig) {
+                $propertyValue = $fileConfig['property']->getValue($fileEntity);
+                if($propertyValue instanceof CondemnedFile) {
+                    $this->preRemoveUpload($fileEntity, $fileConfig);
+                }
+                else {
+                    $this->preUpload($ea, $fileEntity, $fileConfig);
+                }
+            }
+        }
+
+        foreach($unitOfWork->getScheduledEntityDeletions() as $fileEntity){
+            foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileConfig) {
+                $this->preRemoveUpload($fileEntity, $fileConfig);
             }
         }
     }
@@ -139,9 +158,15 @@ class FileSubscriber implements EventSubscriber
      */
     private function postSave(LifecycleEventArgs $ea)
     {
-        $entity = $ea->getEntity();
-        foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $file) {
-            $this->upload($ea, $entity, $file);
+        $fileEntity = $ea->getEntity();
+        foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileConfig) {
+            $propertyValue = $fileConfig['property']->getValue($fileEntity);
+            if($propertyValue instanceof CondemnedFile) {
+                $this->removeUpload($fileEntity, $fileConfig);
+            }
+            else {
+                $this->upload($ea, $fileEntity, $fileConfig);
+            }
         }
     }
 
@@ -200,14 +225,28 @@ class FileSubscriber implements EventSubscriber
 
     /**
      * @param $fileEntity
+     * @param array $file
+     */
+    private function preRemoveUpload($fileEntity, array $fileConfig)
+    {
+        $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
+
+        if(!empty($mappedValue)) {
+            $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['mappedBy'], null);
+            $this->unlinkQueue[spl_object_hash($fileEntity)]= $this->uploadDir . '/' . $mappedValue;
+        }
+    }
+
+    /**
+     * @param $fileEntity
      * @param array $fileConfig
      */
     private function removeUpload($fileEntity, array $fileConfig)
     {
-        $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
-        if(null !== $mappedValue) {
-            @unlink($this->uploadDir . '/' . $mappedValue);
+        if (isset($this->unlinkQueue[spl_object_hash($fileEntity)]) && is_file($this->unlinkQueue[spl_object_hash($fileEntity)])) {
+            unlink($this->unlinkQueue[spl_object_hash($fileEntity)]);
         }
+        $fileConfig['property']->setValue($fileEntity, null);
     }
 
     /**

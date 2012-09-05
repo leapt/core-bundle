@@ -6,10 +6,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Util\PropertyPath;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+use Snowcap\CoreBundle\Form\DataTransformer\FileDataTransformer;
+use Snowcap\CoreBundle\File\CondemnedFile;
 
 class FileType extends AbstractType
 {
+    /**
+     * @var string
+     */
+    private $uploadDir;
+
     /**
      * @return string
      */
@@ -31,7 +40,9 @@ class FileType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('web_path' => null));
+        $resolver
+            ->setOptional(array('file_path'))
+            ->setDefaults(array('compound' => true));
     }
 
 
@@ -41,7 +52,24 @@ class FileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->setAttribute('web_path', $options['web_path'] ? : null);
+        $filePath = $options['file_path'];
+        $uploadDir = $this->uploadDir;
+
+        $builder
+            ->add('file', 'file', array('error_bubbling' => true))
+            ->add('delete', 'checkbox', array('error_bubbling' => true))
+            ->addViewTransformer(new FileDataTransformer())
+            ->addEventListener(\Symfony\Component\Form\FormEvents::POST_BIND, function($event) use($filePath, $uploadDir) {
+                $parentForm = $event->getForm()->getParent();
+                $propertyPath = new PropertyPath($filePath);
+                $imagePath = $propertyPath->getValue($parentForm->getData());
+
+                $data = $event->getData();
+                if($data['file'] instanceof CondemnedFile) {
+                    $data['file']->setPath($uploadDir . $imagePath);
+                }
+            });
+        ;
     }
 
     /**
@@ -51,6 +79,20 @@ class FileType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['web_path'] = $form->getAttribute('web_path');
+        if (array_key_exists('file_path', $options)) {
+            $parentData = $form->getParent()->getData();
+
+            $propertyPath = new PropertyPath($options['file_path']);
+            $fileUrl = $propertyPath->getValue($parentData);
+            // set an "image_url" variable that will be available when rendering this field
+            $view->set('file_url', $fileUrl);
+        }
+    }
+
+    /**
+     * @param string $rootDir
+     */
+    public function setUploadDir($uploadDir) {
+        $this->uploadDir = $uploadDir;
     }
 }
