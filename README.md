@@ -22,23 +22,23 @@ Installation
 
 2. Add the Snowcap namespace to your autoloader:
 
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-          'Snowcap' => __DIR__.'/../vendor/bundles',
-          // your other namespaces
-    ));
+        // app/autoload.php
+        $loader->registerNamespaces(array(
+              'Snowcap' => __DIR__.'/../vendor/bundles',
+              // your other namespaces
+        ));
 
 3. Add this bundle to your application's kernel:
 
-    // app/ApplicationKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Snowcap\CoreBundle\SnowcapCoreBundle(),
-            // ...
-        );
-    }
+        // app/ApplicationKernel.php
+        public function registerBundles()
+        {
+            return array(
+                // ...
+                new Snowcap\CoreBundle\SnowcapCoreBundle(),
+                // ...
+            );
+        }
           
 Running the tests
 -----------------
