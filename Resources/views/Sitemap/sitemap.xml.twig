@@ -3,13 +3,13 @@
     {% for url in sitemap.urls %}
     <url>
         <loc>{{ url.loc }}</loc>
-        {% if url.lastmod is not empty %}
+        {% if url.lastmod is defined %}
         <lastmod>{{ url.lastmod|date(constant('DATE_W3C')) }}</lastmod>
         {% endif %}
-        {% if url.changefreq is not empty %}
+        {% if url.changefreq is defined %}
         <changefreq>{{ url.changefreq }}</changefreq>
         {% endif %}
-        {% if url.priority is not empty %}
+        {% if url.priority is defined %}
         <priority>{{ url.priority }}</priority>
         {% endif %}
     </url>
