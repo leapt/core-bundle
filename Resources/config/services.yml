@@ -31,7 +31,7 @@ services:
     # Field entity event subscriber
     snowcap_core.file_subscriber:
         class: Snowcap\CoreBundle\Listener\FileSubscriber
-        arguments: [%kernel.root_dir%]
+        arguments: [%kernel.root_dir%/../web]
         tags:
             - { name: doctrine.event_subscriber}
 
