@@ -7,10 +7,9 @@ use Snowcap\CoreBundle\Doctrine\Mapping as SnowcapORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="user")
+ * @ORM\MappedSuperClass
  */
-class User {
+class Book {
     /**
      * @var integer
      *
@@ -18,28 +17,28 @@ class User {
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=true)
      */
-    private $userName;
+    protected $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cv", type="string", length=255, nullable=true)
+     * @ORM\Column(name="attachment", type="string", length=255, nullable=true)
      */
-    private $cv;
+    protected $attachment;
 
     /**
      * @var \Symfony\Component\HttpFoundation\File\File
      *
-     * @SnowcapORM\File(path="uploads/cvs", mappedBy="cv")
+     * @SnowcapORM\File(path="uploads/attachments", mappedBy="attachment")
      */
-    private $cvFile;
+    protected $attachmentFile;
 
     /**
      * @return int
@@ -52,49 +51,49 @@ class User {
     /**
      * @param string $cv
      */
-    public function setCv($cv)
+    public function setAttachment($cv)
     {
-        $this->cv = $cv;
+        $this->attachment = $cv;
     }
 
     /**
      * @return string
      */
-    public function getCv()
+    public function getAttachment()
     {
-        return $this->cv;
+        return $this->attachment;
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\File\File $cvFile
      */
-    public function setCvFile($cvFile)
+    public function setAttachmentFile($cvFile)
     {
-        $this->cvFile = $cvFile;
+        $this->attachmentFile = $cvFile;
     }
 
     /**
      * @return \Symfony\Component\HttpFoundation\File\File
      */
-    public function getCvFile()
+    public function getAttachmentFile()
     {
-        return $this->cvFile;
+        return $this->attachmentFile;
     }
 
     /**
-     * @param string $userName
+     * @param string $name
      */
-    public function setUserName($userName)
+    public function setTitle($name)
     {
-        $this->userName = $userName;
+        $this->title = $name;
     }
 
     /**
      * @return string
      */
-    public function getUserName()
+    public function getTitle()
     {
-        return $this->userName;
+        return $this->title;
     }
 
 }

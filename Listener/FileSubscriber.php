@@ -16,11 +16,6 @@ class FileSubscriber implements EventSubscriber
     private $config = array();
 
     /**
-     * @var \Doctrine\ORM\Mapping\ClassMetadataInfo
-     */
-    private $meta;
-
-    /**
      * @var string
      */
     private $uploadDir;
@@ -68,16 +63,15 @@ class FileSubscriber implements EventSubscriber
                     throw new \UnexpectedValueException(sprintf($exceptionMessage, $meta->getReflectionClass()->getName(), $annotation->mappedBy));
                 }
 
-                $this->config[$meta->getTableName()]['fields'][$field] = array(
+                $this->config[$meta->getName()]['fields'][$field] = array(
                     'property' => $property,
                     'path' => $annotation->path,
                     'mappedBy' => $annotation->mappedBy,
                     'filename' => $annotation->filename,
+                    'meta' => $meta
                 );
             }
         }
-
-        $this->meta = $meta;
     }
 
     /**
@@ -105,10 +99,10 @@ class FileSubscriber implements EventSubscriber
     private function getFileFields($entity, \Doctrine\ORM\EntityManager $entityManager)
     {
         $classMetaData = $entityManager->getClassMetaData(get_class($entity));
-        $tableName = $classMetaData->getTableName();
+        $className = $classMetaData->getName();
 
-        if (array_key_exists($tableName, $this->config)) {
-            return $this->config[$tableName]['fields'];
+        if (array_key_exists($className, $this->config)) {
+            return $this->config[$className]['fields'];
         }
         return array();
     }
@@ -160,12 +154,12 @@ class FileSubscriber implements EventSubscriber
     {
         $propertyValue = $fileConfig['property']->getValue($fileEntity);
         if ($propertyValue instanceof File) {
-            $oldMappedValue = $this->meta->getFieldValue($fileEntity, $fileConfig['mappedBy']);
+            $oldMappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
             $newMappedValue = $this->generateFileName($fileEntity, $fileConfig);
-            $this->meta->setFieldValue($fileEntity, $fileConfig['mappedBy'], $newMappedValue);
+            $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['mappedBy'], $newMappedValue);
 
             if ($fileConfig['filename'] !== null) {
-                $this->meta->setFieldValue($fileEntity, $fileConfig['filename'], $propertyValue->getClientOriginalName());
+                $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['filename'], $propertyValue->getClientOriginalName());
             }
 
             $entityManager = $ea->getEntityManager();
@@ -185,7 +179,7 @@ class FileSubscriber implements EventSubscriber
             return;
         }
 
-        $mappedValue = $this->meta->getFieldValue($fileEntity, $fileConfig['mappedBy']);
+        $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
         $filename = basename($mappedValue);
         $path = dirname($mappedValue);
 
@@ -210,7 +204,7 @@ class FileSubscriber implements EventSubscriber
      */
     private function removeUpload($fileEntity, array $fileConfig)
     {
-        $mappedValue = $this->meta->getFieldValue($fileEntity, $fileConfig['mappedBy']);
+        $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
         if(null !== $mappedValue) {
             @unlink($this->uploadDir . '/' . $mappedValue);
         }

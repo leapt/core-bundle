@@ -16,6 +16,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 use Snowcap\CoreBundle\Listener\FileSubscriber;
 use Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User;
+use Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\Novel;
 
 class FileSubscriberTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,6 +34,14 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
      * @var string
      */
     private $rootDir;
+
+    /**
+     * @var array
+     */
+    private $classes = array(
+        'Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User',
+        'Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\Novel',
+    );
 
     /**
      * @return \Doctrine\ORM\EntityManager
@@ -63,7 +72,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $em = $this->em;
         $schema = array_map(function ($class) use ($em) {
             return $em->getClassMetadata($class);
-        }, array('Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User'));
+        }, $this->classes);
 
         $schemaTool = new SchemaTool($em);
         $schemaTool->dropSchema(array());
@@ -75,16 +84,20 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->em = $this->buildEntityManager();
         $this->createSchema();
         $this->rootDir = sys_get_temp_dir() . '/' . uniqid();
+
         $this->subscriber = new FileSubscriber($this->rootDir);
-        $metaDataEventArgs = new LoadClassMetadataEventArgs($this->em->getClassMetadata('Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User'), $this->em);
-        $this->subscriber->loadClassMetadata($metaDataEventArgs);
+
+        foreach($this->classes as $class) {
+            $metaDataEventArgs = new LoadClassMetadataEventArgs($this->em->getClassMetadata($class), $this->em);
+            $this->subscriber->loadClassMetadata($metaDataEventArgs);
+        }
 
         parent::setUp();
     }
 
     public function testPreFlushInsert()
     {
-        $user = $this->buildEntityToInsert();
+        $user = $this->buildUserToInsert();
         $eventArgs = new PreFlushEventArgs($this->em);
         $this->subscriber->preFlush($eventArgs);
 
@@ -93,9 +106,20 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($user->getCv());
     }
 
+    public function testPreFlushInsertForMappedSuperClass()
+    {
+        $novel = $this->buildNovelToInsert();
+        $eventArgs = new PreFlushEventArgs($this->em);
+        $this->subscriber->preFlush($eventArgs);
+
+        $changeset = $this->em->getUnitOfWork()->getEntityChangeSet($novel);
+        $this->assertArrayHasKey('attachment', $changeset);
+        $this->assertNotNull($novel->getAttachment());
+    }
+
     public function testPreFlushUpdate()
     {
-        $user = $this->buildEntityToUpdate();
+        $user = $this->buildUserToUpdate();
         $eventArgs = new PreFlushEventArgs($this->em);
         $this->subscriber->preFlush($eventArgs);
 
@@ -106,7 +130,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
 
     public function testPostPersist()
     {
-        $user = $this->buildEntityToInsert();
+        $user = $this->buildUserToInsert();
         $cvPath = 'uploads/cvs/' . uniqid() . '.txt';
         $user->setCv($cvPath);
 
@@ -117,9 +141,22 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertFileExists($this->rootDir .'/' . $cvPath);
     }
 
+    public function testPostPersistForMappedSuperClass()
+    {
+        $novel = $this->buildNovelToInsert();
+        $attachmentPath = 'uploads/attachments/' . uniqid() . '.txt';
+        $novel->setAttachment($attachmentPath);
+
+        $eventArgs = new LifecycleEventArgs($novel, $this->em);
+        $this->subscriber->postPersist($eventArgs);
+
+        $this->assertNull($novel->getAttachmentFile());
+        $this->assertFileExists($this->rootDir .'/' . $attachmentPath);
+    }
+
     public function testPostUpdate()
     {
-        $user = $this->buildEntityToUpdate();
+        $user = $this->buildUserToUpdate();
         $cvPath = 'uploads/cvs/' . uniqid() . '.txt';
         $user->setCv($cvPath);
 
@@ -132,7 +169,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
 
     public function testPostUpdateWithPrevousFile()
     {
-        $user = $this->buildEntityToUpdate();
+        $user = $this->buildUserToUpdate();
         $oldCvPath = 'uploads/cvs/' . uniqid() . '.txt';
         $newCvPath = 'uploads/cvs/' . uniqid() . '.txt';
         $this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/' . $oldCvPath);
@@ -152,7 +189,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
 
     public function testPostRemove()
     {
-        $user = $this->buildEntityToDelete();
+        $user = $this->buildUserToDelete();
         $cvPath = 'uploads/cvs/' . uniqid() . '.txt';
         $this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/' . $cvPath);
         $user->setCv($cvPath);
@@ -182,7 +219,36 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Fixtures\Entity\User
      */
-    private function buildEntityToUpdate()
+    private function buildUserToInsert()
+    {
+        $user = new User();
+        $user->setUserName('johndoe');
+        $user->setCvFile(new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt')));
+
+        $this->em->getUnitOfWork()->scheduleForInsert($user);
+
+        return $user;
+    }
+
+    /**
+     * @return Fixtures\Entity\Novel
+     */
+    private function buildNovelToInsert()
+    {
+        $novel = new Novel();
+        $novel->setTitle('Dancing with the frogs');
+        $novel->setSubtitle('An epic tale of man-frog love');
+        $novel->setAttachmentFile(new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt')));
+
+        $this->em->getUnitOfWork()->scheduleForInsert($novel);
+
+        return $novel;
+    }
+
+    /**
+     * @return Fixtures\Entity\User
+     */
+    private function buildUserToUpdate()
     {
         $userName = 'johndoe';
         $cvFile = new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt'));
@@ -203,21 +269,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Fixtures\Entity\User
      */
-    private function buildEntityToInsert()
-    {
-        $user = new User();
-        $user->setUserName('johndoe');
-        $user->setCvFile(new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt')));
-
-        $this->em->getUnitOfWork()->scheduleForInsert($user);
-
-        return $user;
-    }
-
-    /**
-     * @return Fixtures\Entity\User
-     */
-    private function buildEntityToDelete()
+    private function buildUserToDelete()
     {
         $userName = 'johndoe';
         $cvFile = new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt'));
