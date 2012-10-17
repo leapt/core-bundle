@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
 
 use Snowcap\CoreBundle\Listener\FileSubscriber;
-use Snowcap\CoreBundle\Tests\Listener\Fixtures\UserEntity;
+use Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User;
 
 class FileSubscriberTest extends \PHPUnit_Framework_TestCase
 {
@@ -63,7 +63,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $em = $this->em;
         $schema = array_map(function ($class) use ($em) {
             return $em->getClassMetadata($class);
-        }, array('Snowcap\CoreBundle\Tests\Listener\Fixtures\UserEntity'));
+        }, array('Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User'));
 
         $schemaTool = new SchemaTool($em);
         $schemaTool->dropSchema(array());
@@ -76,7 +76,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->createSchema();
         $this->rootDir = sys_get_temp_dir() . '/' . uniqid();
         $this->subscriber = new FileSubscriber($this->rootDir);
-        $metaDataEventArgs = new LoadClassMetadataEventArgs($this->em->getClassMetadata('Snowcap\CoreBundle\Tests\Listener\Fixtures\UserEntity'), $this->em);
+        $metaDataEventArgs = new LoadClassMetadataEventArgs($this->em->getClassMetadata('Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User'), $this->em);
         $this->subscriber->loadClassMetadata($metaDataEventArgs);
 
         parent::setUp();
@@ -180,14 +180,14 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Fixtures\UserEntity
+     * @return Fixtures\Entity\User
      */
     private function buildEntityToUpdate()
     {
         $userName = 'johndoe';
         $cvFile = new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt'));
 
-        $user = new UserEntity();
+        $user = new User();
         $user->setUserName($userName);
         $user->setCvFile($cvFile);
 
@@ -201,11 +201,11 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Fixtures\UserEntity
+     * @return Fixtures\Entity\User
      */
     private function buildEntityToInsert()
     {
-        $user = new UserEntity();
+        $user = new User();
         $user->setUserName('johndoe');
         $user->setCvFile(new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt')));
 
@@ -215,14 +215,14 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Fixtures\UserEntity
+     * @return Fixtures\Entity\User
      */
     private function buildEntityToDelete()
     {
         $userName = 'johndoe';
         $cvFile = new File($this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/test_file.txt'));
 
-        $user = new UserEntity();
+        $user = new User();
         $user->setUserName($userName);
         $user->setCvFile($cvFile);
 

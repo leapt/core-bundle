@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Listener\Fixtures;
+namespace Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Snowcap\CoreBundle\Doctrine\Mapping as SnowcapORM;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class UserEntity {
+class User {
     /**
      * @var integer
      *
