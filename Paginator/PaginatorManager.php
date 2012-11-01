@@ -1,16 +1,15 @@
 <?php
 
-namespace Snowcap\CoreBundle\Manager;
+namespace Snowcap\Paginator;
 
-use DoctrineExtensions\Paginate\Paginate;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class PaginatorManager
 {
-
     /**
-     * @var \Doctrine\ORM\Query
+     * @var \Doctrine\ORM\Tools\Pagination\Paginator
      */
-    private $query;
+    private $paginator;
 
     /**
      * @var int
@@ -30,37 +29,16 @@ class PaginatorManager
     private $limitRange;
 
     /**
-     * @var int
-     */
-    private $count;
-
-    /**
      * @param \Doctrine\ORM\Query $query
      * @param int $page
      * @param int $limitPerPage
      */
     public function __construct($query = null, $page = 1, $limitPerPage = 0, $limitRange = 10)
     {
-        $this->query = $query;
+        $this->paginator = new Paginator($query);
         $this->page = $page > 0 ? $page : 1;
         $this->limitPerPage = $limitPerPage;
         $this->limitRange = $limitRange;
-    }
-
-    /**
-     * @param \Doctrine\ORM\Query $query
-     */
-    public function setQuery($query)
-    {
-        $this->query = $query;
-    }
-
-    /**
-     * @return \Doctrine\ORM\Query
-     */
-    public function getQuery()
-    {
-        return $this->query;
     }
 
     /**
@@ -102,37 +80,36 @@ class PaginatorManager
      */
     public function getCount()
     {
-        if (!isset($this->count)) {
-            $this->count = Paginate::getTotalQueryResults($this->query);
-        }
-        return $this->count;
+        return count($this->paginator);
     }
 
     /**
      * Get the paginated result
      *
-     * @return array
+     * @return Paginator
      */
-    public function getResult()
+    public function getPaginator()
     {
         // First we need to check if there are actual results
         if ($this->getCount() > 0) {
-            $query = Paginate::getPaginateQuery($this->query, $this->getOffset(), $this->limitPerPage);
-        } else {
-            $query = $this->query;
+            $this->paginator->getQuery()
+                ->setFirstResult($this->getOffset())
+                ->setMaxResults($this->limitPerPage);
         }
 
-        return $query->getResult();
+        return $this->paginator;
     }
 
-    public function getNumPages()
+    /**
+     * @return int
+     */
+    public function getPageCount()
     {
         $count = $this->getCount();
 
         //If limit is set to 0 or set to number bigger then total items count
         //display all in one page
         if (($this->limitPerPage < 1) || ($this->limitPerPage > $count)) {
-
             return 1;
         } else {
             //Calculate rest numbers from dividing operation so we can add one
@@ -144,6 +121,9 @@ class PaginatorManager
         }
     }
 
+    /**
+     * @return int
+     */
     private function getOffset()
     {
         //Calculate offset for items based on current page number
@@ -186,6 +166,4 @@ class PaginatorManager
 
         return range($start, $stop);
     }
-
-
 }
