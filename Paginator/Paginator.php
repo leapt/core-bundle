@@ -1,16 +1,11 @@
 <?php
 
-namespace Snowcap\Paginator;
+namespace Snowcap\CoreBundle\Paginator;
 
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as BasePaginator;
 
-class PaginatorManager
+class Paginator extends BasePaginator
 {
-    /**
-     * @var \Doctrine\ORM\Tools\Pagination\Paginator
-     */
-    private $paginator;
-
     /**
      * @var int
      */
@@ -29,24 +24,15 @@ class PaginatorManager
     private $limitRange;
 
     /**
-     * @param \Doctrine\ORM\Query $query
-     * @param int $page
-     * @param int $limitPerPage
-     */
-    public function __construct($query = null, $page = 1, $limitPerPage = 0, $limitRange = 10)
-    {
-        $this->paginator = new Paginator($query);
-        $this->page = $page > 0 ? $page : 1;
-        $this->limitPerPage = $limitPerPage;
-        $this->limitRange = $limitRange;
-    }
-
-    /**
      * @param int $page
      */
     public function setPage($page)
     {
-        $this->page = $page > 0 ? $page : 1;
+        $page = $page > 0 ? $page : 1;
+        $this->page = $page;
+        $this->getQuery()->setFirstResult($this->getOffset());
+
+        return $this;
     }
 
     /**
@@ -62,7 +48,10 @@ class PaginatorManager
      */
     public function setLimitPerPage($limitPerPage)
     {
+        $this->getQuery()->setMaxResults($limitPerPage);
         $this->limitPerPage = $limitPerPage;
+
+        return $this;
     }
 
     /**
@@ -74,38 +63,11 @@ class PaginatorManager
     }
 
     /**
-     * Get the total of row available
-     *
-     * @return int
-     */
-    public function getCount()
-    {
-        return count($this->paginator);
-    }
-
-    /**
-     * Get the paginated result
-     *
-     * @return Paginator
-     */
-    public function getPaginator()
-    {
-        // First we need to check if there are actual results
-        if ($this->getCount() > 0) {
-            $this->paginator->getQuery()
-                ->setFirstResult($this->getOffset())
-                ->setMaxResults($this->limitPerPage);
-        }
-
-        return $this->paginator;
-    }
-
-    /**
      * @return int
      */
     public function getPageCount()
     {
-        $count = $this->getCount();
+        $count = $this->count();
 
         //If limit is set to 0 or set to number bigger then total items count
         //display all in one page
@@ -146,16 +108,16 @@ class PaginatorManager
      */
     public function getRange()
     {
-        if ($this->getNumPages() < $this->limitRange) { // Not enough pages to apply range limit
+        if ($this->getPageCount() < $this->limitRange) { // Not enough pages to apply range limit
             $start = 1;
-            $stop = $this->getNumPages();
+            $stop = $this->getPageCount();
         } else { // Enough page to apply range limit
             if($this->getPage() <= $this->limitRange / 2) { // Cannot center, current page too far on the left
                 $start = 1;
                 $stop = $start + $this->limitRange - 1;
             }
-            elseif($this->getPage() + ceil($this->limitRange / 2) > $this->getNumPages()) { // Cannot center, current page too far on the right
-                $stop = $this->getNumPages();
+            elseif($this->getPage() + ceil($this->limitRange / 2) > $this->getPageCount()) { // Cannot center, current page too far on the right
+                $stop = $this->getPageCount();
                 $start = $stop - $this->limitRange + 1;
             }
             else { // Enough space on both sides, we can center

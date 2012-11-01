@@ -1,6 +1,6 @@
-{% if paginator.getNumPages > 1 %}
+{% if paginator.pageCount > 1 %}
     <ul>
-        {% for i in 1..paginator.getNumPages %}
+        {% for i in 1..paginator.pageCount %}
             <li>
                 <a href="?page={{ i }}">{{ i }}</a>
             </li>
