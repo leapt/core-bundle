@@ -1,0 +1,32 @@
+{% spaceless %}
+{% if order is defined %}
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_addTrans',
+        '{{ order.id }}',           // order ID - required
+        '{{ order.shop|default('') }}',  // affiliation or store name
+        '{{ order.total }}',          // total - required
+        '{{ order.tax|default(0) }}',           // tax
+        '{{ order.shipping|default(0) }}',              // shipping
+        '{{ order.city|default('') }}',       // city
+        '{{ order.state|default('') }}',     // state or province
+        '{{ order.country|default('') }}'             // country
+    ]);
+
+    // add item might be called for every item in the shopping cart
+    // where your ecommerce engine loops through each item in the cart and
+    // prints out _addItem for each
+    {% for item in order.items %}
+        _gaq.push(['_addItem',
+            '{{ order.id }}', // order ID - required
+            '{{ item.id }}', // SKU/code - required
+            '{{ item.name|default('') }}', // product name
+            '{{ item.category|default('') }}', // category or variation
+            '{{ item.price }}', // unit price - required
+            '{{ item.quantity|default(1) }}' // quantity - required
+        ]);
+    {% endfor %}
+    _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
+</script>
+{% endif %}
+{% endspaceless %}

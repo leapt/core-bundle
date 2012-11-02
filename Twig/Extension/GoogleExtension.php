@@ -56,7 +56,8 @@ class GoogleExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'analytics_tracking_code' => new \Twig_Function_Method($this, 'getAnalyticsTrackingCode', array('is_safe' => array('html'))),
+            'analytics_tracking_code'     => new \Twig_Function_Method($this, 'getAnalyticsTrackingCode', array('is_safe' => array('html'))),
+            'analytics_tracking_commerce' => new \Twig_Function_Method($this, 'getAnalyticsCommerce', array('is_safe' => array('html'))),
         );
     }
 
@@ -120,11 +121,50 @@ class GoogleExtension extends \Twig_Extension
         if (null !== $this->accountId || $this->domainName === 'none') {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
 
-            return $template->render(array(
-                'tracking_id' => $this->accountId,
-                'domain_name' => $this->domainName,
-                'allow_linker' => $this->allowLinker
-            ));
+            return $template->render(
+                array(
+                    'tracking_id'  => $this->accountId,
+                    'domain_name'  => $this->domainName,
+                    'allow_linker' => $this->allowLinker
+                )
+            );
+        }
+
+        return '<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->';
+    }
+
+    /**
+     * Send eCommerce order to Google Analytics
+     *
+     * @param array|object $order
+     * Example :
+     * array(
+     *  'id' => '1234',           // order ID - required
+     *  'name' => 'Acme Clothing',  // affiliation or store name
+     *  'total' => '11.99',          // total - required
+     *  'tax' => '1.29',           // tax
+     *  'shipping' => '5',              // shipping
+     *  'city' => 'San Jose',       // city
+     *  'state' => 'California',     // state or province
+     *  'country' => 'USA'             // country
+     *  'items' => array(
+     *      array(
+     *          'id' => 'DD44',           // SKU/code - required
+     *          'name' => 'T-Shirt',        // product name
+     *          'category' => 'Green Medium',   // category or variation
+     *          'price' => '11.99',          // unit price - required
+     *          'quantity' => '1',               // quantity - required
+     *      )
+     *  )
+     *
+     * @return string
+     */
+    public function getAnalyticsCommerce($order)
+    {
+        if (null !== $this->accountId || $this->domainName === 'none') {
+            $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_commerce.html.twig');
+
+            return $template->render(array('order' => $order));
         }
 
         return '<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->';
