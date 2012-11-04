@@ -57,16 +57,16 @@ class FileType extends AbstractType
 
         $builder
             ->add('file', 'file', array('error_bubbling' => true))
-            ->add('delete', 'checkbox', array('error_bubbling' => true))
+            ->add('delete', 'checkbox', array('label' => 'Delete', 'error_bubbling' => true))
             ->addViewTransformer(new FileDataTransformer())
             ->addEventListener(\Symfony\Component\Form\FormEvents::POST_BIND, function($event) use($filePath, $uploadDir) {
-                $parentForm = $event->getForm()->getParent();
-                $propertyPath = new PropertyPath($filePath);
-                $imagePath = $propertyPath->getValue($parentForm->getData());
-
+                // We need to store the path to the file to delete in the Condemned file instance
                 $data = $event->getData();
                 if($data['file'] instanceof CondemnedFile) {
-                    $data['file']->setPath($uploadDir . $imagePath);
+                    $parentForm = $event->getForm()->getParent();
+                    $propertyPath = new PropertyPath($filePath);
+                    $imagePath = $propertyPath->getValue($parentForm->getData());
+                    $data['file']->setPath($uploadDir . '/' . $imagePath);
                 }
             });
         ;
