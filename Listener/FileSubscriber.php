@@ -4,6 +4,7 @@ namespace Snowcap\CoreBundle\Listener;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
@@ -86,24 +87,34 @@ class FileSubscriber implements EventSubscriber
      */
     public function preFlush(PreFlushEventArgs $ea)
     {
-        $unitOfWork = $ea->getEntityManager()->getUnitOfWork();
+        $entityManager = $ea->getEntityManager();
+        $unitOfWork = $entityManager->getUnitOfWork();
 
-        $entitiesToInsertOrUpdate = array_merge($unitOfWork->getScheduledEntityInsertions(), $unitOfWork->getScheduledEntityUpdates());
-        foreach($entitiesToInsertOrUpdate as $fileEntity) {
-            foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileConfig) {
-                $propertyValue = $fileConfig['property']->getValue($fileEntity);
-                if($propertyValue instanceof CondemnedFile) {
-                    $this->preRemoveUpload($fileEntity, $fileConfig);
-                }
-                else {
-                    $this->preUpload($ea, $fileEntity, $fileConfig);
-                }
+        // First, get entities scheduled for removal
+        foreach($unitOfWork->getScheduledEntityDeletions() as $fileEntity){
+            foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
+                $this->preRemoveUpload($fileEntity, $fileConfig);
+            }
+        }
+        // Then, let's deal with entities schedules for insertion
+        foreach($unitOfWork->getScheduledEntityInsertions() as $fileEntity){
+            foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
+                $this->preUpload($ea, $fileEntity, $fileConfig);
             }
         }
 
-        foreach($unitOfWork->getScheduledEntityDeletions() as $fileEntity){
-            foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileConfig) {
-                $this->preRemoveUpload($fileEntity, $fileConfig);
+        // Finally, check all entities in identity map - if they have a file object they need to be processed
+        foreach($unitOfWork->getIdentityMap() as $entities) {
+            foreach($entities as $fileEntity) {
+                foreach($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
+                    $propertyValue = $fileConfig['property']->getValue($fileEntity);
+                    if($propertyValue instanceof CondemnedFile) {
+                        $this->preRemoveUpload($fileEntity, $fileConfig);
+                    }
+                    else {
+                        $this->preUpload($ea, $fileEntity, $fileConfig);
+                    }
+                }
             }
         }
     }
@@ -115,9 +126,9 @@ class FileSubscriber implements EventSubscriber
      * @param \Doctrine\ORM\EntityManager $entityManager
      * @return array
      */
-    private function getFileFields($entity, \Doctrine\ORM\EntityManager $entityManager)
+    private function getFileFields($entity, EntityManager $em)
     {
-        $classMetaData = $entityManager->getClassMetaData(get_class($entity));
+        $classMetaData = $em->getClassMetaData(get_class($entity));
         $className = $classMetaData->getName();
 
         if (array_key_exists($className, $this->config)) {
