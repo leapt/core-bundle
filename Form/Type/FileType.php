@@ -42,7 +42,10 @@ class FileType extends AbstractType
     {
         $resolver
             ->setOptional(array('file_path'))
-            ->setDefaults(array('compound' => true));
+            ->setDefaults(array(
+                'compound' => true,
+                'translation_domain' => 'SnowcapCoreBundle'
+            ));
     }
 
 
@@ -57,7 +60,10 @@ class FileType extends AbstractType
 
         $builder
             ->add('file', 'file', array('error_bubbling' => true))
-            ->add('delete', 'checkbox', array('label' => 'Delete', 'error_bubbling' => true))
+            ->add('delete', 'checkbox', array(
+                'label' => 'form.types.file.delete.label',
+                'error_bubbling' => true,
+            ))
             ->addViewTransformer(new FileDataTransformer())
             ->addEventListener(\Symfony\Component\Form\FormEvents::POST_BIND, function($event) use($filePath, $uploadDir) {
                 // We need to store the path to the file to delete in the Condemned file instance

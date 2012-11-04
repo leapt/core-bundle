@@ -5,3 +5,9 @@ timeago:
     daysago: Il y a %days% jour|Il y a %days% jours
     monthsago: Il y a %months% mois|Il y a %months% mois
     yearsago: Il y a %years% an|Il y a %years% ans
+
+form:
+    types:
+        file:
+            delete:
+                label: Effacer le fichier actuel
