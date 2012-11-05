@@ -9,7 +9,7 @@ class Paginator extends BasePaginator
     /**
      * @var int
      */
-    private $page;
+    private $page = 1;
 
     /**
      * @var int
