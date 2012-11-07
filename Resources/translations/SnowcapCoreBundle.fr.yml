@@ -10,6 +10,6 @@ form:
     types:
         file:
             download:
-                label: Télécharger le fichier
+                label: Télécharger
             delete:
                 label: Effacer le fichier actuel
