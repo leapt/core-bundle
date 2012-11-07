@@ -15,7 +15,7 @@ jQuery(function ($) {
         self.addElementForm = function(event){
             event.preventDefault();
             var prototype = container.attr('data-prototype');
-            var form = $(prototype.replace(/\$\$name\$\$/g, container.children().length));
+            var form = $(prototype.replace(/__name__/g, container.children().length));
             var removeButton = form.find('.remove-element');
             removeButton.on('click', self.removeElementForm);
             form.prepend(removeButton);
