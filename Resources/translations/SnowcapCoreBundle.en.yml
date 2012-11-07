@@ -9,5 +9,7 @@ timeago:
 form:
     types:
         file:
+            download:
+                label: Download file
             delete:
                 label: Delete current file

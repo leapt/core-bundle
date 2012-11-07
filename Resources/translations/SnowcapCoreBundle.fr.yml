@@ -9,5 +9,7 @@ timeago:
 form:
     types:
         file:
+            download:
+                label: Télécharger le fichier
             delete:
                 label: Effacer le fichier actuel

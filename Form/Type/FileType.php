@@ -44,6 +44,7 @@ class FileType extends AbstractType
             ->setOptional(array('file_path'))
             ->setDefaults(array(
                 'compound' => true,
+                'download_label' => 'form.types.file.download.label',
                 'translation_domain' => 'SnowcapCoreBundle'
             ));
     }
@@ -87,12 +88,17 @@ class FileType extends AbstractType
     {
         if (array_key_exists('file_path', $options)) {
             $parentData = $form->getParent()->getData();
-
-            $propertyPath = new PropertyPath($options['file_path']);
-            $fileUrl = $propertyPath->getValue($parentData);
+            try {
+                $propertyPath = new PropertyPath($options['file_path']);
+                $fileUrl = $propertyPath->getValue($parentData);
+            }
+            catch(\Exception $e) {
+                $fileUrl = null;
+            }
             // set an "image_url" variable that will be available when rendering this field
-            $view->set('file_url', $fileUrl);
+            $view->vars['file_url'] = $fileUrl;
         }
+        $view->vars['download_label'] = $options['download_label'];
     }
 
     /**
