@@ -30,6 +30,12 @@ services:
         tags:
             - { name: form.type, alias: snowcap_core_video }
 
+    # Form type extensions
+    snowcap_core.collection_type_extension:
+        class: Snowcap\CoreBundle\Form\Extension\CollectionTypeExtension
+        tags:
+            - { name: form.type_extension, alias: collection }
+
     # Field entity event subscriber
     snowcap_core.file_subscriber:
         class: Snowcap\CoreBundle\Listener\FileSubscriber

@@ -1,0 +1,10 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block collection_widget %}
+    <div class="collection-container">
+        {{ parent() }}
+        {% if allow_add %}
+            <a href="#" class="add-element">{{ add_label|trans({}, translation_domain) }}</a>
+        {% endif %}
+    </div>
+{% endblock collection_widget %}
