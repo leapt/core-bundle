@@ -26,7 +26,7 @@ class SnowcapCoreExtension extends Extension
         $loader->load('services.yml');
 
         if(isset($config['google_analytics'])) {
-            foreach(array('tracking_id', 'domain_name', 'allow_linker') as $option) {
+            foreach(array('tracking_id', 'domain_name', 'allow_linker', 'debug') as $option) {
                 $container->setParameter('snowcap_core.google_analytics.' . $option, $config['google_analytics'][$option]);
             }
         }

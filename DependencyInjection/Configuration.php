@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('tracking_id')->defaultNull()->end()
                         ->scalarNode('domain_name')->defaultValue('auto')->end()
                         ->scalarNode('allow_linker')->defaultValue('false')->end()
+                        ->scalarNode('debug')->defaultValue('false')->end()
                     ->end()
                 ->end()
             ->end()

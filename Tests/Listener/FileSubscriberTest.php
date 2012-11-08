@@ -217,9 +217,8 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertFileExists($this->rootDir .'/' . $cvPath);
 
         $eventArgs = new LifecycleEventArgs($user, $this->em);
-        $preFlushEventArgs = new PreFlushEventArgs($this->em);
 
-        $this->subscriber->preFlush($preFlushEventArgs);
+        $this->subscriber->preRemove($eventArgs);
         $this->subscriber->postRemove($eventArgs);
 
         $this->assertFileNotExists($this->rootDir .'/' . $cvPath);
