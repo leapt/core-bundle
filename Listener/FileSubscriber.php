@@ -43,7 +43,7 @@ class FileSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array('loadClassMetadata', 'preFlush', 'postPersist', 'postUpdate', 'postRemove');
+        return array('loadClassMetadata', 'preFlush', 'postPersist', 'postUpdate', 'preRemove', 'postRemove');
     }
 
     /**
@@ -90,12 +90,6 @@ class FileSubscriber implements EventSubscriber
         $entityManager = $ea->getEntityManager();
         $unitOfWork = $entityManager->getUnitOfWork();
 
-        // First, get entities scheduled for removal
-        foreach($unitOfWork->getScheduledEntityDeletions() as $fileEntity){
-            foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
-                $this->preRemoveUpload($fileEntity, $fileConfig);
-            }
-        }
         // Then, let's deal with entities schedules for insertion
         foreach($unitOfWork->getScheduledEntityInsertions() as $fileEntity){
             foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
@@ -156,11 +150,22 @@ class FileSubscriber implements EventSubscriber
     /**
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $ea
      */
+    public function preRemove(LifecycleEventArgs $ea)
+    {
+        $entity = $ea->getEntity();
+        foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $fileConfig) {
+            $this->preRemoveUpload($entity, $fileConfig);
+        }
+    }
+
+    /**
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $ea
+     */
     public function postRemove(LifecycleEventArgs $ea)
     {
         $entity = $ea->getEntity();
-        foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $file) {
-            $this->removeUpload($entity, $file);
+        foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $fileConfig) {
+            $this->removeUpload($entity, $fileConfig);
         }
     }
 
