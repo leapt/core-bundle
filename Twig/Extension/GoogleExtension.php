@@ -150,9 +150,9 @@ class GoogleExtension extends \Twig_Extension
      * array(
      *  'id' => '1234',           // order ID - required
      *  'name' => 'Acme Clothing',  // affiliation or store name
-     *  'total' => '11.99',          // total - required
-     *  'tax' => '1.29',           // tax
-     *  'shipping' => '5',              // shipping
+     *  'total' => '1199',          // total in cents - required
+     *  'tax' => '129',           // tax in cents
+     *  'shipping' => '5',              // shipping in cents
      *  'city' => 'San Jose',       // city
      *  'state' => 'California',     // state or province
      *  'country' => 'USA'             // country
@@ -161,7 +161,7 @@ class GoogleExtension extends \Twig_Extension
      *          'id' => 'DD44',           // SKU/code - required
      *          'name' => 'T-Shirt',        // product name
      *          'category' => 'Green Medium',   // category or variation
-     *          'price' => '11.99',          // unit price - required
+     *          'price' => '1199',          // unit price in cents - required
      *          'quantity' => '1',               // quantity - required
      *      )
      *  )

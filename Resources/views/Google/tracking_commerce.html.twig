@@ -5,9 +5,9 @@
     _gaq.push(['_addTrans',
         '{{ order.id }}',           // order ID - required
         '{{ order.shop|default('') }}',  // affiliation or store name
-        '{{ order.total }}',          // total - required
-        '{{ order.tax|default(0) }}',           // tax
-        '{{ order.shipping|default(0) }}',              // shipping
+        '{{ (order.total/100)|number_format(2, '.') }}',          // total - required
+        '{{ (order.tax|default(0)/100)|number_format(2, '.') }}',           // tax
+        '{{ (order.shipping|default(0)/100)|number_format(2, '.') }}',              // shipping
         '{{ order.city|default('') }}',       // city
         '{{ order.state|default('') }}',     // state or province
         '{{ order.country|default('') }}'             // country
@@ -22,7 +22,7 @@
             '{{ item.id }}', // SKU/code - required
             '{{ item.name|default('') }}', // product name
             '{{ item.category|default('') }}', // category or variation
-            '{{ item.price }}', // unit price - required
+            '{{ (item.price/100)|number_format(2, '.') }}', // unit price - required
             '{{ item.quantity|default(1) }}' // quantity - required
         ]);
     {% endfor %}
