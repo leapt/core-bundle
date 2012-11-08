@@ -11,7 +11,7 @@
     _gaq.push(['_setAllowLinker', {{ allow_linker }}]);
     {% endif %}
     _gaq.push(['_trackPageview']);
-    {% if app.environment != 'prod' %}
+    {% if debug %}
         {% set script = 'u/ga_debug' %}
     {% else %}
         {% set script = 'ga' %}

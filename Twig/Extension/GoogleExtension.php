@@ -28,12 +28,20 @@ class GoogleExtension extends \Twig_Extension
      */
     private $allowLinker;
 
+
+    /**
+     * @var bool
+     */
+    private $debug;
+
     /**
      * @param string $accountId
+     * @param bool   $debug
      */
-    public function __construct($accountId)
+    public function __construct($accountId, $debug = false)
     {
         $this->accountId = $accountId;
+        $this->debug = $debug;
     }
 
     /**
@@ -125,7 +133,8 @@ class GoogleExtension extends \Twig_Extension
                 array(
                     'tracking_id'  => $this->accountId,
                     'domain_name'  => $this->domainName,
-                    'allow_linker' => $this->allowLinker
+                    'allow_linker' => $this->allowLinker,
+                    'debug' => $this->debug,
                 )
             );
         }
