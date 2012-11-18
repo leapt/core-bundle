@@ -44,8 +44,9 @@ class FileType extends AbstractType
             ->setOptional(array('file_path'))
             ->setDefaults(array(
                 'compound' => true,
+                'error_bubbling' => false,
                 'download_label' => 'form.types.file.download.label',
-                'translation_domain' => 'SnowcapCoreBundle'
+                'translation_domain' => 'SnowcapCoreBundle',
             ));
     }
 
