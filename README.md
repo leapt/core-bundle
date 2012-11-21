@@ -1,53 +1,69 @@
 [![Build Status](https://secure.travis-ci.org/snowcap/SnowcapCoreBundle.png?branch=master)](http://travis-ci.org/snowcap/SnowcapCoreBundle)
 
-Introduction
-============
+Snowcap Core Bundle
+==================================
 
-This bundle is used to share common features through all Snowcap project made with Symfony 2
+The Snowcap Core Bundle is a bundle used at Snowcap to help us with some repetitive tasks, including (but not limited to):
 
-Installation
-------------
+* Dealing with file and image uploads
+* RSS feed generation
+* SEO-related tasks (sitemaps, etc)
 
-1. Add this bundle to your ``vendor/`` dir:
+## Prerequisites
 
-    Add the following lines in your ``deps`` file::
-  
-        [SnowcapCoreBundle]
-            git=git://github.com/snowcap/SnowcapCoreBundle.git
-            target=/bundles/Snowcap/CoreBundle
-        
-    Run the vendors script:
-  
-        ./bin/vendors install
+This version of the bundle requires Symfony 2.1+. If you are using Symfony
+2.0.x, please use the 2.0.x releases of the bundle.
 
-2. Add the Snowcap namespace to your autoloader:
+## Installation
 
-        // app/autoload.php
-        $loader->registerNamespaces(array(
-              'Snowcap' => __DIR__.'/../vendor/bundles',
-              // your other namespaces
-        ));
+### Download SnowcapCoreBundle using composer
 
-3. Add this bundle to your application's kernel:
+Add SnowcapCoreBundle in your composer.json:
 
-        // app/ApplicationKernel.php
-        public function registerBundles()
-        {
-            return array(
-                // ...
-                new Snowcap\CoreBundle\SnowcapCoreBundle(),
-                // ...
-            );
-        }
-          
-Running the tests
------------------
+```js
+{
+    "require": {
+        "snowcap/core-bundle": "*"
+    }
+}
+```
+
+Now tell composer to download the bundle by running the command:
+
+``` bash
+$ php composer.phar update friendsofsymfony/user-bundle
+```
+
+Composer will install the bundle to your project's `vendor/friendsofsymfony` directory.
+
+### Enable the Bundle
+
+
+Enable the bundle in the kernel:
+
+``` php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new Snowcap\CoreBundle\SnowcapCoreBundle(),
+    );
+}
+```
+
+### Running the tests
 
 Before running the tests, you will need to install the bundle dependencies. Do it using composer :
 
-    curl -s http://getcomposer.org/installer | php
-    php composer.phar --dev install
-    
+``` bash
+$ php composer.phar --dev install
+```
+
 Then you can simply launch phpunit
 
-    phpunit
+``` bash
+$ phpunit
+```
