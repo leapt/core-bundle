@@ -14,6 +14,11 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
     private $activePaths = array();
 
     /**
+     * @var array
+     */
+    private $breadcrumbsPaths = array();
+
+    /**
      * @var ContainerInterface
      */
     private $container;
@@ -37,7 +42,10 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
     {
         return array(
             'set_active_paths' => new \Twig_Function_Method($this, 'setActivePaths'),
-            'is_active_path'   => new \Twig_Function_Method($this, 'isActivePath'),
+            'is_active_path' => new \Twig_Function_Method($this, 'isActivePath'),
+            'append_breadcrumb' => new \Twig_Function_Method($this, 'appendBreadcrumb'),
+            'prepend_breadcrumb' => new \Twig_Function_Method($this, 'prependBreadcrumb'),
+            'get_breadcrumbs' => new \Twig_Function_Method($this, 'getBreadCrumbs'),
         );
     }
 
@@ -86,4 +94,35 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
         return in_array($path, $this->activePaths) || $path === $this->container->get('request')->getRequestUri();
     }
 
+    /**
+     * @param string $path
+     * @param string $label
+     */
+    public function appendBreadcrumb($path, $label)
+    {
+        $pair = array($path, $label);
+        if (!in_array($pair, $this->breadcrumbsPaths)) {
+            array_push($this->breadcrumbsPaths, $pair);
+        }
+    }
+
+    /**
+     * @param string $path
+     * @param string $label
+     */
+    public function prependBreadcrumb($path, $label)
+    {
+        $pair = array($path, $label);
+        if (!in_array($pair, $this->breadcrumbsPaths)) {
+            array_unshift($this->breadcrumbsPaths, $pair);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getBreadcrumbs()
+    {
+        return $this->breadcrumbsPaths;
+    }
 }
