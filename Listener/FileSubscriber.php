@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Events;
 
 use Snowcap\CoreBundle\File\CondemnedFile;
 
@@ -43,7 +44,14 @@ class FileSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array('loadClassMetadata', 'preFlush', 'postPersist', 'postUpdate', 'preRemove', 'postRemove');
+        return array(
+            Events::loadClassMetadata,
+            Events::preFlush,
+            Events::postPersist,
+            Events::postUpdate,
+            Events::preRemove,
+            Events::postRemove,
+        );
     }
 
     /**
