@@ -98,6 +98,8 @@ class Paginator extends BasePaginator
     public function setLimitRange($limitRange)
     {
         $this->limitRange = $limitRange;
+
+        return $this;
     }
 
     /**
