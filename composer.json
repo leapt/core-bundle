@@ -32,7 +32,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "1.1.*@dev"
-    },
+},
     "autoload": {
         "psr-0": { "Snowcap\\CoreBundle": "" }
     },
