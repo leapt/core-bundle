@@ -47,6 +47,7 @@ class FileType extends AbstractType
                 'error_bubbling' => false,
                 'download_label' => 'form.types.file.download.label',
                 'translation_domain' => 'SnowcapCoreBundle',
+                'data_class' => null,
             ));
     }
 
