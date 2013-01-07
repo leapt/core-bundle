@@ -6,71 +6,8 @@ use Snowcap\CoreBundle\Paginator\ArrayPaginator;
 
 use Faker\Factory as FakerFactory;
 
-class ArrayPaginatorTest extends \PHPUnit_Framework_TestCase
+class ArrayPaginatorTest extends AbstractPaginatorTest
 {
-    /**
-     * Test the default value of the paginator class
-     *
-     */
-    public function testDefaults()
-    {
-        $paginator = $this->buildPaginator(10);
-
-        $this->assertEquals(1, $paginator->getPage());
-        $this->assertEquals(0, $paginator->getLimitPerPage());
-    }
-
-    /**
-     * Test the implementation of the countabmle interface
-     *
-     */
-    public function testCount()
-    {
-        $items = $this->buildItems(7);
-        $paginator = new ArrayPaginator($items);
-
-        $this->assertEquals(7, count($paginator));
-    }
-
-    /**
-     * Test the page count method
-     *
-     */
-    public function testGetPageCount()
-    {
-        $items = $this->buildItems(7);
-        $paginator = new ArrayPaginator($items);
-        $paginator->setLimitPerPage(10);
-
-        $this->assertEquals(1, $paginator->getPageCount());
-
-        $paginator->setLimitPerPage(5);
-        $this->assertEquals(2, $paginator->getPageCount());
-    }
-
-    /**
-     * Test the getRange method
-     *
-     */
-    public function testGetRange()
-    {
-        $items = $this->buildItems(150);
-        $paginator = new ArrayPaginator($items);
-        $paginator
-            ->setLimitPerPage(10)
-            ->setRangeLimit(10)
-            ->setPage(1);
-
-        $this->assertEquals(range(1, 10), $paginator->getRange());
-
-        $paginator->setPage(9);
-        $this->assertEquals(range(5, 14), $paginator->getRange());
-
-        $paginator->setPage(14);
-        $this->assertEquals(range(6, 15), $paginator->getRange());
-
-    }
-
     /**
      * Test the IteratorAggregate implementation
      *

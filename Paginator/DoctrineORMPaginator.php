@@ -2,20 +2,20 @@
 
 namespace Snowcap\CoreBundle\Paginator;
 
-use Doctrine\ORM\Query;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
 class DoctrineORMPaginator extends AbstractPaginator
 {
     /**
-     * @var ORMPaginator
+     * @var \Doctrine\ORM\Tools\Pagination\Paginator
      */
     private $doctrinePaginator;
 
     /**
-     * @param \Doctrine\ORM\Query $query
+     * @param \Doctrine\ORM\AbstractQuery $query
      */
-    public function __construct(Query $query)
+    public function __construct(AbstractQuery $query)
     {
         $this->doctrinePaginator = new ORMPaginator($query);
     }
