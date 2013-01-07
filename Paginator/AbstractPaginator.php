@@ -12,12 +12,12 @@ abstract class AbstractPaginator implements PaginatorInterface
     /**
      * @var int
      */
-    protected $limitPerPage;
+    protected $limitPerPage = 0;
 
     /**
      * @var int
      */
-    protected $rangeLimit;
+    protected $rangeLimit = 0;
 
     /**
      * @return int

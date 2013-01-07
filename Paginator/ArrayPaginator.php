@@ -25,6 +25,8 @@ class ArrayPaginator extends AbstractPaginator
     public function setPage($page)
     {
         $this->page = $page;
+
+        return $this;
     }
 
     /**
@@ -36,6 +38,8 @@ class ArrayPaginator extends AbstractPaginator
     public function setLimitPerPage($limitPerPage)
     {
         $this->limitPerPage = $limitPerPage;
+
+        return $this;
     }
 
     /**
@@ -53,7 +57,7 @@ class ArrayPaginator extends AbstractPaginator
     }
 
     /**
-     * @return \Traversable
+     * @return \LimitIterator
      */
     public function getIterator()
     {
