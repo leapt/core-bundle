@@ -91,8 +91,15 @@ class FileType extends AbstractType
         if (array_key_exists('file_path', $options)) {
             $parentData = $form->getParent()->getData();
             try {
-                $propertyPath = new PropertyPath($options['file_path']);
-                $fileUrl = $propertyPath->getValue($parentData);
+                $fileUrl = null;
+                if ($parentData !== null) {
+                    if(is_callable($options['file_path'])) {
+                        $fileUrl = call_user_func($options['file_path'], $parentData);
+                    } else {
+                        $propertyPath = new PropertyPath($options['file_path']);
+                        $fileUrl = $propertyPath->getValue($parentData);
+                    }
+                }
             }
             catch(\Exception $e) {
                 $fileUrl = null;
