@@ -48,7 +48,7 @@ services:
     snowcap_core.twig_navigation:
         class: Snowcap\CoreBundle\Twig\Extension\NavigationExtension
         calls:
-            - [ setContainer, [@service_container] ]
+            - [ setContainer, [@service_container]]
         tags:
             - { name: twig.extension }
 
@@ -69,6 +69,13 @@ services:
         calls:
             - [ setDomainName, [%snowcap_core.google_analytics.domain_name%] ]
             - [ setAllowLinker, [%snowcap_core.google_analytics.allow_linker%] ]
+        tags:
+            - { name: twig.extension }
+
+    snowcap_core.twig_paginator:
+        class: Snowcap\CoreBundle\Twig\Extension\PaginatorExtension
+        calls:
+            - [ setContainer, [@service_container]]
         tags:
             - { name: twig.extension }
 

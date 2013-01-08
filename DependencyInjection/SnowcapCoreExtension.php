@@ -25,10 +25,15 @@ class SnowcapCoreExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        // Handle analytics config
         if(isset($config['google_analytics'])) {
             foreach(array('tracking_id', 'domain_name', 'allow_linker', 'debug') as $option) {
                 $container->setParameter('snowcap_core.google_analytics.' . $option, $config['google_analytics'][$option]);
             }
         }
+
+        // Handle paginator twig extension config
+        $paginatorDefinition = $container->getDefinition('snowcap_core.twig_paginator');
+        $paginatorDefinition->addMethodCall('addTemplatePath', array(__DIR__ . '/../Resources/views/Paginator'));
     }
 }

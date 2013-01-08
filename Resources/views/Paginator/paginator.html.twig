@@ -1,0 +1,12 @@
+{# paginator widget block #}
+{% block paginator_widget %}
+{% if paginator.pageCount > 1 %}
+    <ul>
+        {% for i in 1..paginator.pageCount %}
+            <li>
+                <a href="{{ path(route, route_params|merge({'page': i})) }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock paginator_widget %}
