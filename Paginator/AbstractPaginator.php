@@ -17,7 +17,7 @@ abstract class AbstractPaginator implements PaginatorInterface
     /**
      * @var int
      */
-    protected $rangeLimit = 0;
+    protected $rangeLimit = 10;
 
     /**
      * @return int
