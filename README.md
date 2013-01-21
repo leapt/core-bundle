@@ -31,10 +31,10 @@ Add SnowcapCoreBundle in your composer.json:
 Now tell composer to download the bundle by running the command:
 
 ``` bash
-$ php composer.phar update friendsofsymfony/user-bundle
+$ php composer.phar update snowcap/core-bundle
 ```
 
-Composer will install the bundle to your project's `vendor/friendsofsymfony` directory.
+Composer will install the bundle to your project's `vendor/snowcap` directory.
 
 ### Enable the Bundle
 
