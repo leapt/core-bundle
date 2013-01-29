@@ -18,6 +18,7 @@ jQuery(function ($) {
             var removeButton = form.find('.remove-element');
             removeButton.on('click', self.removeElement);
             widget.append(form);
+            container.trigger('new_collection_item');
         };
 
         container.find('.add-element').on('click', self.addElement);
