@@ -2,6 +2,8 @@
 
 namespace Snowcap\CoreBundle\Twig\Extension;
 
+use Snowcap\CoreBundle\Util\String;
+
 class TextExtension extends \Twig_Extension
 {
 
@@ -22,18 +24,6 @@ class TextExtension extends \Twig_Extension
     }
 
     /**
-     * Get all available filters
-     *
-     * @return array
-     */
-    public function getFilters()
-    {
-        return array(
-            'safe_truncate' => new \Twig_Filter_Method($this, 'safeTruncate', array('needs_environment' => true, 'is_safe' => array('html'))),
-        );
-    }
-
-    /**
      * Return the name of the extension
      *
      * @return string
@@ -41,6 +31,27 @@ class TextExtension extends \Twig_Extension
     public function getName()
     {
         return 'snowcap_text';
+    }
+
+    /**
+     * Get all available filters
+     *
+     * @return array
+     */
+    public function getFilters()
+    {
+        return array(
+            'camelize' => new \Twig_Filter_Method($this, 'camelize', array('is_safe' => array('html'))),
+            'safe_truncate' => new \Twig_Filter_Method($this, 'safeTruncate', array('needs_environment' => true, 'is_safe' => array('html'))),
+        );
+    }
+
+    /**
+     * @param $string
+     */
+    public function camelize($string)
+    {
+        return String::camelize($string);
     }
 
     /**
