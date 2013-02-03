@@ -9,6 +9,11 @@ use Snowcap\CoreBundle\Paginator\PaginatorInterface;
 
 class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterface {
     /**
+     * @var string
+     */
+    private $template;
+
+    /**
      * @var \Twig_Environment
      */
     private $environment;
@@ -19,9 +24,12 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
     private $container;
 
     /**
-     * @var array
+     * @param string $template
      */
-    private $templatePaths = array();
+    public function __construct($template)
+    {
+        $this->template = $template;
+    }
 
     /**
      * @param \Twig_Environment $environment
@@ -55,17 +63,7 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
             'route_params' => $newRouteParams
         );
 
-        return $this->renderblock('paginator.html.twig', $blockName, $context);
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'snowcap_core_paginator';
+        return $this->renderblock($this->template, $blockName, $context);
     }
 
     /**
@@ -81,6 +79,24 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
     }
 
     /**
+     * @param string $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * Returns the name of the extension.
+     *
+     * @return string The extension name
+     */
+    public function getName()
+    {
+        return 'snowcap_core_paginator';
+    }
+
+    /**
      * @param string $templateName
      * @param string $blockName
      * @param array $context
@@ -89,10 +105,6 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
      */
     private function renderblock($templateName, $blockName, array $context = array())
     {
-        $loader = $this->environment->getLoader();
-        foreach($this->templatePaths as $templatePath) {
-            $loader->prependPath($templatePath);
-        }
         $template = $this->environment->loadTemplate($templateName);
 
         if (!$template->hasBlock($blockName)) {
@@ -100,18 +112,5 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
         }
 
         return $template->renderBlock($blockName, $context);
-    }
-
-    /**
-     * @param string $templatePath
-     */
-    public function addTemplatePath($templatePath)
-    {
-        $realTemplatePath = realpath($templatePath);
-        if(false === $realTemplatePath) {
-            throw new \InvalidArgumentException(sprintf('The path "%s" does not exist', $templatePath));
-        }
-
-        $this->templatePaths[]= realpath($realTemplatePath);
     }
 }

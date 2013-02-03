@@ -33,7 +33,10 @@ class SnowcapCoreExtension extends Extension
         }
 
         // Handle paginator twig extension config
-        $paginatorDefinition = $container->getDefinition('snowcap_core.twig_paginator');
-        $paginatorDefinition->addMethodCall('addTemplatePath', array(__DIR__ . '/../Resources/views/Paginator'));
+        if(isset($config['paginator'])) {
+            foreach(array('template') as $option) {
+                $container->setParameter('snowcap_core.paginator.' . $option, $config['paginator'][$option]);
+            }
+        }
     }
 }
