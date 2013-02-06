@@ -45,14 +45,19 @@ services:
         tags:
             - { name: doctrine.event_subscriber}
 
-    # Twig extensions
-    snowcap_core.twig_navigation:
-        class: Snowcap\CoreBundle\Twig\Extension\NavigationExtension
+    # Navigation
+    snowcap_core.navigation:
+        class: Snowcap\CoreBundle\Navigation\NavigationRegistry
         calls:
             - [ setContainer, [@service_container]]
+
+    snowcap_core.twig_navigation:
+        class: Snowcap\CoreBundle\Twig\Extension\NavigationExtension
+        arguments: [@snowcap_core.navigation]
         tags:
             - { name: twig.extension }
 
+    # Twig extensions
     snowcap_core.twig_date:
         class: Snowcap\CoreBundle\Twig\Extension\DateExtension
         arguments: [@translator]

@@ -2,33 +2,21 @@
 
 namespace Snowcap\CoreBundle\Twig\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Snowcap\CoreBundle\Navigation\NavigationRegistry;
 
-class NavigationExtension extends \Twig_Extension implements ContainerAwareInterface
+class NavigationExtension extends \Twig_Extension
 {
+    /**
+     * @var \Snowcap\CoreBundle\Navigation\NavigationRegistry
+     */
+    private $registry;
 
     /**
-     * @var array
+     * @param \Snowcap\CoreBundle\Navigation\NavigationRegistry $registry
      */
-    private $activePaths = array();
-
-    /**
-     * @var array
-     */
-    private $breadcrumbsPaths = array();
-
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
-     * @param null|ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container = null)
+    public function __construct(NavigationRegistry $registry)
     {
-        $this->container = $container;
+        $this->registry = $registry;
     }
 
     /**
@@ -68,7 +56,7 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
      */
     public function setActivePaths(array $paths)
     {
-        $this->activePaths = $paths;
+        $this->registry->setActivePaths($paths);
     }
 
     /**
@@ -78,9 +66,8 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
      */
     public function getActivePaths()
     {
-        return $this->activePaths;
+        return $this->registry->getActivePaths();
     }
-
 
     /**
      * Checks if the provided path is to be considered as active
@@ -91,7 +78,7 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
      */
     public function isActivePath($path)
     {
-        return in_array($path, $this->activePaths) || $path === $this->container->get('request')->getRequestUri();
+        return $this->registry->isActivePath($path);
     }
 
     /**
@@ -100,10 +87,7 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
      */
     public function appendBreadcrumb($path, $label)
     {
-        $pair = array($path, $label);
-        if (!in_array($pair, $this->breadcrumbsPaths)) {
-            array_push($this->breadcrumbsPaths, $pair);
-        }
+        $this->registry->appendBreadcrumb($path, $label);
     }
 
     /**
@@ -112,10 +96,7 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
      */
     public function prependBreadcrumb($path, $label)
     {
-        $pair = array($path, $label);
-        if (!in_array($pair, $this->breadcrumbsPaths)) {
-            array_unshift($this->breadcrumbsPaths, $pair);
-        }
+        $this->registry->prependBreadcrumb($path, $label);
     }
 
     /**
@@ -123,6 +104,6 @@ class NavigationExtension extends \Twig_Extension implements ContainerAwareInter
      */
     public function getBreadcrumbs()
     {
-        return $this->breadcrumbsPaths;
+        return $this->registry->getBreadcrumbs();
     }
 }
