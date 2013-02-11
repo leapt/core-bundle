@@ -96,6 +96,12 @@ class FileSubscriber implements EventSubscriber
     public function preFlush(PreFlushEventArgs $ea)
     {
         $entityManager = $ea->getEntityManager();
+
+        // Hit fix, see http://doctrine-project.org/jira/browse/DDC-2276
+        // @todo: wait for real fix
+        if(!$entityManager instanceOf EntityManager) {
+            return;
+        }
         $unitOfWork = $entityManager->getUnitOfWork();
 
         // Then, let's deal with entities schedules for insertion
