@@ -5,11 +5,3 @@ timeago:
     daysago: %days% day ago|%days% days ago
     monthsago: %months% month ago|%months% months ago
     yearsago: %years% year ago|%years% years ago
-
-form:
-    types:
-        file:
-            download:
-                label: Download
-            delete:
-                label: Delete current file
