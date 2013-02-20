@@ -2,6 +2,7 @@
 
 namespace Snowcap\CoreBundle\Listener;
 
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
@@ -47,6 +48,7 @@ class FileSubscriber implements EventSubscriber
         return array(
             Events::loadClassMetadata,
             Events::preFlush,
+            Events::onFlush,
             Events::postPersist,
             Events::postUpdate,
             Events::preRemove,
@@ -104,13 +106,6 @@ class FileSubscriber implements EventSubscriber
         }
         $unitOfWork = $entityManager->getUnitOfWork();
 
-        // Then, let's deal with entities schedules for insertion
-        foreach($unitOfWork->getScheduledEntityInsertions() as $fileEntity){
-            foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
-                $this->preUpload($ea, $fileEntity, $fileConfig);
-            }
-        }
-
         // Finally, check all entities in identity map - if they have a file object they need to be processed
         foreach($unitOfWork->getIdentityMap() as $entities) {
             foreach($entities as $fileEntity) {
@@ -123,6 +118,26 @@ class FileSubscriber implements EventSubscriber
                         $this->preUpload($ea, $fileEntity, $fileConfig);
                     }
                 }
+            }
+        }
+    }/**
+     * @param \Doctrine\ORM\Event\PreFlushEventArgs $ea
+     */
+    public function OnFlush(OnFlushEventArgs $ea)
+    {
+        $entityManager = $ea->getEntityManager();
+
+        // Hit fix, see http://doctrine-project.org/jira/browse/DDC-2276
+        // @todo: wait for real fix
+        if(!$entityManager instanceOf EntityManager) {
+            return;
+        }
+        $unitOfWork = $entityManager->getUnitOfWork();
+
+        // Then, let's deal with entities schedules for insertion
+        foreach($unitOfWork->getScheduledEntityInsertions() as $fileEntity){
+            foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
+                $this->preUpload($ea, $fileEntity, $fileConfig);
             }
         }
     }
