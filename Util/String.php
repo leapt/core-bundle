@@ -67,7 +67,7 @@ class String {
      * @param $string
      * @return string
      */
-    static public function sluggify($string)
+    static public function slugify($string)
     {
         $slug = self::unaccent($string);
         $slug = strtolower($slug);
@@ -84,4 +84,15 @@ class String {
         return trim($slug, '-');
     }
 
+    /**
+     * @param string $string
+     * @return string
+     * @deprecated
+     */
+    static public function sluggify($string)
+    {
+        trigger_error('sluggify() is deprecated. Use slugify instead');
+
+        return self::slugify($string);
+    }
 }
