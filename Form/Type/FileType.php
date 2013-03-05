@@ -43,7 +43,7 @@ class FileType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
-            ->setOptional(array(
+            ->setRequired(array(
                 'file_path',
             ))
             ->setDefaults(array(
