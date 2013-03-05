@@ -108,7 +108,7 @@ class FileType extends AbstractType
             catch(\Exception $e) {
                 $fileUrl = null;
             }
-            // set an "image_url" variable that will be available when rendering this field
+            // set an "file_url" variable that will be available when rendering this field
             $view->vars['file_url'] = $fileUrl;
         }
         $view->vars['download_label'] = $options['download_label'];
