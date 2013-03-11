@@ -30,6 +30,7 @@ class NavigationExtension extends \Twig_Extension
     {
         return array(
             'set_active_paths' => new \Twig_Function_Method($this, 'setActivePaths'),
+            'add_active_path' => new \Twig_Function_Method($this, 'addActivePath'),
             'is_active_path' => new \Twig_Function_Method($this, 'isActivePath'),
             'append_breadcrumb' => new \Twig_Function_Method($this, 'appendBreadcrumb'),
             'prepend_breadcrumb' => new \Twig_Function_Method($this, 'prependBreadcrumb'),
@@ -57,6 +58,16 @@ class NavigationExtension extends \Twig_Extension
     public function setActivePaths(array $paths)
     {
         $this->registry->setActivePaths($paths);
+    }
+
+    /**
+     * Add a path to be considered as active (navigation-wise)
+     *
+     * @param array $paths an array of URI paths
+     */
+    public function addActivePath($path)
+    {
+        $this->registry->addActivePath($path);
     }
 
     /**
