@@ -28,11 +28,15 @@ class GoogleExtension extends \Twig_Extension
      */
     private $allowLinker;
 
-
     /**
      * @var bool
      */
     private $debug;
+
+    /**
+     * @var string
+     */
+    private $tagsManagerId;
 
     /**
      * @param string $accountId
@@ -66,6 +70,7 @@ class GoogleExtension extends \Twig_Extension
         return array(
             'analytics_tracking_code'     => new \Twig_Function_Method($this, 'getAnalyticsTrackingCode', array('is_safe' => array('html'))),
             'analytics_tracking_commerce' => new \Twig_Function_Method($this, 'getAnalyticsCommerce', array('is_safe' => array('html'))),
+            'tags_manager_code' => new \Twig_Function_Method($this, 'getTagsManagerCode', array('is_safe' => array('html'))),
         );
     }
 
@@ -122,11 +127,19 @@ class GoogleExtension extends \Twig_Extension
     }
 
     /**
+     * @param string $tagsManagerId
+     */
+    public function setTagsManagerId($tagsManagerId)
+    {
+        $this->tagsManagerId = $tagsManagerId;
+    }
+
+    /**
      * @return string
      */
     public function getAnalyticsTrackingCode()
     {
-        if (null !== $this->accountId || $this->domainName === 'none') {
+        if (null !== $this->accountId) {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
 
             return $template->render(
@@ -176,7 +189,20 @@ class GoogleExtension extends \Twig_Extension
             return $template->render(array('order' => $order));
         }
 
-        return '<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->';
+        return '<!-- AnalyticsTrackingCode: account id is null -->';
     }
 
+    /**
+     * @return string
+     */
+    public function getTagsManagerCode()
+    {
+        if (null !== $this->tagsManagerId) {
+            $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tags_manager_code.html.twig');
+
+            return $template->render(array('tags_manager_id' => $this->tagsManagerId));
+        }
+
+        return '<!-- TagsManagerCode: tags manager id is null -->';
+    }
 }
