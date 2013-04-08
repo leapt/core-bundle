@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('google_tags_manager')
+                ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('id')->defaultNull()->end()
                     ->end()
