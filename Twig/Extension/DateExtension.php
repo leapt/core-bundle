@@ -29,7 +29,7 @@ class DateExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'time_ago'      => new \Twig_Filter_Method($this, 'timeAgo'),
+            'time_ago' => new \Twig_Filter_Method($this, 'timeAgo'),
         );
     }
 
@@ -96,6 +96,5 @@ class DateExtension extends \Twig_Extension
         $interval = $current_date->diff($datetime);
 
         return $interval;
-
     }
 }

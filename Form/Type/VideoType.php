@@ -31,9 +31,7 @@ class VideoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
-            ->setDefaults(array(
-                'provider' => 'youtube'
-            ))
+            ->setOptional(array('provider'))
             ->setAllowedValues(array(
                 'provider' => array('youtube', 'tudou')
             ));
@@ -46,6 +44,8 @@ class VideoType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['provider'] = $options['provider'];
+        if(isset($options['provider'])) {
+            $view->vars['provider'] = $options['provider'];
+        }
     }
 }
