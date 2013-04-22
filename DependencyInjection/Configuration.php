@@ -35,11 +35,17 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('id')->defaultNull()->end()
                     ->end()
                 ->end()
+                ->arrayNode('facebook')
+                ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('app_id')->defaultNull()->end()
+                    ->end()
+                ->end()
                 ->arrayNode('paginator')
                     ->children()
                         ->scalarNode('template')->defaultValue('SnowcapCoreBundle:Paginator:paginator.html.twig')->end()
                     ->end()
-            ->end()
+                ->end()
         ;
 
         // Here you should define the parameters that are allowed to

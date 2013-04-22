@@ -36,6 +36,12 @@ class SnowcapCoreExtension extends Extension
                 $container->setParameter('snowcap_core.google_tags_manager.' . $option, $config['google_tags_manager'][$option]);
             }
         }
+        // Handle facebook config
+        if(isset($config['facebook'])) {
+            foreach(array('app_id',) as $option) {
+                $container->setParameter('snowcap_core.facebook.' . $option, $config['facebook'][$option]);
+            }
+        }
 
         // Handle paginator twig extension config
         if(isset($config['paginator'])) {

@@ -15,7 +15,6 @@ services:
         class: Twig_Extensions_Extension_Text
         tags: [ { name: 'twig.extension' } ]
 
-
     # Form types
     snowcap_core.file_type:
         class: Snowcap\CoreBundle\Form\Type\FileType
@@ -76,6 +75,12 @@ services:
             - [ setDomainName, [%snowcap_core.google_analytics.domain_name%]]
             - [ setAllowLinker, [%snowcap_core.google_analytics.allow_linker%]]
             - [ setTagsManagerId, [%snowcap_core.google_tags_manager.id%]]
+        tags:
+            - { name: twig.extension }
+
+    snowcap_core.twig_facebook:
+        class: Snowcap\CoreBundle\Twig\Extension\FacebookExtension
+        arguments: [%snowcap_core.facebook.app_id%]
         tags:
             - { name: twig.extension }
 
