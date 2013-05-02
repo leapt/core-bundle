@@ -30,6 +30,10 @@ services:
         class: Snowcap\CoreBundle\Form\Type\VideoType
         tags:
             - { name: form.type, alias: snowcap_core_video }
+    snowcap_core.sound_type:
+        class: Snowcap\CoreBundle\Form\Type\SoundType
+        tags:
+            - { name: form.type, alias: snowcap_core_sound }
 
     # Form type extensions
     snowcap_core.collection_type_extension:
