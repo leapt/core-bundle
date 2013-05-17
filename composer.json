@@ -29,6 +29,7 @@
         "symfony/framework-bundle": ">=2.2,<2.4-dev"
     },
     "require-dev": {
+        "symfony/symfony": ">=2.2,<2.4-dev",
         "fzaninotto/faker": "1.1.*@dev",
         "doctrine/data-fixtures": "1.0.*@dev"
 },
