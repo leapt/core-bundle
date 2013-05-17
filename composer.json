@@ -26,7 +26,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": ">=2.2"
+        "symfony/framework-bundle": ">=2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "1.1.*@dev",
@@ -38,7 +38,7 @@
     "target-dir": "Snowcap/CoreBundle",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.2.x-dev"
+            "dev-master": "2.3.x-dev"
         }
     }
 }
