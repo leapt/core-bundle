@@ -14,7 +14,7 @@ jQuery(function ($) {
         self.addElement = function(event){
             event.preventDefault();
             var prototype = widget.attr('data-prototype');
-            var form = $(prototype.replace(/__name__/g, widget.children().length));
+            var form = $($.trim(prototype.replace(/__name__/g, widget.children().length)));
             var removeButton = form.find('.remove-element');
             removeButton.on('click', self.removeElement);
             widget.append(form);
