@@ -1,9 +1,9 @@
 jQuery(function ($) {
 
-    var CollectionForm = function (widget) {
+    var CollectionForm = function (container) {
         var self = this;
-        var widget = $(widget);
-        var container = $(widget).parent('.collection-container');
+        var container = $(container);
+        var widget = $(container).find('[data-prototype]');
         // When the link is clicked we add the field to input another element
 
         self.removeElement = function(event){
@@ -30,5 +30,5 @@ jQuery(function ($) {
         });
     };
 
-    $('[data-core=form-collection]').collectionForm();
+    $('[data-core=form-collection-container]').collectionForm();
 });
