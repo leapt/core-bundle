@@ -21,8 +21,8 @@ jQuery(function ($) {
             container.trigger('new_collection_item');
         };
 
-        container.find('.add-element').on('click', self.addElement);
-        widget.find('.remove-element').on('click', self.removeElement);
+        container.find('.add-element, [data-core=collection-item-add]').on('click', self.addElement);
+        widget.find('.remove-element, [data-core=collection-item-remove]').on('click', self.removeElement);
     };
     $.fn.collectionForm = function (options) {
         return this.each(function () {
@@ -30,5 +30,5 @@ jQuery(function ($) {
         });
     };
 
-    $('*[data-prototype]').collectionForm();
+    $('[data-core=collection]').collectionForm();
 });

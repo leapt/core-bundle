@@ -1,10 +1,11 @@
 {% extends 'form_div_layout.html.twig' %}
 
 {% block collection_widget %}
+    {% set attr = attr|merge({'data-core': 'collection' }) %}
     <div class="collection-container">
         {{ parent() }}
         {% if allow_add %}
-            <a href="#" class="add-element">{{ add_label is not null ? add_label|trans({}, translation_domain) : 'Add' }}</a>
+            <a href="#" data-core="collection-item-add">{{ add_label is not null ? add_label|trans({}, translation_domain) : 'Add' }}</a>
         {% endif %}
     </div>
 {% endblock collection_widget %}
