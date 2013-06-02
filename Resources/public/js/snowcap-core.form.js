@@ -7,6 +7,8 @@ SnowcapCore.Form = (function($) {
      */
     var Collection = Backbone.View.extend({
         $container: null,
+        $form: null,
+        $widget: null,
         dataPrototype: null,
         events: {
             'click .add-element': 'addItem', // Legacy
@@ -19,6 +21,7 @@ SnowcapCore.Form = (function($) {
          *
          */
         initialize: function() {
+            this.$form = this.$el.parents('form');
             this.$widget = this.$el.find('[data-prototype]');
             this.dataPrototype = this.$widget.data('prototype');
         },
@@ -38,6 +41,9 @@ SnowcapCore.Form = (function($) {
                 $collectionItem = $target.parent();
             }
             $collectionItem.remove();
+
+            this.trigger('form:collection:remove');
+            this.$form.trigger('change');
         },
         /**
          * Add a collection item
@@ -50,6 +56,7 @@ SnowcapCore.Form = (function($) {
             this.$widget.append($form);
 
             this.trigger('form:collection:add', $form);
+            this.$form.trigger('change');
         }
     });
 
