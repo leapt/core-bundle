@@ -1,13 +1,15 @@
 {% extends 'form_div_layout.html.twig' %}
 
 {% block collection_widget %}
-    {% set container_data_attr = container_data_attr|default('data-core="form-collection-container"') %}
-    {% set add_data_attr = add_data_attr|default('data-core="form-collection-add"') %}
-
-    <div class="collection-container" {{ container_data_attr|raw }}>
-        {{ parent() }}
-        {% if allow_add %}
-            <a href="#" {{ add_data_attr|raw }}>{{ add_label is not null ? add_label|trans({}, translation_domain) : 'Add' }}</a>
+    {% spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
         {% endif %}
-    </div>
+        <div class="form-collection" data-core="form-collection">
+            {{ block('form_widget') }}
+            {% if allow_add %}
+                <a href="#" data-core="form-collection-add">{{ add_label|trans({}, translation_domain) }}</a>
+            {% endif %}
+        </div>
+    {% endspaceless %}
 {% endblock collection_widget %}

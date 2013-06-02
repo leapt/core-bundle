@@ -22,7 +22,7 @@ class CollectionTypeExtension extends AbstractTypeExtension {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'add_label' => null
+            'add_label' => 'Add'
         ));
     }
 
