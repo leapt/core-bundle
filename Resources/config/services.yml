@@ -3,7 +3,7 @@ parameters:
     snowcap_core.google_analytics.debug:
     snowcap_core.google_analytics.domain_name:
     snowcap_core.google_analytics.allow_linker:
-    snowcap_core.paginator_template: SnowcapCoreBundle:Paginator:paginator.html.twig
+    snowcap_core.paginator.template: ~
 
 services:
     # Load twig debug
@@ -95,7 +95,7 @@ services:
 
     snowcap_core.twig_paginator:
         class: Snowcap\CoreBundle\Twig\Extension\PaginatorExtension
-        arguments: [%snowcap_core.paginator_template%]
+        arguments: [%snowcap_core.paginator.template%]
         calls:
             - [ setContainer, [@service_container]]
         tags:

@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('paginator')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('template')->defaultValue('SnowcapCoreBundle:Paginator:paginator.html.twig')->end()
                     ->end()
