@@ -2,6 +2,7 @@
 
 namespace Snowcap\CoreBundle\Twig\Extension;
 
+use Snowcap\CoreBundle\Twig\TokenParser\PaginatorThemeTokenParser;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,11 +25,17 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
     private $container;
 
     /**
+     * @var \SplObjectStorage
+     */
+    private $themes;
+
+    /**
      * @param string $template
      */
     public function __construct($template)
     {
         $this->template = $template;
+        $this->themes = new \SplObjectStorage();
     }
 
     /**
@@ -49,6 +56,14 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
         );
     }
 
+    /**
+     * @return array
+     */
+    public function getTokenParsers()
+    {
+        return array(new PaginatorThemeTokenParser());
+    }
+
     public function renderPaginatorWidget(PaginatorInterface $paginator){
         $blockName = 'paginator_widget';
 
@@ -63,7 +78,7 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
             'route_params' => $newRouteParams
         );
 
-        return $this->renderblock($this->template, $blockName, $context);
+        return $this->renderblock($paginator, array($blockName), $context);
     }
 
     /**
@@ -87,6 +102,28 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
     }
 
     /**
+     * @param PaginatorInterface $paginator
+     * @return array
+     */
+    private function getTemplatesForPaginator(PaginatorInterface $paginator)
+    {
+        if(isset($this->themes[$paginator])){
+            return $this->themes[$paginator];
+        }
+
+        return array($this->template);
+    }
+
+    /**
+     * @param PaginatorInterface $paginator
+     * @param $ressources
+     */
+    public function setTheme(PaginatorInterface $paginator, $ressources)
+    {
+        $this->themes[$paginator] = $ressources;
+    }
+
+    /**
      * Returns the name of the extension.
      *
      * @return string The extension name
@@ -97,20 +134,29 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
     }
 
     /**
-     * @param string $templateName
-     * @param string $blockName
+     * @param \Snowcap\AdminBundle\Datalist\DatalistInterface $datalist
+     * @param array $blockNames
      * @param array $context
      * @return string
      * @throws \Exception
      */
-    private function renderblock($templateName, $blockName, array $context = array())
+    private function renderblock(PaginatorInterface $paginator, array $blockNames, array $context = array())
     {
-        $template = $this->environment->loadTemplate($templateName);
-
-        if (!$template->hasBlock($blockName)) {
-            throw new \Exception(sprintf('The block "%s" could not be loaded ', $blockName));
+        $paginatorTemplates = $this->getTemplatesForPaginator($paginator);
+        foreach($paginatorTemplates as $template) {
+            if (!$template instanceof \Twig_Template) {
+                $template = $this->environment->loadTemplate($template);
+            }
+            do {
+                foreach($blockNames as $blockName) {
+                    if ($template->hasBlock($blockName)) {
+                        return $template->renderBlock($blockName, $context);
+                    }
+                }
+            }
+            while(($template = $template->getParent($context)) !== false);
         }
 
-        return $template->renderBlock($blockName, $context);
+        throw new \Exception(sprintf('No block found (tried to find %s)', implode(',', $blockNames)));
     }
 }
