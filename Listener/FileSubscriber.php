@@ -228,12 +228,16 @@ class FileSubscriber implements EventSubscriber
             $newMappedValue = $this->generateFileName($fileEntity, $fileConfig);
             $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['mappedBy'], $newMappedValue);
 
-            if ($fileConfig['filename'] !== null) {
-                $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['filename'], $propertyValue->getClientOriginalName());
-            }
-
             $entityManager = $ea->getEntityManager();
             $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $fileConfig['mappedBy'], $oldMappedValue, $newMappedValue);
+
+            if ($fileConfig['filename'] !== null) {
+                $oldFilename = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['filename']);
+                $newFilename = $propertyValue->getClientOriginalName();
+
+                $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['filename'], $newFilename);
+                $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $fileConfig['filename'], $oldFilename, $newFilename);
+            }
         }
     }
 
