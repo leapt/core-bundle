@@ -2,6 +2,8 @@
 
 namespace Snowcap\CoreBundle\Sitemap;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class SitemapManager {
 
     /**
@@ -29,11 +31,11 @@ class SitemapManager {
     /**
      * @param string $alias
      * @return AbstractSitemap
-     * @throws \InvalidArgumentException
+     * @throws NotFoundHttpException
      */
     public function getSitemap($alias) {
         if(!isset($this->sitemaps[$alias])) {
-            throw new \InvalidArgumentException(sprintf('There is no sitemap with alias "%s"', $alias));
+            throw new NotFoundHttpException(sprintf('There is no sitemap with alias "%s"', $alias));
         }
 
         return $this->sitemaps[$alias];
