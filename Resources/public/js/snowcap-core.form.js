@@ -62,25 +62,65 @@ SnowcapCore.Form = (function($) {
 
     /**
      * Form collection factory function
-     *
-     * @param $context
      */
-    var collectionFactory = function() {
-        var $context = (0 === arguments.length) ? $('body') : arguments[0];
-        $context.find('[data-core=form-collection]').each(function(offset, container) {
-            new Collection({el: $(container)});
+    var collectionFactory = function () {
+        var context = arguments[0] || 'body';
+        $('[data-core=form-collection]', context).each(function (offset, container) {
+            if (!$(container).data('widget')) {
+                $(container).data('widget', new Collection({'el': container}));
+            }
         });
     };
 
+    var Manager = Backbone.View.extend({
+        events: {
+            'change': 'onChange'
+        },
+        initialize: function () {
+            this.factories = [];
+            this.hasChanged = false;
+        },
+        registerFactory: function(factory) {
+            if(_.isFunction(factory)) {
+                this.factories.push(factory);
+                factory(this.$el);
+            } else {
+                throw "To register a widget factory into form manager is has to be a function";
+            }
+        },
+        onChange: function (event) {
+            this.hasChanged = true;
+            this.updateViews();
+        },
+        updateViews: function () {
+            _.each(this.factories, function (factory) {
+                factory(this.$el);
+            }, this);
+        }
+    });
+
     return {
+        Manager: Manager,
         Collection: Collection,
-        collectionFactory: collectionFactory
+        factories: {
+            collectionFactory: collectionFactory
+        },
+        instances : {
+            managers: []
+        }
     };
 
 })(jQuery);
 
-jQuery(document).ready(function() {
-
-    SnowcapCore.Form.collectionFactory();
-
+jQuery(document).ready(function () {
+    $('[data-core=form-manager]').each(function (i, element) {
+        if (!$(element).data('widget')) {
+            var manager = new SnowcapCore.Form.Manager({el: element});
+            _.each(SnowcapCore.Form.factories, function(factory) {
+                manager.registerFactory(factory);
+            });
+            SnowcapCore.Form.instances.managers.push(manager);
+            $(element).data('widget', manager);
+        }
+    });
 });
