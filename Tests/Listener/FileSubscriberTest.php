@@ -96,6 +96,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
     }
 
+    /*
     public function testPreFlushInsert()
     {
         $user = $this->buildUserToInsert();
@@ -106,7 +107,9 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('cv', $changeset);
         $this->assertNotNull($user->getCv());
     }
+    */
 
+    /*
     public function testPreFlushInsertForMappedSuperClass()
     {
         $novel = $this->buildNovelToInsert();
@@ -117,6 +120,7 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('attachment', $changeset);
         $this->assertNotNull($novel->getAttachment());
     }
+    */
 
     public function testPreFlushUpdate()
     {
