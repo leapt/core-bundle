@@ -3,6 +3,7 @@
 namespace Snowcap\CoreBundle\Listener;
 
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Snowcap\CoreBundle\Util\String;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
@@ -12,6 +13,7 @@ use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Events;
 
 use Snowcap\CoreBundle\File\CondemnedFile;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class FileSubscriber implements EventSubscriber
 {
@@ -86,7 +88,8 @@ class FileSubscriber implements EventSubscriber
                     'path' => $annotation->path,
                     'mappedBy' => $annotation->mappedBy,
                     'filename' => $annotation->filename,
-                    'meta' => $meta
+                    'meta' => $meta,
+                    'nameCallback' => $annotation->nameCallback
                 );
             }
         }
@@ -120,8 +123,10 @@ class FileSubscriber implements EventSubscriber
                 }
             }
         }
-    }/**
-     * @param \Doctrine\ORM\Event\PreFlushEventArgs $ea
+    }
+
+    /**
+     * @param \Doctrine\ORM\Event\OnFlushEventArgs $ea
      */
     public function OnFlush(OnFlushEventArgs $ea)
     {
@@ -146,7 +151,7 @@ class FileSubscriber implements EventSubscriber
      * Return all the file fields for the provided entity
      *
      * @param $entity
-     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @param \Doctrine\ORM\EntityManager $em
      * @return array
      */
     private function getFileFields($entity, EntityManager $em)
@@ -274,7 +279,7 @@ class FileSubscriber implements EventSubscriber
 
     /**
      * @param $fileEntity
-     * @param array $file
+     * @param array $fileConfig
      */
     private function preRemoveUpload($fileEntity, array $fileConfig)
     {
@@ -305,6 +310,15 @@ class FileSubscriber implements EventSubscriber
      */
     private function generateFileName($fileEntity, array $fileConfig)
     {
-        return $fileConfig['path'] . '/' . uniqid() . '.' . $fileConfig['property']->getValue($fileEntity)->guessExtension();
+        if ($fileConfig['nameCallback'] !== null) {
+            $accessor = PropertyAccess::createPropertyAccessor();
+            $filename = $accessor->getValue($fileEntity, $fileConfig['nameCallback']);
+            $filename = String::slugify($filename);
+        }
+        else {
+            $filename = uniqid();
+        }
+
+        return $fileConfig['path'] . '/' . $filename . '.' . $fileConfig['property']->getValue($fileEntity)->guessExtension();
     }
 }
