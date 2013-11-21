@@ -33,7 +33,7 @@ class VideoType extends AbstractType
         $resolver
             ->setOptional(array('provider'))
             ->setAllowedValues(array(
-                'provider' => array('youtube', 'tudou')
+                'provider' => array('youtube', 'tudou', 'vimeo', 'dailymotion')
             ));
     }
 
