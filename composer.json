@@ -26,12 +26,12 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": ">=2.2,<2.4-dev"
+        "symfony/framework-bundle": ">=2.2"
     },
     "require-dev": {
-        "symfony/symfony": ">=2.2,<2.4-dev",
+        "symfony/symfony": ">=2.2",
         "fzaninotto/faker": "1.1.*@dev",
-        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/orm": ">=2.2.3",
         "doctrine/doctrine-bundle": "1.2.*",
         "doctrine/data-fixtures": "1.0.*@dev"
 },
