@@ -310,15 +310,32 @@ class FileSubscriber implements EventSubscriber
      */
     private function generateFileName($fileEntity, array $fileConfig)
     {
+        $path = $fileConfig['path'] . '/';
+        $ext = '.' . $fileConfig['property']->getValue($fileEntity)->guessExtension();
+
         if ($fileConfig['nameCallback'] !== null) {
             $accessor = PropertyAccess::createPropertyAccessor();
             $filename = $accessor->getValue($fileEntity, $fileConfig['nameCallback']);
             $filename = String::slugify($filename);
+
+            /*
+             * Here we check if a file with the same name already exists
+             * If yes then we run until a filename is not already used
+             */
+            $i = 0;
+
+            do {
+                $testFile = $filename . (0 === $i ? '' : '-'.$i);
+                $i++;
+            }
+            while(file_exists($path . $testFile . $ext));
+
+            $filename = $testFile;
         }
         else {
             $filename = uniqid();
         }
 
-        return $fileConfig['path'] . '/' . $filename . '.' . $fileConfig['property']->getValue($fileEntity)->guessExtension();
+        return $path . $filename . $ext;
     }
 }
