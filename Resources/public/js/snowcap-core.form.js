@@ -22,7 +22,7 @@ SnowcapCore.Form = (function($) {
          */
         initialize: function() {
             this.$form = this.$el.parents('form');
-            this.$widget = this.$el.find('[data-prototype]');
+            this.$widget = this.$el.find('[data-prototype]').first();
             this.dataPrototype = this.$widget.data('prototype');
         },
         /**
