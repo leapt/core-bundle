@@ -72,7 +72,7 @@ class FileType extends AbstractType
                 'error_bubbling' => true,
             ))
             ->addViewTransformer(new FileDataTransformer())
-            ->addEventListener(FormEvents::POST_BIND, function(FormEvent $event) use($filePath, $uploadDir) {
+            ->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use($filePath, $uploadDir) {
                 // We need to store the path to the file to delete in the Condemned file instance
                 $data = $event->getData();
                 if($data['file'] instanceof CondemnedFile) {
@@ -100,7 +100,7 @@ class FileType extends AbstractType
                     if(is_callable($options['file_path'])) {
                         $fileUrl = call_user_func($options['file_path'], $parentData);
                     } else {
-                        $accessor = PropertyAccess::getPropertyAccessor();
+                        $accessor = PropertyAccess::createPropertyAccessor();
                         $fileUrl = $accessor->getValue($parentData, $options['file_path']);
                     }
                 }
@@ -117,7 +117,7 @@ class FileType extends AbstractType
     }
 
     /**
-     * @param string $rootDir
+     * @param string $uploadDir
      */
     public function setUploadDir($uploadDir) {
         $this->uploadDir = $uploadDir;

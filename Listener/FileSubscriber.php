@@ -2,6 +2,8 @@
 
 namespace Snowcap\CoreBundle\Listener;
 
+use Doctrine\Common\Annotations\AnnotationException;
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Snowcap\CoreBundle\Util\String;
 use Symfony\Component\HttpFoundation\File\File;
@@ -64,7 +66,7 @@ class FileSubscriber implements EventSubscriber
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
-        $reader = new \Doctrine\Common\Annotations\AnnotationReader();
+        $reader = new AnnotationReader();
         $meta = $eventArgs->getClassMetadata();
         foreach ($meta->getReflectionClass()->getProperties() as $property) {
             if ($meta->isMappedSuperclass && !$property->isPrivate() ||
@@ -77,10 +79,32 @@ class FileSubscriber implements EventSubscriber
                 $property->setAccessible(true);
                 $field = $property->getName();
 
-                //TODO: Improve validation
+                if (null === $annotation->mappedBy) {
+                    throw AnnotationException::requiredError(
+                        'mappedBy',
+                        'SnowcapCore\File',
+                        $meta->getReflectionClass()->getName(),
+                        'another class property to map onto'
+                    );
+                }
+                if (null === $annotation->path && null === $annotation->pathCallback) {
+                    throw AnnotationException::syntaxError(
+                        sprintf(
+                            'Annotation @%s declared on %s expects "path" or "pathCallback". One of them should not be null.',
+                            'SnowcapCore\File',
+                            $meta->getReflectionClass()->getName()
+                        )
+                    );
+                }
                 if (!$meta->hasField($annotation->mappedBy)) {
-                    $exceptionMessage = 'The entity "%s" has no field named "%s", but it is documented in a Snowcap File annotation';
-                    throw new \UnexpectedValueException(sprintf($exceptionMessage, $meta->getReflectionClass()->getName(), $annotation->mappedBy));
+                    throw AnnotationException::syntaxError(
+                        sprintf(
+                            'The entity "%s" has no field named "%s", but it is documented in the annotation @%s',
+                            $meta->getReflectionClass()->getName(),
+                            $annotation->mappedBy,
+                            'SnowcapCore\File'
+                        )
+                    );
                 }
 
                 $this->config[$meta->getName()]['fields'][$field] = array(
@@ -89,7 +113,8 @@ class FileSubscriber implements EventSubscriber
                     'mappedBy' => $annotation->mappedBy,
                     'filename' => $annotation->filename,
                     'meta' => $meta,
-                    'nameCallback' => $annotation->nameCallback
+                    'nameCallback' => $annotation->nameCallback,
+                    'pathCallback' => $annotation->pathCallback,
                 );
             }
         }
@@ -310,7 +335,12 @@ class FileSubscriber implements EventSubscriber
      */
     private function generateFileName($fileEntity, array $fileConfig)
     {
-        $path = $fileConfig['path'] . '/';
+        $path = $fileConfig['path'];
+        if (null !== $fileConfig['pathCallback']) {
+            $accessor = PropertyAccess::createPropertyAccessor();
+            $path = $accessor->getValue($fileEntity, $fileConfig['pathCallback']);
+        }
+        $path .= '/';
         $ext = '.' . $fileConfig['property']->getValue($fileEntity)->guessExtension();
 
         if ($fileConfig['nameCallback'] !== null) {
