@@ -52,7 +52,12 @@ SnowcapCore.Form = (function($) {
          */
         addItem: function(event) {
             event.preventDefault();
-            var $form = $($.trim(this.dataPrototype.replace(/__name__/g, this.$widget.children().length)));
+
+            var index = this.$('[data-core=form-collection-item]').length;
+            if(index === 0) {
+                index = this.$widget.children().length;
+            }
+            var $form = $($.trim(this.dataPrototype.replace(/__name__/g, index)));
             this.$widget.append($form);
 
             this.trigger('form:collection:add', $form);
