@@ -2,7 +2,10 @@
 
 namespace Snowcap\CoreBundle\Tests\Twig\Extension;
 
+use Snowcap\CoreBundle\Navigation\NavigationRegistry;
 use Snowcap\CoreBundle\Twig\Extension\NavigationExtension;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class NavigationExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,9 +15,25 @@ class NavigationExtensionTest extends \PHPUnit_Framework_TestCase
      */
     private $extension;
 
+    /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
     public function setUp()
     {
-        $this->extension = new NavigationExtension();
+        $this->container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $this->request = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $registry = new NavigationRegistry();
+        $registry->setContainer($this->container);
+
+        $this->extension = new NavigationExtension($registry);
+
     }
 
     /**
@@ -22,13 +41,9 @@ class NavigationExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsActivePath()
     {
-        $fakeRequest = $this->getMock('Symfony\Component\HttpFoundation\Request');
-        $fakeRequest->expects($this->any())->method('getRequestUri')->will($this->returnValue('some/request/uri'));
 
-        $fakeContainer = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $fakeContainer->expects($this->any())->method('get')->with($this->equalTo('request'))->will($this->returnValue($fakeRequest));
-
-        $this->extension->setContainer($fakeContainer);
+        $this->request->expects($this->any())->method('getRequestUri')->will($this->returnValue('some/request/uri'));
+        $this->container->expects($this->any())->method('get')->with($this->equalTo('request'))->will($this->returnValue($this->request));
 
         $this->extension->setActivePaths(array('some/specific/path'));
         $this->assertEquals(array('some/specific/path'), $this->extension->getActivePaths(), 'setActivePaths: Should return an array with "some/specific/path"');

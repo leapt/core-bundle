@@ -1,8 +1,6 @@
 <?php
 namespace Snowcap\CoreBundle\Twig\Extension;
 
-use \Symfony\Component\DependencyInjection\ContainerInterface;
-
 class GoogleExtension extends \Twig_Extension
 {
 
@@ -139,7 +137,7 @@ class GoogleExtension extends \Twig_Extension
      */
     public function getAnalyticsTrackingCode()
     {
-        if (null !== $this->accountId) {
+        if (null !== $this->accountId || 'none' === $this->domainName) {
             $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
 
             return $template->render(

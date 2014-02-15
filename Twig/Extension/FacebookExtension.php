@@ -1,8 +1,6 @@
 <?php
 namespace Snowcap\CoreBundle\Twig\Extension;
 
-use \Symfony\Component\DependencyInjection\ContainerInterface;
-
 class FacebookExtension extends \Twig_Extension
 {
     /**
@@ -16,8 +14,7 @@ class FacebookExtension extends \Twig_Extension
     private $twigEnvironment;
 
     /**
-     * @param string $accountId
-     * @param bool   $debug
+     * @param string $appId
      */
     public function __construct($appId)
     {

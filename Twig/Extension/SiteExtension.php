@@ -2,8 +2,6 @@
 
 namespace Snowcap\CoreBundle\Twig\Extension;
 
-use \Symfony\Component\DependencyInjection\ContainerInterface;
-
 class SiteExtension extends \Twig_Extension
 {
     /**
@@ -54,6 +52,7 @@ class SiteExtension extends \Twig_Extension
     }
 
     /**
+     * @param string $defaultDescription
      * @return string
      */
     public function getMetaDescription($defaultDescription)
