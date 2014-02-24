@@ -31,6 +31,7 @@ class NavigationExtension extends \Twig_Extension
         return array(
             'set_active_paths' => new \Twig_Function_Method($this, 'setActivePaths'),
             'add_active_path' => new \Twig_Function_Method($this, 'addActivePath'),
+            'get_active_paths' => new \Twig_Function_Method($this, 'getActivePaths'),
             'is_active_path' => new \Twig_Function_Method($this, 'isActivePath'),
             'append_breadcrumb' => new \Twig_Function_Method($this, 'appendBreadcrumb'),
             'prepend_breadcrumb' => new \Twig_Function_Method($this, 'prependBreadcrumb'),
