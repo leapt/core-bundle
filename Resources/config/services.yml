@@ -6,10 +6,6 @@ parameters:
     snowcap_core.paginator.template: ~
 
 services:
-    # Load twig debug
-    twig.extension.debug:
-        class: Twig_Extensions_Extension_Debug
-        tags: [ { name: 'twig.extension' } ]
     # Load twig dump
     twig.extension.dump:
         class: Twig_Extension_Debug
