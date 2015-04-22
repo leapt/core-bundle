@@ -349,18 +349,9 @@ class FileSubscriber implements EventSubscriber
             $filename = String::slugify($filename);
 
             /*
-             * Here we check if a file with the same name already exists
-             * If yes then we run until a filename is not already used
+             * Here we add a uniqid at the end of the filename to avoid any cache issue
              */
-            $i = 0;
-
-            do {
-                $testFile = $filename . (0 === $i ? '' : '-'.$i);
-                $i++;
-            }
-            while(file_exists($path . $testFile . $ext));
-
-            $filename = $testFile;
+            $filename .= '-' . uniqid();
         }
         else {
             $filename = uniqid();
