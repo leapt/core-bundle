@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -38,9 +38,9 @@ class FileType extends AbstractType
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setRequired(array(
@@ -77,7 +77,7 @@ class FileType extends AbstractType
                 $data = $event->getData();
                 if($data['file'] instanceof CondemnedFile) {
                     $parentForm = $event->getForm()->getParent();
-                    $accessor = PropertyAccess::getPropertyAccessor();
+                    $accessor = PropertyAccess::createPropertyAccessor();
                     $imagePath = $accessor->getValue($parentForm->getData(), $filePath);
                     $data['file']->setPath($uploadDir . '/' . $imagePath);
                 }

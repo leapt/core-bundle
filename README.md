@@ -9,21 +9,28 @@ The Snowcap Core Bundle is a bundle used at Snowcap to help us with some repetit
 * RSS feed generation
 * SEO-related tasks (sitemaps, etc)
 
-## Prerequisites
-
-This version of the bundle requires Symfony 2.2+. If you are using Symfony
-2.1.x, please use the 2.1.x branch of the bundle.
-
 ## Installation
 
 ### Download SnowcapCoreBundle using composer
 
 Add SnowcapCoreBundle in your composer.json:
 
+### For Symfony < 2.7
+
 ```js
 {
     "require": {
-        "snowcap/core-bundle": "dev-master"
+        "snowcap/core-bundle": "~1.0"
+    }
+}
+```
+
+### For Symfony >= 2.7
+
+```js
+{
+    "require": {
+        "snowcap/core-bundle": "~2.0"
     }
 }
 ```

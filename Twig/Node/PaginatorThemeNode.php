@@ -5,12 +5,12 @@ namespace Snowcap\CoreBundle\Twig\Node;
 class PaginatorThemeNode extends \Twig_Node
 {
     /**
-     * @param \Twig_NodeInterface $datalist
-     * @param \Twig_NodeInterface $resources
+     * @param \Twig_Node $paginator
+     * @param \Twig_Node $resources
      * @param $lineno
      * @param null $tag
      */
-    public function __construct(\Twig_NodeInterface $paginator, \Twig_NodeInterface $resources, $lineno, $tag = null)
+    public function __construct(\Twig_Node $paginator, \Twig_Node $resources, $lineno, $tag = null)
     {
         parent::__construct(array('paginator' => $paginator, 'resources' => $resources), array(), $lineno, $tag);
     }

@@ -26,10 +26,10 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": ">=2.2"
+        "symfony/framework-bundle": ">=2.7"
     },
     "require-dev": {
-        "symfony/symfony": ">=2.2",
+        "symfony/symfony": ">=2.7",
         "fzaninotto/faker": "1.1.*@dev",
         "doctrine/orm": ">=2.2.3",
         "doctrine/doctrine-bundle": "1.2.*",
@@ -41,7 +41,7 @@
     "target-dir": "Snowcap/CoreBundle",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.3.x-dev"
+            "dev-master": "2.7-dev"
         }
     }
 }
