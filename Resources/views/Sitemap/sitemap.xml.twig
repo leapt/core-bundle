@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     {% for url in sitemap.urls %}
-    <url>
-        <loc>{{ url.loc }}</loc>
-        {% if url.lastmod is defined %}
-        <lastmod>{{ url.lastmod|date(constant('DATE_W3C')) }}</lastmod>
-        {% endif %}
-        {% if url.changefreq is defined %}
-        <changefreq>{{ url.changefreq }}</changefreq>
-        {% endif %}
-        {% if url.priority is defined %}
-        <priority>{{ url.priority }}</priority>
-        {% endif %}
-    </url>
+        <url>
+            <loc>{{ url.loc }}</loc>
+            {% if url.lastmod is defined %}
+                <lastmod>{{ url.lastmod|date(constant('DATE_W3C')) }}</lastmod>
+            {% endif %}
+            {% if url.changefreq is defined %}
+                <changefreq>{{ url.changefreq }}</changefreq>
+            {% endif %}
+            {% if url.priority is defined %}
+                <priority>{{ url.priority }}</priority>
+            {% endif %}
+            {% if url.images is defined %}
+                {% for image in url.images %}
+                    <image:image>
+                        {% if image.path is defined %}
+                            <image:loc>{{ image.path }}</image:loc>
+                        {% endif %}
+                        {% if image.path is defined %}
+                            <image:caption>{{ image.caption }}</image:caption>
+                        {% endif %}
+                        {% if image.geo_location is defined %}
+                            <image:geo_location>{{ image.geo_location }}</image:geo_location>
+                        {% endif %}
+                        {% if image.title is defined %}
+                            <image:title>{{ image.title }}</image:title>
+                        {% endif %}
+                        {% if image.licence is defined %}
+                            <image:licence>{{ image.licence }}</image:licence>
+                        {% endif %}
+                    </image:image>
+                {% endfor %}
+            {% endif %}
+        </url>
     {% endfor %}
 </urlset>

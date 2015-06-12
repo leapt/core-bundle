@@ -30,9 +30,10 @@ abstract class AbstractSitemap
      * @param \DateTime $lastMod
      * @param string $changeFreq
      * @param mixed $priority
+     * @param array $images
      * @return AbstractSitemap
      */
-    protected function addUrl($loc, \DateTime $lastMod = null, $changeFreq = null, $priority = null)
+    protected function addUrl($loc, \DateTime $lastMod = null, $changeFreq = null, $priority = null, $images = array())
     {
         $url = array(
             'loc' => $loc
@@ -48,6 +49,10 @@ abstract class AbstractSitemap
             $this->validatePriority($priority);
             $url['priority'] = $priority;
         }
+        foreach ($images as $image) {
+            $url['images'][] = $image;
+        }
+
         $this->urls[] = $url;
         return $this;
     }
