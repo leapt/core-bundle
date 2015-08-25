@@ -4,7 +4,12 @@ namespace Snowcap\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 
-class ImageType extends AbstractType {
+/**
+ * Class ImageType
+ * @package Snowcap\CoreBundle\Form\Type
+ */
+class ImageType extends AbstractType
+{
     /**
      * Returns the name of this type.
      *
@@ -16,7 +21,6 @@ class ImageType extends AbstractType {
     }
 
     /**
-     * @param array $options
      * @return null|string
      */
     public function getParent()

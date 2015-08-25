@@ -2,11 +2,14 @@
 
 namespace Snowcap\CoreBundle\Twig\Extension;
 
-use Snowcap\CoreBundle\Util\String;
+use Snowcap\CoreBundle\Util\StringUtil;
 
+/**
+ * Class TextExtension
+ * @package Snowcap\CoreBundle\Twig\Extension
+ */
 class TextExtension extends \Twig_Extension
 {
-
     const MISSING_EXTENSION_EXCEPTION = 10;
 
     /**
@@ -48,10 +51,11 @@ class TextExtension extends \Twig_Extension
 
     /**
      * @param $string
+     * @return string
      */
     public function camelize($string)
     {
-        return String::camelize($string);
+        return StringUtil::camelize($string);
     }
 
     /**

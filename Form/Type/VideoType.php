@@ -3,10 +3,14 @@
 namespace Snowcap\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class VideoType
+ * @package Snowcap\CoreBundle\Form\Type
+ */
 class VideoType extends AbstractType
 {
     /**
@@ -31,7 +35,7 @@ class VideoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setOptional(array('provider'))
+            ->setDefined(array('provider'))
             ->setAllowedValues(array(
                 'provider' => array('youtube', 'tudou', 'vimeo', 'dailymotion')
             ));

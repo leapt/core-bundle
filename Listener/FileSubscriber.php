@@ -4,19 +4,22 @@ namespace Snowcap\CoreBundle\Listener;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\ORM\Event\OnFlushEventArgs;
-use Snowcap\CoreBundle\Util\String;
-use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Events;
-
 use Snowcap\CoreBundle\File\CondemnedFile;
+use Snowcap\CoreBundle\Util\StringUtil;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
+/**
+ * Class FileSubscriber
+ * @package Snowcap\CoreBundle\Listener
+ */
 class FileSubscriber implements EventSubscriber
 {
     /**
@@ -62,7 +65,7 @@ class FileSubscriber implements EventSubscriber
 
     /**
      * @param \Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs
-     * @throws \UnexpectedValueException
+     * @throws AnnotationException
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
@@ -346,7 +349,7 @@ class FileSubscriber implements EventSubscriber
         if ($fileConfig['nameCallback'] !== null) {
             $accessor = PropertyAccess::createPropertyAccessor();
             $filename = $accessor->getValue($fileEntity, $fileConfig['nameCallback']);
-            $filename = String::slugify($filename);
+            $filename = StringUtil::slugify($filename);
 
             /*
              * Here we add a uniqid at the end of the filename to avoid any cache issue

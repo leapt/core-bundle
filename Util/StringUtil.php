@@ -2,7 +2,12 @@
 
 namespace Snowcap\CoreBundle\Util;
 
-class String {
+/**
+ * Class StringUtil
+ * @package Snowcap\CoreBundle\Util
+ */
+class StringUtil
+{
     /**
      * Camelizes a string.
      *
