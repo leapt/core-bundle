@@ -32,9 +32,9 @@ class DateExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
-            'time_ago' => new \Twig_Filter_Method($this, 'timeAgo'),
-        );
+        return [
+            new \Twig_SimpleFilter('time_ago', [$this, 'timeAgo'])
+        ];
     }
 
     /**

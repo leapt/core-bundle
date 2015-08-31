@@ -41,9 +41,9 @@ class FacebookExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'faceboook_sdk_code' => new \Twig_Function_Method($this, 'getFacebookSdkCode', array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('facebook_sdk_code', [$this, 'getFacebookSdkCode'], ['is_safe' => ['html']])
+        ];
     }
 
     /**

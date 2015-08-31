@@ -43,7 +43,7 @@ class TextExtensionTest extends \PHPUnit_Framework_TestCase
     public function testGetFilters()
     {
         $filters = $this->extension->getFilters();
-        $this->assertInstanceOf('\Twig_Filter_Method', $filters['safe_truncate']);
+        $this->assertInstanceOf('\Twig_SimpleFilter', $filters['safe_truncate']);
     }
 
     /**
