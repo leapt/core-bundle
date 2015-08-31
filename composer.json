@@ -34,8 +34,8 @@
         "doctrine/orm": ">=2.2.3",
         "doctrine/doctrine-bundle": "1.2.*",
         "doctrine/data-fixtures": "1.0.*@dev"
-},
+    },
     "autoload": {
-        "psr-0": { "Leapt\\CoreBundle\\": "" }
+        "psr-4": { "Leapt\\CoreBundle\\": "" }
     }
 }
