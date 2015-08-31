@@ -1,9 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Paginator;
+namespace Leapt\CoreBundle\Tests\Paginator;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Faker\Factory as FakerFactory;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class AbstractPaginatorTest extends WebTestCase
 {
@@ -77,7 +77,7 @@ abstract class AbstractPaginatorTest extends WebTestCase
      * Build a populated paginator instance
      *
      * @param int $limit
-     * @return \Snowcap\CoreBundle\Paginator\PaginatorInterface
+     * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
      */
     abstract protected function buildPaginator($limit);
 }

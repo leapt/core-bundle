@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Doctrine\Mapping;
+namespace Leapt\CoreBundle\Doctrine\Mapping;
 
 use Doctrine\Common\Annotations\Annotation;
 

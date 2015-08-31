@@ -1,10 +1,15 @@
 <?php
 
-namespace Snowcap\CoreBundle\Sitemap;
+namespace Leapt\CoreBundle\Sitemap;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class SitemapManager {
+/**
+ * Class SitemapManager
+ * @package Leapt\CoreBundle\Sitemap
+ */
+class SitemapManager
+{
 
     /**
      * @var AbstractSitemap

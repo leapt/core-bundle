@@ -1,16 +1,17 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity;
+namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Snowcap\CoreBundle\Doctrine\Mapping as SnowcapORM;
+use Leapt\CoreBundle\Doctrine\Mapping as LeaptORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User {
+class User
+{
     /**
      * @var integer
      *
@@ -37,7 +38,7 @@ class User {
     /**
      * @var \Symfony\Component\HttpFoundation\File\File
      *
-     * @SnowcapORM\File(path="uploads/cvs", mappedBy="cv")
+     * @LeaptORM\File(path="uploads/cvs", mappedBy="cv")
      */
     private $cvFile;
 

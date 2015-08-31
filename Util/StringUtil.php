@@ -1,10 +1,10 @@
 <?php
 
-namespace Snowcap\CoreBundle\Util;
+namespace Leapt\CoreBundle\Util;
 
 /**
  * Class StringUtil
- * @package Snowcap\CoreBundle\Util
+ * @package Leapt\CoreBundle\Util
  */
 class StringUtil
 {

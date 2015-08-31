@@ -1,15 +1,15 @@
 <?php
 
-namespace Snowcap\CoreBundle\Form\DataTransformer;
+namespace Leapt\CoreBundle\Form\DataTransformer;
 
+use Leapt\CoreBundle\File\CondemnedFile;
 use Symfony\Component\Form\DataTransformerInterface;
-use Snowcap\CoreBundle\File\CondemnedFile;
 
 /**
- * This class is used to transform data for the Snowcap\CoreBundle\Form\Type\FileType form type
- *
+ * This class is used to transform data for the Leapt\CoreBundle\Form\Type\FileType form type
  */
-class FileDataTransformer implements DataTransformerInterface {
+class FileDataTransformer implements DataTransformerInterface
+{
     /**
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $value
      * @return array
@@ -25,7 +25,7 @@ class FileDataTransformer implements DataTransformerInterface {
      */
     function reverseTransform($value)
     {
-        if($value['delete'] === true) {
+        if ($value['delete'] === true) {
             return new CondemnedFile();
         }
         return $value['file'];

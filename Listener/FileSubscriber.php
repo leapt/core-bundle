@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Listener;
+namespace Leapt\CoreBundle\Listener;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -11,14 +11,14 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Events;
-use Snowcap\CoreBundle\File\CondemnedFile;
-use Snowcap\CoreBundle\Util\StringUtil;
+use Leapt\CoreBundle\File\CondemnedFile;
+use Leapt\CoreBundle\Util\StringUtil;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class FileSubscriber
- * @package Snowcap\CoreBundle\Listener
+ * @package Leapt\CoreBundle\Listener
  */
 class FileSubscriber implements EventSubscriber
 {
@@ -78,14 +78,14 @@ class FileSubscriber implements EventSubscriber
             ) {
                 continue;
             }
-            if ($annotation = $reader->getPropertyAnnotation($property, 'Snowcap\\CoreBundle\\Doctrine\\Mapping\\File')) {
+            if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\CoreBundle\\Doctrine\\Mapping\\File')) {
                 $property->setAccessible(true);
                 $field = $property->getName();
 
                 if (null === $annotation->mappedBy) {
                     throw AnnotationException::requiredError(
                         'mappedBy',
-                        'SnowcapCore\File',
+                        'LeaptCore\File',
                         $meta->getReflectionClass()->getName(),
                         'another class property to map onto'
                     );
@@ -94,7 +94,7 @@ class FileSubscriber implements EventSubscriber
                     throw AnnotationException::syntaxError(
                         sprintf(
                             'Annotation @%s declared on %s expects "path" or "pathCallback". One of them should not be null.',
-                            'SnowcapCore\File',
+                            'LeaptCore\File',
                             $meta->getReflectionClass()->getName()
                         )
                     );
@@ -105,7 +105,7 @@ class FileSubscriber implements EventSubscriber
                             'The entity "%s" has no field named "%s", but it is documented in the annotation @%s',
                             $meta->getReflectionClass()->getName(),
                             $annotation->mappedBy,
-                            'SnowcapCore\File'
+                            'LeaptCore\File'
                         )
                     );
                 }

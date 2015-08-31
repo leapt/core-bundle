@@ -1,9 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity;
+namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Snowcap\CoreBundle\Doctrine\Mapping as SnowcapORM;
+use Leapt\CoreBundle\Doctrine\Mapping as LeaptORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -36,7 +36,7 @@ class Book {
     /**
      * @var \Symfony\Component\HttpFoundation\File\File
      *
-     * @SnowcapORM\File(path="uploads/attachments", mappedBy="attachment")
+     * @LeaptORM\File(path="uploads/attachments", mappedBy="attachment")
      */
     protected $attachmentFile;
 

@@ -1,18 +1,22 @@
 <?php
 
-namespace Snowcap\CoreBundle\Twig\Extension;
+namespace Leapt\CoreBundle\Twig\Extension;
 
-use Snowcap\CoreBundle\Navigation\NavigationRegistry;
+use Leapt\CoreBundle\Navigation\NavigationRegistry;
 
+/**
+ * Class NavigationExtension
+ * @package Leapt\CoreBundle\Twig\Extension
+ */
 class NavigationExtension extends \Twig_Extension
 {
     /**
-     * @var \Snowcap\CoreBundle\Navigation\NavigationRegistry
+     * @var \Leapt\CoreBundle\Navigation\NavigationRegistry
      */
     private $registry;
 
     /**
-     * @param \Snowcap\CoreBundle\Navigation\NavigationRegistry $registry
+     * @param \Leapt\CoreBundle\Navigation\NavigationRegistry $registry
      */
     public function __construct(NavigationRegistry $registry)
     {
@@ -48,7 +52,7 @@ class NavigationExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'snowcap_navigation';
+        return 'leapt_navigation';
     }
 
     /**

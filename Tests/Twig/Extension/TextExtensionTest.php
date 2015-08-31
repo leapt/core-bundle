@@ -1,9 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Twig\Extension;
+namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
-use Snowcap\CoreBundle\Twig\Extension\TextExtension;
-use Snowcap\CoreBundle\Tests\Twig\Extension\Mocks\TextExtensionMock;
+use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TextExtensionMock;
+use Leapt\CoreBundle\Twig\Extension\TextExtension;
 
 class TextExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +34,7 @@ class TextExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $this->assertSame('snowcap_text', $this->extension->getName(), 'getName: ');
+        $this->assertSame('leapt_text', $this->extension->getName(), 'getName: ');
     }
 
     /**

@@ -1,9 +1,9 @@
 {
-    "name": "snowcap/core-bundle",
+    "name": "leapt/core-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony SnowcapCoreBundle",
+    "description": "Symfony LeaptCoreBundle",
     "keywords": ["Utility"],
-    "homepage": "https://github.com/snowcap/SnowcapCoreBundle",
+    "homepage": "https://github.com/leapt/core-bundle",
     "license": "MIT",
     "authors": [
         {
@@ -36,12 +36,6 @@
         "doctrine/data-fixtures": "1.0.*@dev"
 },
     "autoload": {
-        "psr-0": { "Snowcap\\CoreBundle": "" }
-    },
-    "target-dir": "Snowcap/CoreBundle",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.7-dev"
-        }
+        "psr-0": { "Leapt\\CoreBundle\\": "" }
     }
 }

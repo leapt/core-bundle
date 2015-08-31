@@ -1,11 +1,15 @@
 <?php
 
-namespace Snowcap\CoreBundle\DependencyInjection\Compiler;
+namespace Leapt\CoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Class FeedCompilerPass
+ * @package Leapt\CoreBundle\DependencyInjection\Compiler
+ */
 class FeedCompilerPass implements CompilerPassInterface
 {
     /**
@@ -15,16 +19,15 @@ class FeedCompilerPass implements CompilerPassInterface
      */
     function process(ContainerBuilder $container)
     {
-        if (false === $container->hasDefinition('snowcap_core.feed_manager')) {
+        if (false === $container->hasDefinition('leapt_core.feed_manager')) {
             return;
         }
-        $definition = $container->getDefinition('snowcap_core.feed_manager');
-        foreach ($container->findTaggedServiceIds('snowcap_core.feed') as $serviceId => $tag) {
+        $definition = $container->getDefinition('leapt_core.feed_manager');
+        foreach ($container->findTaggedServiceIds('leapt_core.feed') as $serviceId => $tag) {
             $alias = isset($tag[0]['alias'])
                 ? $tag[0]['alias']
                 : $serviceId;
             $definition->addMethodCall('registerFeed', array($alias, new Reference($serviceId)));
         }
     }
-
 }

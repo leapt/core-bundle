@@ -1,7 +1,11 @@
 <?php
 
-namespace Snowcap\CoreBundle\Paginator;
+namespace Leapt\CoreBundle\Paginator;
 
+/**
+ * Interface PaginatorInterface
+ * @package Leapt\CoreBundle\Paginator
+ */
 interface PaginatorInterface extends \Countable, \IteratorAggregate
 {
     /**
@@ -45,7 +49,6 @@ interface PaginatorInterface extends \Countable, \IteratorAggregate
     /**
      * Get the maximum numbers of pagination links to display
      *
-     * @param int $rangeLimit
      * @return PaginatorInterface
      */
     public function getRange();

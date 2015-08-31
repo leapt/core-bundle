@@ -1,20 +1,24 @@
 <?php
 
-namespace Snowcap\CoreBundle\Twig\Extension;
+namespace Leapt\CoreBundle\Twig\Extension;
 
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * Class DateExtension
+ * @package Leapt\CoreBundle\Twig\Extension
+ */
 class DateExtension extends \Twig_Extension
 {
     /**
-     * @var Translator
+     * @var TranslatorInterface
      */
     private $translator;
 
     /**
      * Date extension constructor
      *
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
     {
@@ -40,7 +44,7 @@ class DateExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'snowcap_date';
+        return 'leapt_date';
     }
 
     /**
@@ -62,17 +66,17 @@ class DateExtension extends \Twig_Extension
         $hours = (int)$interval->format('%H');
         $minutes = (int)$interval->format('%i');
         if ($years != 0) {
-            $ago = $translator->transChoice('timeago.yearsago', $years, array('%years%' => $years), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.yearsago', $years, array('%years%' => $years), 'LeaptCoreBundle', $locale);
         } elseif ($months == 0 && $days == 0 && $hours == 0 && $minutes == 0) {
-            $ago = $translator->trans('timeago.justnow', array(), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->trans('timeago.justnow', array(), 'LeaptCoreBundle', $locale);
         } elseif ($months == 0 && $days == 0 && $hours == 0) {
-            $ago = $translator->transChoice('timeago.minutesago', $minutes, array('%minutes%' => $minutes), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.minutesago', $minutes, array('%minutes%' => $minutes), 'LeaptCoreBundle', $locale);
         } elseif ($months == 0 && $days == 0) {
-            $ago = $translator->transChoice('timeago.hoursago', $hours, array('%hours%' => $hours), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.hoursago', $hours, array('%hours%' => $hours), 'LeaptCoreBundle', $locale);
         } elseif ($months == 0) {
-            $ago = $translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'LeaptCoreBundle', $locale);
         } else {
-            $ago = $translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'SnowcapCoreBundle', $locale);
+            $ago = $translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'LeaptCoreBundle', $locale);
         }
 
         return $ago;

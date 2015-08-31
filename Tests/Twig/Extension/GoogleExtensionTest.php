@@ -1,8 +1,8 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Twig\Extension;
+namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
-use Snowcap\CoreBundle\Twig\Extension\GoogleExtension;
+use Leapt\CoreBundle\Twig\Extension\GoogleExtension;
 use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
 
 class GoogleExtensionTest extends \PHPUnit_Framework_TestCase

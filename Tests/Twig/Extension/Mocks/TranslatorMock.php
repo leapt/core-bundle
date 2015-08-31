@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Twig\Extension\Mocks;
+namespace Leapt\CoreBundle\Tests\Twig\Extension\Mocks;
 
 class TranslatorMock implements \Symfony\Component\Translation\TranslatorInterface
 {

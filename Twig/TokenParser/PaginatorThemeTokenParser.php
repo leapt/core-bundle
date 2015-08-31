@@ -1,9 +1,13 @@
 <?php
 
-namespace Snowcap\CoreBundle\Twig\TokenParser;
+namespace Leapt\CoreBundle\Twig\TokenParser;
 
-use Snowcap\CoreBundle\Twig\Node\PaginatorThemeNode;
+use Leapt\CoreBundle\Twig\Node\PaginatorThemeNode;
 
+/**
+ * Class PaginatorThemeTokenParser
+ * @package Leapt\CoreBundle\Twig\TokenParser
+ */
 class PaginatorThemeTokenParser extends \Twig_TokenParser
 {
     /**

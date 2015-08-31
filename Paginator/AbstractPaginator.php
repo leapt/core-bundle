@@ -1,7 +1,11 @@
 <?php
 
-namespace Snowcap\CoreBundle\Paginator;
+namespace Leapt\CoreBundle\Paginator;
 
+/**
+ * Class AbstractPaginator
+ * @package Leapt\CoreBundle\Paginator
+ */
 abstract class AbstractPaginator implements PaginatorInterface
 {
     /**

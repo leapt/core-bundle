@@ -1,14 +1,18 @@
 <?php
 
-namespace Snowcap\CoreBundle\Twig\Extension;
+namespace Leapt\CoreBundle\Twig\Extension;
 
-use Snowcap\CoreBundle\Twig\TokenParser\PaginatorThemeTokenParser;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
+use Leapt\CoreBundle\Twig\TokenParser\PaginatorThemeTokenParser;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Snowcap\CoreBundle\Paginator\PaginatorInterface;
-
-class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterface {
+/**
+ * Class PaginatorExtension
+ * @package Leapt\CoreBundle\Twig\Extension
+ */
+class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterface
+{
     /**
      * @var string
      */
@@ -130,11 +134,11 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
      */
     public function getName()
     {
-        return 'snowcap_core_paginator';
+        return 'leapt_core_paginator';
     }
 
     /**
-     * @param \Snowcap\AdminBundle\Datalist\DatalistInterface $datalist
+     * @param \Leapt\AdminBundle\Datalist\DatalistInterface $datalist
      * @param array $blockNames
      * @param array $context
      * @return string

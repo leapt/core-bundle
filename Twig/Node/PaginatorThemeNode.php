@@ -1,7 +1,11 @@
 <?php
 
-namespace Snowcap\CoreBundle\Twig\Node;
+namespace Leapt\CoreBundle\Twig\Node;
 
+/**
+ * Class PaginatorThemeNode
+ * @package Leapt\CoreBundle\Twig\Node
+ */
 class PaginatorThemeNode extends \Twig_Node
 {
     /**
@@ -24,7 +28,7 @@ class PaginatorThemeNode extends \Twig_Node
     {
         $compiler
             ->addDebugInfo($this)
-            ->write('$this->env->getExtension(\'snowcap_core_paginator\')->setTheme(')
+            ->write('$this->env->getExtension(\'leapt_core_paginator\')->setTheme(')
             ->subcompile($this->getNode('paginator'))
             ->raw(', ')
             ->subcompile($this->getNode('resources'))

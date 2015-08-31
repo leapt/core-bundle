@@ -1,9 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Twig\Extension;
+namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
-use Snowcap\CoreBundle\Twig\Extension\DateExtension;
-use Snowcap\CoreBundle\Tests\Twig\Extension\Mocks\TranslatorMock;
+use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TranslatorMock;
+use Leapt\CoreBundle\Twig\Extension\DateExtension;
 
 class DateExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,7 +27,7 @@ class DateExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $this->assertSame('snowcap_date', $this->extension->getName());
+        $this->assertSame('leapt_date', $this->extension->getName());
     }
 
     /**

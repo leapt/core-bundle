@@ -1,15 +1,18 @@
 <?php
 
-namespace Snowcap\CoreBundle\DQL;
+namespace Leapt\CoreBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 
+/**
+ * Class BitwiseAnd
+ * @package Leapt\CoreBundle\DQL
+ */
 class BitwiseAnd extends FunctionNode
 {
-
     /**
      * @var \Doctrine\ORM\Query\AST\Literal
      */

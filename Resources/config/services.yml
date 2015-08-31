@@ -1,9 +1,9 @@
 parameters:
-    snowcap_core.google_analytics.tracking_id:
-    snowcap_core.google_analytics.debug:
-    snowcap_core.google_analytics.domain_name:
-    snowcap_core.google_analytics.allow_linker:
-    snowcap_core.paginator.template: ~
+    leapt_core.google_analytics.tracking_id:
+    leapt_core.google_analytics.debug:
+    leapt_core.google_analytics.domain_name:
+    leapt_core.google_analytics.allow_linker:
+    leapt_core.paginator.template: ~
 
 services:
     # Load twig dump
@@ -16,101 +16,101 @@ services:
         tags: [ { name: 'twig.extension' } ]
 
     # Form types
-    snowcap_core.file_type:
-        class: Snowcap\CoreBundle\Form\Type\FileType
+    leapt_core.file_type:
+        class: Leapt\CoreBundle\Form\Type\FileType
         tags:
-            - { name: form.type, alias: snowcap_core_file }
+            - { name: form.type, alias: leapt_core_file }
         calls:
             - [ setUploadDir, [ %kernel.root_dir%/../web ] ]
-    snowcap_core.image_type:
-        class: Snowcap\CoreBundle\Form\Type\ImageType
+    leapt_core.image_type:
+        class: Leapt\CoreBundle\Form\Type\ImageType
         tags:
-            - { name: form.type, alias: snowcap_core_image }
-    snowcap_core.video_type:
-        class: Snowcap\CoreBundle\Form\Type\VideoType
+            - { name: form.type, alias: leapt_core_image }
+    leapt_core.video_type:
+        class: Leapt\CoreBundle\Form\Type\VideoType
         tags:
-            - { name: form.type, alias: snowcap_core_video }
-    snowcap_core.sound_type:
-        class: Snowcap\CoreBundle\Form\Type\SoundType
+            - { name: form.type, alias: leapt_core_video }
+    leapt_core.sound_type:
+        class: Leapt\CoreBundle\Form\Type\SoundType
         tags:
-            - { name: form.type, alias: snowcap_core_sound }
+            - { name: form.type, alias: leapt_core_sound }
 
     # Form type extensions
-    snowcap_core.collection_type_extension:
-        class: Snowcap\CoreBundle\Form\Extension\CollectionTypeExtension
+    leapt_core.collection_type_extension:
+        class: Leapt\CoreBundle\Form\Extension\CollectionTypeExtension
         tags:
             - { name: form.type_extension, alias: collection }
 
     # Field entity event subscriber
-    snowcap_core.file_subscriber:
-        class: Snowcap\CoreBundle\Listener\FileSubscriber
+    leapt_core.file_subscriber:
+        class: Leapt\CoreBundle\Listener\FileSubscriber
         arguments: [%kernel.root_dir%/../web]
         tags:
             - { name: doctrine.event_subscriber}
 
     # Navigation
-    snowcap_core.navigation:
-        class: Snowcap\CoreBundle\Navigation\NavigationRegistry
+    leapt_core.navigation:
+        class: Leapt\CoreBundle\Navigation\NavigationRegistry
         calls:
             - [ setContainer, [@service_container]]
 
-    snowcap_core.twig_navigation:
-        class: Snowcap\CoreBundle\Twig\Extension\NavigationExtension
-        arguments: [@snowcap_core.navigation]
+    leapt_core.twig_navigation:
+        class: Leapt\CoreBundle\Twig\Extension\NavigationExtension
+        arguments: [@leapt_core.navigation]
         tags:
             - { name: twig.extension }
 
     # Twig extensions
-    snowcap_core.twig_date:
-        class: Snowcap\CoreBundle\Twig\Extension\DateExtension
+    leapt_core.twig_date:
+        class: Leapt\CoreBundle\Twig\Extension\DateExtension
         arguments: [@translator]
         tags:
             - { name: twig.extension }
 
-    snowcap_core.twig_text:
-        class: Snowcap\CoreBundle\Twig\Extension\TextExtension
+    leapt_core.twig_text:
+        class: Leapt\CoreBundle\Twig\Extension\TextExtension
         tags:
             - { name: twig.extension }
 
-    snowcap_core.twig_google:
-        class: Snowcap\CoreBundle\Twig\Extension\GoogleExtension
-        arguments: [%snowcap_core.google_analytics.tracking_id%, %snowcap_core.google_analytics.debug%]
+    leapt_core.twig_google:
+        class: Leapt\CoreBundle\Twig\Extension\GoogleExtension
+        arguments: [%leapt_core.google_analytics.tracking_id%, %leapt_core.google_analytics.debug%]
         calls:
-            - [ setDomainName, [%snowcap_core.google_analytics.domain_name%]]
-            - [ setAllowLinker, [%snowcap_core.google_analytics.allow_linker%]]
-            - [ setTagsManagerId, [%snowcap_core.google_tags_manager.id%]]
+            - [ setDomainName, [%leapt_core.google_analytics.domain_name%]]
+            - [ setAllowLinker, [%leapt_core.google_analytics.allow_linker%]]
+            - [ setTagsManagerId, [%leapt_core.google_tags_manager.id%]]
         tags:
             - { name: twig.extension }
 
-    snowcap_core.twig_facebook:
-        class: Snowcap\CoreBundle\Twig\Extension\FacebookExtension
-        arguments: [%snowcap_core.facebook.app_id%]
+    leapt_core.twig_facebook:
+        class: Leapt\CoreBundle\Twig\Extension\FacebookExtension
+        arguments: [%leapt_core.facebook.app_id%]
         tags:
             - { name: twig.extension }
 
-    snowcap_core.twig_site:
-        class: Snowcap\CoreBundle\Twig\Extension\SiteExtension
+    leapt_core.twig_site:
+        class: Leapt\CoreBundle\Twig\Extension\SiteExtension
         tags:
             - { name: twig.extension }
 
-    snowcap_core.twig_paginator:
-        class: Snowcap\CoreBundle\Twig\Extension\PaginatorExtension
-        arguments: [%snowcap_core.paginator.template%]
+    leapt_core.twig_paginator:
+        class: Leapt\CoreBundle\Twig\Extension\PaginatorExtension
+        arguments: [%leapt_core.paginator.template%]
         calls:
             - [ setContainer, [@service_container]]
         tags:
             - { name: twig.extension }
 
     # RSS feeds
-    snowcap_core.feed_manager:
-        class: Snowcap\CoreBundle\Feed\FeedManager
+    leapt_core.feed_manager:
+        class: Leapt\CoreBundle\Feed\FeedManager
 
-    snowcap_core.request_listener:
-        class: Snowcap\CoreBundle\Listener\RequestListener
+    leapt_core.request_listener:
+        class: Leapt\CoreBundle\Listener\RequestListener
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
     # Google sitemap
-    snowcap_core.sitemap_manager:
-        class: Snowcap\CoreBundle\Sitemap\SitemapManager
+    leapt_core.sitemap_manager:
+        class: Leapt\CoreBundle\Sitemap\SitemapManager
         arguments: [@validator]

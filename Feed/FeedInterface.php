@@ -1,8 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Feed;
+namespace Leapt\CoreBundle\Feed;
 
-interface FeedInterface {
+interface FeedInterface
+{
     /**
      * This method is used to build the ATOM channel "id" element
      *

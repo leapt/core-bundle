@@ -1,14 +1,13 @@
 <?php
 
-namespace Snowcap\CoreBundle;
+namespace Leapt\CoreBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Leapt\CoreBundle\DependencyInjection\Compiler\FeedCompilerPass;
+use Leapt\CoreBundle\DependencyInjection\Compiler\SitemapCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use Snowcap\CoreBundle\DependencyInjection\Compiler\FeedCompilerPass;
-use Snowcap\CoreBundle\DependencyInjection\Compiler\SitemapCompilerPass;
-
-class SnowcapCoreBundle extends Bundle
+class LeaptCoreBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
@@ -17,5 +16,4 @@ class SnowcapCoreBundle extends Bundle
         $container->addCompilerPass(new FeedCompilerPass());
         $container->addCompilerPass(new SitemapCompilerPass());
     }
-
 }

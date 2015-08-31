@@ -1,17 +1,17 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity;
+namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Snowcap\CoreBundle\Doctrine\Mapping as SnowcapORM;
+use Leapt\CoreBundle\Doctrine\Mapping as LeaptORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="novel")
  */
-class Novel extends Book {
-
+class Novel extends Book
+{
     /**
      * @var string
      *
@@ -34,5 +34,4 @@ class Novel extends Book {
     {
         return $this->subtitle;
     }
-
 }

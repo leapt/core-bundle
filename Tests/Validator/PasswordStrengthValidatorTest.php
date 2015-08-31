@@ -1,9 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Validator;
+namespace Leapt\CoreBundle\Tests\Validator;
 
-use Snowcap\CoreBundle\Validator\Constraints\PasswordStrength;
-use Snowcap\CoreBundle\Validator\Constraints\PasswordStrengthValidator;
+use Leapt\CoreBundle\Validator\Constraints\PasswordStrength;
+use Leapt\CoreBundle\Validator\Constraints\PasswordStrengthValidator;
 
 class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
 {

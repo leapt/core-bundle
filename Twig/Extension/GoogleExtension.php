@@ -1,9 +1,13 @@
 <?php
-namespace Snowcap\CoreBundle\Twig\Extension;
 
+namespace Leapt\CoreBundle\Twig\Extension;
+
+/**
+ * Class GoogleExtension
+ * @package Leapt\CoreBundle\Twig\Extension
+ */
 class GoogleExtension extends \Twig_Extension
 {
-
     const INVALID_DOMAIN_NAME_EXCEPTION = 10;
 
     /**
@@ -81,7 +85,7 @@ class GoogleExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'snowcap_google';
+        return 'leapt_google';
     }
 
     /**
@@ -138,7 +142,7 @@ class GoogleExtension extends \Twig_Extension
     public function getAnalyticsTrackingCode()
     {
         if (null !== $this->accountId || 'none' === $this->domainName) {
-            $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_code.html.twig');
+            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Google:tracking_code.html.twig');
 
             return $template->render(
                 array(
@@ -182,7 +186,7 @@ class GoogleExtension extends \Twig_Extension
     public function getAnalyticsCommerce($order)
     {
         if (null !== $this->accountId || $this->domainName === 'none') {
-            $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tracking_commerce.html.twig');
+            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Google:tracking_commerce.html.twig');
 
             return $template->render(array('order' => $order));
         }
@@ -196,7 +200,7 @@ class GoogleExtension extends \Twig_Extension
     public function getTagsManagerCode()
     {
         if (null !== $this->tagsManagerId) {
-            $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Google:tags_manager_code.html.twig');
+            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Google:tags_manager_code.html.twig');
 
             return $template->render(array('tags_manager_id' => $this->tagsManagerId));
         }

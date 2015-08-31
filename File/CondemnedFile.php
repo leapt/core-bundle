@@ -1,14 +1,14 @@
 <?php
 
-namespace Snowcap\CoreBundle\File;
+namespace Leapt\CoreBundle\File;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * This class is meant to signal a file deletion - used in forms (see Snowcap\CoreBundle\Form\Type\FileType
+ * This class is meant to signal a file deletion - used in forms (see Leapt\CoreBundle\Form\Type\FileType)
  */
-class CondemnedFile extends UploadedFile {
-
+class CondemnedFile extends UploadedFile
+{
     /**
      * @var string
      */
@@ -32,14 +32,16 @@ class CondemnedFile extends UploadedFile {
     /**
      * @param string $path
      */
-    public function setPath($path) {
+    public function setPath($path)
+    {
         $this->path = $path;
     }
 
     /**
      * @return string
      */
-    public function getPathName() {
+    public function getPathName()
+    {
         return $this->path;
     }
 }

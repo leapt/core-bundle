@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Validator\Constraints;
+namespace Leapt\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraints\Regex;
 

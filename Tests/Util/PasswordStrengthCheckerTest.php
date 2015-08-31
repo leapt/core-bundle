@@ -1,8 +1,8 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Util;
+namespace Leapt\CoreBundle\Tests\Util;
 
-use Snowcap\CoreBundle\Util\PasswordStrengthChecker;
+use Leapt\CoreBundle\Util\PasswordStrengthChecker;
 
 /**
  * Test the password strength checker utility

@@ -1,9 +1,13 @@
 <?php
 
-namespace Snowcap\CoreBundle\Paginator;
+namespace Leapt\CoreBundle\Paginator;
 
 use Doctrine\ORM\Query;
 
+/**
+ * Class ArrayPaginator
+ * @package Leapt\CoreBundle\Paginator
+ */
 class ArrayPaginator extends AbstractPaginator
 {
     /**

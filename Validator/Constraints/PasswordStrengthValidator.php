@@ -1,11 +1,10 @@
 <?php
 
-namespace Snowcap\CoreBundle\Validator\Constraints;
+namespace Leapt\CoreBundle\Validator\Constraints;
 
+use Leapt\CoreBundle\Util\PasswordStrengthChecker;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-
-use Snowcap\CoreBundle\Util\PasswordStrengthChecker;
 
 
 /**

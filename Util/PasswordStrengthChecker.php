@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Util;
+namespace Leapt\CoreBundle\Util;
 
 /**
  * Password strength checker based on the Symfony1 snippet

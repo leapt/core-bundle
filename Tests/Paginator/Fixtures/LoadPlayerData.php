@@ -1,13 +1,11 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Paginator\Fixtures;
+namespace Leapt\CoreBundle\Tests\Paginator\Fixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-
 use Faker\Factory as FakerFactory;
-
-use Snowcap\CoreBundle\Tests\Paginator\Entity\Player;
+use Leapt\CoreBundle\Tests\Paginator\Entity\Player;
 
 class LoadPlayerData extends AbstractFixture
 {

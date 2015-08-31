@@ -1,9 +1,13 @@
 <?php
 
-namespace Snowcap\CoreBundle\Sitemap;
+namespace Leapt\CoreBundle\Sitemap;
 
 use Symfony\Component\Routing\Router;
 
+/**
+ * Class AbstractSitemap
+ * @package Leapt\CoreBundle\Sitemap
+ */
 abstract class AbstractSitemap
 {
 

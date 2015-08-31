@@ -1,6 +1,11 @@
 <?php
-namespace Snowcap\CoreBundle\Twig\Extension;
 
+namespace Leapt\CoreBundle\Twig\Extension;
+
+/**
+ * Class FacebookExtension
+ * @package Leapt\CoreBundle\Twig\Extension
+ */
 class FacebookExtension extends \Twig_Extension
 {
     /**
@@ -46,7 +51,7 @@ class FacebookExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'snowcap_facebook';
+        return 'leapt_facebook';
     }
 
     /**
@@ -55,7 +60,7 @@ class FacebookExtension extends \Twig_Extension
     public function getFacebookSdkCode()
     {
         if (null !== $this->appId) {
-            $template = $this->twigEnvironment->loadTemplate('SnowcapCoreBundle:Facebook:sdk_code.html.twig');
+            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Facebook:sdk_code.html.twig');
 
             return $template->render(
                 array(

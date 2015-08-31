@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Paginator\Entity;
+namespace Leapt\CoreBundle\Tests\Paginator\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

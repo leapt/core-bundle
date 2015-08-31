@@ -1,12 +1,12 @@
 <?php
 
-namespace Snowcap\CoreBundle\Twig\Extension;
+namespace Leapt\CoreBundle\Twig\Extension;
 
-use Snowcap\CoreBundle\Util\StringUtil;
+use Leapt\CoreBundle\Util\StringUtil;
 
 /**
  * Class TextExtension
- * @package Snowcap\CoreBundle\Twig\Extension
+ * @package Leapt\CoreBundle\Twig\Extension
  */
 class TextExtension extends \Twig_Extension
 {
@@ -33,7 +33,7 @@ class TextExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'snowcap_text';
+        return 'leapt_text';
     }
 
     /**

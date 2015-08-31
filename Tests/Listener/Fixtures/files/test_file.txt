@@ -1,1 +1,1 @@
-/Users/pierre/Symfony/bundles/SnowcapCoreBundle/Tests/Listener/Fixtures/files/test_file.txt
+/Users/pierre/Symfony/bundles/LeaptCoreBundle/Tests/Listener/Fixtures/files/test_file.txt

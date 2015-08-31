@@ -1,10 +1,14 @@
 <?php
 
-namespace Snowcap\CoreBundle\Paginator;
+namespace Leapt\CoreBundle\Paginator;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
+/**
+ * Class DoctrineORMPaginator
+ * @package Leapt\CoreBundle\Paginator
+ */
 class DoctrineORMPaginator extends AbstractPaginator
 {
     /**
@@ -22,6 +26,7 @@ class DoctrineORMPaginator extends AbstractPaginator
 
     /**
      * @param int $page
+     * @return $this
      */
     public function setPage($page)
     {
@@ -34,6 +39,7 @@ class DoctrineORMPaginator extends AbstractPaginator
 
     /**
      * @param int $limitPerPage
+     * @return $this
      */
     public function setLimitPerPage($limitPerPage)
     {

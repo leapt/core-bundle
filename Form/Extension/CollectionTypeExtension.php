@@ -1,13 +1,18 @@
 <?php
 
-namespace Snowcap\CoreBundle\Form\Extension;
+namespace Leapt\CoreBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CollectionTypeExtension extends AbstractTypeExtension {
+/**
+ * Class CollectionTypeExtension
+ * @package Leapt\CoreBundle\Form\Extension
+ */
+class CollectionTypeExtension extends AbstractTypeExtension
+{
     /**
      * @return string
      */

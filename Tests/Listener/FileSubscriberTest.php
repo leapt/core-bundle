@@ -1,23 +1,22 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Listener;
+namespace Leapt\CoreBundle\Tests\Listener;
 
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\ORM\Tools\Setup;
+use Leapt\CoreBundle\File\CondemnedFile;
+use Leapt\CoreBundle\Listener\FileSubscriber;
+use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\Novel;
+use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
-
-use Snowcap\CoreBundle\Listener\FileSubscriber;
-use Snowcap\CoreBundle\File\CondemnedFile;
-use Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User;
-use Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\Novel;
 
 class FileSubscriberTest extends \PHPUnit_Framework_TestCase
 {
@@ -40,8 +39,8 @@ class FileSubscriberTest extends \PHPUnit_Framework_TestCase
      * @var array
      */
     private $classes = array(
-        'Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\User',
-        'Snowcap\CoreBundle\Tests\Listener\Fixtures\Entity\Novel',
+        'Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User',
+        'Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\Novel',
     );
 
     /**

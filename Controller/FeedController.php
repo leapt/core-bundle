@@ -1,19 +1,22 @@
 <?php
 
-namespace Snowcap\CoreBundle\Controller;
+namespace Leapt\CoreBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Locale\Locale;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class FeedController extends Controller {
-
+/**
+ * Class FeedController
+ * @package Leapt\CoreBundle\Controller
+ */
+class FeedController extends Controller
+{
     /**
      * @Template
      */
     public function indexAction($feedName)
     {
-        $feedManager = $this->get('snowcap_core.feed_manager');
+        $feedManager = $this->get('leapt_core.feed_manager');
         $feed = $feedManager->getFeed($feedName);
 
         $builtFeedItems = array();

@@ -1,9 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Twig\Extension;
+namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
-use Snowcap\CoreBundle\Navigation\NavigationRegistry;
-use Snowcap\CoreBundle\Twig\Extension\NavigationExtension;
+use Leapt\CoreBundle\Navigation\NavigationRegistry;
+use Leapt\CoreBundle\Twig\Extension\NavigationExtension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 

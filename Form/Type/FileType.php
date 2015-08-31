@@ -1,9 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Form\Type;
+namespace Leapt\CoreBundle\Form\Type;
 
-use Snowcap\CoreBundle\File\CondemnedFile;
-use Snowcap\CoreBundle\Form\DataTransformer\FileDataTransformer;
+use Leapt\CoreBundle\File\CondemnedFile;
+use Leapt\CoreBundle\Form\DataTransformer\FileDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -15,7 +15,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Class FileType
- * @package Snowcap\CoreBundle\Form\Type
+ * @package Leapt\CoreBundle\Form\Type
  */
 class FileType extends AbstractType
 {
@@ -29,7 +29,7 @@ class FileType extends AbstractType
      */
     public function getName()
     {
-        return 'snowcap_core_file';
+        return 'leapt_core_file';
     }
 
     /**

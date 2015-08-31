@@ -1,4 +1,4 @@
-SnowcapCore.Form = (function($) {
+LeaptCore.Form = (function($) {
 
     /**
      * Form Collection view
@@ -120,11 +120,11 @@ SnowcapCore.Form = (function($) {
 jQuery(document).ready(function () {
     $('[data-core=form-manager]').each(function (i, element) {
         if (!$(element).data('widget')) {
-            var manager = new SnowcapCore.Form.Manager({el: element});
-            _.each(SnowcapCore.Form.factories, function(factory) {
+            var manager = new LeaptCore.Form.Manager({el: element});
+            _.each(LeaptCore.Form.factories, function(factory) {
                 manager.registerFactory(factory);
             });
-            SnowcapCore.Form.instances.managers.push(manager);
+            LeaptCore.Form.instances.managers.push(manager);
             $(element).data('widget', manager);
         }
     });

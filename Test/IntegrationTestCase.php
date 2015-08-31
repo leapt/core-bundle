@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Test;
+namespace Leapt\CoreBundle\Test;
 
 use Doctrine\ORM\Tools\SchemaTool;
 

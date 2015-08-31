@@ -1,9 +1,9 @@
-[![Build Status](https://secure.travis-ci.org/snowcap/SnowcapCoreBundle.png?branch=master)](http://travis-ci.org/snowcap/SnowcapCoreBundle)
+Leapt Core Bundle
+=================
 
-Snowcap Core Bundle
-==================================
+This bundle is a fork of the SnowcapCore Bundle: http://github.com/snowcap/SnowcapCoreBundle
 
-The Snowcap Core Bundle is a bundle used at Snowcap to help us with some repetitive tasks, including (but not limited to):
+The Leapt Core Bundle is a bundle used at Snowcap to help us with some repetitive tasks, including (but not limited to):
 
 * Dealing with file and image uploads
 * RSS feed generation
@@ -11,26 +11,14 @@ The Snowcap Core Bundle is a bundle used at Snowcap to help us with some repetit
 
 ## Installation
 
-### Download SnowcapCoreBundle using composer
+### Download LeaptCoreBundle using composer
 
-Add SnowcapCoreBundle in your composer.json:
-
-### For Symfony < 2.7
+Add LeaptCoreBundle in your composer.json:
 
 ```js
 {
     "require": {
-        "snowcap/core-bundle": "~1.0"
-    }
-}
-```
-
-### For Symfony >= 2.7
-
-```js
-{
-    "require": {
-        "snowcap/core-bundle": "~2.0"
+        "leapt/core-bundle": "~1.0"
     }
 }
 ```
@@ -38,10 +26,10 @@ Add SnowcapCoreBundle in your composer.json:
 Now tell composer to download the bundle by running the command:
 
 ``` bash
-$ php composer.phar update snowcap/core-bundle
+$ php composer.phar update leapt/core-bundle
 ```
 
-Composer will install the bundle to your project's `vendor/snowcap` directory.
+Composer will install the bundle to your project's `vendor/leapt` directory.
 
 ### Enable the Bundle
 
@@ -55,7 +43,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Snowcap\CoreBundle\SnowcapCoreBundle(),
+        new Leapt\CoreBundle\LeaptCoreBundle(),
     );
 }
 ```
@@ -76,11 +64,11 @@ $ phpunit
 
 ## Form types
 
-SnowcapCoreBundle provides a few useful form types.
+LeaptCoreBundle provides a few useful form types.
 
-### File Field Type (snowcap_core_file)
+### File Field Type (leapt_core_file)
 
-The _snowcap_core_file_ field type is a simple file upload widget. It extends Symfony's default _file_ type,
+The _leapt_core_file_ field type is a simple file upload widget. It extends Symfony's default _file_ type,
 and bring two extra features:
 
 * It allows users to ask for the deletion of the current file
@@ -94,14 +82,14 @@ and bring two extra features:
 
 public function buildForm(FormBuilderInterface $builder, array $options)
 {
-    $builder->add('cv', 'snowcap_core_file', array(
+    $builder->add('cv', 'leapt_core_file', array(
         'label' => 'Curriculum Vitae',
         'file_path' => 'cvPath',
     ));
 }
 ```
 
-When Symfony displays the form widget, it will also render a "donwload" button, which is basically a link pointing
+When Symfony displays the form widget, it will also render a "download" button, which is basically a link pointing
 to the file, as specified by the _file_path_ option.
 
 #### Options
@@ -119,8 +107,8 @@ the download button url.
 **type:** boolean **default:** true
 
 When true, will display a checkbox allowing users to ask for the deletion of the current file. When checked, on
-form submission, the field data will be replaced by an instance of Snowcap\CoreBundle\File\CondemnedFile. It is up
-to you to process that Condemned file instance (unless you use the SnowcapCoreBundle FileSubscriber).
+form submission, the field data will be replaced by an instance of Leapt\CoreBundle\File\CondemnedFile. It is up
+to you to process that Condemned file instance (unless you use the LeaptCoreBundle FileSubscriber).
 
 ##### delete_label
 **type:** string **default:** null
@@ -134,10 +122,10 @@ The label that will be displayed on the download button.
 
 ### Image Field Type
 
-The _snowcap_core_image_ field type extends the _snowcap_core_file_ field type. It behaves the same way, except that it
+The _leapt_core_image_ field type extends the _leapt_core_file_ field type. It behaves the same way, except that it
 is rendered differently: instead of displaying a "download" button, it will actually display the uploaded
 image.
 
-**Note:** If you are using [SnowcapImBundle](https://github.com/snowcap/SnowcapImBundle), in addition to the options
-provided by _snowcap_core_file_, you can specify a _im_format_ option. It will be used to dynamically create a
-thumbnail of the picture. Please refer to the SnowcapImBundle documentation for more information.
+**Note:** If you are using [LeaptImBundle](https://github.com/leapt/im-bundle), in addition to the options
+provided by _leapt_core_file_, you can specify a _im_format_ option. It will be used to dynamically create a
+thumbnail of the picture. Please refer to the LeaptImBundle documentation for more information.

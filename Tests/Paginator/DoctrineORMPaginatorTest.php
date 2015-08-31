@@ -1,20 +1,18 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Paginator;
+namespace Leapt\CoreBundle\Tests\Paginator;
 
 use Doctrine\ORM\Query;
 
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 use Faker\Factory as FakerFactory;
-
-use Snowcap\CoreBundle\Paginator\DoctrineORMPaginator;
-use Snowcap\CoreBundle\Tests\Paginator\Fixtures\LoadPlayerData;
+use Leapt\CoreBundle\Paginator\DoctrineORMPaginator;
+use Leapt\CoreBundle\Tests\Paginator\Fixtures\LoadPlayerData;
 
 class DoctrineORMPaginatorTest extends AbstractPaginatorTest
 {
@@ -71,13 +69,13 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
      * Build a populated paginator instance
      *
      * @param int $limit
-     * @return \Snowcap\CoreBundle\Paginator\PaginatorInterface
+     * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
      */
     protected function buildPaginator($limit)
     {
         $this->loadFixture(new LoadPlayerData($limit));
         $dql = <<<DQL
-            SELECT p FROM Snowcap\CoreBundle\Tests\Paginator\Entity\Player p
+            SELECT p FROM Leapt\CoreBundle\Tests\Paginator\Entity\Player p
 DQL;
         $query = static::$em->createQuery($dql)->setMaxResults($limit);
 
@@ -108,7 +106,7 @@ DQL;
      */
     static protected function getEntityClasses()
     {
-        return array('Snowcap\CoreBundle\Tests\Paginator\Entity\Player');
+        return array('Leapt\CoreBundle\Tests\Paginator\Entity\Player');
     }
 
     /**

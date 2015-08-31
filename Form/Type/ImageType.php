@@ -1,12 +1,12 @@
 <?php
 
-namespace Snowcap\CoreBundle\Form\Type;
+namespace Leapt\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 
 /**
  * Class ImageType
- * @package Snowcap\CoreBundle\Form\Type
+ * @package Leapt\CoreBundle\Form\Type
  */
 class ImageType extends AbstractType
 {
@@ -17,7 +17,7 @@ class ImageType extends AbstractType
      */
     function getName()
     {
-        return 'snowcap_core_image';
+        return 'leapt_core_image';
     }
 
     /**
@@ -25,6 +25,6 @@ class ImageType extends AbstractType
      */
     public function getParent()
     {
-        return 'snowcap_core_file';
+        return 'leapt_core_file';
     }
 }

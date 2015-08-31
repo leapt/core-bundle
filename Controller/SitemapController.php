@@ -1,22 +1,25 @@
 <?php
 
-namespace Snowcap\CoreBundle\Controller;
+namespace Leapt\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SitemapController extends Controller {
-
+/**
+ * Class SitemapController
+ * @package Leapt\CoreBundle\Controller
+ */
+class SitemapController extends Controller
+{
 
     public function defaultAction()
     {
-        $sitemapManager = $this->get('snowcap_core.sitemap_manager');
+        $sitemapManager = $this->get('leapt_core.sitemap_manager');
         $sitemaps = $sitemapManager->getSitemaps();
 
-        if(count($sitemaps) > 1) {
-            return $this->render('SnowcapCoreBundle:Sitemap:index.xml.twig', array('sitemaps' => $sitemaps));
-        }
-        elseif(count($sitemaps === 1)) {
-            return $this->forward('SnowcapCoreBundle:Sitemap:sitemap', array('sitemap' => current($sitemaps)->getAlias()));
+        if (count($sitemaps) > 1) {
+            return $this->render('LeaptCoreBundle:Sitemap:index.xml.twig', array('sitemaps' => $sitemaps));
+        } else if (1 === count($sitemaps)) {
+            return $this->forward('LeaptCoreBundle:Sitemap:sitemap', array('sitemap' => current($sitemaps)->getAlias()));
         }
         else {
             throw new \UnexpectedValueException('No sitemap has been defined');
@@ -28,11 +31,10 @@ class SitemapController extends Controller {
      */
     public function sitemapAction($sitemap)
     {
-        $sitemapManager = $this->get('snowcap_core.sitemap_manager');
+        $sitemapManager = $this->get('leapt_core.sitemap_manager');
         $sitemap = $sitemapManager->getSitemap($sitemap);
         $sitemap->build($this->get('router'));
 
-        return $this->render('SnowcapCoreBundle:Sitemap:sitemap.xml.twig', array('sitemap' => $sitemap));
+        return $this->render('LeaptCoreBundle:Sitemap:sitemap.xml.twig', array('sitemap' => $sitemap));
     }
-
 }

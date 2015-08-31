@@ -1,10 +1,15 @@
 <?php
 
-namespace Snowcap\CoreBundle\Navigation;
+namespace Leapt\CoreBundle\Navigation;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class NavigationRegistry extends ContainerAware {
+/**
+ * Class NavigationRegistry
+ * @package Leapt\CoreBundle\Navigation
+ */
+class NavigationRegistry extends ContainerAware
+{
     /**
      * @var array
      */

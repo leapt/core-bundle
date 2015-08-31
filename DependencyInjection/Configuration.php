@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\DependencyInjection;
+namespace Leapt\CoreBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('snowcap_core');
+        $rootNode = $treeBuilder->root('leapt_core');
         $rootNode
             ->children()
                 ->arrayNode('google_analytics')
@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('paginator')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('template')->defaultValue('SnowcapCoreBundle:Paginator:paginator_default_layout.html.twig')->end()
+                        ->scalarNode('template')->defaultValue('LeaptCoreBundle:Paginator:paginator_default_layout.html.twig')->end()
                     ->end()
                 ->end()
         ;

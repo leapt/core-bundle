@@ -1,9 +1,13 @@
 <?php
 
-namespace Snowcap\CoreBundle\Feed;
+namespace Leapt\CoreBundle\Feed;
 
-class FeedManager {
-
+/**
+ * Class FeedManager
+ * @package Leapt\CoreBundle\Feed
+ */
+class FeedManager
+{
     /**
      * @var array
      */
@@ -15,7 +19,8 @@ class FeedManager {
      * @param string $alias
      * @param FeedInterface $feed
      */
-    public function registerFeed($alias, FeedInterface $feed) {
+    public function registerFeed($alias, FeedInterface $feed)
+    {
         $this->feeds[$alias]= $feed;
     }
 
@@ -27,7 +32,7 @@ class FeedManager {
      * @throws \InvalidArgumentException
      */
     public function getFeed($feedName) {
-        if(!isset($this->feeds[$feedName])) {
+        if (!isset($this->feeds[$feedName])) {
             throw new \InvalidArgumentException(sprintf('Unknown feed "%s"', $feedName));
         }
         return $this->feeds[$feedName];

@@ -34,11 +34,11 @@
                 <script type="text/javascript">
                     var less = { env: "development" };
                 </script>
-                <script type="text/javascript" src="{{ 'bundles/snowcapcore/vendor/less/less.js' }}"></script>
+                <script type="text/javascript" src="{{ 'bundles/leaptcore/vendor/less/less.js' }}"></script>
             {% endif %}
         {% endblock stylesheets %}
         {% javascripts
-            'bundles/snowcapcore/vendor/modernizr/modernizr.js'
+            'bundles/leaptcore/vendor/modernizr/modernizr.js'
             filter='?yui_js'
             output='cache/assetic/js/modernizr.js'
         %}
@@ -59,7 +59,7 @@
         </div>
         {% block javascripts %}
             {% javascripts
-                'bundles/snowcapcore/vendor/jquery/jquery.js'
+                'bundles/leaptcore/vendor/jquery/jquery.js'
                 'bundles/[%public_name%]/js/screen.js'
                 filter='?yui_js'
                 output='cache/assetic/js/all.js'

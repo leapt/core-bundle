@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowcap\CoreBundle\Form\Type;
+namespace Leapt\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class SoundType
- * @package Snowcap\CoreBundle\Form\Type
+ * @package Leapt\CoreBundle\Form\Type
  */
 class SoundType extends AbstractType
 {
@@ -18,7 +18,7 @@ class SoundType extends AbstractType
      */
     public function getName()
     {
-        return 'snowcap_core_sound';
+        return 'leapt_core_sound';
     }
 
     /**

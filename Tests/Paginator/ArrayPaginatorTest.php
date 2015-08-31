@@ -1,10 +1,9 @@
 <?php
 
-namespace Snowcap\CoreBundle\Tests\Paginator;
-
-use Snowcap\CoreBundle\Paginator\ArrayPaginator;
+namespace Leapt\CoreBundle\Tests\Paginator;
 
 use Faker\Factory as FakerFactory;
+use Leapt\CoreBundle\Paginator\ArrayPaginator;
 
 class ArrayPaginatorTest extends AbstractPaginatorTest
 {
@@ -32,7 +31,7 @@ class ArrayPaginatorTest extends AbstractPaginatorTest
      * Build a populated paginator instance
      *
      * @param int $limit
-     * @return \Snowcap\CoreBundle\Paginator\PaginatorInterface
+     * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
      */
     protected function buildPaginator($limit)
     {

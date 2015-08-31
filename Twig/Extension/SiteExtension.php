@@ -1,7 +1,11 @@
 <?php
 
-namespace Snowcap\CoreBundle\Twig\Extension;
+namespace Leapt\CoreBundle\Twig\Extension;
 
+/**
+ * Class SiteExtension
+ * @package Leapt\CoreBundle\Twig\Extension
+ */
 class SiteExtension extends \Twig_Extension
 {
     /**
@@ -101,7 +105,7 @@ class SiteExtension extends \Twig_Extension
     }
 
     /**
-     * @param string $prepend
+     * @param string $append
      */
     public function appendPageTitle($append)
     {
@@ -113,6 +117,6 @@ class SiteExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'snowcap_core_site';
+        return 'leapt_core_site';
     }
 }

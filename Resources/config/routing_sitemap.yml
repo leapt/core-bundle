@@ -1,10 +1,11 @@
-snowcap_core_sitemap_default:
-    pattern: /sitemap.xml
-    defaults: { _controller: SnowcapCoreBundle:Sitemap:default, _format: xml }
+leapt_core_sitemap_default:
+    path:     /sitemap.xml
+    defaults: { _controller: LeaptCoreBundle:Sitemap:default, _format: xml }
     requirements:
-          _format: xml
-snowcap_core_sitemap_sitemap:
-    pattern: /sitemap_{sitemap}.xml
-    defaults: { _controller: SnowcapCoreBundle:Sitemap:sitemap, _format: xml }
+        _format: xml
+
+leapt_core_sitemap_sitemap:
+    path:     /sitemap_{sitemap}.xml
+    defaults: { _controller: LeaptCoreBundle:Sitemap:sitemap, _format: xml }
     requirements:
-          _format: xml
+        _format: xml
