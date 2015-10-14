@@ -38,9 +38,8 @@ class SoundType extends AbstractType
             ->setDefaults(array(
                 'provider' => null
             ))
-            ->setAllowedValues(array(
-                'provider' => array('soundcloud')
-            ));
+            ->setAllowedValues('provider', array('soundcloud'))
+        ;
     }
 
     /**
