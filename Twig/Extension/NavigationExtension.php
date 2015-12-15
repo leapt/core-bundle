@@ -32,15 +32,15 @@ class NavigationExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return [
-            new \Twig_SimpleFunction('set_active_paths', [$this, 'setActivePaths']),
-            new \Twig_SimpleFunction('add_active_path', [$this, 'addActivePath']),
-            new \Twig_SimpleFunction('get_active_paths', [$this, 'getActivePaths']),
-            new \Twig_SimpleFunction('is_active_path', [$this, 'isActivePath']),
-            new \Twig_SimpleFunction('append_breadcrumb', [$this, 'appendBreadcrumb']),
-            new \Twig_SimpleFunction('prepend_breadcrumb', [$this, 'prependBreadcrumb']),
-            new \Twig_SimpleFunction('get_breadcrumbs', [$this, 'getBreadCrumbs']),
-        ];
+        return array(
+            new \Twig_SimpleFunction('set_active_paths', array($this, 'setActivePaths')),
+            new \Twig_SimpleFunction('add_active_path', array($this, 'addActivePath')),
+            new \Twig_SimpleFunction('get_active_paths', array($this, 'getActivePaths')),
+            new \Twig_SimpleFunction('is_active_path', array($this, 'isActivePath')),
+            new \Twig_SimpleFunction('append_breadcrumb', array($this, 'appendBreadcrumb')),
+            new \Twig_SimpleFunction('prepend_breadcrumb', array($this, 'prependBreadcrumb')),
+            new \Twig_SimpleFunction('get_breadcrumbs', array($this, 'getBreadCrumbs')),
+        );
     }
 
     /**

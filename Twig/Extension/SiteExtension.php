@@ -28,11 +28,11 @@ class SiteExtension extends \Twig_Extension
      */
     public function getTests()
     {
-        return [
+        return array(
             new \Twig_SimpleTest('false', function ($var) {
                 return false === $var;
             })
-        ];
+        );
     }
 
     /**
@@ -40,15 +40,15 @@ class SiteExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return [
-            new \Twig_SimpleFunction('preprend_page_title', [$this, 'prependPageTitle']),
-            new \Twig_SimpleFunction('append_page_title', [$this, 'appendPageTitle']),
-            new \Twig_SimpleFunction('page_title', [$this, 'getPageTitle']),
-            new \Twig_SimpleFunction('meta_description', [$this, 'getMetaDescription']),
-            new \Twig_SimpleFunction('set_meta_description', [$this, 'setMetaDescription']),
-            new \Twig_SimpleFunction('meta_keywords', [$this, 'getMetaKeywords']),
-            new \Twig_SimpleFunction('add_meta_keywords', [$this, 'addMetaKeywords']),
-        ];
+        return array(
+            new \Twig_SimpleFunction('preprend_page_title', array($this, 'prependPageTitle')),
+            new \Twig_SimpleFunction('append_page_title', array($this, 'appendPageTitle')),
+            new \Twig_SimpleFunction('page_title', array($this, 'getPageTitle')),
+            new \Twig_SimpleFunction('meta_description', array($this, 'getMetaDescription')),
+            new \Twig_SimpleFunction('set_meta_description', array($this, 'setMetaDescription')),
+            new \Twig_SimpleFunction('meta_keywords', array($this, 'getMetaKeywords')),
+            new \Twig_SimpleFunction('add_meta_keywords', array($this, 'addMetaKeywords')),
+        );
     }
 
     /**

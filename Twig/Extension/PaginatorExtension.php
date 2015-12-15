@@ -55,9 +55,9 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
      */
     public function getFunctions()
     {
-        return [
-            new \Twig_SimpleFunction('paginator_widget', [$this, 'renderPaginatorWidget'], ['is_safe' => ['html']])
-        ];
+        return array(
+            new \Twig_SimpleFunction('paginator_widget', array($this, 'renderPaginatorWidget'), array('is_safe' => array('html')))
+        );
     }
 
     /**
