@@ -14,11 +14,6 @@ class FacebookExtension extends \Twig_Extension
     private $appId;
 
     /**
-     * @var \Twig_Environment
-     */
-    private $twigEnvironment;
-
-    /**
      * @param string $appId
      */
     public function __construct($appId)
@@ -27,22 +22,12 @@ class FacebookExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $environment
-     *
-     * @codeCoverageIgnore
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->twigEnvironment = $environment;
-    }
-
-    /**
      * @return array
      */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('facebook_sdk_code', [$this, 'getFacebookSdkCode'], ['is_safe' => ['html']])
+            new \Twig_SimpleFunction('facebook_sdk_code', [$this, 'getFacebookSdkCode'], ['is_safe' => ['html'], 'needs_environment' => true])
         ];
     }
 
@@ -55,18 +40,17 @@ class FacebookExtension extends \Twig_Extension
     }
 
     /**
+     * @param \Twig_Environment $env
      * @return string
      */
-    public function getFacebookSdkCode()
+    public function getFacebookSdkCode(\Twig_Environment $env)
     {
         if (null !== $this->appId) {
-            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Facebook:sdk_code.html.twig');
+            $template = $env->loadTemplate('LeaptCoreBundle:Facebook:sdk_code.html.twig');
 
-            return $template->render(
-                array(
-                    'app_id' => $this->appId,
-                )
-            );
+            return $template->render([
+                'app_id' => $this->appId,
+            ]);
         }
 
         return '<!-- FacebookSdkCode: app_id is null -->';

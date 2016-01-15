@@ -2,23 +2,25 @@
 
 namespace Leapt\CoreBundle\Navigation;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * Class NavigationRegistry
  * @package Leapt\CoreBundle\Navigation
  */
-class NavigationRegistry extends ContainerAware
+class NavigationRegistry
 {
-    /**
-     * @var array
-     */
-    private $activePaths = array();
+    use ContainerAwareTrait;
 
     /**
      * @var array
      */
-    private $breadcrumbsPaths = array();
+    private $activePaths = [];
+
+    /**
+     * @var array
+     */
+    private $breadcrumbsPaths = [];
 
     /**
      * Set the paths to be considered as active (navigation-wise)
@@ -35,7 +37,7 @@ class NavigationRegistry extends ContainerAware
      */
     public function addActivePath($path)
     {
-        $this->activePaths[]= $path;
+        $this->activePaths[] = $path;
     }
 
     /**

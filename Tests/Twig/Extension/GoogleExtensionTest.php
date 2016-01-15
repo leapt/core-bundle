@@ -8,7 +8,7 @@ use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
 class GoogleExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Twig_Environment
+     * @var \Twig_Environment
      */
     private $env;
 

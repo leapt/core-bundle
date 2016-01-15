@@ -11,11 +11,6 @@ class GoogleExtension extends \Twig_Extension
     const INVALID_DOMAIN_NAME_EXCEPTION = 10;
 
     /**
-     * @var \Twig_Environment
-     */
-    private $twigEnvironment;
-
-    /**
      * @var string
      */
     private $accountId;
@@ -51,16 +46,6 @@ class GoogleExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $environment
-     *
-     * @codeCoverageIgnore
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->twigEnvironment = $environment;
-    }
-
-    /**
      * Get all available functions
      *
      * @return array
@@ -70,9 +55,9 @@ class GoogleExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('analytics_tracking_code', [$this, 'getAnalyticsTrackingCode'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('analytics_tracking_commerce', [$this, 'getAnalyticsCommerce'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('tags_manager_code', [$this, 'getTagsManagerCode'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('analytics_tracking_code', [$this, 'getAnalyticsTrackingCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('analytics_tracking_commerce', [$this, 'getAnalyticsCommerce'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('tags_manager_code', [$this, 'getTagsManagerCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -137,21 +122,20 @@ class GoogleExtension extends \Twig_Extension
     }
 
     /**
+     * @param \Twig_Environment $env
      * @return string
      */
-    public function getAnalyticsTrackingCode()
+    public function getAnalyticsTrackingCode(\Twig_Environment $env)
     {
         if (null !== $this->accountId || 'none' === $this->domainName) {
-            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Google:tracking_code.html.twig');
+            $template = $env->loadTemplate('LeaptCoreBundle:Google:tracking_code.html.twig');
 
-            return $template->render(
-                array(
-                    'tracking_id'  => $this->accountId,
-                    'domain_name'  => $this->domainName,
-                    'allow_linker' => $this->allowLinker,
-                    'debug' => $this->debug,
-                )
-            );
+            return $template->render([
+                'tracking_id'  => $this->accountId,
+                'domain_name'  => $this->domainName,
+                'allow_linker' => $this->allowLinker,
+                'debug' => $this->debug,
+            ]);
         }
 
         return '<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->';
@@ -160,6 +144,7 @@ class GoogleExtension extends \Twig_Extension
     /**
      * Send eCommerce order to Google Analytics
      *
+     * @param \Twig_Environment $env
      * @param array|object $order
      * Example :
      * array(
@@ -180,29 +165,29 @@ class GoogleExtension extends \Twig_Extension
      *          'quantity' => '1',               // quantity - required
      *      )
      *  )
-     *
      * @return string
      */
-    public function getAnalyticsCommerce($order)
+    public function getAnalyticsCommerce(\Twig_Environment $env, $order)
     {
         if (null !== $this->accountId || $this->domainName === 'none') {
-            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Google:tracking_commerce.html.twig');
+            $template = $env->loadTemplate('LeaptCoreBundle:Google:tracking_commerce.html.twig');
 
-            return $template->render(array('order' => $order));
+            return $template->render(['order' => $order]);
         }
 
         return '<!-- AnalyticsTrackingCode: account id is null -->';
     }
 
     /**
+     * @param \Twig_Environment $env
      * @return string
      */
-    public function getTagsManagerCode()
+    public function getTagsManagerCode(\Twig_Environment $env)
     {
         if (null !== $this->tagsManagerId) {
-            $template = $this->twigEnvironment->loadTemplate('LeaptCoreBundle:Google:tags_manager_code.html.twig');
+            $template = $env->loadTemplate('LeaptCoreBundle:Google:tags_manager_code.html.twig');
 
-            return $template->render(array('tags_manager_id' => $this->tagsManagerId));
+            return $template->render(['tags_manager_id' => $this->tagsManagerId]);
         }
 
         return '<!-- TagsManagerCode: tags manager id is null -->';

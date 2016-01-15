@@ -5,6 +5,8 @@ namespace Leapt\CoreBundle\Form\Type;
 use Leapt\CoreBundle\File\CondemnedFile;
 use Leapt\CoreBundle\Form\DataTransformer\FileDataTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType as BaseFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -27,7 +29,7 @@ class FileType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'leapt_core_file';
     }
@@ -37,7 +39,7 @@ class FileType extends AbstractType
      */
     public function getParent()
     {
-        return 'file';
+        return BaseFileType::class;
     }
 
     /**
@@ -46,17 +48,17 @@ class FileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setRequired(array(
+            ->setRequired([
                 'file_path',
-            ))
-            ->setDefaults(array(
-                'compound' => true,
+            ])
+            ->setDefaults([
+                'compound'       => true,
                 'error_bubbling' => false,
-                'data_class' => null,
-                'delete_label' => null,
+                'data_class'     => null,
+                'delete_label'   => null,
                 'download_label' => null,
-                'allow_delete' => true,
-            ));
+                'allow_delete'   => true,
+            ]);
     }
 
 
@@ -70,15 +72,13 @@ class FileType extends AbstractType
         $uploadDir = $this->uploadDir;
 
         $builder
-            ->add('file', 'file', array('error_bubbling' => true))
-            ->add('delete', 'checkbox', array(
-                'error_bubbling' => true,
-            ))
+            ->add('file', BaseFileType::class, ['error_bubbling' => true])
+            ->add('delete', CheckboxType::class, ['error_bubbling' => true])
             ->addViewTransformer(new FileDataTransformer())
-            ->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use($filePath, $uploadDir) {
+            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($filePath, $uploadDir) {
                 // We need to store the path to the file to delete in the Condemned file instance
                 $data = $event->getData();
-                if($data['file'] instanceof CondemnedFile) {
+                if ($data['file'] instanceof CondemnedFile) {
                     $parentForm = $event->getForm()->getParent();
                     $accessor = PropertyAccess::createPropertyAccessor();
                     $imagePath = $accessor->getValue($parentForm->getData(), $filePath);
@@ -100,18 +100,17 @@ class FileType extends AbstractType
             try {
                 $fileUrl = null;
                 if ($parentData !== null) {
-                    if(is_callable($options['file_path'])) {
+                    if (is_callable($options['file_path'])) {
                         $fileUrl = call_user_func($options['file_path'], $parentData);
                     } else {
                         $accessor = PropertyAccess::createPropertyAccessor();
                         $fileUrl = $accessor->getValue($parentData, $options['file_path']);
                     }
                 }
-            }
-            catch(\Exception $e) {
+            } catch (\Exception $e) {
                 $fileUrl = null;
             }
-            // set an "file_url" variable that will be available when rendering this field
+            // set a "file_url" variable that will be available when rendering this field
             $view->vars['file_url'] = $fileUrl;
         }
         $view->vars['download_label'] = $options['download_label'];
@@ -122,7 +121,8 @@ class FileType extends AbstractType
     /**
      * @param string $uploadDir
      */
-    public function setUploadDir($uploadDir) {
+    public function setUploadDir($uploadDir)
+    {
         $this->uploadDir = $uploadDir;
     }
 }

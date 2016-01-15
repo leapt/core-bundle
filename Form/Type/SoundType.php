@@ -3,6 +3,7 @@
 namespace Leapt\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,7 @@ class SoundType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'leapt_core_sound';
     }
@@ -26,7 +27,7 @@ class SoundType extends AbstractType
      */
     public function getParent()
     {
-        return 'text';
+        return TextType::class;
     }
 
     /**
@@ -35,10 +36,8 @@ class SoundType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array(
-                'provider' => null
-            ))
-            ->setAllowedValues('provider', array('soundcloud'))
+            ->setDefaults(['provider' => null])
+            ->setAllowedValues('provider', ['soundcloud'])
         ;
     }
 
