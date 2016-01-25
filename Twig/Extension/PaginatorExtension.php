@@ -1,33 +1,27 @@
 <?php
 
-namespace Leapt\AdminBundle\Twig\Extension;
+namespace Leapt\CoreBundle\Twig\Extension;
 
-use Leapt\AdminBundle\Datalist\Action\DatalistActionInterface;
-use Leapt\AdminBundle\Datalist\DatalistInterface;
-use Leapt\AdminBundle\Datalist\Field\DatalistFieldInterface;
-use Leapt\AdminBundle\Datalist\Filter\DatalistFilterInterface;
-use Leapt\AdminBundle\Datalist\ViewContext;
-use Leapt\AdminBundle\Twig\TokenParser\DatalistThemeTokenParser;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\Form\FormFactory;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
+use Leapt\CoreBundle\Twig\TokenParser\PaginatorThemeTokenParser;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class DatalistExtension
- * @package Leapt\AdminBundle\Twig\Extension
+ * Class PaginatorExtension
+ * @package Leapt\CoreBundle\Twig\Extension
  */
-class DatalistExtension extends \Twig_Extension
+class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterface
 {
-    use ContainerAwareTrait;
-
-    /**
-     * @var \Symfony\Component\Form\FormFactory
-     */
-    private $formFactory;
-
     /**
      * @var string
      */
-    private $defaultTheme = 'LeaptAdminBundle:Datalist:datalist_grid_layout.html.twig';
+    private $template;
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
 
     /**
      * @var \SplObjectStorage
@@ -35,11 +29,11 @@ class DatalistExtension extends \Twig_Extension
     private $themes;
 
     /**
-     * @param \Symfony\Component\Form\FormFactory $formFactory
+     * @param string $template
      */
-    public function __construct(FormFactory $formFactory)
+    public function __construct($template)
     {
-        $this->formFactory = $formFactory;
+        $this->template = $template;
         $this->themes = new \SplObjectStorage();
     }
 
@@ -49,12 +43,7 @@ class DatalistExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('datalist_widget', [$this, 'renderDatalistWidget'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_field', [$this, 'renderDatalistField'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_search', [$this, 'renderDatalistSearch'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_filters', [$this, 'renderDatalistFilters'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_filter', [$this, 'renderDatalistFilter'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_action', [$this, 'renderDatalistAction'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new \Twig_SimpleFunction('paginator_widget', [$this, 'renderPaginatorWidget'], ['is_safe' => ['html'], 'needs_environment' => true])
         ];
     }
 
@@ -63,193 +52,109 @@ class DatalistExtension extends \Twig_Extension
      */
     public function getTokenParsers()
     {
-        return [new DatalistThemeTokenParser()];
+        return [new PaginatorThemeTokenParser()];
     }
 
     /**
      * @param \Twig_Environment $env
-     * @param \Leapt\AdminBundle\Datalist\DatalistInterface $datalist
+     * @param PaginatorInterface $paginator
      * @return string
      * @throws \Exception
      */
-    public function renderDatalistWidget(\Twig_Environment $env, DatalistInterface $datalist)
+    public function renderPaginatorWidget(\Twig_Environment $env, PaginatorInterface $paginator)
     {
-        $blockNames = [
-            $datalist->getType()->getBlockName(),
-            '_' . $datalist->getName() . '_datalist'
+        $blockName = 'paginator_widget';
+
+        $request = $this->container->get('request');
+        $route = $request->attributes->get('_route');
+        $routeParams = $request->attributes->get('_route_params', []);
+        $newRouteParams = array_merge($routeParams, $request->query->all());
+
+        $context = [
+            'paginator'    => $paginator,
+            'route'        => $route,
+            'route_params' => $newRouteParams
         ];
 
-        $viewContext = new ViewContext();
-        $datalist->getType()->buildViewContext($viewContext, $datalist, $datalist->getOptions());
-
-        return $this->renderBlock($env, $datalist, $blockNames, $viewContext->all());
+        return $this->renderBlock($env, $paginator, [$blockName], $context);
     }
 
     /**
-     * @param \Twig_Environment $env
-     * @param \Leapt\AdminBundle\Datalist\Field\DatalistFieldInterface $field
-     * @param mixed $row
-     * @return string
-     * @throws \Exception
+     * Sets the Container.
+     *
+     * @param ContainerInterface $container A ContainerInterface instance
      */
-    public function renderDatalistField(\Twig_Environment $env, DatalistFieldInterface $field, $row)
+    public function setContainer(ContainerInterface $container = null)
     {
-        $blockNames = [
-            $field->getType()->getBlockName() . '_field',
-            '_' . $field->getDatalist()->getName() . '_' . $field->getName() . '_field',
-        ];
-
-        $viewContext = new ViewContext();
-        $field->getType()->buildViewContext($viewContext, $field, $row, $field->getOptions());
-
-        return $this->renderBlock($env, $field->getDatalist(), $blockNames, $viewContext->all());
+        $this->container = $container;
     }
 
     /**
-     * @param \Twig_Environment $env
-     * @param \Leapt\AdminBundle\Datalist\DatalistInterface $datalist
-     * @return string
-     * @throws \Exception
+     * @param string $template
      */
-    public function renderDatalistSearch(\Twig_Environment $env, DatalistInterface $datalist)
+    public function setTemplate($template)
     {
-        $blockNames = [
-            'datalist_search',
-            '_' . $datalist->getName() . '_search',
-        ];
-
-        return $this->renderBlock($env, $datalist, $blockNames, [
-            'form' => $datalist->getSearchForm()->createView(),
-            'placeholder' => $datalist->getOption('search_placeholder'),
-            'submit' => $datalist->getOption('search_submit'),
-            'translation_domain' => $datalist->getOption('translation_domain')
-        ]);
+        $this->template = $template;
     }
 
     /**
-     * @param \Twig_Environment $env
-     * @param \Leapt\AdminBundle\Datalist\DatalistInterface $datalist
-     * @return string
-     * @throws \Exception
+     * @param PaginatorInterface $paginator
+     * @return array
      */
-    public function renderDatalistFilters(\Twig_Environment $env, DatalistInterface $datalist)
+    private function getTemplatesForPaginator(PaginatorInterface $paginator)
     {
-        $blockNames = [
-            'datalist_filters',
-            '_' . $datalist->getName() . '_filters'
-        ];
+        if (isset($this->themes[$paginator])){
+            return $this->themes[$paginator];
+        }
 
-        return $this->renderBlock($env, $datalist, $blockNames, [
-            'filters' => $datalist->getFilters(),
-            'datalist' => $datalist,
-            'submit' => $datalist->getOption('filter_submit'),
-            'reset' => $datalist->getOption('filter_reset'),
-            'url' => $this->container->get('request')->getPathInfo()
-        ]);
+        return [$this->template];
     }
 
     /**
-     * @param \Twig_Environment $env
-     * @param \Leapt\AdminBundle\Datalist\Filter\DatalistFilterInterface $filter
-     * @return string
-     * @throws \Exception
+     * @param PaginatorInterface $paginator
+     * @param $ressources
      */
-    public function renderDatalistFilter(\Twig_Environment $env, DatalistFilterInterface $filter)
+    public function setTheme(PaginatorInterface $paginator, $ressources)
     {
-        $blockNames = [
-            $filter->getType()->getBlockName() . '_filter',
-            '_' . $filter->getDatalist()->getName() . '_' . $filter->getName() . '_filter'
-        ];
-        $childForm = $filter->getDatalist()->getFilterForm()->get($filter->getName());
-
-        return $this->renderBlock($env, $filter->getDatalist(), $blockNames, [
-            'form' => $childForm->createView(),
-            'filter' => $filter,
-            'datalist' => $filter->getDatalist()
-        ]);
+        $this->themes[$paginator] = $ressources;
     }
 
     /**
-     * @param \Twig_Environment $env
-     * @param \Leapt\AdminBundle\Datalist\Action\DatalistActionInterface $action
-     * @param mixed $item
-     * @return string
-     * @throws \Exception
+     * Returns the name of the extension.
+     *
+     * @return string The extension name
      */
-    public function renderDatalistAction(\Twig_Environment $env, DatalistActionInterface $action, $item)
+    public function getName()
     {
-        $blockNames = [
-            $action->getType()->getBlockName() . '_action',
-            '_' . $action->getDatalist()->getName() . '_' . $action->getName() . '_action'
-        ];
-
-        $viewContext = new ViewContext();
-        $action->getType()->buildViewContext($viewContext, $action, $item, $action->getOptions());
-
-        return $this->renderBlock(
-            $env,
-            $action->getDatalist(),
-            $blockNames,
-            $viewContext->all()
-        );
+        return 'leapt_core_paginator';
     }
 
     /**
      * @param \Twig_Environment $env
-     * @param \Leapt\AdminBundle\Datalist\DatalistInterface $datalist
+     * @param PaginatorInterface $paginator
      * @param array $blockNames
      * @param array $context
      * @return string
      * @throws \Exception
      * @throws \Twig_Error_Loader
      */
-    private function renderBlock(\Twig_Environment $env, DatalistInterface $datalist, array $blockNames, array $context = [])
+    private function renderblock(\Twig_Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = [])
     {
-        $datalistTemplates = $this->getTemplatesForDatalist($datalist);
-        foreach($datalistTemplates as $template) {
+        $paginatorTemplates = $this->getTemplatesForPaginator($paginator);
+        foreach ($paginatorTemplates as $template) {
             if (!$template instanceof \Twig_Template) {
-                $template = $this->environment->loadTemplate($template);
+                $template = $env->loadTemplate($template);
             }
             do {
-                foreach($blockNames as $blockName) {
+                foreach ($blockNames as $blockName) {
                     if ($template->hasBlock($blockName)) {
                         return $template->renderBlock($blockName, $context);
                     }
                 }
             }
-            while(($template = $template->getParent($context)) !== false);
+            while (($template = $template->getParent($context)) !== false);
         }
 
         throw new \Exception(sprintf('No block found (tried to find %s)', implode(',', $blockNames)));
-    }
-
-    /**
-     * @param \Leapt\AdminBundle\Datalist\DatalistInterface $datalist
-     * @return array
-     */
-    private function getTemplatesForDatalist(DatalistInterface $datalist)
-    {
-        if(isset($this->themes[$datalist])){
-            return $this->themes[$datalist];
-        }
-
-        return [$this->defaultTheme];
-    }
-
-    /**
-     * @param DatalistInterface $datalist
-     * @param $ressources
-     */
-    public function setTheme(DatalistInterface $datalist, $ressources)
-    {
-        $this->themes[$datalist] = $ressources;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'leapt_admin_datalist';
     }
 }
