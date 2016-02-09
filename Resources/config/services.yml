@@ -35,8 +35,7 @@ services:
     # Navigation
     leapt_core.navigation:
         class: Leapt\CoreBundle\Navigation\NavigationRegistry
-        calls:
-            - [ setContainer, [ "@service_container" ]]
+        arguments: [ "@request_stack" ]
 
     leapt_core.twig_navigation:
         class: Leapt\CoreBundle\Twig\Extension\NavigationExtension

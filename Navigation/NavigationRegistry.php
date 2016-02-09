@@ -2,7 +2,7 @@
 
 namespace Leapt\CoreBundle\Navigation;
 
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class NavigationRegistry
@@ -10,7 +10,10 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
  */
 class NavigationRegistry
 {
-    use ContainerAwareTrait;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
     /**
      * @var array
@@ -21,6 +24,14 @@ class NavigationRegistry
      * @var array
      */
     private $breadcrumbsPaths = [];
+
+    /**
+     * @param RequestStack $requestStack
+     */
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
 
     /**
      * Set the paths to be considered as active (navigation-wise)
@@ -54,12 +65,11 @@ class NavigationRegistry
      * Checks if the provided path is to be considered as active
      *
      * @param string $path
-     *
      * @return bool
      */
     public function isActivePath($path)
     {
-        return in_array($path, $this->activePaths) || $path === $this->container->get('request')->getRequestUri();
+        return in_array($path, $this->activePaths) || $path === $this->requestStack->getCurrentRequest()->getRequestUri();
     }
 
     /**
