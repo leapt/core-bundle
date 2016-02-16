@@ -41,7 +41,7 @@ class SiteExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('preprend_page_title', [$this, 'prependPageTitle']),
+            new \Twig_SimpleFunction('prepend_page_title', [$this, 'prependPageTitle']),
             new \Twig_SimpleFunction('append_page_title', [$this, 'appendPageTitle']),
             new \Twig_SimpleFunction('page_title', [$this, 'getPageTitle']),
             new \Twig_SimpleFunction('meta_description', [$this, 'getMetaDescription']),
