@@ -78,9 +78,7 @@ services:
 
     leapt_core.twig_paginator:
         class: Leapt\CoreBundle\Twig\Extension\PaginatorExtension
-        arguments: [ %leapt_core.paginator.template% ]
-        calls:
-            - [ setContainer, [ "@service_container" ]]
+        arguments: [ %leapt_core.paginator.template%, "@request_stack" ]
         tags:
             - { name: twig.extension }
 

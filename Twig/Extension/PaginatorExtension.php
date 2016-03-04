@@ -4,14 +4,13 @@ namespace Leapt\CoreBundle\Twig\Extension;
 
 use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Leapt\CoreBundle\Twig\TokenParser\PaginatorThemeTokenParser;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class PaginatorExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterface
+class PaginatorExtension extends \Twig_Extension
 {
     /**
      * @var string
@@ -19,9 +18,9 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
     private $template;
 
     /**
-     * @var ContainerInterface
+     * @var RequestStack
      */
-    private $container;
+    private $requestStack;
 
     /**
      * @var \SplObjectStorage
@@ -30,10 +29,12 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
 
     /**
      * @param string $template
+     * @param RequestStack $requestStack
      */
-    public function __construct($template)
+    public function __construct($template, RequestStack $requestStack)
     {
         $this->template = $template;
+        $this->requestStack = $requestStack;
         $this->themes = new \SplObjectStorage();
     }
 
@@ -65,10 +66,10 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
     {
         $blockName = 'paginator_widget';
 
-        $request = $this->container->get('request');
-        $route = $request->attributes->get('_route');
-        $routeParams = $request->attributes->get('_route_params', []);
-        $newRouteParams = array_merge($routeParams, $request->query->all());
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        $route = $currentRequest->attributes->get('_route');
+        $routeParams = $currentRequest->attributes->get('_route_params', []);
+        $newRouteParams = array_merge($routeParams, $currentRequest->query->all());
 
         $context = [
             'paginator'    => $paginator,
@@ -77,16 +78,6 @@ class PaginatorExtension extends \Twig_Extension implements ContainerAwareInterf
         ];
 
         return $this->renderBlock($env, $paginator, [$blockName], $context);
-    }
-
-    /**
-     * Sets the Container.
-     *
-     * @param ContainerInterface $container A ContainerInterface instance
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
     }
 
     /**
