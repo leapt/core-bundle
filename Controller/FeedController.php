@@ -2,8 +2,8 @@
 
 namespace Leapt\CoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class FeedController
@@ -12,31 +12,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class FeedController extends Controller
 {
     /**
-     * @Template
+     * @param Request $request
+     * @param string $feedName
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \ErrorException
      */
-    public function indexAction($feedName)
+    public function indexAction(Request $request, $feedName)
     {
         $feedManager = $this->get('leapt_core.feed_manager');
         $feed = $feedManager->getFeed($feedName);
 
-        $builtFeedItems = array();
+        $builtFeedItems = [];
         $items = $feed->getItems();
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $builtItem = $feed->buildItem($item);
             $errors = $this->get('validator')->validate($builtItem);
-            if(count($errors) > 0) {
+            if (0 < count($errors)) {
                 throw new \ErrorException('Invalid feed item');
             }
-            $builtFeedItems[]= $builtItem;
+            $builtFeedItems[] = $builtItem;
         }
 
-        $locale = $this->getRequest()->getLocale();
-
-        return array(
-            'feed'=> $feed,
+        return $this->render('LeaptCoreBundle:Feed:index.' . $request->getRequestFormat() . '.twig', [
+            'feed'     => $feed,
             'feedName' => $feedName,
-            'locale' => $locale,
-            'items' => $builtFeedItems
-        );
+            'locale'   => $request->getLocale(),
+            'items'    => $builtFeedItems
+        ]);
     }
 }

@@ -3,10 +3,11 @@
 namespace Leapt\CoreBundle\Feed;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @Assert\Callback(methods={"hasLinkOrDescription"})
+ * Class FeedItem
+ * @package Leapt\CoreBundle\Feed
  */
 class FeedItem
 {
@@ -96,14 +97,15 @@ class FeedItem
     /**
      * Check that the feed item has at least a link or a description
      *
-     * @param ExecutionContext $context
+     * @Assert\Callback()
+     * @param ExecutionContextInterface $context
      */
-    public function hasLinkOrDescription(ExecutionContext $context)
+    public function hasLinkOrDescription(ExecutionContextInterface $context)
     {
         if (!isset($this->link) || !isset($this->description)) {
-            $propertyPath = $context->getPropertyPath() . '.link';
-            $context->setPropertyPath($propertyPath);
-            $context->addViolation('Every feed item should have at least a description or a link', array(), null);
+            $context->buildViolation('Every feed item should have at least a description or a link')
+                ->atPath('link')
+                ->addViolation();
         }
     }
 }
