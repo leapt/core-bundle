@@ -17,7 +17,7 @@ services:
         tags:
             - { name: form.type }
         calls:
-            - [ setUploadDir, [ %kernel.root_dir%/../web ] ]
+            - [ setUploadDir, [ "%kernel.root_dir%/../web" ] ]
 
     # Form type extensions
     leapt_core.collection_type_extension:
@@ -28,7 +28,7 @@ services:
     # Field entity event subscriber
     leapt_core.file_subscriber:
         class: Leapt\CoreBundle\Listener\FileSubscriber
-        arguments: [ %kernel.root_dir%/../web ]
+        arguments: [ "%kernel.root_dir%/../web" ]
         tags:
             - { name: doctrine.event_subscriber}
 
@@ -57,17 +57,17 @@ services:
 
     leapt_core.twig_google:
         class: Leapt\CoreBundle\Twig\Extension\GoogleExtension
-        arguments: [ %leapt_core.google_analytics.tracking_id%, %leapt_core.google_analytics.debug% ]
+        arguments: [ "%leapt_core.google_analytics.tracking_id%", "%leapt_core.google_analytics.debug%" ]
         calls:
-            - [ setDomainName, [ %leapt_core.google_analytics.domain_name% ]]
-            - [ setAllowLinker, [ %leapt_core.google_analytics.allow_linker% ]]
-            - [ setTagsManagerId, [ %leapt_core.google_tags_manager.id% ]]
+            - [ setDomainName, [ "%leapt_core.google_analytics.domain_name%" ]]
+            - [ setAllowLinker, [ "%leapt_core.google_analytics.allow_linker%" ]]
+            - [ setTagsManagerId, [ "%leapt_core.google_tags_manager.id%" ]]
         tags:
             - { name: twig.extension }
 
     leapt_core.twig_facebook:
         class: Leapt\CoreBundle\Twig\Extension\FacebookExtension
-        arguments: [ %leapt_core.facebook.app_id% ]
+        arguments: [ "%leapt_core.facebook.app_id%" ]
         tags:
             - { name: twig.extension }
 
@@ -78,7 +78,7 @@ services:
 
     leapt_core.twig_paginator:
         class: Leapt\CoreBundle\Twig\Extension\PaginatorExtension
-        arguments: [ %leapt_core.paginator.template%, "@request_stack" ]
+        arguments: [ "%leapt_core.paginator.template%", "@request_stack" ]
         tags:
             - { name: twig.extension }
 
