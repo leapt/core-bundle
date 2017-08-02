@@ -38,16 +38,6 @@ class DateExtension extends \Twig_Extension
     }
 
     /**
-     * Return the name of the extension
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'leapt_date';
-    }
-
-    /**
      * Filter used to display the time ago for a specific date
      *
      * @param \Datetime|string $datetime
@@ -85,7 +75,7 @@ class DateExtension extends \Twig_Extension
     /**
      * Helper used to get a date interval between a date and now
      *
-     * @param string|DateTime $datetime
+     * @param string|\DateTime $datetime
      *
      * @return \DateInterval
      */

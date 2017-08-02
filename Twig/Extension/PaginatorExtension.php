@@ -111,16 +111,6 @@ class PaginatorExtension extends \Twig_Extension
     }
 
     /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return 'leapt_core_paginator';
-    }
-
-    /**
      * @param \Twig_Environment $env
      * @param PaginatorInterface $paginator
      * @param array $blockNames
@@ -129,7 +119,7 @@ class PaginatorExtension extends \Twig_Extension
      * @throws \Exception
      * @throws \Twig_Error_Loader
      */
-    private function renderblock(\Twig_Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = [])
+    private function renderBlock(\Twig_Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = [])
     {
         $paginatorTemplates = $this->getTemplatesForPaginator($paginator);
         foreach ($paginatorTemplates as $template) {
@@ -138,7 +128,7 @@ class PaginatorExtension extends \Twig_Extension
             }
             do {
                 foreach ($blockNames as $blockName) {
-                    if ($template->hasBlock($blockName)) {
+                    if ($template->hasBlock($blockName, $context)) {
                         return $template->renderBlock($blockName, $context);
                     }
                 }

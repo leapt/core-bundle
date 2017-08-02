@@ -27,16 +27,6 @@ class TextExtension extends \Twig_Extension
     }
 
     /**
-     * Return the name of the extension
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'leapt_text';
-    }
-
-    /**
      * Get all available filters
      *
      * @return array

@@ -44,18 +44,6 @@ class NavigationExtension extends \Twig_Extension
     }
 
     /**
-     * Return the name of the extension
-     *
-     * @return string
-     *
-     * @codeCoverageIgnore
-     */
-    public function getName()
-    {
-        return 'leapt_navigation';
-    }
-
-    /**
      * Set the paths to be considered as active (navigation-wise)
      *
      * @param array $paths an array of URI paths

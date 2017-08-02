@@ -32,14 +32,6 @@ class FacebookExtension extends \Twig_Extension
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'leapt_facebook';
-    }
-
-    /**
      * @param \Twig_Environment $env
      * @return string
      */

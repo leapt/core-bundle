@@ -62,18 +62,6 @@ class GoogleExtension extends \Twig_Extension
     }
 
     /**
-     * Return the name of the extension
-     *
-     * @return string
-     *
-     * @codeCoverageIgnore
-     */
-    public function getName()
-    {
-        return 'leapt_google';
-    }
-
-    /**
      * @param string $domainName Available options are "auto" or "none" or a real domain name
      */
     public function setDomainName($domainName)

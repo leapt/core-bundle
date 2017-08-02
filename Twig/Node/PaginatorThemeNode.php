@@ -28,7 +28,7 @@ class PaginatorThemeNode extends \Twig_Node
     {
         $compiler
             ->addDebugInfo($this)
-            ->write('$this->env->getExtension(\'leapt_core_paginator\')->setTheme(')
+            ->write('$this->env->getExtension(\'Leapt\CoreBundle\Twig\Extension\PaginatorExtension\')->setTheme(')
             ->subcompile($this->getNode('paginator'))
             ->raw(', ')
             ->subcompile($this->getNode('resources'))

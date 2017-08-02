@@ -123,12 +123,4 @@ class SiteExtension extends \Twig_Extension
     {
         array_push($this->titleParts['append'], $append);
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'leapt_core_site';
-    }
 }
