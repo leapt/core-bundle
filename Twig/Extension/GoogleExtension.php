@@ -116,13 +116,13 @@ class GoogleExtension extends \Twig_Extension
     public function getAnalyticsTrackingCode(\Twig_Environment $env)
     {
         if (null !== $this->accountId || 'none' === $this->domainName) {
-            $template = $env->loadTemplate('LeaptCoreBundle:Google:tracking_code.html.twig');
+            $template = $env->load('@LeaptCore/Google/tracking_code.html.twig');
 
             return $template->render([
                 'tracking_id'  => $this->accountId,
                 'domain_name'  => $this->domainName,
                 'allow_linker' => $this->allowLinker,
-                'debug' => $this->debug,
+                'debug'        => $this->debug,
             ]);
         }
 
@@ -158,7 +158,7 @@ class GoogleExtension extends \Twig_Extension
     public function getAnalyticsCommerce(\Twig_Environment $env, $order)
     {
         if (null !== $this->accountId || $this->domainName === 'none') {
-            $template = $env->loadTemplate('LeaptCoreBundle:Google:tracking_commerce.html.twig');
+            $template = $env->load('@LeaptCore/Google/tracking_commerce.html.twig');
 
             return $template->render(['order' => $order]);
         }
@@ -173,7 +173,7 @@ class GoogleExtension extends \Twig_Extension
     public function getTagsManagerCode(\Twig_Environment $env)
     {
         if (null !== $this->tagsManagerId) {
-            $template = $env->loadTemplate('LeaptCoreBundle:Google:tags_manager_code.html.twig');
+            $template = $env->load('@LeaptCore/Google/tags_manager_code.html.twig');
 
             return $template->render(['tags_manager_id' => $this->tagsManagerId]);
         }

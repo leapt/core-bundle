@@ -38,7 +38,7 @@ class FacebookExtension extends \Twig_Extension
     public function getFacebookSdkCode(\Twig_Environment $env)
     {
         if (null !== $this->appId) {
-            $template = $env->loadTemplate('LeaptCoreBundle:Facebook:sdk_code.html.twig');
+            $template = $env->load('@LeaptCore/Facebook/sdk_code.html.twig');
 
             return $template->render([
                 'app_id' => $this->appId,

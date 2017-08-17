@@ -124,7 +124,7 @@ class PaginatorExtension extends \Twig_Extension
         $paginatorTemplates = $this->getTemplatesForPaginator($paginator);
         foreach ($paginatorTemplates as $template) {
             if (!$template instanceof \Twig_Template) {
-                $template = $env->loadTemplate($template);
+                $template = $env->load($template);
             }
             do {
                 foreach ($blockNames as $blockName) {
