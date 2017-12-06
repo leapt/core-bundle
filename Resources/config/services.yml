@@ -95,3 +95,30 @@ services:
     leapt_core.sitemap_manager:
         class: Leapt\CoreBundle\Sitemap\SitemapManager
         arguments: [ "@validator" ]
+
+    # Recaptcha
+    Leapt\CoreBundle\Locale\LocaleResolver:
+        public: false
+        arguments:
+            - '%leapt_core.recaptcha.locale_key%'
+            - '%leapt_core.recaptcha.locale_from_request%'
+            - '@request_stack'
+
+    Leapt\CoreBundle\Form\Type\RecaptchaType:
+        arguments:
+            - '%leapt_core.recaptcha.public_key%'
+            - '%leapt_core.recaptcha.enabled%'
+            - '%leapt_core.recaptcha.ajax%'
+            - '@Leapt\CoreBundle\Locale\LocaleResolver'
+        tags:
+            - { name: form.type }
+
+    Leapt\CoreBundle\Validator\Constraints\RecaptchaValidator:
+        arguments:
+            - '%leapt_core.recaptcha.enabled%'
+            - '%leapt_core.recaptcha.private_key%'
+            - '@request_stack'
+            - '%leapt_core.recaptcha.http_proxy%'
+            - '%leapt_core.recaptcha.verify_host%'
+        tags:
+            - { name: validator.constraint_validator, alias: 'leapt_core.recaptcha' }

@@ -49,5 +49,12 @@ class LeaptCoreExtension extends Extension
                 $container->setParameter('leapt_core.paginator.' . $option, $config['paginator'][$option]);
             }
         }
+
+        // Handle recaptcha twig extension config
+        if (isset($config['recaptcha'])) {
+            foreach ($config['recaptcha'] as $key => $value) {
+                $container->setParameter('leapt_core.recaptcha.' . $key, $value);
+            }
+        }
     }
 }
