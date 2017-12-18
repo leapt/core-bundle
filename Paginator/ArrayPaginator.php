@@ -2,8 +2,6 @@
 
 namespace Leapt\CoreBundle\Paginator;
 
-use Doctrine\ORM\Query;
-
 /**
  * Class ArrayPaginator
  * @package Leapt\CoreBundle\Paginator
