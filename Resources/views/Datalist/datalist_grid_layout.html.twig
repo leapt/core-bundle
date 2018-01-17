@@ -1,0 +1,254 @@
+{# datalist grid block #}
+{% block datalist %}
+
+    {% if datalist.option('filters_on_top') %}
+        {% if datalist.filterable or datalist.searchable %}
+            <div class="well">
+                {% if datalist.searchable %}
+                    {{ datalist_search(datalist) }}
+                {% endif %}
+                {% if datalist.filterable %}
+                    {{ datalist_filters(datalist) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        {{ block('datalist_table') }}
+    {% else %}
+        {% if datalist.searchable %}
+            {{ datalist_search(datalist) }}
+            <hr />
+        {% endif %}
+        {% if datalist.filterable %}
+            <div class="row">
+                <div class="col-xs-12 col-md-9">
+                    {{ block('datalist_table') }}
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="well well-sm">
+                        {{ datalist_filters(datalist) }}
+                    </div>
+                </div>
+            </div>
+        {% else  %}
+            {{ block('datalist_table') }}
+        {% endif %}
+    {% endif %}
+
+    {% if datalist.paginator is not null %}
+        {{ paginator_widget(datalist.paginator) }}
+    {% endif %}
+
+{% endblock datalist %}
+
+{# datalist table block #}
+{% block datalist_table %}
+    {% if datalist|length > 0 %}
+        <table class="table table-striped table-hover datalist">
+            <thead>
+                <tr>
+                    {% for field in datalist.fields %}
+                        <th>
+                            {% if field.options['sortable'] %}
+                                {% set active_sort_field = datalist.datasource.sortField %}
+                                {% set active_sort_direction = datalist.datasource.sortDirection %}
+
+                                {% if active_sort_field == field.options['sort_property_path'] %}
+                                    {% set is_active = true %}
+
+                                    {% if active_sort_direction == 'asc' %}
+                                        {% set icon = 'up' %}
+                                        {% set direction = 'desc' %}
+                                    {% else %}
+                                        {% set icon = 'down' %}
+                                        {% set direction = 'asc' %}
+                                    {% endif %}
+                                {% else %}
+                                    {% set is_active = false %}
+                                    {% set icon = 'up' %}
+                                    {% set direction = 'asc' %}
+                                {% endif %}
+
+                                {% set route_params = datalist.routeParams|merge({ 'sort-field': field.name, 'sort-direction': direction }) %}
+
+                                <a href="{{ path(datalist.route, route_params) }}"{% if is_active %} class="text-success"{% endif %}>
+                                    {{ field.options['label']|trans({}, translation_domain) }}
+                                    <i class="fas fa-chevron-{{ icon }}"></i>
+                                </a>
+                            {% else %}
+                                {{ field.options['label']|trans({}, translation_domain) }}
+                            {% endif %}
+                        </th>
+                    {% endfor %}
+                    {% if datalist.actions|length > 0 %}
+                        <th class="text-right">{{ 'datalist.actions.header'|trans({}, 'admin') }}</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in datalist %}
+                    <tr>
+                        {% for field in datalist.fields %}
+                            {{ datalist_field(field, item) }}
+                        {% endfor %}
+                        {% if datalist.actions|length > 0 %}
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    {% for action in datalist.actions %}
+                                        {{ datalist_action(action, item) }}{% if not loop.last %} {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock datalist_table %}
+
+{# text field #}
+{% block text_field %}
+    <td>
+        {% if value is not null %}
+            {% if truncate is defined %}{% set value = value|truncate(truncate) %}{% endif %}
+            {% if options.escape %}{{ value }}{% else %}{{ value|raw }}{% endif %}
+        {% else %}
+            <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>
+        {% endif %}
+    </td>
+{% endblock text_field %}
+
+{# datetime field #}
+{% block datetime_field %}
+    <td>
+        {% if value is not null %}
+            {{ value|date(options['format'])  }}
+        {% else %}
+            <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>
+        {% endif %}
+    </td>
+{% endblock datetime_field %}
+
+{# label field #}
+{% block label_field %}
+    {% set attr = attr|default({'class': 'label'}) %}
+    <td><span{{ block('widget_attributes') }}>{{ value|trans({}, translation_domain) }}</span></td>
+{% endblock label_field %}
+
+{# image field #}
+{% block image_field %}
+    <td>
+        {% if value is not null %}
+            <img src="{{ value|imresize('admin_thumb') }}" data-src="{{ asset(value) }}" alt="{{ field.options['label']|trans({}, translation_domain) }}"/>
+        {% else %}
+            <img src="http://placehold.it/260x180" alt="{{ field.options['label']|trans({}, translation_domain) }}"/>
+        {% endif %}
+    </td>
+{% endblock image_field %}
+
+{# label field #}
+{% block boolean_field %}
+    {% set label_class = value == true ? 'label-success' : 'label-danger' %}
+    {% set label = ("label " ~ label_class)|trim %}
+    {%
+        set text = value == true ?
+        true_label|trans({}, translation_domain)|default('Yes') :
+        false_label|trans({}, translation_domain)|default('No')
+    %}
+    <td><span class="label {{ label }}">{{ text }}</span></td>
+{% endblock boolean_field %}
+
+{# heading field #}
+{% block heading_field %}
+    <th>
+        {% if value is not null %}
+            {% if truncate is defined %}{% set value = value|truncate(truncate) %}{% endif %}
+            {% if options.escape %}{{ value }}{% else %}{{ value|raw }}{% endif %}
+        {% else %}
+            <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>
+        {% endif %}
+    </th>
+{% endblock heading_field %}
+
+{# url field #}
+{% block url_field %}
+    <td>
+        {% if value is not null %}
+            <a href="{{ url is defined ? url : value }}">{{ value }}</a>
+        {% else %}
+            <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>
+        {% endif %}
+    </td>
+{% endblock url_field %}
+
+{# datalist search #}
+{% block datalist_search %}
+    <form class="form-search" method="get" data-admin="form-manager" novalidate>
+        <div class="input-group">
+            {{ form_widget(form.search, { 'attr': { 'placeholder': (placeholder|trans({}, translation_domain))|default('datalist.search.placeholder'|trans({}, 'LeaptCoreBundle')), 'class': 'form-control'} }) }}
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
+            </span>
+        </div>
+    </form>
+{% endblock datalist_search %}
+
+{# datalist filters #}
+{% block datalist_filters %}
+    {% set filters_on_top = datalist.option('filters_on_top') %}
+    {% set form_class = filters_on_top ? 'form-inline' : 'form-vertical' %}
+    <form class="{{ form_class }}" method="get" data-admin="form-manager" novalidate>
+        {{ filters_on_top ? '<br />' : '' }}
+        {% for filter in filters %}
+            {{ datalist_filter(filter) }}{% if filters_on_top %}&nbsp;{% endif %}
+        {% endfor %}
+        {{ filters_on_top ? '<br /><br />' : '' }}
+        <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
+        <a class="btn btn-default" href="{{ url }}">{{ reset|trans({}, 'LeaptCoreBundle') }}</a>
+    </form>
+{% endblock datalist_filters %}
+
+{# choice filter #}
+{% block choice_filter %}
+    {{ block('simple_filter') }}
+{% endblock choice_filter %}
+
+{# entity filter #}
+{% block entity_filter %}
+    {{ block('simple_filter') }}
+{% endblock entity_filter %}
+
+{# search filter #}
+{% block search_filter %}
+    {{ block('simple_filter') }}
+{% endblock search_filter %}
+
+{# entity filter #}
+{% block simple_filter %}
+    <div class="form-group">
+        <label for="{{ form.vars.id }}">{{ form.vars.label|trans({}, datalist.option('translation_domain')) }}</label>
+        {{ form_widget(form, { 'attr': { 'class': 'form-control' } }) }}
+    </div>
+{% endblock simple_filter %}
+
+{# simple action #}
+{% block simple_action %}
+    {% set attr = attr|merge({'class': (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {% if enabled %}
+        <a href="{{ url }}"{{ block('widget_attributes') }}>
+            {% if icon is defined %}<i class="{{ icon }}"></i> {% endif %}
+            {{ label|trans({}, translation_domain) }}
+        </a>
+    {% else %}
+        <span class="{{ (attr.class|default('') ~ ' disabled')|trim }}">
+            {% if icon is defined %}<i class="{{ icon }}"></i> {% endif %}
+            {{ label|trans({}, translation_domain) }}
+        </span>
+    {% endif %}
+{% endblock simple_action %}
+
+{% block widget_attributes %}
+    {% spaceless %}
+        {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}
+    {% endspaceless %}
+{% endblock widget_attributes %}

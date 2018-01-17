@@ -82,6 +82,11 @@ services:
         tags:
             - { name: twig.extension }
 
+    Leapt\CoreBundle\Twig\Extension\DatalistExtension:
+        arguments: [ '@form.factory', '@request_stack' ]
+        tags:
+            - { name: twig.extension }
+
     # RSS feeds
     leapt_core.feed_manager:
         class: Leapt\CoreBundle\Feed\FeedManager
@@ -122,3 +127,7 @@ services:
             - '%leapt_core.recaptcha.verify_host%'
         tags:
             - { name: validator.constraint_validator, alias: 'leapt_core.recaptcha' }
+
+    Leapt\CoreBundle\Datalist\DatalistFactory:
+        $formFactory: '@form.factory'
+        $router: '@router'

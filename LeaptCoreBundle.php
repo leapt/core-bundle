@@ -2,6 +2,7 @@
 
 namespace Leapt\CoreBundle;
 
+use Leapt\CoreBundle\DependencyInjection\Compiler\DatalistCompilerPass;
 use Leapt\CoreBundle\DependencyInjection\Compiler\FeedCompilerPass;
 use Leapt\CoreBundle\DependencyInjection\Compiler\SitemapCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,6 +14,7 @@ class LeaptCoreBundle extends Bundle
     {
         parent::build($container);
 
+        $container->addCompilerPass(new DatalistCompilerPass());
         $container->addCompilerPass(new FeedCompilerPass());
         $container->addCompilerPass(new SitemapCompilerPass());
     }

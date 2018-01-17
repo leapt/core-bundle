@@ -2,6 +2,10 @@
 
 namespace Leapt\CoreBundle\DependencyInjection;
 
+use Leapt\CoreBundle\Datalist\Action\Type\ActionTypeInterface;
+use Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface;
+use Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface;
+use Leapt\CoreBundle\Datalist\Type\DatalistTypeInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -56,5 +60,15 @@ class LeaptCoreExtension extends Extension
                 $container->setParameter('leapt_core.recaptcha.' . $key, $value);
             }
         }
+
+        // Auto-register Datalist types
+        $container->registerForAutoconfiguration(ActionTypeInterface::class)
+            ->addTag('leapt_core.datalist.action_type');
+        $container->registerForAutoconfiguration(FieldTypeInterface::class)
+            ->addTag('leapt_core.datalist.field_type');
+        $container->registerForAutoconfiguration(FilterTypeInterface::class)
+            ->addTag('leapt_core.datalist.filter_type');
+        $container->registerForAutoconfiguration(DatalistTypeInterface::class)
+            ->addTag('leapt_core.datalist.type');
     }
 }
