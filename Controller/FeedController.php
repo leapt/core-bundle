@@ -33,11 +33,11 @@ class FeedController extends Controller
             $builtFeedItems[] = $builtItem;
         }
 
-        return $this->render('LeaptCoreBundle:Feed:index.' . $request->getRequestFormat() . '.twig', [
+        return $this->render('@LeaptCore/Feed/index.' . $request->getRequestFormat() . '.twig', [
             'feed'     => $feed,
             'feedName' => $feedName,
             'locale'   => $request->getLocale(),
-            'items'    => $builtFeedItems
+            'items'    => $builtFeedItems,
         ]);
     }
 }

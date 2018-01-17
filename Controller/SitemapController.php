@@ -17,9 +17,9 @@ class SitemapController extends Controller
         $sitemaps = $sitemapManager->getSitemaps();
 
         if (count($sitemaps) > 1) {
-            return $this->render('LeaptCoreBundle:Sitemap:index.xml.twig', array('sitemaps' => $sitemaps));
+            return $this->render('@LeaptCore/Sitemap/index.xml.twig', ['sitemaps' => $sitemaps]);
         } else if (1 === count($sitemaps)) {
-            return $this->forward('LeaptCoreBundle:Sitemap:sitemap', array('sitemap' => current($sitemaps)->getAlias()));
+            return $this->forward('LeaptCoreBundle:Sitemap:sitemap', ['sitemap' => current($sitemaps)->getAlias()]);
         }
         else {
             throw new \UnexpectedValueException('No sitemap has been defined');
@@ -35,6 +35,6 @@ class SitemapController extends Controller
         $sitemap = $sitemapManager->getSitemap($sitemap);
         $sitemap->build($this->get('router'));
 
-        return $this->render('LeaptCoreBundle:Sitemap:sitemap.xml.twig', array('sitemap' => $sitemap));
+        return $this->render('@LeaptCore/Sitemap/sitemap.xml.twig', ['sitemap' => $sitemap]);
     }
 }

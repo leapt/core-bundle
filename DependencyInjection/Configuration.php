@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('paginator')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('template')->defaultValue('LeaptCoreBundle:Paginator:paginator_default_layout.html.twig')->end()
+                        ->scalarNode('template')->defaultValue('@LeaptCore/Paginator/paginator_default_layout.html.twig')->end()
                     ->end()
                 ->end()
                 ->arrayNode('recaptcha')
