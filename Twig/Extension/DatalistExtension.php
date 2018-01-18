@@ -80,9 +80,9 @@ final class DatalistExtension extends \Twig_Extension
     public function renderDatalistWidget(\Twig_Environment $env, DatalistInterface $datalist)
     {
         $blockNames = [
-            'datalist',
+            '_' . $datalist->getType()->getBlockName() . '_datalist',
             $datalist->getType()->getBlockName(),
-            '_' . $datalist->getType()->getBlockName() . '_datalist'
+            'datalist',
         ];
 
         $viewContext = new ViewContext();
@@ -101,8 +101,8 @@ final class DatalistExtension extends \Twig_Extension
     public function renderDatalistField(\Twig_Environment $env, DatalistFieldInterface $field, $row)
     {
         $blockNames = [
+            '_' . $field->getDatalist()->getType()->getBlockName() . '_' . $field->getName() . '_field',
             $field->getType()->getBlockName() . '_field',
-            '_' . $field->getDatalist()->getName() . '_' . $field->getName() . '_field',
         ];
 
         $viewContext = new ViewContext();
@@ -120,8 +120,8 @@ final class DatalistExtension extends \Twig_Extension
     public function renderDatalistSearch(\Twig_Environment $env, DatalistInterface $datalist)
     {
         $blockNames = [
+            '_' . $datalist->getType()->getBlockName() . '_search',
             'datalist_search',
-            '_' . $datalist->getName() . '_search',
         ];
 
         return $this->renderBlock($env, $datalist, $blockNames, [
@@ -141,8 +141,8 @@ final class DatalistExtension extends \Twig_Extension
     public function renderDatalistFilters(\Twig_Environment $env, DatalistInterface $datalist)
     {
         $blockNames = [
+            '_' . $datalist->getType()->getBlockName() . '_filters',
             'datalist_filters',
-            '_' . $datalist->getName() . '_filters'
         ];
 
         return $this->renderBlock($env, $datalist, $blockNames, [
@@ -163,8 +163,8 @@ final class DatalistExtension extends \Twig_Extension
     public function renderDatalistFilter(\Twig_Environment $env, DatalistFilterInterface $filter)
     {
         $blockNames = [
+            '_' . $filter->getDatalist()->getName() . '_' . $filter->getName() . '_filter',
             $filter->getType()->getBlockName() . '_filter',
-            '_' . $filter->getDatalist()->getName() . '_' . $filter->getName() . '_filter'
         ];
         $childForm = $filter->getDatalist()->getFilterForm()->get($filter->getName());
 
@@ -185,8 +185,8 @@ final class DatalistExtension extends \Twig_Extension
     public function renderDatalistAction(\Twig_Environment $env, DatalistActionInterface $action, $item)
     {
         $blockNames = [
+            '_' . $action->getDatalist()->getName() . '_' . $action->getName() . '_action',
             $action->getType()->getBlockName() . '_action',
-            '_' . $action->getDatalist()->getName() . '_' . $action->getName() . '_action'
         ];
 
         $viewContext = new ViewContext();
@@ -217,7 +217,7 @@ final class DatalistExtension extends \Twig_Extension
                 $template = $env->loadTemplate($template);
             }
             do {
-                foreach($blockNames as $blockName) {
+                foreach ($blockNames as $blockName) {
                     if ($template->hasBlock($blockName, $context)) {
                         return $template->renderBlock($blockName, $context);
                     }
