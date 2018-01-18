@@ -185,7 +185,9 @@
 {% block datalist_search %}
     <form class="form-search" method="get" data-admin="form-manager" novalidate>
         <div class="input-group">
-            {{ form_widget(form.search, { 'attr': { 'placeholder': (placeholder|trans({}, translation_domain))|default('datalist.search.placeholder'|trans({}, 'LeaptCoreBundle')), 'class': 'form-control'} }) }}
+            {% set placeholder = placeholder is not empty ? placeholder|trans({}, translation_domain) : 'datalist.search.placeholder'|trans({}, 'LeaptCoreBundle')%}
+            {% form_theme form.search '@LeaptCore/Datalist/datalist_form_layout.html.twig' %}
+            {{ form_widget(form.search, { 'attr': { 'placeholder': placeholder, 'class': 'form-control'} }) }}
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
             </span>
