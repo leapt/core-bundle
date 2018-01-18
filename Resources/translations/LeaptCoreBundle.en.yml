@@ -22,3 +22,5 @@ datalist:
     filter:
         submit: Filter
         reset: Reset
+    actions:
+        header: Actions
