@@ -13,3 +13,12 @@ form:
                 label: Télécharger
             delete:
                 label: Effacer le fichier actuel
+
+datalist:
+    empty_value: ---
+    search:
+        submit: Rechercher
+        placeholder: Entrez vos termes de recherche
+    filter:
+        submit: Filtrer
+        reset: Réinitialiser
