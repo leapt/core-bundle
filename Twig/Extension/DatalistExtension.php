@@ -249,12 +249,4 @@ final class DatalistExtension extends \Twig_Extension
     {
         $this->themes[$datalist] = $ressources;
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'leapt_admin_datalist';
-    }
 }
