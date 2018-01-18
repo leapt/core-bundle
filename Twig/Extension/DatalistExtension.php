@@ -80,8 +80,9 @@ final class DatalistExtension extends \Twig_Extension
     public function renderDatalistWidget(\Twig_Environment $env, DatalistInterface $datalist)
     {
         $blockNames = [
+            'datalist',
             $datalist->getType()->getBlockName(),
-            '_' . $datalist->getName() . '_datalist'
+            '_' . $datalist->getType()->getBlockName() . '_datalist'
         ];
 
         $viewContext = new ViewContext();
