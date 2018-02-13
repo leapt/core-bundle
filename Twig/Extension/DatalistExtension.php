@@ -142,6 +142,7 @@ final class DatalistExtension extends \Twig_Extension
     {
         $blockNames = [
             '_' . $datalist->getType()->getBlockName() . '_filters',
+            '_' . $datalist->getName() . '_filters',
             'datalist_filters',
         ];
 
