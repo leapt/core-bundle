@@ -35,14 +35,6 @@ class FileType extends AbstractType
     }
 
     /**
-     * @return string
-     */
-    public function getParent()
-    {
-        return BaseFileType::class;
-    }
-
-    /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
