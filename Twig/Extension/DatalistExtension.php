@@ -30,7 +30,7 @@ final class DatalistExtension extends \Twig_Extension
     /**
      * @var string
      */
-    private $defaultTheme = '@LeaptCore/datalist/datalist_grid_layout.html.twig';
+    private $defaultTheme = '@LeaptCore/Datalist/datalist_grid_layout.html.twig';
 
     /**
      * @var \SplObjectStorage
