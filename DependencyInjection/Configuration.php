@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('leapt_core');
         $rootNode
             ->children()
+                ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web')->end()
                 ->arrayNode('google_analytics')
                     ->children()
                         ->scalarNode('tracking_id')->defaultNull()->end()

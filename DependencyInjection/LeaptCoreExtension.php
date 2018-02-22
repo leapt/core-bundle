@@ -29,6 +29,9 @@ class LeaptCoreExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        // Handle upload dir config
+        $container->setParameter('leapt_core.upload_dir', $config['upload_dir']);
+
         // Handle analytics config
         if (isset($config['google_analytics'])) {
             foreach (array('tracking_id', 'domain_name', 'allow_linker', 'debug') as $option) {

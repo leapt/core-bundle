@@ -17,7 +17,7 @@ services:
         tags:
             - { name: form.type }
         calls:
-            - [ setUploadDir, [ "%kernel.root_dir%/../web" ] ]
+            - [ setUploadDir, [ "%leapt_core.upload_dir%" ] ]
 
     # Form type extensions
     leapt_core.collection_type_extension:
@@ -28,7 +28,7 @@ services:
     # Field entity event subscriber
     leapt_core.file_subscriber:
         class: Leapt\CoreBundle\Listener\FileSubscriber
-        arguments: [ "%kernel.root_dir%/../web" ]
+        arguments: [ "%leapt_core.upload_dir%" ]
         tags:
             - { name: doctrine.event_subscriber}
 
