@@ -84,7 +84,8 @@ class ChoiceFilterType extends AbstractFilterType
         return [
             'placeholder',
             'preferred_choices',
-            'choice_translation_domain'
+            'choice_translation_domain',
+            'choice_label',
         ];
     }
 }
