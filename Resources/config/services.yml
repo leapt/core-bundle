@@ -6,11 +6,6 @@ parameters:
     leapt_core.paginator.template: ~
 
 services:
-    # Load twig text
-    twig.extension.text:
-        class: Twig_Extensions_Extension_Text
-        tags: [ { name: 'twig.extension' } ]
-
     # Form types
     leapt_core.file_type:
         class: Leapt\CoreBundle\Form\Type\FileType
