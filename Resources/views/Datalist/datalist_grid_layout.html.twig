@@ -110,7 +110,7 @@
 {% block text_field %}
     <td>
         {% if value is not null %}
-            {% if truncate is defined %}{% set value = value|truncate(truncate) %}{% endif %}
+            {% if truncate is defined %}{% set value = value|safe_truncate(truncate) %}{% endif %}
             {% if options.escape %}{{ value }}{% else %}{{ value|raw }}{% endif %}
         {% else %}
             <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>
@@ -162,7 +162,7 @@
 {% block heading_field %}
     <th>
         {% if value is not null %}
-            {% if truncate is defined %}{% set value = value|truncate(truncate) %}{% endif %}
+            {% if truncate is defined %}{% set value = value|safe_truncate(truncate) %}{% endif %}
             {% if options.escape %}{{ value }}{% else %}{{ value|raw }}{% endif %}
         {% else %}
             <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>
