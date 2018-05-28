@@ -25,12 +25,12 @@ class FileSubscriber implements EventSubscriber
     /**
      * @var array
      */
-    private $config = array();
+    private $config = [];
 
     /**
      * @var array
      */
-    private $unlinkQueue = array();
+    private $unlinkQueue = [];
 
     /**
      * @var string
@@ -45,82 +45,16 @@ class FileSubscriber implements EventSubscriber
         $this->uploadDir = $uploadDir;
     }
 
-    /**
-     * Returns an array of events this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public function getSubscribedEvents()
     {
-        return array(
-            Events::loadClassMetadata,
+        return [
             Events::preFlush,
             Events::onFlush,
             Events::postPersist,
             Events::postUpdate,
             Events::preRemove,
             Events::postRemove,
-        );
-    }
-
-    /**
-     * @param \Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs
-     * @throws AnnotationException
-     */
-    public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
-    {
-        $reader = new AnnotationReader();
-        $meta = $eventArgs->getClassMetadata();
-        foreach ($meta->getReflectionClass()->getProperties() as $property) {
-            if ($meta->isMappedSuperclass && !$property->isPrivate() ||
-                $meta->isInheritedField($property->name) ||
-                isset($meta->associationMappings[$property->name]['inherited'])
-            ) {
-                continue;
-            }
-            if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\CoreBundle\\Doctrine\\Mapping\\File')) {
-                $property->setAccessible(true);
-                $field = $property->getName();
-
-                if (null === $annotation->mappedBy) {
-                    throw AnnotationException::requiredError(
-                        'mappedBy',
-                        'LeaptCore\File',
-                        $meta->getReflectionClass()->getName(),
-                        'another class property to map onto'
-                    );
-                }
-                if (null === $annotation->path && null === $annotation->pathCallback) {
-                    throw AnnotationException::syntaxError(
-                        sprintf(
-                            'Annotation @%s declared on %s expects "path" or "pathCallback". One of them should not be null.',
-                            'LeaptCore\File',
-                            $meta->getReflectionClass()->getName()
-                        )
-                    );
-                }
-                if (!$meta->hasField($annotation->mappedBy)) {
-                    throw AnnotationException::syntaxError(
-                        sprintf(
-                            'The entity "%s" has no field named "%s", but it is documented in the annotation @%s',
-                            $meta->getReflectionClass()->getName(),
-                            $annotation->mappedBy,
-                            'LeaptCore\File'
-                        )
-                    );
-                }
-
-                $this->config[$meta->getName()]['fields'][$field] = array(
-                    'property' => $property,
-                    'path' => $annotation->path,
-                    'mappedBy' => $annotation->mappedBy,
-                    'filename' => $annotation->filename,
-                    'meta' => $meta,
-                    'nameCallback' => $annotation->nameCallback,
-                    'pathCallback' => $annotation->pathCallback,
-                );
-            }
-        }
+        ];
     }
 
     /**
@@ -156,7 +90,7 @@ class FileSubscriber implements EventSubscriber
     /**
      * @param \Doctrine\ORM\Event\OnFlushEventArgs $ea
      */
-    public function OnFlush(OnFlushEventArgs $ea)
+    public function onFlush(OnFlushEventArgs $ea)
     {
         $entityManager = $ea->getEntityManager();
 
@@ -184,13 +118,14 @@ class FileSubscriber implements EventSubscriber
      */
     private function getFileFields($entity, EntityManager $em)
     {
-        $classMetaData = $em->getClassMetaData(get_class($entity));
-        $className = $classMetaData->getName();
+        $className = get_class($entity);
+        $this->checkClassConfig($entity, $em);
 
         if (array_key_exists($className, $this->config)) {
             return $this->config[$className]['fields'];
         }
-        return array();
+
+        return [];
     }
 
     /**
@@ -361,5 +296,65 @@ class FileSubscriber implements EventSubscriber
         }
 
         return $path . $filename . $ext;
+    }
+
+    private function checkClassConfig($entity, EntityManager $entityManager)
+    {
+        $class = get_class($entity);
+
+        if (!array_key_exists($class, $this->config)) {
+            $reader = new AnnotationReader();
+            $meta = $entityManager->getClassMetaData($class);
+            foreach ($meta->getReflectionClass()->getProperties() as $property) {
+                if ($meta->isMappedSuperclass && !$property->isPrivate() ||
+                    $meta->isInheritedField($property->name) ||
+                    isset($meta->associationMappings[$property->name]['inherited'])
+                ) {
+                    continue;
+                }
+                if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\CoreBundle\\Doctrine\\Mapping\\File')) {
+                    $property->setAccessible(true);
+                    $field = $property->getName();
+
+                    if (null === $annotation->mappedBy) {
+                        throw AnnotationException::requiredError(
+                            'mappedBy',
+                            'LeaptCore\File',
+                            $meta->getReflectionClass()->getName(),
+                            'another class property to map onto'
+                        );
+                    }
+                    if (null === $annotation->path && null === $annotation->pathCallback) {
+                        throw AnnotationException::syntaxError(
+                            sprintf(
+                                'Annotation @%s declared on %s expects "path" or "pathCallback". One of them should not be null.',
+                                'LeaptCore\File',
+                                $meta->getReflectionClass()->getName()
+                            )
+                        );
+                    }
+                    if (!$meta->hasField($annotation->mappedBy)) {
+                        throw AnnotationException::syntaxError(
+                            sprintf(
+                                'The entity "%s" has no field named "%s", but it is documented in the annotation @%s',
+                                $meta->getReflectionClass()->getName(),
+                                $annotation->mappedBy,
+                                'LeaptCore\File'
+                            )
+                        );
+                    }
+
+                    $this->config[$class]['fields'][$field] = [
+                        'property' => $property,
+                        'path' => $annotation->path,
+                        'mappedBy' => $annotation->mappedBy,
+                        'filename' => $annotation->filename,
+                        'meta' => $meta,
+                        'nameCallback' => $annotation->nameCallback,
+                        'pathCallback' => $annotation->pathCallback,
+                    ];
+                }
+            }
+        }
     }
 }
