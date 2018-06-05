@@ -1,11 +1,11 @@
 leapt_core_sitemap_default:
     path:     /sitemap.xml
-    defaults: { _controller: LeaptCoreBundle:Sitemap:default, _format: xml }
+    defaults: { _controller: Leapt\CoreBundle\Controller\SitemapController::defaultAction, _format: xml }
     requirements:
         _format: xml
 
 leapt_core_sitemap_sitemap:
     path:     /sitemap_{sitemap}.xml
-    defaults: { _controller: LeaptCoreBundle:Sitemap:sitemap, _format: xml }
+    defaults: { _controller: Leapt\CoreBundle\Controller\SitemapController::sitemapAction, _format: xml }
     requirements:
         _format: xml
