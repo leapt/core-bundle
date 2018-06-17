@@ -50,6 +50,7 @@ class FileType extends AbstractType
                 'delete_label'   => null,
                 'download_label' => null,
                 'allow_delete'   => true,
+                'file_label'     => null,
             ]);
     }
 
@@ -64,7 +65,10 @@ class FileType extends AbstractType
         $uploadDir = $this->uploadDir;
 
         $builder
-            ->add('file', BaseFileType::class, ['error_bubbling' => true])
+            ->add('file', BaseFileType::class, [
+                'label'          => $options['file_label'],
+                'error_bubbling' => true,
+            ])
             ->add('delete', CheckboxType::class, ['error_bubbling' => true])
             ->addViewTransformer(new FileDataTransformer())
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($filePath, $uploadDir) {
