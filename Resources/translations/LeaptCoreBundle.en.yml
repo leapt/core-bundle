@@ -24,3 +24,7 @@ datalist:
         reset: Reset
     actions:
         header: Actions
+
+paginator:
+    previous: Previous
+    next: Next

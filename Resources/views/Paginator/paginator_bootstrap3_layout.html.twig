@@ -1,0 +1,20 @@
+{# paginator widget block #}
+{% block paginator_widget %}
+{% if paginator.pageCount > 1 %}
+    <ul class="pagination">
+        <li{% if paginator.page == 1 %} class="disabled"{% endif %}>
+            <a href="{{ path(route, route_params|merge({ 'page': 1 })) }}">«</a>
+        </li>
+        {% for i in paginator.range %}
+            <li{% if paginator.page == i %} class="active"{% endif %}>
+                <a href="{{ path(route, route_params|merge({ 'page': i })) }}">
+                    {{ i }}
+                </a>
+            </li>
+        {% endfor %}
+        <li{% if paginator.page == paginator.pageCount %} class="disabled"{% endif %}>
+            <a href="{{ path(route, route_params|merge({ 'page': paginator.pageCount })) }}">»</a>
+        </li>
+    </ul>
+{% endif %}
+{% endblock paginator_widget %}
