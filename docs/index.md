@@ -1,131 +1,31 @@
-Leapt Core Bundle
-=================
+---
+layout: home
+permalink: /
+---
 
-This bundle is a fork of the SnowcapCore Bundle: http://github.com/snowcap/SnowcapCoreBundle
+# Leapt Core bundle
 
-The Leapt Core Bundle is a bundle used at Snowcap to help us with some repetitive tasks, including (but not limited to):
+This bundle is a fork of the SnowcapCore Bundle: https://github.com/snowcap/SnowcapCoreBundle
 
-* Dealing with file and image uploads
-* RSS feed generation
-* SEO-related tasks (sitemaps, etc)
+The Leapt Core Bundle is a bundle used to help with some repetitive tasks, including (but not limited to):
 
-## Installation
+- Dealing with file and image uploads
+- RSS feed generation
+- SEO-related tasks (sitemaps, etc)
 
-### Download LeaptCoreBundle using composer
+If you find a bug or want to add a functionality,
+[please create an issue or a pull request on Github](https://github.com/leapt/core-bundle)!
 
-Add LeaptCoreBundle in your composer.json:
+## Documentation
 
-```js
-{
-    "require": {
-        "leapt/core-bundle": "~1.0"
-    }
-}
-```
-
-Now tell composer to download the bundle by running the command:
-
-``` bash
-$ php composer.phar update leapt/core-bundle
-```
-
-Composer will install the bundle to your project's `vendor/leapt` directory.
-
-### Enable the Bundle
-
-Enable the bundle in the kernel:
-
-``` php
-<?php
-// app/AppKernel.php
-
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new Leapt\CoreBundle\LeaptCoreBundle(),
-    );
-}
-```
-
-### Running the tests
-
-Before running the tests, you will need to install the bundle dependencies. Do it using composer :
-
-``` bash
-$ php composer.phar --dev install
-```
-
-Then you can simply launch phpunit
-
-``` bash
-$ phpunit
-```
-
-## Form types
-
-LeaptCoreBundle provides a few useful form types.
-
-### File Field Type (leapt_core_file)
-
-The _leapt_core_file_ field type is a simple file upload widget. It extends Symfony's default _file_ type,
-and bring two extra features:
-
-* It allows users to ask for the deletion of the current file
-* The widget includes a "download" button that allows the user to download the file
-
-#### Usage
-
-```php
-<?php
-// src/Acme/SiteBundle/Form/CandidateType
-
-public function buildForm(FormBuilderInterface $builder, array $options)
-{
-    $builder->add('cv', 'leapt_core_file', array(
-        'label' => 'Curriculum Vitae',
-        'file_path' => 'cvPath',
-    ));
-}
-```
-
-When Symfony displays the form widget, it will also render a "download" button, which is basically a link pointing
-to the file, as specified by the _file_path_ option.
-
-#### Options
-
-##### file_path
-
-**type:** string or callable **required**
-
-Either a public path that can be processed by Symfony's [PropertyAccess component](http://symfony.com/doc/current/components/property_access/index.html)
-or a callable that takes the field data as sole argument and returns a path. This path will be used to build
-the download button url.
-
-##### allow_delete
-
-**type:** boolean **default:** true
-
-When true, will display a checkbox allowing users to ask for the deletion of the current file. When checked, on
-form submission, the field data will be replaced by an instance of Leapt\CoreBundle\File\CondemnedFile. It is up
-to you to process that Condemned file instance (unless you use the LeaptCoreBundle FileSubscriber).
-
-##### delete_label
-**type:** string **default:** null
-
-The label that will be displayed next to the deletion checkbox.
-
-##### download_label
-**type:** string **default:** null
-
-The label that will be displayed on the download button.
-
-### Image Field Type
-
-The _leapt_core_image_ field type extends the _leapt_core_file_ field type. It behaves the same way, except that it
-is rendered differently: instead of displaying a "download" button, it will actually display the uploaded
-image.
-
-**Note:** If you are using [LeaptImBundle](https://github.com/leapt/im-bundle), in addition to the options
-provided by _leapt_core_file_, you can specify a _im_format_ option. It will be used to dynamically create a
-thumbnail of the picture. Please refer to the LeaptImBundle documentation for more information.
+1. [Installation](/install.html)
+2. [Form Types](/form_types.html)
+3. [Paginator](/paginator.html)
+4. [Data lists](/data_lists.html)
+5. [RSS Feeds](/rss_feeds.html)
+6. [Sitemaps](/sitemaps.html)
+7. [Navigation Helper](/navigation_helper.html)
+8. [Utilities](/utilities.html)
+9. [Validator Constraints](/validators.html)
+10. [Twig Extensions](/twig_extensions.html)
+11. [Configuration Reference](/configuration_reference.html)

@@ -12,7 +12,7 @@ class Slug extends Regex
     /**
      * @var string
      */
-    public $message = 'A slug can only contain lowercase letters, numbers and hyphens';
+    public $message = 'A slug can only contain lowercase letters, numbers and hyphens.';
 
     /**
      * @var string
