@@ -21,6 +21,40 @@ The bundle provides 5 Form Types:
 
 ## <a name="recaptcha-type"></a> Recaptcha Type
 
+This Form Type is based on the [EWZRecaptchaBundle](https://github.com/excelwebzone/EWZRecaptchaBundle/), and allow you 
+to generate a Recaptcha in your form, and validate it.
+
+### Usage
+
+```php
+use Leapt\CoreBundle\Form\Type\RecaptchaType;
+use Leapt\CoreBundle\Validator\Constraints as LeaptCore;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+final class ContactType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('recaptcha', RecaptchaType::class, [
+            'label' => false,
+            'constraints' => new LeaptCore\Recaptcha(),
+        ]);
+    }
+}
+```
+
+### Configuration
+
+```yaml
+# config/packages/leapt_core.yaml
+leapt_core:
+    recaptcha:
+        public_key:  'your_public_key'
+        private_key: 'your_private_key'
+        enabled: true # true by default, but you can set it to false for your tests
+```
+
 ## <a name="sound-type"></a> Sound Type
 
 ## <a name="video-type"></a> Video Type
