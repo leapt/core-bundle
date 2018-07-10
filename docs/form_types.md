@@ -44,6 +44,11 @@ final class ContactType extends AbstractType
 }
 ```
 
+### Layout
+
+Use/extend the `@LeaptCore/Form/form_core_layout.html.twig`, or add it to your Twig's `form_themes` configuration 
+so the field is rendered properly.
+
 ### Configuration
 
 ```yaml
