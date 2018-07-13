@@ -51,6 +51,7 @@ class FileType extends AbstractType
                 'download_label' => null,
                 'allow_delete'   => true,
                 'file_label'     => null,
+                'file_label_attr' => [],
             ]);
     }
 
@@ -68,6 +69,7 @@ class FileType extends AbstractType
             ->add('file', BaseFileType::class, [
                 'label'          => $options['file_label'],
                 'error_bubbling' => true,
+                'label_attr'     => $options['file_label_attr'],
             ])
             ->add('delete', CheckboxType::class, ['error_bubbling' => true])
             ->addViewTransformer(new FileDataTransformer())
