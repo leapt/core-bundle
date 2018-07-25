@@ -85,6 +85,7 @@ services:
     # RSS feeds
     leapt_core.feed_manager:
         class: Leapt\CoreBundle\Feed\FeedManager
+        public: true
 
     leapt_core.request_listener:
         class: Leapt\CoreBundle\Listener\RequestListener

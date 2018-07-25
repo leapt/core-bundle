@@ -119,6 +119,13 @@ Now, your feed will be available at:
 - <http://yourhost/feed/article?format=rss>
 - <http://yourhost/feed/article?format=atom>
 
+And using Twig:
+
+```twig
+<link rel="alternate" type="application/rss+xml" href="{{ path('leapt_core_feed', { 'feedName': 'article', 'format': 'rss' }) }}">
+<link rel="alternate" type="application/atom+xml" href="{{ path('leapt_core_feed', { 'feedName': 'article', 'format': 'atom' }) }}">
+```
+
 ----------
 
 &larr; [Data lists](/data_lists.html)
