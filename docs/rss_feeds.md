@@ -121,9 +121,12 @@ Now, your feed will be available at:
 
 And using Twig:
 
+{% assign rss_link = "{{ path('leapt_core_feed', { 'feedName': 'news', 'format': 'rss' }) }}" %}
+{% assign atom_link = "{{ path('leapt_core_feed', { 'feedName': 'news', 'format': 'atom' }) }}" %}
+
 ```twig
-<link rel="alternate" type="application/rss+xml" href="{{ path('leapt_core_feed', { 'feedName': 'article', 'format': 'rss' }) }}">
-<link rel="alternate" type="application/atom+xml" href="{{ path('leapt_core_feed', { 'feedName': 'article', 'format': 'atom' }) }}">
+<link rel="alternate" type="application/rss+xml" href="{{ rss_link }}">
+<link rel="alternate" type="application/atom+xml" href="{{ atom_link }}">
 ```
 
 ----------
