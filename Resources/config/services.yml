@@ -96,6 +96,7 @@ services:
     leapt_core.sitemap_manager:
         class: Leapt\CoreBundle\Sitemap\SitemapManager
         arguments: [ "@validator" ]
+        public: true
 
     # Recaptcha
     Leapt\CoreBundle\Locale\LocaleResolver:
