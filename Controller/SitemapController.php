@@ -3,14 +3,17 @@
 namespace Leapt\CoreBundle\Controller;
 
 use Leapt\CoreBundle\Sitemap\SitemapManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Twig\Environment;
 
 /**
  * Class SitemapController
  * @package Leapt\CoreBundle\Controller
  */
-class SitemapController extends AbstractController
+class SitemapController
 {
     /**
      * @var SitemapManager
@@ -22,20 +25,37 @@ class SitemapController extends AbstractController
      */
     private $router;
 
-    public function __construct(SitemapManager $sitemapManager, RouterInterface $router)
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    /**
+     * @var HttpKernelInterface
+     */
+    private $httpKernel;
+
+    public function __construct(SitemapManager $sitemapManager, RouterInterface $router, Environment $twig, HttpKernelInterface $httpKernel)
     {
         $this->sitemapManager = $sitemapManager;
         $this->router = $router;
+        $this->twig = $twig;
+        $this->httpKernel = $httpKernel;
     }
 
-    public function defaultAction()
+    public function defaultAction(Request $request)
     {
         $sitemaps = $this->sitemapManager->getSitemaps();
 
         if (1 < \count($sitemaps)) {
-            return $this->render('@LeaptCore/Sitemap/index.xml.twig', ['sitemaps' => $sitemaps]);
+            return new Response($this->twig->render('@LeaptCore/Sitemap/index.xml.twig', ['sitemaps' => $sitemaps]));
         } elseif (1 === \count($sitemaps)) {
-            return $this->forward('LeaptCoreBundle:Sitemap:sitemap', ['sitemap' => current($sitemaps)->getAlias()]);
+            $subRequest = $request->duplicate([], null, [
+                '_controller' => 'LeaptCoreBundle:Sitemap:sitemap',
+                'sitemap'     => current($sitemaps)->getAlias(),
+            ]);
+
+            return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         } else {
             throw new \UnexpectedValueException('No sitemap has been defined');
         }
@@ -49,6 +69,6 @@ class SitemapController extends AbstractController
         $sitemap = $this->sitemapManager->getSitemap($sitemap);
         $sitemap->build($this->router);
 
-        return $this->render('@LeaptCore/Sitemap/sitemap.xml.twig', ['sitemap' => $sitemap]);
+        return new Response($this->twig->render('@LeaptCore/Sitemap/sitemap.xml.twig', ['sitemap' => $sitemap]));
     }
 }

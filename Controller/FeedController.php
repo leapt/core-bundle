@@ -3,15 +3,16 @@
 namespace Leapt\CoreBundle\Controller;
 
 use Leapt\CoreBundle\Feed\FeedManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Twig\Environment;
 
 /**
  * Class FeedController
  * @package Leapt\CoreBundle\Controller
  */
-class FeedController extends AbstractController
+class FeedController
 {
     /**
      * @var FeedManager
@@ -23,10 +24,16 @@ class FeedController extends AbstractController
      */
     private $validator;
 
-    public function __construct(FeedManager $feedManager, ValidatorInterface $validator)
+    /**
+     * @var Environment
+     */
+    private $twig;
+
+    public function __construct(FeedManager $feedManager, ValidatorInterface $validator, Environment $twig)
     {
         $this->feedManager = $feedManager;
         $this->validator = $validator;
+        $this->twig = $twig;
     }
 
     /**
@@ -50,11 +57,11 @@ class FeedController extends AbstractController
             $builtFeedItems[] = $builtItem;
         }
 
-        return $this->render('@LeaptCore/Feed/index.' . $request->getRequestFormat() . '.twig', [
+        return new Response($this->twig->render('@LeaptCore/Feed/index.' . $request->getRequestFormat() . '.twig', [
             'feed'     => $feed,
             'feedName' => $feedName,
             'locale'   => $request->getLocale(),
             'items'    => $builtFeedItems,
-        ]);
+        ]));
     }
 }

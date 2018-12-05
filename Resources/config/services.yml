@@ -130,9 +130,9 @@ services:
         $router: '@router'
 
     Leapt\CoreBundle\Controller\FeedController:
-        arguments: [ '@leapt_core.feed_manager', '@validator' ]
+        arguments: [ '@leapt_core.feed_manager', '@validator', '@twig' ]
         public: true
 
     Leapt\CoreBundle\Controller\SitemapController:
-        arguments: [ '@leapt_core.sitemap_manager', '@router.default' ]
+        arguments: [ '@leapt_core.sitemap_manager', '@router.default', '@twig', '@http_kernel' ]
         public: true
