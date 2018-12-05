@@ -23,6 +23,14 @@ class CollectionTypeExtension extends AbstractTypeExtension
     }
 
     /**
+     * @return array
+     */
+    public function getExtendedTypes()
+    {
+        return [CollectionType::class];
+    }
+
+    /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

@@ -128,3 +128,11 @@ services:
     Leapt\CoreBundle\Datalist\DatalistFactory:
         $formFactory: '@form.factory'
         $router: '@router'
+
+    Leapt\CoreBundle\Controller\FeedController:
+        arguments: [ '@leapt_core.feed_manager', '@validator' ]
+        public: true
+
+    Leapt\CoreBundle\Controller\SitemapController:
+        arguments: [ '@leapt_core.sitemap_manager', '@router.default' ]
+        public: true

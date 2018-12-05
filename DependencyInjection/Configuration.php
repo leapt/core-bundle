@@ -17,8 +17,14 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('leapt_core');
+        $treeBuilder = new TreeBuilder('leapt_core');
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $rootNode = $treeBuilder->root('leapt_core');
+        }
+
         $rootNode
             ->children()
                 ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web')->end()
