@@ -34,7 +34,7 @@ class FeedItem
      * Property used to generate the ATOM "updated" element
      *
      * @Assert\NotBlank()
-     * @Assert\DateTime
+     * @Assert\Type(type="\DateTime")
      *
      * @var \DateTime
      */
@@ -44,7 +44,7 @@ class FeedItem
      * Property used to generate the RSS "pubDate" element ATOM "published" element
      *
      * @Assert\NotBlank()
-     * @Assert\DateTime
+     * @Assert\Type(type="\DateTime")
      *
      * @var \DateTime
      */
