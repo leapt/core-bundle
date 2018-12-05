@@ -3,11 +3,12 @@
 namespace Leapt\CoreBundle\Tests\Util;
 
 use Leapt\CoreBundle\Util\PasswordStrengthChecker;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test the password strength checker utility
  */
-class PasswordStrengthCheckerTest extends \PHPUnit_Framework_TestCase
+class PasswordStrengthCheckerTest extends TestCase
 {
     public function testStrength()
     {

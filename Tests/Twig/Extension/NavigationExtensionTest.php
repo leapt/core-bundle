@@ -4,12 +4,12 @@ namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Navigation\NavigationRegistry;
 use Leapt\CoreBundle\Twig\Extension\NavigationExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class NavigationExtensionTest extends \PHPUnit_Framework_TestCase
+class NavigationExtensionTest extends TestCase
 {
-
     /**
      * @var NavigationExtension
      */
@@ -33,7 +33,6 @@ class NavigationExtensionTest extends \PHPUnit_Framework_TestCase
         $registry->setContainer($this->container);
 
         $this->extension = new NavigationExtension($registry);
-
     }
 
     /**
@@ -41,7 +40,6 @@ class NavigationExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsActivePath()
     {
-
         $this->request->expects($this->any())->method('getRequestUri')->will($this->returnValue('some/request/uri'));
         $this->container->expects($this->any())->method('get')->with($this->equalTo('request'))->will($this->returnValue($this->request));
 

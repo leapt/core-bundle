@@ -4,8 +4,9 @@ namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TextExtensionMock;
 use Leapt\CoreBundle\Twig\Extension\TextExtension;
+use PHPUnit\Framework\TestCase;
 
-class TextExtensionTest extends \PHPUnit_Framework_TestCase
+class TextExtensionTest extends TestCase
 {
 
     /**
