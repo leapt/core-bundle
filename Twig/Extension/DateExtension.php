@@ -95,9 +95,10 @@ class DateExtension extends \Twig_Extension
     {
         if (Kernel::VERSION_ID >= 40200) {
             $parameters = array_merge($parameters, ['%count%' => $count]);
-            $this->translator->trans($id, $parameters, 'LeaptCoreBundle', $locale);
-        } else {
-            $this->translator->transChoice($id, $count, $parameters, 'LeaptCoreBundle', $locale);
+
+            return $this->translator->trans($id, $parameters, 'LeaptCoreBundle', $locale);
         }
+
+        return $this->translator->transChoice($id, $count, $parameters, 'LeaptCoreBundle', $locale);
     }
 }
