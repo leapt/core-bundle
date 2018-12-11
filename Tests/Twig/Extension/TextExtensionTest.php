@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class TextExtensionTest extends TestCase
 {
-
     /**
      * @var TextExtension
      */
@@ -31,20 +30,13 @@ class TextExtensionTest extends TestCase
     }
 
     /**
-     * Test that the name is correctly set
-     */
-    public function testGetName()
-    {
-        $this->assertSame('leapt_text', $this->extension->getName(), 'getName: ');
-    }
-
-    /**
      * Test that the filters are correctly set
      */
     public function testGetFilters()
     {
         $filters = $this->extension->getFilters();
-        $this->assertInstanceOf('\Twig_SimpleFilter', $filters['safe_truncate']);
+        $this->assertSame('camelize', $filters[0]->getName());
+        $this->assertSame('safe_truncate', $filters[1]->getName());
     }
 
     /**
@@ -101,7 +93,9 @@ class TextExtensionTest extends TestCase
     {
         $separator = '...';
 
-        $env = $this->getMock('\Twig_Environment');
+        $env = $this->getMockBuilder(\Twig_Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $env->expects($this->any())->method('getCharset')->will($this->returnValue('utf8'));
 
         // Simple text

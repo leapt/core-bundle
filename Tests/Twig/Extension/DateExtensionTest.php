@@ -54,14 +54,14 @@ class DateExtensionTest extends TestCase
         $twoYears = new \DateTime('-2 years');
 
         // Check with DateTime
-        yield [$twoYears, 'timeago.yearsago|2|%years%=2'];
+        yield [$twoYears, 'timeago.yearsago|%years%=2|%count%=2'];
         yield [new \DateTime('now'), 'timeago.justnow'];
-        yield [new \DateTime('-2 minutes'), 'timeago.minutesago|2|%minutes%=2'];
-        yield [new \DateTime('-2 hours'), 'timeago.hoursago|2|%hours%=2'];
-        yield [new \DateTime('-2 days'), 'timeago.daysago|2|%days%=2'];
-        yield [new \DateTime('-2 months'), 'timeago.monthsago|2|%months%=2'];
+        yield [new \DateTime('-2 minutes'), 'timeago.minutesago|%minutes%=2|%count%=2'];
+        yield [new \DateTime('-2 hours'), 'timeago.hoursago|%hours%=2|%count%=2'];
+        yield [new \DateTime('-2 days'), 'timeago.daysago|%days%=2|%count%=2'];
+        yield [new \DateTime('-2 months'), 'timeago.monthsago|%months%=2|%count%=2'];
 
         // Check with string
-        yield [$twoYears->format('Y-m-d H:i:s'), 'timeago.yearsago|2|%years%=2'];
+        yield [$twoYears->format('Y-m-d H:i:s'), 'timeago.yearsago|%years%=2|%count%=2'];
     }
 }
