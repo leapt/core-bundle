@@ -2,23 +2,22 @@
 
 namespace Leapt\CoreBundle\Tests\Listener;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Leapt\CoreBundle\File\CondemnedFile;
 use Leapt\CoreBundle\Listener\FileSubscriber;
 use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\Novel;
 use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
 
-class FileSubscriberTest extends \PHPUnit_Framework_TestCase
+class FileSubscriberTest extends TestCase
 {
     /**
      * @var EntityManager

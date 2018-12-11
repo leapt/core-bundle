@@ -4,15 +4,19 @@ namespace Leapt\CoreBundle\Tests\Validator;
 
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrength;
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrengthValidator;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Context\ExecutionContext;
 
-class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
+final class PasswordStrengthValidatorTest extends TestCase
 {
-    protected $context;
-    protected $validator;
+    private $context;
+    private $validator;
 
     protected function setUp()
     {
-        $this->context = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $this->context = $this->getMockBuilder(ExecutionContext::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->validator = new PasswordStrengthValidator();
         $this->validator->initialize($this->context);
     }

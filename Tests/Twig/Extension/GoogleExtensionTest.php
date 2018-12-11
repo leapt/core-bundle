@@ -3,9 +3,10 @@
 namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Twig\Extension\GoogleExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
 
-class GoogleExtensionTest extends \PHPUnit_Framework_TestCase
+class GoogleExtensionTest extends TestCase
 {
     /**
      * @var \Twig_Environment
@@ -17,14 +18,8 @@ class GoogleExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        if (!class_exists('Twig_Environment')) {
-            $this->markTestSkipped('Twig is not available.');
-        }
-
-        $loader = new StubFilesystemLoader(array(
-            __DIR__ . '/../../../Resources/views/Google',
-            __DIR__,
-        ));
+        $loader = new StubFilesystemLoader();
+        $loader->addPath(__DIR__ . '/../../../Resources/views', 'LeaptCore');
         $this->env = new \Twig_Environment($loader);
     }
 
@@ -35,7 +30,6 @@ class GoogleExtensionTest extends \PHPUnit_Framework_TestCase
     {
         // Testing with an account id
         $extension = new GoogleExtension('phpunit_account_id');
-        $extension->initRuntime($this->env);
         $extension->setDomainName('none');
         $extension->setAllowLinker('phpunit_allow_linker');
 
@@ -44,28 +38,27 @@ class GoogleExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('phpunit_allow_linker', $extension->getAllowLinker(), 'setAllowLinker: Should return "phpunit_allow_linker"');
 
         // Testing if all parameters are available in the template with domain name set to "none"
-        $code = $extension->getAnalyticsTrackingCode();
+        $code = $extension->getAnalyticsTrackingCode($this->env);
         $this->assertContains($extension->getAccountId(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAccountId()));
         $this->assertContains($extension->getDomainName(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getDomainName()));
         $this->assertContains($extension->getAllowLinker(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAllowLinker()));
 
         // Testing if domain name parameter is not available in the template with domain name set to "auto"
         $extension->setDomainName('auto');
-        $this->assertNotContains(sprintf("_gaq.push(['_setDomainName', '{{ %s }}']);", 'auto'), $extension->getAnalyticsTrackingCode(), 'getAnalyticsTrackingCode: Should not contain auto argument');
+        $this->assertNotContains(sprintf("_gaq.push(['_setDomainName', '{{ %s }}']);", 'auto'), $extension->getAnalyticsTrackingCode($this->env), 'getAnalyticsTrackingCode: Should not contain auto argument');
 
         // Testing without account id
         $extension = new GoogleExtension(null);
-        $extension->initRuntime($this->env);
         $extension->setDomainName('none');
         $extension->setAllowLinker('phpunit_allow_linker');
 
         // Testing if all parameters except account id are available in the template when no account id is set
-        $code = $extension->getAnalyticsTrackingCode();
+        $code = $extension->getAnalyticsTrackingCode($this->env);
         $this->assertContains($extension->getDomainName(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getDomainName()));
         $this->assertContains($extension->getAllowLinker(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAllowLinker()));
 
         // Testing that a comment is set instead of tracking code when no account id is set and the domain name is set to "auto"
         $extension->setDomainName('auto');
-        $this->assertEquals('<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->', $extension->getAnalyticsTrackingCode(), 'getAnalyticsTrackingCode: Should contain html comment with missing arguments');
+        $this->assertEquals('<!-- AnalyticsTrackingCode: account id is null or domain name is not set to "none" -->', $extension->getAnalyticsTrackingCode($this->env), 'getAnalyticsTrackingCode: Should contain html comment with missing arguments');
     }
 }
