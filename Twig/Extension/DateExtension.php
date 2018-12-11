@@ -2,6 +2,7 @@
 
 namespace Leapt\CoreBundle\Twig\Extension;
 
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -48,25 +49,23 @@ class DateExtension extends \Twig_Extension
     {
         $interval = $this->relativeTime($datetime);
 
-        $translator = $this->translator;
-
         $years = $interval->format('%y');
         $months = $interval->format('%m');
         $days = $interval->format('%d');
         $hours = (int)$interval->format('%H');
         $minutes = (int)$interval->format('%i');
         if ($years != 0) {
-            $ago = $translator->transChoice('timeago.yearsago', $years, array('%years%' => $years), 'LeaptCoreBundle', $locale);
+            $ago = $this->transChoice('timeago.yearsago', $years, ['%years%' => $years], $locale);
         } elseif ($months == 0 && $days == 0 && $hours == 0 && $minutes == 0) {
-            $ago = $translator->trans('timeago.justnow', array(), 'LeaptCoreBundle', $locale);
+            $ago = $this->translator->trans('timeago.justnow', [], 'LeaptCoreBundle', $locale);
         } elseif ($months == 0 && $days == 0 && $hours == 0) {
-            $ago = $translator->transChoice('timeago.minutesago', $minutes, array('%minutes%' => $minutes), 'LeaptCoreBundle', $locale);
+            $ago = $this->transChoice('timeago.minutesago', $minutes, ['%minutes%' => $minutes], $locale);
         } elseif ($months == 0 && $days == 0) {
-            $ago = $translator->transChoice('timeago.hoursago', $hours, array('%hours%' => $hours), 'LeaptCoreBundle', $locale);
+            $ago = $this->transChoice('timeago.hoursago', $hours, ['%hours%' => $hours], $locale);
         } elseif ($months == 0) {
-            $ago = $translator->transChoice('timeago.daysago', $days, array('%days%' => $days), 'LeaptCoreBundle', $locale);
+            $ago = $this->transChoice('timeago.daysago', $days, ['%days%' => $days], $locale);
         } else {
-            $ago = $translator->transChoice('timeago.monthsago', $months, array('%months%' => $months), 'LeaptCoreBundle', $locale);
+            $ago = $this->transChoice('timeago.monthsago', $months, ['%months%' => $months], $locale);
         }
 
         return $ago;
@@ -90,5 +89,15 @@ class DateExtension extends \Twig_Extension
         $interval = $current_date->diff($datetime);
 
         return $interval;
+    }
+
+    private function transChoice($id, $count, array $parameters, $locale = null)
+    {
+        if (Kernel::VERSION_ID >= 40200) {
+            $parameters = array_merge($parameters, ['%count%' => $count]);
+            $this->translator->trans($id, $parameters, 'LeaptCoreBundle', $locale);
+        } else {
+            $this->translator->transChoice($id, $count, $parameters, 'LeaptCoreBundle', $locale);
+        }
     }
 }

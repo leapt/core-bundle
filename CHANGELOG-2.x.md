@@ -4,6 +4,7 @@
 * Make Controllers independent from Controller/AbstractController classes
 * Fixed requirement: Twig bundle is now required
 * FeedItem: fixed deprecation, using Type assert instead of DateTime assert
+* Fixed Translator::transChoice() deprecation
 
 2.3.1
 -----
