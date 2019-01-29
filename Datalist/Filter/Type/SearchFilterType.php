@@ -23,7 +23,9 @@ class SearchFilterType extends AbstractFilterType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(['search_fields']);
+        $resolver->setRequired(['search_fields'])
+            ->setDefault('search_explode_terms', false)
+            ->setAllowedTypes('search_explode_terms', ['boolean']);
     }
 
     /**
@@ -46,16 +48,25 @@ class SearchFilterType extends AbstractFilterType
      */
     public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options)
     {
-        if (is_array($options['search_fields'])) {
-            $expression = new CombinedExpression(CombinedExpression::OPERATOR_OR);
-            foreach($options['search_fields'] as $searchField) {
-                $comparisonExpression = new ComparisonExpression($searchField, ComparisonExpression::OPERATOR_LIKE, $value);
-                $expression->addExpression($comparisonExpression);
+        $terms = true === $options['search_explode_terms'] ? explode(' ', $value) : [$value];
+        $baseExpression = new CombinedExpression(CombinedExpression::OPERATOR_AND);
+
+        foreach ($terms as $term) {
+            if (!empty($term)) {
+                if (is_array($options['search_fields'])) {
+                    $expression = new CombinedExpression(CombinedExpression::OPERATOR_OR);
+                    foreach ($options['search_fields'] as $searchField) {
+                        $comparisonExpression = new ComparisonExpression($searchField, ComparisonExpression::OPERATOR_LIKE, $term);
+                        $expression->addExpression($comparisonExpression);
+                    }
+                } else {
+                    $expression = new ComparisonExpression($options['search_fields'], ComparisonExpression::OPERATOR_LIKE, $term);
+                }
+                $baseExpression->addExpression($expression);
             }
-        } else {
-            $expression = new ComparisonExpression($options['search_fields'], ComparisonExpression::OPERATOR_LIKE, $value);
         }
-        $builder->add($expression);
+
+        $builder->add($baseExpression);
     }
 
     /**

@@ -175,7 +175,8 @@ class DatalistBuilder extends DatalistConfig
             $searchFilter = $this->createFilter('search', [
                 'type'    => SearchFilterType::class,
                 'options' => [
-                    'search_fields' => $datalist->getOption('search'),
+                    'search_fields'         => $datalist->getOption('search'),
+                    'search_explode_terms'  => $datalist->getOption('search_explode_terms'),
                 ],
             ]);
             $searchFilter->getType()->buildForm($searchFormBuilder, $searchFilter, $searchFilter->getOptions());

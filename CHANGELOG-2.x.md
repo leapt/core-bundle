@@ -1,3 +1,8 @@
+2.4.0
+-----
+
+* Datalist: Allow SearchFilterType to search by exploding terms, eg. searching for "my" "test" instead of "my test"
+
 2.3.2
 -----
 

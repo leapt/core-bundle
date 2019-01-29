@@ -20,16 +20,17 @@ abstract class AbstractDatalistType implements DatalistTypeInterface
     {
         $resolver
             ->setDefaults([
-                'data_class'         => null,
-                'layout'             => 'grid',
-                'filters_on_top'     => false,
-                'limit_per_page'     => null,
-                'range_limit'        => 10,
-                'search_placeholder' => null,
-                'search_submit'      => 'datalist.search.submit',
-                'filter_submit'      => 'datalist.filter.submit',
-                'filter_reset'       => 'datalist.filter.reset',
-                'translation_domain' => 'messages',
+                'data_class'            => null,
+                'layout'                => 'grid',
+                'filters_on_top'        => false,
+                'limit_per_page'        => null,
+                'range_limit'           => 10,
+                'search_placeholder'    => null,
+                'search_explode_terms'  => false,
+                'search_submit'         => 'datalist.search.submit',
+                'filter_submit'         => 'datalist.filter.submit',
+                'filter_reset'          => 'datalist.filter.reset',
+                'translation_domain'    => 'messages',
             ])
             ->setDefined([
                 'search',
