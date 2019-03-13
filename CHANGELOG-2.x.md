@@ -1,3 +1,8 @@
+2.4.2
+-----
+
+* Upgraded minimum PHP requirement to 7.1
+
 2.4.1
 -----
 
