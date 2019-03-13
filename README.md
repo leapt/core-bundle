@@ -3,7 +3,7 @@ Leapt Core Bundle
 
 [![Package version](https://img.shields.io/packagist/v/leapt/core-bundle.svg?style=flat-square)](https://packagist.org/packages/leapt/core-bundle)
 [![Build Status](https://img.shields.io/travis/leapt/core-bundle.svg?branch=master&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=master)
-[![PHP Version](https://img.shields.io/packagist/php-v/leapt/core-bundle.svg?branch=master&style=flat-square)](https://travis-ci.org/nelmio/alice?branch=master)
+[![PHP Version](https://img.shields.io/packagist/php-v/leapt/core-bundle.svg?branch=master&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
 
 This bundle is a maintained fork of the SnowcapCore Bundle: https://github.com/snowcap/SnowcapCoreBundle
