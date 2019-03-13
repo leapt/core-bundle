@@ -4,12 +4,14 @@ namespace Leapt\CoreBundle\Twig\Extension;
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Translation\TranslatorInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 /**
  * Class DateExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-class DateExtension extends \Twig_Extension
+class DateExtension extends AbstractExtension
 {
     /**
      * @var TranslatorInterface
@@ -34,7 +36,7 @@ class DateExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('time_ago', [$this, 'timeAgo'])
+            new TwigFilter('time_ago', [$this, 'timeAgo']),
         ];
     }
 

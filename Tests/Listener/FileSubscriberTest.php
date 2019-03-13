@@ -5,7 +5,6 @@ namespace Leapt\CoreBundle\Tests\Listener;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
@@ -37,10 +36,10 @@ class FileSubscriberTest extends TestCase
     /**
      * @var array
      */
-    private $classes = array(
+    private $classes = [
         'Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User',
         'Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\Novel',
-    );
+    ];
 
     /**
      * @return \Doctrine\ORM\EntityManager
@@ -50,7 +49,7 @@ class FileSubscriberTest extends TestCase
         AnnotationRegistry::registerFile(__DIR__ . '/../../Doctrine/Mapping/File.php');
 
         $config = Setup::createAnnotationMetadataConfiguration(
-            array(__DIR__ . '/Fixtures'),
+            [__DIR__ . '/Fixtures'],
             false,
             \sys_get_temp_dir(),
             null,
@@ -58,10 +57,10 @@ class FileSubscriberTest extends TestCase
         );
         $config->setAutoGenerateProxyClasses(true);
 
-        $params = array(
+        $params = [
             'driver' => 'pdo_sqlite',
             'memory' => true,
-        );
+        ];
 
         return EntityManager::create($params, $config);
     }
@@ -74,7 +73,7 @@ class FileSubscriberTest extends TestCase
         }, $this->classes);
 
         $schemaTool = new SchemaTool($em);
-        $schemaTool->dropSchema(array());
+        $schemaTool->dropSchema([]);
         $schemaTool->createSchema($schema);
     }
 
@@ -85,11 +84,6 @@ class FileSubscriberTest extends TestCase
         $this->rootDir = sys_get_temp_dir() . '/' . uniqid();
 
         $this->subscriber = new FileSubscriber($this->rootDir);
-
-        foreach($this->classes as $class) {
-            $metaDataEventArgs = new LoadClassMetadataEventArgs($this->em->getClassMetadata($class), $this->em);
-            $this->subscriber->loadClassMetadata($metaDataEventArgs);
-        }
 
         parent::setUp();
     }
@@ -281,10 +275,10 @@ class FileSubscriberTest extends TestCase
         $user->setUserName($userName);
         $user->setCvFile($cvFile);
 
-        $this->em->getUnitOfWork()->registerManaged($user, array(1), array(
+        $this->em->getUnitOfWork()->registerManaged($user, [1], [
             'userName' => $userName,
-            'cvFile' => $cvFile
-        ));
+            'cvFile'   => $cvFile,
+        ]);
         $this->em->getUnitOfWork()->scheduleForUpdate($user);
 
         return $user;
@@ -302,10 +296,10 @@ class FileSubscriberTest extends TestCase
         $user->setUserName($userName);
         $user->setCvFile($cvFile);
 
-        $this->em->getUnitOfWork()->registerManaged($user, array(1), array(
+        $this->em->getUnitOfWork()->registerManaged($user, [1], [
             'userName' => $userName,
-            'cvFile' => $cvFile
-        ));
+            'cvFile'   => $cvFile,
+        ]);
         $this->em->getUnitOfWork()->scheduleForDelete($user);
 
         return $user;

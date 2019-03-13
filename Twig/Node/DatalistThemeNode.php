@@ -2,29 +2,27 @@
 
 namespace Leapt\CoreBundle\Twig\Node;
 
+use Twig\Compiler;
+use Twig\Node\Node;
+
 /**
  * Class DatalistThemeNode
  * @package Leapt\CoreBundle\Twig\Node
  */
-final class DatalistThemeNode extends \Twig_Node
+final class DatalistThemeNode extends Node
 {
     /**
-     * @param \Twig_Node $datalist
-     * @param \Twig_Node $resources
+     * @param Node $datalist
+     * @param Node $resources
      * @param $lineno
      * @param null $tag
      */
-    public function __construct(\Twig_Node $datalist, \Twig_Node $resources, $lineno, $tag = null)
+    public function __construct(Node $datalist, Node $resources, $lineno, $tag = null)
     {
         parent::__construct(['datalist' => $datalist, 'resources' => $resources], [], $lineno, $tag);
     }
 
-    /**
-     * Compiles the node to PHP.
-     *
-     * @param \Twig_Compiler $compiler A Twig_Compiler instance
-     */
-    public function compile(\Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)
@@ -33,6 +31,5 @@ final class DatalistThemeNode extends \Twig_Node
             ->raw(', ')
             ->subcompile($this->getNode('resources'))
             ->raw(");\n");
-        ;
     }
 }

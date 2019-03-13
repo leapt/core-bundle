@@ -3,12 +3,15 @@
 namespace Leapt\CoreBundle\Twig\Extension;
 
 use Leapt\CoreBundle\Util\StringUtil;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 /**
  * Class TextExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-class TextExtension extends \Twig_Extension
+class TextExtension extends AbstractExtension
 {
     const MISSING_EXTENSION_EXCEPTION = 10;
 
@@ -34,8 +37,8 @@ class TextExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('camelize', [$this, 'camelize'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFilter('safe_truncate', [$this, 'safeTruncate'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFilter('camelize', [$this, 'camelize'], ['is_safe' => ['html']]),
+            new TwigFilter('safe_truncate', [$this, 'safeTruncate'], ['needs_environment' => true, 'is_safe' => ['html']]),
         ];
     }
 
@@ -51,7 +54,7 @@ class TextExtension extends \Twig_Extension
     /**
      * Filter used to safely truncate a string with html
      *
-     * @param \Twig_Environment $env
+     * @param \Twig\Environment $env
      * @param string            $value
      * @param int               $length
      * @param bool              $preserve
@@ -59,7 +62,7 @@ class TextExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function safeTruncate(\Twig_Environment $env, $value, $length = 30, $preserve = true, $separator = '...')
+    public function safeTruncate(Environment $env, $value, $length = 30, $preserve = true, $separator = '...')
     {
         $charset = $env->getCharset();
 

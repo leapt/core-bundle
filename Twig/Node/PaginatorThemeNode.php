@@ -2,29 +2,27 @@
 
 namespace Leapt\CoreBundle\Twig\Node;
 
+use Twig\Compiler;
+use Twig\Node\Node;
+
 /**
  * Class PaginatorThemeNode
  * @package Leapt\CoreBundle\Twig\Node
  */
-class PaginatorThemeNode extends \Twig_Node
+class PaginatorThemeNode extends Node
 {
     /**
-     * @param \Twig_Node $paginator
-     * @param \Twig_Node $resources
+     * @param Node $paginator
+     * @param Node $resources
      * @param $lineno
      * @param null $tag
      */
-    public function __construct(\Twig_Node $paginator, \Twig_Node $resources, $lineno, $tag = null)
+    public function __construct(Node $paginator, Node $resources, $lineno, $tag = null)
     {
-        parent::__construct(array('paginator' => $paginator, 'resources' => $resources), array(), $lineno, $tag);
+        parent::__construct(['paginator' => $paginator, 'resources' => $resources], [], $lineno, $tag);
     }
 
-    /**
-     * Compiles the node to PHP.
-     *
-     * @param \Twig_Compiler $compiler A Twig_Compiler instance
-     */
-    public function compile(\Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)
@@ -33,6 +31,5 @@ class PaginatorThemeNode extends \Twig_Node
             ->raw(', ')
             ->subcompile($this->getNode('resources'))
             ->raw(");\n");
-        ;
     }
 }

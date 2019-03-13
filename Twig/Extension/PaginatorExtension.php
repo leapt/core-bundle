@@ -5,12 +5,16 @@ namespace Leapt\CoreBundle\Twig\Extension;
 use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Leapt\CoreBundle\Twig\TokenParser\PaginatorThemeTokenParser;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\Template;
+use Twig\TwigFunction;
 
 /**
  * Class PaginatorExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-class PaginatorExtension extends \Twig_Extension
+class PaginatorExtension extends AbstractExtension
 {
     /**
      * @var string
@@ -44,7 +48,7 @@ class PaginatorExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('paginator_widget', [$this, 'renderPaginatorWidget'], ['is_safe' => ['html'], 'needs_environment' => true])
+            new TwigFunction('paginator_widget', [$this, 'renderPaginatorWidget'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -57,12 +61,12 @@ class PaginatorExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param PaginatorInterface $paginator
      * @return string
      * @throws \Exception
      */
-    public function renderPaginatorWidget(\Twig_Environment $env, PaginatorInterface $paginator)
+    public function renderPaginatorWidget(Environment $env, PaginatorInterface $paginator)
     {
         $blockName = 'paginator_widget';
 
@@ -111,19 +115,19 @@ class PaginatorExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param PaginatorInterface $paginator
      * @param array $blockNames
      * @param array $context
      * @return string
      * @throws \Exception
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      */
-    private function renderBlock(\Twig_Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = [])
+    private function renderBlock(Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = [])
     {
         $paginatorTemplates = $this->getTemplatesForPaginator($paginator);
         foreach ($paginatorTemplates as $template) {
-            if (!$template instanceof \Twig_Template) {
+            if (!$template instanceof Template) {
                 $template = $env->load($template);
             }
             do {

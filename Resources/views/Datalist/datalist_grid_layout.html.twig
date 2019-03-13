@@ -250,7 +250,7 @@
 {% endblock simple_action %}
 
 {% block widget_attributes %}
-    {% spaceless %}
+    {% filter spaceless %}
         {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}
-    {% endspaceless %}
+    {% endfilter %}
 {% endblock widget_attributes %}

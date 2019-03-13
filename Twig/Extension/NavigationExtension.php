@@ -3,21 +3,20 @@
 namespace Leapt\CoreBundle\Twig\Extension;
 
 use Leapt\CoreBundle\Navigation\NavigationRegistry;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Class NavigationExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-class NavigationExtension extends \Twig_Extension
+class NavigationExtension extends AbstractExtension
 {
     /**
      * @var \Leapt\CoreBundle\Navigation\NavigationRegistry
      */
     private $registry;
 
-    /**
-     * @param \Leapt\CoreBundle\Navigation\NavigationRegistry $registry
-     */
     public function __construct(NavigationRegistry $registry)
     {
         $this->registry = $registry;
@@ -33,13 +32,13 @@ class NavigationExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('set_active_paths', [$this, 'setActivePaths']),
-            new \Twig_SimpleFunction('add_active_path', [$this, 'addActivePath']),
-            new \Twig_SimpleFunction('get_active_paths', [$this, 'getActivePaths']),
-            new \Twig_SimpleFunction('is_active_path', [$this, 'isActivePath']),
-            new \Twig_SimpleFunction('append_breadcrumb', [$this, 'appendBreadcrumb']),
-            new \Twig_SimpleFunction('prepend_breadcrumb', [$this, 'prependBreadcrumb']),
-            new \Twig_SimpleFunction('get_breadcrumbs', [$this, 'getBreadCrumbs']),
+            new TwigFunction('set_active_paths', [$this, 'setActivePaths']),
+            new TwigFunction('add_active_path', [$this, 'addActivePath']),
+            new TwigFunction('get_active_paths', [$this, 'getActivePaths']),
+            new TwigFunction('is_active_path', [$this, 'isActivePath']),
+            new TwigFunction('append_breadcrumb', [$this, 'appendBreadcrumb']),
+            new TwigFunction('prepend_breadcrumb', [$this, 'prependBreadcrumb']),
+            new TwigFunction('get_breadcrumbs', [$this, 'getBreadCrumbs']),
         ];
     }
 

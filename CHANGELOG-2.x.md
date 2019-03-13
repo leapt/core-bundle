@@ -1,3 +1,10 @@
+2.4.1
+-----
+
+* Fixed deprecations with Twig >= 2.7.x by using namespaced classes
+* Fixed tests
+* Removed useless dependency for DatalistExtension
+
 2.4.0
 -----
 

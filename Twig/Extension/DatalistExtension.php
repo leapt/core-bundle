@@ -8,20 +8,18 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Leapt\CoreBundle\Twig\TokenParser\DatalistThemeTokenParser;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\Template;
+use Twig\TwigFunction;
 
 /**
  * Class DatalistExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-final class DatalistExtension extends \Twig_Extension
+final class DatalistExtension extends AbstractExtension
 {
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    private $formFactory;
-
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
@@ -37,13 +35,8 @@ final class DatalistExtension extends \Twig_Extension
      */
     private $themes;
 
-    /**
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     */
-    public function __construct(FormFactoryInterface $formFactory, RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->formFactory = $formFactory;
         $this->requestStack = $requestStack;
         $this->themes = new \SplObjectStorage();
     }
@@ -54,12 +47,12 @@ final class DatalistExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('datalist_widget', [$this, 'renderDatalistWidget'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_field', [$this, 'renderDatalistField'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_search', [$this, 'renderDatalistSearch'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_filters', [$this, 'renderDatalistFilters'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_filter', [$this, 'renderDatalistFilter'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('datalist_action', [$this, 'renderDatalistAction'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('datalist_widget', [$this, 'renderDatalistWidget'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('datalist_field', [$this, 'renderDatalistField'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('datalist_search', [$this, 'renderDatalistSearch'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('datalist_filters', [$this, 'renderDatalistFilters'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('datalist_filter', [$this, 'renderDatalistFilter'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('datalist_action', [$this, 'renderDatalistAction'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -72,12 +65,12 @@ final class DatalistExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return string
      * @throws \Exception
      */
-    public function renderDatalistWidget(\Twig_Environment $env, DatalistInterface $datalist)
+    public function renderDatalistWidget(Environment $env, DatalistInterface $datalist)
     {
         $blockNames = [
             '_' . $datalist->getType()->getBlockName() . '_datalist',
@@ -92,13 +85,13 @@ final class DatalistExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface $field
      * @param mixed $row
      * @return string
      * @throws \Exception
      */
-    public function renderDatalistField(\Twig_Environment $env, DatalistFieldInterface $field, $row)
+    public function renderDatalistField(Environment $env, DatalistFieldInterface $field, $row)
     {
         $blockNames = [
             '_' . $field->getDatalist()->getType()->getBlockName() . '_' . $field->getName() . '_field',
@@ -112,12 +105,12 @@ final class DatalistExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return string
      * @throws \Exception
      */
-    public function renderDatalistSearch(\Twig_Environment $env, DatalistInterface $datalist)
+    public function renderDatalistSearch(Environment $env, DatalistInterface $datalist)
     {
         $blockNames = [
             '_' . $datalist->getType()->getBlockName() . '_search',
@@ -133,12 +126,12 @@ final class DatalistExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return string
      * @throws \Exception
      */
-    public function renderDatalistFilters(\Twig_Environment $env, DatalistInterface $datalist)
+    public function renderDatalistFilters(Environment $env, DatalistInterface $datalist)
     {
         $blockNames = [
             '_' . $datalist->getType()->getBlockName() . '_filters',
@@ -156,12 +149,12 @@ final class DatalistExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param \Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface $filter
      * @return string
      * @throws \Exception
      */
-    public function renderDatalistFilter(\Twig_Environment $env, DatalistFilterInterface $filter)
+    public function renderDatalistFilter(Environment $env, DatalistFilterInterface $filter)
     {
         $blockNames = [
             '_' . $filter->getDatalist()->getName() . '_' . $filter->getName() . '_filter',
@@ -177,13 +170,13 @@ final class DatalistExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param \Leapt\CoreBundle\Datalist\Action\DatalistActionInterface $action
      * @param mixed $item
      * @return string
      * @throws \Exception
      */
-    public function renderDatalistAction(\Twig_Environment $env, DatalistActionInterface $action, $item)
+    public function renderDatalistAction(Environment $env, DatalistActionInterface $action, $item)
     {
         $blockNames = [
             '_' . $action->getDatalist()->getName() . '_' . $action->getName() . '_action',
@@ -202,19 +195,19 @@ final class DatalistExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @param array $blockNames
      * @param array $context
      * @return string
      * @throws \Exception
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      */
-    private function renderBlock(\Twig_Environment $env, DatalistInterface $datalist, array $blockNames, array $context = [])
+    private function renderBlock(Environment $env, DatalistInterface $datalist, array $blockNames, array $context = [])
     {
         $datalistTemplates = $this->getTemplatesForDatalist($datalist);
         foreach ($datalistTemplates as $template) {
-            if (!$template instanceof \Twig_Template) {
+            if (!$template instanceof Template) {
                 $template = $env->loadTemplate($template);
             }
             do {

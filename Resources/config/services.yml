@@ -78,7 +78,7 @@ services:
             - { name: twig.extension }
 
     Leapt\CoreBundle\Twig\Extension\DatalistExtension:
-        arguments: [ '@form.factory', '@request_stack' ]
+        arguments: [ '@request_stack' ]
         tags:
             - { name: twig.extension }
 

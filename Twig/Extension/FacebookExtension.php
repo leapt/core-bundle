@@ -2,20 +2,21 @@
 
 namespace Leapt\CoreBundle\Twig\Extension;
 
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
 /**
  * Class FacebookExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-class FacebookExtension extends \Twig_Extension
+class FacebookExtension extends AbstractExtension
 {
     /**
      * @var string
      */
     private $appId;
 
-    /**
-     * @param string $appId
-     */
     public function __construct($appId)
     {
         $this->appId = $appId;
@@ -27,15 +28,15 @@ class FacebookExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('facebook_sdk_code', [$this, 'getFacebookSdkCode'], ['is_safe' => ['html'], 'needs_environment' => true])
+            new TwigFunction('facebook_sdk_code', [$this, 'getFacebookSdkCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param \Twig\Environment $env
      * @return string
      */
-    public function getFacebookSdkCode(\Twig_Environment $env)
+    public function getFacebookSdkCode(Environment $env)
     {
         if (null !== $this->appId) {
             $template = $env->load('@LeaptCore/Facebook/sdk_code.html.twig');

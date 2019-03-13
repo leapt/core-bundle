@@ -2,11 +2,15 @@
 
 namespace Leapt\CoreBundle\Twig\Extension;
 
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
 /**
  * Class GoogleExtension
  * @package Leapt\CoreBundle\Twig\Extension
  */
-class GoogleExtension extends \Twig_Extension
+class GoogleExtension extends AbstractExtension
 {
     const INVALID_DOMAIN_NAME_EXCEPTION = 10;
 
@@ -35,10 +39,6 @@ class GoogleExtension extends \Twig_Extension
      */
     private $tagsManagerId;
 
-    /**
-     * @param string $accountId
-     * @param bool   $debug
-     */
     public function __construct($accountId, $debug = false)
     {
         $this->accountId = $accountId;
@@ -55,9 +55,9 @@ class GoogleExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('analytics_tracking_code', [$this, 'getAnalyticsTrackingCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('analytics_tracking_commerce', [$this, 'getAnalyticsCommerce'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new \Twig_SimpleFunction('tags_manager_code', [$this, 'getTagsManagerCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('analytics_tracking_code', [$this, 'getAnalyticsTrackingCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('analytics_tracking_commerce', [$this, 'getAnalyticsCommerce'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('tags_manager_code', [$this, 'getTagsManagerCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -110,10 +110,10 @@ class GoogleExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @return string
      */
-    public function getAnalyticsTrackingCode(\Twig_Environment $env)
+    public function getAnalyticsTrackingCode(Environment $env)
     {
         if (null !== $this->accountId || 'none' === $this->domainName) {
             $template = $env->load('@LeaptCore/Google/tracking_code.html.twig');
@@ -132,7 +132,7 @@ class GoogleExtension extends \Twig_Extension
     /**
      * Send eCommerce order to Google Analytics
      *
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param array|object $order
      * Example :
      * array(
@@ -155,7 +155,7 @@ class GoogleExtension extends \Twig_Extension
      *  )
      * @return string
      */
-    public function getAnalyticsCommerce(\Twig_Environment $env, $order)
+    public function getAnalyticsCommerce(Environment $env, $order)
     {
         if (null !== $this->accountId || $this->domainName === 'none') {
             $template = $env->load('@LeaptCore/Google/tracking_commerce.html.twig');
@@ -167,10 +167,10 @@ class GoogleExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @return string
      */
-    public function getTagsManagerCode(\Twig_Environment $env)
+    public function getTagsManagerCode(Environment $env)
     {
         if (null !== $this->tagsManagerId) {
             $template = $env->load('@LeaptCore/Google/tags_manager_code.html.twig');
