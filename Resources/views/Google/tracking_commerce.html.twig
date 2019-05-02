@@ -1,4 +1,4 @@
-{% filter spaceless %}
+{% apply spaceless %}
 {% if order is defined %}
 <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -29,4 +29,4 @@
     _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
 </script>
 {% endif %}
-{% endfilter %}
+{% endapply %}

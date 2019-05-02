@@ -1,7 +1,7 @@
 {% extends 'form_div_layout.html.twig' %}
 
 {% block collection_widget %}
-    {% filter spaceless %}
+    {% apply spaceless %}
         {% if prototype is defined %}
             {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
         {% endif %}
@@ -11,11 +11,11 @@
                 <a href="#" data-core="form-collection-add">{{ add_label|trans({}, translation_domain) }}</a>
             {% endif %}
         </div>
-    {% endfilter %}
+    {% endapply %}
 {% endblock collection_widget %}
 
 {% block leapt_core_recaptcha_widget %}
-{% filter spaceless %}
+{% apply spaceless %}
     {% if form.vars.leapt_core_recaptcha_enabled %}
         {% if not form.vars.leapt_core_recaptcha_ajax %}
             {% if attr.options.size == 'invisible' and attr.options.callback is not defined %}
@@ -94,5 +94,5 @@
             </script>
         {% endif %}
     {% endif %}
-{% endfilter %}
+{% endapply %}
 {% endblock leapt_core_recaptcha_widget %}

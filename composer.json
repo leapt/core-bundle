@@ -34,7 +34,8 @@
         "symfony/routing": "^3.3|^4.0",
         "symfony/translation": "^3.3|^4.0",
         "symfony/validator": "^3.3|^4.0",
-        "symfony/twig-bundle": "^3.3|^4.0"
+        "symfony/twig-bundle": "^3.3|^4.0",
+        "twig/twig": "^2.9"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.1",

@@ -1,3 +1,9 @@
+2.4.3
+-----
+
+* Use the apply tag instead of the filter tag
+* Accordingly to the previous point, bump min. Twig version to 2.9
+
 2.4.2
 -----
 
