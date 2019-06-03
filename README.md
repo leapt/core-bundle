@@ -21,3 +21,8 @@ It aims to help with some repetitive tasks, including (but not limited to):
 ## Installation & usage
 
 You can check docs there: https://core-bundle.leapt.io/
+
+## Contributing
+
+Feel free to contribute, like sending [pull requests](https://github.com/leapt/core-bundle/pulls) to add features/tests
+or [creating issues](https://github.com/leapt/core-bundle/issues) :)
