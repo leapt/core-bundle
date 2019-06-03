@@ -5,9 +5,15 @@ php:
   - 7.2
   - 7.3
 
-before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev
+install:
+  - composer install
+
+script:
+  - vendor/bin/phpunit --coverage-clover coverage.xml
+
+after_script:
+  - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+  - php coveralls.phar --verbose
 
 notifications:
   email:

@@ -5,6 +5,7 @@ Leapt Core Bundle
 [![Build Status](https://img.shields.io/travis/leapt/core-bundle.svg?branch=master&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=master)
 [![PHP Version](https://img.shields.io/packagist/php-v/leapt/core-bundle.svg?branch=master&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
+[![Code coverage](https://img.shields.io/coveralls/github/leapt/core-bundle.svg?style=flat-square)](LICENSE)
 
 This bundle is a maintained fork of the SnowcapCore Bundle: https://github.com/snowcap/SnowcapCoreBundle
 
@@ -20,3 +21,8 @@ It aims to help with some repetitive tasks, including (but not limited to):
 ## Installation & usage
 
 You can check docs there: https://core-bundle.leapt.io/
+
+## Contributing
+
+Feel free to contribute, like sending [pull requests](https://github.com/leapt/core-bundle/pulls) to add features/tests
+or [creating issues](https://github.com/leapt/core-bundle/issues) :)
