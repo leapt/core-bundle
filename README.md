@@ -9,7 +9,7 @@ Leapt Core Bundle
 
 This bundle is a maintained fork of the SnowcapCore Bundle: https://github.com/snowcap/SnowcapCoreBundle
 
-It requires Symfony 3.3+/4.0+ and PHP >= 7.1.3.
+It requires Symfony 3.3+/4.0+/5.0+ and PHP >= 7.1.3.
 
 It aims to help with some repetitive tasks, including (but not limited to):
 
