@@ -1,3 +1,9 @@
+2.4.4
+-----
+
+* Allow Symfony 5
+* Allow Twig 3
+
 2.4.3
 -----
 
