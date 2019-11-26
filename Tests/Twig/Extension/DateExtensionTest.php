@@ -2,6 +2,7 @@
 
 namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
+use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\OldTranslatorMock;
 use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TranslatorMock;
 use Leapt\CoreBundle\Twig\Extension\DateExtension;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,11 @@ class DateExtensionTest extends TestCase
      */
     public function setUp()
     {
-        $translator = new TranslatorMock();
+        if (\PHP_VERSION_ID < 72000) {
+            $translator = new OldTranslatorMock();
+        } else {
+            $translator = new TranslatorMock();
+        }
         $this->extension = new DateExtension($translator);
     }
 
