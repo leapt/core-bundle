@@ -5,6 +5,7 @@ namespace Leapt\CoreBundle\Tests\Twig\Extension;
 use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TextExtensionMock;
 use Leapt\CoreBundle\Twig\Extension\TextExtension;
 use PHPUnit\Framework\TestCase;
+use Twig\Environment;
 
 class TextExtensionTest extends TestCase
 {
@@ -93,7 +94,7 @@ class TextExtensionTest extends TestCase
     {
         $separator = '...';
 
-        $env = $this->getMockBuilder(\Twig_Environment::class)
+        $env = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
         $env->expects($this->any())->method('getCharset')->will($this->returnValue('utf8'));

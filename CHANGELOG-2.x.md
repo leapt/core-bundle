@@ -1,3 +1,8 @@
+2.4.6
+-----
+
+* Fixed DateExtension & most tests
+
 2.4.5
 -----
 

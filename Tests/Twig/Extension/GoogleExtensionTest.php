@@ -4,12 +4,13 @@ namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Twig\Extension\GoogleExtension;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class GoogleExtensionTest extends TestCase
 {
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $env;
 
@@ -18,9 +19,9 @@ class GoogleExtensionTest extends TestCase
      */
     public function setUp()
     {
-        $loader = new StubFilesystemLoader();
+        $loader = new FilesystemLoader();
         $loader->addPath(__DIR__ . '/../../../Resources/views', 'LeaptCore');
-        $this->env = new \Twig_Environment($loader);
+        $this->env = new Environment($loader);
     }
 
     /**
