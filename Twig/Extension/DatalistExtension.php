@@ -208,7 +208,7 @@ final class DatalistExtension extends AbstractExtension
         $datalistTemplates = $this->getTemplatesForDatalist($datalist);
         foreach ($datalistTemplates as $template) {
             if (!$template instanceof Template) {
-                $template = $env->loadTemplate($template);
+                $template = $env->load($template);
             }
             do {
                 foreach ($blockNames as $blockName) {

@@ -1,3 +1,8 @@
+2.4.5
+-----
+
+* Fixed datalist compatibility with Twig 3
+
 2.4.4
 -----
 
