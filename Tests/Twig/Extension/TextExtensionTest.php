@@ -22,28 +22,19 @@ class TextExtensionTest extends TestCase
         $this->assertSame($this->extension->isMultiByteStringAvailable(), $this->extension->getMultiByteString(), '__construct: Check that MultiByte string is correctly set');
     }
 
-    /**
-     * Sets the extension
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->extension = new TextExtension();
     }
 
-    /**
-     * Test that the filters are correctly set
-     */
-    public function testGetFilters()
+    public function testGetFilters(): void
     {
         $filters = $this->extension->getFilters();
         $this->assertSame('camelize', $filters[0]->getName());
         $this->assertSame('safe_truncate', $filters[1]->getName());
     }
 
-    /**
-     * Test the SafeTruncate method with and without MultiByte string
-     */
-    public function testSafeTruncate()
+    public function testSafeTruncate(): void
     {
         // Test SafeTruncate without MultiByte string
         $this->extension->setMultiByteString(false);
@@ -57,23 +48,17 @@ class TextExtensionTest extends TestCase
 
     }
 
-    /**
-     * Test the getter and setter for MultiByte string
-     */
-    public function testSetMultiByteString()
+    public function testSetMultiByteString(): void
     {
         $this->extension->setMultiByteString(true);
 
         $this->assertSame(true, $this->extension->getMultiByteString());
     }
 
-    /**
-     * Test that an exception is thrown if the MultiByte string is set and mb_string is unavailable
-     *
-     * @expectedException \BadFunctionCallException
-     */
-    public function testSetMultiByteStringException()
+    public function testSetMultiByteStringException(): void
     {
+        $this->expectException(\BadFunctionCallException::class);
+
         $extension = new TextExtensionMock();
 
         $extension->setMultiByteString(true);
@@ -82,15 +67,12 @@ class TextExtensionTest extends TestCase
     /**
      * Test that isMultiByteStringAvailable method returns the same as function_exists('mb_get_info')
      */
-    public function testIsMultiByteStringAvailable()
+    public function testIsMultiByteStringAvailable(): void
     {
         $this->assertSame(function_exists('mb_get_info'), $this->extension->isMultiByteStringAvailable());
     }
 
-    /**
-     * Assertions for safeTruncate tests
-     */
-    private function assertSafeTruncate()
+    private function assertSafeTruncate(): void
     {
         $separator = '...';
 

@@ -77,7 +77,7 @@ class FileSubscriberTest extends TestCase
         $schemaTool->createSchema($schema);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->em = $this->buildEntityManager();
         $this->createSchema();

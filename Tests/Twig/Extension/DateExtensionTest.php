@@ -14,10 +14,7 @@ class DateExtensionTest extends TestCase
      */
     private $extension;
 
-    /**
-     * Sets a translator and the extension
-     */
-    public function setUp()
+    public function setUp(): void
     {
         if (\PHP_VERSION_ID < 72000) {
             $translator = new OldTranslatorMock();
@@ -27,34 +24,24 @@ class DateExtensionTest extends TestCase
         $this->extension = new DateExtension($translator);
     }
 
-    /**
-     *  Test the GetFilters method
-     */
-    public function testGetFilters()
+    public function testGetFilters(): void
     {
         $filters = $this->extension->getFilters();
         $this->assertSame('time_ago', $filters[0]->getName());
     }
 
     /**
-     * Test the TimeAgo filter
-     *
      * @param \Datetime|string $ago      The time to test
      * @param string           $expected The expected string to assert
      *
      * @dataProvider timeAgoData
      */
-    public function testTimeAgo($ago, $expected)
+    public function testTimeAgo($ago, string $expected): void
     {
         $this->assertEquals($expected, $this->extension->timeAgo($ago, 'en'));
     }
 
-    /**
-     * Data used to test the timeAgo method
-     *
-     * @return iterable
-     */
-    public function timeAgoData()
+    public function timeAgoData(): iterable
     {
         $twoYears = new \DateTime('-2 years');
 

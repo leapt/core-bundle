@@ -12,7 +12,7 @@ final class PasswordStrengthValidatorTest extends TestCase
     private $context;
     private $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->context = $this->getMockBuilder(ExecutionContext::class)
             ->disableOriginalConstructor()
@@ -21,7 +21,7 @@ final class PasswordStrengthValidatorTest extends TestCase
         $this->validator->initialize($this->context);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->context = null;
         $this->validator = null;

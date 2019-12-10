@@ -15,7 +15,7 @@ class NavigationExtensionTest extends TestCase
      */
     private $extension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $requestStack = new RequestStack();
         $request = Request::create('some/request/uri');
@@ -25,10 +25,7 @@ class NavigationExtensionTest extends TestCase
         $this->extension = new NavigationExtension($registry);
     }
 
-    /**
-     * Test isActivePath method
-     */
-    public function testIsActivePath()
+    public function testIsActivePath(): void
     {
         $this->extension->setActivePaths(['some/specific/path']);
         $this->assertEquals(['some/specific/path'], $this->extension->getActivePaths(), 'setActivePaths: Should return an array with "some/specific/path"');

@@ -25,7 +25,7 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
      * Class initialization
      *
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $dbParams = array(
             'driver'   => 'pdo_sqlite',
