@@ -51,7 +51,7 @@ class SitemapController
             return new Response($this->twig->render('@LeaptCore/Sitemap/index.xml.twig', ['sitemaps' => $sitemaps]));
         } elseif (1 === \count($sitemaps)) {
             $subRequest = $request->duplicate([], null, [
-                '_controller' => 'LeaptCoreBundle:Sitemap:sitemap',
+                '_controller' => 'Leapt\CoreBundle\Controller\SitemapController::sitemapAction',
                 'sitemap'     => current($sitemaps)->getAlias(),
             ]);
 

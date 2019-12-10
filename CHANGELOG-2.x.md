@@ -1,3 +1,8 @@
+2.4.7
+-----
+
+* Fixed controller reference deprecation for Symfony 4.1+
+
 2.4.6
 -----
 
