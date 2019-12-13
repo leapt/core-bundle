@@ -1,3 +1,9 @@
+2.4.8
+-----
+
+* Small fix in RecaptchaValidator for PHP 7.4
+* Added PHP 7.4 for Travis CI 
+
 2.4.7
 -----
 
