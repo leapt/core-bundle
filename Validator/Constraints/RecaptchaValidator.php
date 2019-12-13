@@ -83,7 +83,7 @@ class RecaptchaValidator extends ConstraintValidator
         // Verify user response with Google
         $response = $this->checkAnswer($this->privateKey, $remoteip, $answer);
 
-        if ($response['success'] !== true) {
+        if (false === $response || $response['success'] !== true) {
             $this->context->addViolation($constraint->message);
         }
         // Perform server side hostname check
