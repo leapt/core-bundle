@@ -3,6 +3,10 @@
 <phpunit
     bootstrap="Tests/bootstrap.php"
 >
+    <php>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[total]=999999"/>
+    </php>
+
     <testsuites>
         <testsuite name="Leapt CoreBundle Test Suite">
             <directory>./Tests/</directory>
