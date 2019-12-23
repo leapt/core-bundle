@@ -22,10 +22,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
         return CollectionType::class;
     }
 
-    /**
-     * @return array
-     */
-    public static function getExtendedTypes()
+    public static function getExtendedTypes(): iterable
     {
         return [CollectionType::class];
     }

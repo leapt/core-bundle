@@ -1,3 +1,8 @@
+2.4.9
+-----
+
+* Fixed CollectionTypeExtension & RequestListener for Symfony 5
+
 2.4.8
 -----
 
