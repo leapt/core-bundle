@@ -46,7 +46,7 @@ class FileSubscriberTest extends TestCase
      */
     private function buildEntityManager()
     {
-        AnnotationRegistry::registerFile(__DIR__ . '/../../Doctrine/Mapping/File.php');
+        AnnotationRegistry::registerFile(__DIR__ . '/../../src/Doctrine/Mapping/File.php');
 
         $config = Setup::createAnnotationMetadataConfiguration(
             [__DIR__ . '/Fixtures'],

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
-    bootstrap="Tests/bootstrap.php"
+    bootstrap="tests/bootstrap.php"
 >
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[total]=999999"/>
@@ -9,7 +9,7 @@
 
     <testsuites>
         <testsuite name="Leapt CoreBundle Test Suite">
-            <directory>./Tests/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -17,7 +17,7 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory>./Tests</directory>
+                <directory>./tests</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>
