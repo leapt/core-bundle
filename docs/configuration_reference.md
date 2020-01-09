@@ -9,7 +9,7 @@ permalink: /configuration_reference.html
 # config/packages/leapt_core.yaml
 
 leapt_core:
-    upload_dir: '%kernel.root_dir%/../web'
+    upload_dir: '%kernel.project_dir%/public'
     paginator:
         template: '@LeaptCore/Paginator/paginator_default_layout.html.twig'
     recaptcha:

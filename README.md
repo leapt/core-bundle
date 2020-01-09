@@ -7,9 +7,15 @@ Leapt Core Bundle
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
 [![Code coverage](https://img.shields.io/coveralls/github/leapt/core-bundle.svg?style=flat-square)](LICENSE)
 
-This bundle is a maintained fork of the SnowcapCore Bundle: https://github.com/snowcap/SnowcapCoreBundle
+The current version (3.x) of the bundle works with Symfony 4.4 & Symfony 5.
 
-It requires Symfony 3.3+/4.0+/5.0+ and PHP >= 7.1.3.
+For older versions of Symfony:
+
+* Use version 2.x for Symfony between 3.3 and 4.4
+* Use version < 2.x for Symfony < 3.3
+
+You can check the [changelog](CHANGELOG-3.x.md) for version 3 and the [upgrade document](UPGRADE-3.x.md) when upgrading
+from 2.x bundle version.
 
 It aims to help with some repetitive tasks, including (but not limited to):
 
@@ -18,11 +24,18 @@ It aims to help with some repetitive tasks, including (but not limited to):
 * SEO-related tasks (sitemaps, etc)
 * Building searchable & filterable data lists
 
-## Installation & usage
+Installation & usage
+--------------------
 
 You can check docs there: https://core-bundle.leapt.io/
 
-## Contributing
+Contributing
+------------
 
 Feel free to contribute, like sending [pull requests](https://github.com/leapt/core-bundle/pulls) to add features/tests
 or [creating issues](https://github.com/leapt/core-bundle/issues) :)
+
+History
+-------
+
+This bundle is a maintained fork of the SnowcapCore Bundle: https://github.com/snowcap/SnowcapCoreBundle

@@ -18,16 +18,11 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('leapt_core');
-        if (method_exists($treeBuilder, 'getRootNode')) {
-            $rootNode = $treeBuilder->getRootNode();
-        } else {
-            // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->root('leapt_core');
-        }
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
-                ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web')->end()
+                ->scalarNode('upload_dir')->defaultValue('%kernel.project_dir%/public')->end()
                 ->arrayNode('google_analytics')
                     ->children()
                         ->scalarNode('tracking_id')->defaultNull()->end()
@@ -75,10 +70,6 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
         ;
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
 
         return $treeBuilder;
     }
