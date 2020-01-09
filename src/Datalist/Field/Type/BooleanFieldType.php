@@ -7,14 +7,10 @@ use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class BooleanFieldType
- * @package Leapt\CoreBundle\Datalist\Field\Type
+ * Class BooleanFieldType.
  */
 class BooleanFieldType extends AbstractFieldType
 {
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -30,10 +26,7 @@ class BooleanFieldType extends AbstractFieldType
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\ViewContext $viewContext
-     * @param \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface $field
      * @param mixed $row
-     * @param array $options
      */
     public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
     {

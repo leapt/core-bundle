@@ -22,21 +22,18 @@ class CombinedExpression implements ExpressionInterface
      */
     public function __construct($operator)
     {
-        if (!in_array($operator, self::getValidOperators())) {
+        if (!\in_array($operator, self::getValidOperators(), true)) {
             throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));
-        };
+        }
 
         $this->operator = $operator;
 
-        $this->expressions = array_slice(func_get_args(), 1);
+        $this->expressions = \array_slice(\func_get_args(), 1);
     }
 
-    /**
-     * @param ExpressionInterface $expression
-     */
     public function addExpression(ExpressionInterface $expression)
     {
-        $this->expressions[]= $expression;
+        $this->expressions[] = $expression;
     }
 
     /**
@@ -58,7 +55,7 @@ class CombinedExpression implements ExpressionInterface
     /**
      * @return array
      */
-    static private function getValidOperators()
+    private static function getValidOperators()
     {
         return [
             self::OPERATOR_AND, self::OPERATOR_OR,

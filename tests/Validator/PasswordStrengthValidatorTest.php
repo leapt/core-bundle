@@ -51,22 +51,22 @@ final class PasswordStrengthValidatorTest extends TestCase
         $this->context->expects($this->never())
             ->method('addViolation');
 
-        $this->validator->validate($password, new PasswordStrength(array('score' => 50, 'min' => 5, 'max' => 255)));
+        $this->validator->validate($password, new PasswordStrength(['score' => 50, 'min' => 5, 'max' => 255]));
     }
 
     public function getValidPasswords()
     {
-        return array(
-            array('dora1*'),
-            array('dora12*'),
-            array('Dora12*'),
-            array('E=mc^2'),
-            array('Doraa12*'),
-            array('Dor+a12*'),
-            array('DorH+a12*5'),
-            array('DorH+a12*5'),
-            array('My password is f*cking awesome'),
-        );
+        return [
+            ['dora1*'],
+            ['dora12*'],
+            ['Dora12*'],
+            ['E=mc^2'],
+            ['Doraa12*'],
+            ['Dor+a12*'],
+            ['DorH+a12*5'],
+            ['DorH+a12*5'],
+            ['My password is f*cking awesome'],
+        ];
     }
 
     /**
@@ -74,10 +74,10 @@ final class PasswordStrengthValidatorTest extends TestCase
      */
     public function testInvalidPasswords($password)
     {
-        $constraint = new PasswordStrength(array(
+        $constraint = new PasswordStrength([
             'scoreMessage' => 'scoreMessage',
-            'score' => 50,
-        ));
+            'score'        => 50,
+        ]);
 
         $this->context->expects($this->once())
             ->method('addViolation')
@@ -88,20 +88,20 @@ final class PasswordStrengthValidatorTest extends TestCase
 
     public function getInvalidPasswords()
     {
-        return array(
-            array('toto'),
-            array('dora'),
-            array('Dora'),
-        );
+        return [
+            ['toto'],
+            ['dora'],
+            ['Dora'],
+        ];
     }
 
     public function testMinPasswords()
     {
-        $constraint = new PasswordStrength(array(
+        $constraint = new PasswordStrength([
             'minMessage' => 'minMessage',
-            'score' => 50,
-            'min' => 5,
-        ));
+            'score'      => 50,
+            'min'        => 5,
+        ]);
 
         $this->context->expects($this->once())
             ->method('addViolation')
@@ -112,11 +112,11 @@ final class PasswordStrengthValidatorTest extends TestCase
 
     public function testMaxPasswords()
     {
-        $constraint = new PasswordStrength(array(
+        $constraint = new PasswordStrength([
             'maxMessage' => 'maxMessage',
-            'score' => 50,
-            'max' => 5,
-        ));
+            'score'      => 50,
+            'max'        => 5,
+        ]);
 
         $this->context->expects($this->once())
             ->method('addViolation')

@@ -7,8 +7,7 @@ use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class TextFieldType
- * @package Leapt\CoreBundle\Datalist\Field\Type
+ * Class TextFieldType.
  */
 class TextFieldType extends AbstractFieldType
 {
@@ -20,9 +19,6 @@ class TextFieldType extends AbstractFieldType
         return 'text';
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -31,10 +27,7 @@ class TextFieldType extends AbstractFieldType
     }
 
     /**
-     * @param ViewContext $viewContext
-     * @param DatalistFieldInterface $field
      * @param mixed $row
-     * @param array $options
      */
     public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
     {

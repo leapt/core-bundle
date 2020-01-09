@@ -7,14 +7,10 @@ use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class LabelFieldType
- * @package Leapt\CoreBundle\Datalist\Field\Type
+ * Class LabelFieldType.
  */
 class LabelFieldType extends AbstractFieldType
 {
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -26,10 +22,8 @@ class LabelFieldType extends AbstractFieldType
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\ViewContext $viewContext
-     * @param \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface $field
      * @param $row
-     * @param array $options
+     *
      * @throws \UnexpectedValueException
      * @throws \Exception
      */
@@ -40,15 +34,15 @@ class LabelFieldType extends AbstractFieldType
         $mappings = $options['mappings'];
 
         // Convert boolean value to integer to avoid problem with indexed arrays
-        if (is_bool($viewContext['value'])) {
+        if (\is_bool($viewContext['value'])) {
             $viewContext['value'] = (int) $viewContext['value'];
         }
-        if(!array_key_exists($viewContext['value'], $mappings)) {
+        if (!\array_key_exists($viewContext['value'], $mappings)) {
             throw new \UnexpectedValueException(sprintf('No mapping for value %s', $viewContext['value']));
         }
 
         $mapping = $mappings[$viewContext['value']];
-        if (!is_array($mapping)) {
+        if (!\is_array($mapping)) {
             throw new \Exception('mappings for the label field type must be specified as an associative array');
         }
 

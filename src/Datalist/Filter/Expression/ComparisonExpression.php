@@ -34,14 +34,15 @@ class ComparisonExpression implements ExpressionInterface
     /**
      * @param string $propertyPath
      * @param string $operator
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @throws \InvalidArgumentException
      */
     public function __construct($propertyPath, $operator, $value)
     {
-        if (!in_array($operator, self::getValidOperators())) {
+        if (!\in_array($operator, self::getValidOperators(), true)) {
             throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));
-        };
+        }
 
         $this->propertyPath = $propertyPath;
         $this->operator = $operator;
@@ -75,7 +76,8 @@ class ComparisonExpression implements ExpressionInterface
     /**
      * @return array
      */
-    static private function getValidOperators(){
+    private static function getValidOperators()
+    {
         return [
             self::OPERATOR_EQ, self::OPERATOR_NEQ, self::OPERATOR_GT, self::OPERATOR_GTE,
             self::OPERATOR_LT, self::OPERATOR_LTE, self::OPERATOR_LIKE, self::OPERATOR_IN,

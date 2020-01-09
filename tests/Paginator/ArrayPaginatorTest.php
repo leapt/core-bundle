@@ -8,8 +8,7 @@ use Leapt\CoreBundle\Paginator\ArrayPaginator;
 class ArrayPaginatorTest extends AbstractPaginatorTest
 {
     /**
-     * Test the IteratorAggregate implementation
-     *
+     * Test the IteratorAggregate implementation.
      */
     public function testIteration()
     {
@@ -20,7 +19,7 @@ class ArrayPaginatorTest extends AbstractPaginatorTest
         $paginator->setLimitPerPage(10);
         $paginator->setPage(2);
 
-        foreach($paginator as $item) {
+        foreach ($paginator as $item) {
             break;
         }
 
@@ -28,9 +27,10 @@ class ArrayPaginatorTest extends AbstractPaginatorTest
     }
 
     /**
-     * Build a populated paginator instance
+     * Build a populated paginator instance.
      *
      * @param int $limit
+     *
      * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
      */
     protected function buildPaginator($limit)
@@ -42,20 +42,21 @@ class ArrayPaginatorTest extends AbstractPaginatorTest
     }
 
     /**
-     * Build a simple array of items to be used in the paginator
+     * Build a simple array of items to be used in the paginator.
      *
      * @param int $limit
+     *
      * @return array
      */
     private function buildItems($limit)
     {
         $faker = FakerFactory::create();
-        $items = array();
-        for ($i = 1; $i <= $limit; $i++) {
-            $items[]= array(
+        $items = [];
+        for ($i = 1; $i <= $limit; ++$i) {
+            $items[] = [
                 'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName
-            );
+                'last_name'  => $faker->lastName,
+            ];
         }
 
         return $items;

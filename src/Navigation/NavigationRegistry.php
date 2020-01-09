@@ -5,8 +5,7 @@ namespace Leapt\CoreBundle\Navigation;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Class NavigationRegistry
- * @package Leapt\CoreBundle\Navigation
+ * Class NavigationRegistry.
  */
 class NavigationRegistry
 {
@@ -25,16 +24,13 @@ class NavigationRegistry
      */
     private $breadcrumbsPaths = [];
 
-    /**
-     * @param RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
     }
 
     /**
-     * Set the paths to be considered as active (navigation-wise)
+     * Set the paths to be considered as active (navigation-wise).
      *
      * @param array $paths an array of URI paths
      */
@@ -52,7 +48,7 @@ class NavigationRegistry
     }
 
     /**
-     * Get the active paths previously set
+     * Get the active paths previously set.
      *
      * @return array
      */
@@ -62,14 +58,15 @@ class NavigationRegistry
     }
 
     /**
-     * Checks if the provided path is to be considered as active
+     * Checks if the provided path is to be considered as active.
      *
      * @param string $path
+     *
      * @return bool
      */
     public function isActivePath($path)
     {
-        return in_array($path, $this->activePaths) || $path === $this->requestStack->getCurrentRequest()->getRequestUri();
+        return \in_array($path, $this->activePaths, true) || $this->requestStack->getCurrentRequest()->getRequestUri() === $path;
     }
 
     /**
@@ -78,8 +75,8 @@ class NavigationRegistry
      */
     public function appendBreadcrumb($path, $label)
     {
-        $pair = array($path, $label);
-        if (!in_array($pair, $this->breadcrumbsPaths)) {
+        $pair = [$path, $label];
+        if (!\in_array($pair, $this->breadcrumbsPaths, true)) {
             array_push($this->breadcrumbsPaths, $pair);
         }
     }
@@ -90,8 +87,8 @@ class NavigationRegistry
      */
     public function prependBreadcrumb($path, $label)
     {
-        $pair = array($path, $label);
-        if (!in_array($pair, $this->breadcrumbsPaths)) {
+        $pair = [$path, $label];
+        if (!\in_array($pair, $this->breadcrumbsPaths, true)) {
             array_unshift($this->breadcrumbsPaths, $pair);
         }
     }

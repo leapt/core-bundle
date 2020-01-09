@@ -5,41 +5,44 @@ namespace Leapt\CoreBundle\Sitemap;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class SitemapManager
- * @package Leapt\CoreBundle\Sitemap
+ * Class SitemapManager.
  */
 class SitemapManager
 {
-
     /**
      * @var AbstractSitemap
      */
-    private $sitemaps = array();
+    private $sitemaps = [];
 
     /**
-     * @param AbstractSitemap $sitemap
      * @throws \BadMethodCallException
      */
-    public function registerSitemap($alias, AbstractSitemap $sitemap) {
+    public function registerSitemap($alias, AbstractSitemap $sitemap)
+    {
         $sitemap->setAlias($alias);
         $this->sitemaps[$alias] = $sitemap;
     }
 
     /**
      * @return AbstractSitemap
+     *
      * @throws \UnexpectedValueException
      */
-    public function getSitemaps() {
+    public function getSitemaps()
+    {
         return $this->sitemaps;
     }
 
     /**
      * @param string $alias
+     *
      * @return AbstractSitemap
+     *
      * @throws NotFoundHttpException
      */
-    public function getSitemap($alias) {
-        if(!isset($this->sitemaps[$alias])) {
+    public function getSitemap($alias)
+    {
+        if (!isset($this->sitemaps[$alias])) {
             throw new NotFoundHttpException(sprintf('There is no sitemap with alias "%s"', $alias));
         }
 

@@ -3,8 +3,7 @@
 namespace Leapt\CoreBundle\Datalist\Field\Type;
 
 /**
- * Class ImageFieldType
- * @package Leapt\CoreBundle\Datalist\Field\Type
+ * Class ImageFieldType.
  */
 class ImageFieldType extends AbstractFieldType
 {

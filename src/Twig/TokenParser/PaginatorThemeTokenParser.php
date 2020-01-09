@@ -8,8 +8,7 @@ use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
 /**
- * Class PaginatorThemeTokenParser
- * @package Leapt\CoreBundle\Twig\TokenParser
+ * Class PaginatorThemeTokenParser.
  */
 class PaginatorThemeTokenParser extends AbstractTokenParser
 {

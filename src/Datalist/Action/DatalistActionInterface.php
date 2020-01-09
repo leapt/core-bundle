@@ -5,8 +5,7 @@ namespace Leapt\CoreBundle\Datalist\Action;
 use Leapt\CoreBundle\Datalist\DatalistInterface;
 
 /**
- * Interface DatalistActionInterface
- * @package Leapt\CoreBundle\Datalist\Action
+ * Interface DatalistActionInterface.
  */
 interface DatalistActionInterface
 {
@@ -27,19 +26,17 @@ interface DatalistActionInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name);
 
     /**
      * @param string $name
-     * @param mixed $default
+     * @param mixed  $default
      */
     public function getOption($name, $default = null);
 
-    /**
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
-     */
     public function setDatalist(DatalistInterface $datalist);
 
     /**

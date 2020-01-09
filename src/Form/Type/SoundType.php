@@ -9,8 +9,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class SoundType
- * @package Leapt\CoreBundle\Form\Type
+ * Class SoundType.
  */
 class SoundType extends AbstractType
 {
@@ -30,9 +29,6 @@ class SoundType extends AbstractType
         return TextType::class;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -41,11 +37,6 @@ class SoundType extends AbstractType
         ;
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface     $form
-     * @param array                                     $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['provider'] = $options['provider'];

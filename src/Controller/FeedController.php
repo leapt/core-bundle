@@ -9,8 +9,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Twig\Environment;
 
 /**
- * Class FeedController
- * @package Leapt\CoreBundle\Controller
+ * Class FeedController.
  */
 class FeedController
 {
@@ -37,9 +36,10 @@ class FeedController
     }
 
     /**
-     * @param Request $request
      * @param string $feedName
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \ErrorException
      */
     public function indexAction(Request $request, $feedName)

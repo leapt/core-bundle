@@ -10,8 +10,7 @@ if (!class_exists(RequestEvent::class)) {
 }
 
 /**
- * Class RequestListener
- * @package Leapt\CoreBundle\Listener
+ * Class RequestListener.
  */
 class RequestListener
 {

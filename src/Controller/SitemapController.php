@@ -10,8 +10,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
 /**
- * Class SitemapController
- * @package Leapt\CoreBundle\Controller
+ * Class SitemapController.
  */
 class SitemapController
 {
@@ -56,9 +55,8 @@ class SitemapController
             ]);
 
             return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-        } else {
-            throw new \UnexpectedValueException('No sitemap has been defined');
         }
+        throw new \UnexpectedValueException('No sitemap has been defined');
     }
 
     /**

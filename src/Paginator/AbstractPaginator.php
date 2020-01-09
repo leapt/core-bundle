@@ -3,8 +3,7 @@
 namespace Leapt\CoreBundle\Paginator;
 
 /**
- * Class AbstractPaginator
- * @package Leapt\CoreBundle\Paginator
+ * Class AbstractPaginator.
  */
 abstract class AbstractPaginator implements PaginatorInterface
 {
@@ -40,9 +39,10 @@ abstract class AbstractPaginator implements PaginatorInterface
     }
 
     /**
-     * Set the maximum numbers of pagination links (1 2 3 4 > >>) to display
+     * Set the maximum numbers of pagination links (1 2 3 4 > >>) to display.
      *
      * @param int $rangeLimit
+     *
      * @return PaginatorInterface
      */
     public function setRangeLimit($rangeLimit)
@@ -54,7 +54,7 @@ abstract class AbstractPaginator implements PaginatorInterface
 
     /**
      * Return a range array that can be used to build pagination links
-     * The returned range is centered around the current page
+     * The returned range is centered around the current page.
      *
      * @return array
      */
@@ -89,19 +89,18 @@ abstract class AbstractPaginator implements PaginatorInterface
 
         //If limit is set to 0 or set to number bigger then total items count
         //display all in one page
-        if (($this->limitPerPage < 1) || ($this->limitPerPage > $count)) {
+        if ((1 > $this->limitPerPage) || ($this->limitPerPage > $count)) {
             return 1;
-        } else {
-            //Calculate rest numbers from dividing operation so we can add one
-            //more page for this items
-            $restItemsNum = $count % $this->limitPerPage;
-
-            //if rest items > 0 then add one more page else just divide items
-            //by limitPerPage
-            return ($restItemsNum > 0 ? intval($count / $this->limitPerPage) + 1 : intval(
-                $count / $this->limitPerPage
-            ));
         }
+        //Calculate rest numbers from dividing operation so we can add one
+        //more page for this items
+        $restItemsNum = $count % $this->limitPerPage;
+
+        //if rest items > 0 then add one more page else just divide items
+        //by limitPerPage
+        return 0 < $restItemsNum ? (int) ($count / $this->limitPerPage) + 1 : (int) (
+                $count / $this->limitPerPage
+            );
     }
 
     /**

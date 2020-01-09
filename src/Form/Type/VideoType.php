@@ -9,8 +9,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class VideoType
- * @package Leapt\CoreBundle\Form\Type
+ * Class VideoType.
  */
 class VideoType extends AbstractType
 {
@@ -30,9 +29,6 @@ class VideoType extends AbstractType
         return TextType::class;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -41,11 +37,6 @@ class VideoType extends AbstractType
         ;
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface     $form
-     * @param array                                     $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         if (isset($options['provider'])) {

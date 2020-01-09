@@ -7,14 +7,10 @@ use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AbstractFilterType
- * @package Leapt\CoreBundle\Datalist\Filter\Type
+ * Class AbstractFilterType.
  */
 abstract class AbstractFilterType implements FilterTypeInterface
 {
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -23,10 +19,7 @@ abstract class AbstractFilterType implements FilterTypeInterface
     }
 
     /**
-     * @param ViewContext $viewContext
-     * @param DatalistFilterInterface $filter
      * @param mixed $row
-     * @param array $options
      */
     public function buildViewContext(ViewContext $viewContext, DatalistFilterInterface $filter, $row, array $options)
     {

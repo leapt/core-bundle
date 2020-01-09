@@ -9,8 +9,7 @@ use Leapt\CoreBundle\Paginator\ArrayPaginator;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * Class ArrayDatasource
- * @package Leapt\CoreBundle\Datalist\Datasource
+ * Class ArrayDatasource.
  */
 class ArrayDatasource extends AbstractDatasource
 {
@@ -22,11 +21,8 @@ class ArrayDatasource extends AbstractDatasource
     /**
      * @var array
      */
-    private $items = array();
+    private $items = [];
 
-    /**
-     * @param array $items
-     */
     public function __construct(array $items)
     {
         $this->items = $items;
@@ -61,7 +57,7 @@ class ArrayDatasource extends AbstractDatasource
         $items = $this->items;
 
         // Handle search
-        if(isset($this->searchExpression)) {
+        if (isset($this->searchExpression)) {
             $searchCallback = $this->buildExpressionCallback($this->searchExpression);
             $items = array_filter($items, $searchCallback);
         }
@@ -93,8 +89,8 @@ class ArrayDatasource extends AbstractDatasource
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface $expression
      * @return callable
+     *
      * @throws \InvalidArgumentException
      */
     private function buildExpressionCallback(ExpressionInterface $expression)
@@ -104,31 +100,30 @@ class ArrayDatasource extends AbstractDatasource
             $function = $this->buildCombinedExpressionCallback($expression);
         } elseif ($expression instanceof ComparisonExpression) {
             $function = $this->buildComparisonExpressionCallback($expression);
-        }
-        else {
-            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', get_class($expression)));
+        } else {
+            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', \get_class($expression)));
         }
 
         return $function;
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\CombinedExpression $expression
      * @return callable
+     *
      * @throws \UnexpectedValueException
      */
     private function buildCombinedExpressionCallback(CombinedExpression $expression)
     {
-        $tests = array();
+        $tests = [];
         foreach ($expression->getExpressions() as $subExpression) {
-            $tests [] = $this->buildExpressionCallback($subExpression);
+            $tests[] = $this->buildExpressionCallback($subExpression);
         }
         $operator = $expression->getOperator();
         // If we have a "AND" expression, return a function testing that all sub-expressions succeed
         if (CombinedExpression::OPERATOR_AND === $operator) {
             $function = function ($item) use ($tests) {
                 foreach ($tests as $test) {
-                    if (!call_user_func($test, $item)) {
+                    if (!\call_user_func($test, $item)) {
                         return false;
                     }
                 }
@@ -140,14 +135,14 @@ class ArrayDatasource extends AbstractDatasource
         elseif (CombinedExpression::OPERATOR_OR === $operator) {
             $function = function ($item) use ($tests) {
                 foreach ($tests as $test) {
-                    if (call_user_func($test, $item)) {
+                    if (\call_user_func($test, $item)) {
                         return true;
                     }
                 }
+
                 return false;
             };
-        }
-        else {
+        } else {
             throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
         }
 
@@ -155,19 +150,19 @@ class ArrayDatasource extends AbstractDatasource
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ComparisonExpression $expression
      * @return callable
+     *
      * @throws \UnexpectedValueException
      */
     private function buildComparisonExpressionCallback(ComparisonExpression $expression)
     {
-        $function = function($item) use($expression) {
+        $function = function ($item) use ($expression) {
             $accessor = PropertyAccess::createPropertyAccessor();
             $value = $accessor->getValue($item, $expression->getPropertyPath());
             $comparisonValue = $expression->getValue();
             $operator = $expression->getOperator();
 
-            switch($operator) {
+            switch ($operator) {
                 case ComparisonExpression::OPERATOR_EQ:
                     $result = $value === $comparisonValue;
                     break;
@@ -190,10 +185,10 @@ class ArrayDatasource extends AbstractDatasource
                     $result = false !== strpos($value, $comparisonValue);
                     break;
                 case ComparisonExpression::OPERATOR_IN:
-                    $result = in_array($value, $comparisonValue);
+                    $result = \in_array($value, $comparisonValue, true);
                     break;
                 case ComparisonExpression::OPERATOR_NIN:
-                    $result = !in_array($value, $comparisonValue);
+                    $result = !\in_array($value, $comparisonValue, true);
                     break;
                 case ComparisonExpression::OPERATOR_IS_NULL:
                     $result = null === $value;

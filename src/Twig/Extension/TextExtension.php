@@ -8,8 +8,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 /**
- * Class TextExtension
- * @package Leapt\CoreBundle\Twig\Extension
+ * Class TextExtension.
  */
 class TextExtension extends AbstractExtension
 {
@@ -22,7 +21,7 @@ class TextExtension extends AbstractExtension
 
     /**
      * Core extension constructor
-     * Check if MultiByte string is available
+     * Check if MultiByte string is available.
      */
     public function __construct()
     {
@@ -30,7 +29,7 @@ class TextExtension extends AbstractExtension
     }
 
     /**
-     * Get all available filters
+     * Get all available filters.
      *
      * @return array
      */
@@ -44,6 +43,7 @@ class TextExtension extends AbstractExtension
 
     /**
      * @param $string
+     *
      * @return string
      */
     public function camelize($string)
@@ -52,13 +52,12 @@ class TextExtension extends AbstractExtension
     }
 
     /**
-     * Filter used to safely truncate a string with html
+     * Filter used to safely truncate a string with html.
      *
-     * @param \Twig\Environment $env
-     * @param string            $value
-     * @param int               $length
-     * @param bool              $preserve
-     * @param string            $separator
+     * @param string $value
+     * @param int    $length
+     * @param bool   $preserve
+     * @param string $separator
      *
      * @return string
      */
@@ -67,29 +66,23 @@ class TextExtension extends AbstractExtension
         $charset = $env->getCharset();
 
         if ($this->isMultiByteStringAvailable() && $this->getMultiByteString()) {
-            $strlen = function($string, $encoding = null)
-            {
+            $strlen = function ($string, $encoding = null) {
                 return mb_strlen($string, $encoding);
             };
-            $substr = function($string, $start, $length = null, $encoding = null)
-            {
+            $substr = function ($string, $start, $length = null, $encoding = null) {
                 return mb_substr($string, $start, $length, $encoding);
             };
-            $strpos = function($haystack, $needle, $offset = null, $encoding = null)
-            {
+            $strpos = function ($haystack, $needle, $offset = null, $encoding = null) {
                 return mb_strpos($haystack, $needle, $offset, $encoding);
             };
         } else {
-            $strlen = function($string, $encoding = null)
-            {
-                return strlen($string);
+            $strlen = function ($string, $encoding = null) {
+                return \strlen($string);
             };
-            $substr = function($string, $start, $length = null, $encoding = null)
-            {
+            $substr = function ($string, $start, $length = null, $encoding = null) {
                 return substr($string, $start, $length);
             };
-            $strpos = function($haystack, $needle, $offset = null, $encoding = null)
-            {
+            $strpos = function ($haystack, $needle, $offset = null, $encoding = null) {
                 return strpos($haystack, $needle, $offset);
             };
         }
@@ -100,7 +93,7 @@ class TextExtension extends AbstractExtension
         $breakpoint = $length;
 
         // Check if the string is bigger than the available length, otherwise, there is nothing to do
-        if (strlen($strippedValue) > $length) {
+        if (\strlen($strippedValue) > $length) {
             // Initialize the pipedValue used to replace spaces by pipe in html tags
             $pipedValue = $value;
 
@@ -109,8 +102,7 @@ class TextExtension extends AbstractExtension
                 // Replace spaces in html tags by pipes to easily split the string by spaces available in the text
                 $pipedValue = preg_replace_callback(
                     '#<([^>]*)( )([^<]*)>#',
-                    function($matches)
-                    {
+                    function ($matches) {
                         return str_replace(' ', '|', $matches[0]);
                     },
                     $value
@@ -119,7 +111,7 @@ class TextExtension extends AbstractExtension
 
             // Initialize the available words
             $words = explode(' ', $substr($strippedValue, 0, $breakpoint, $charset));
-            $availableWords = count($words);
+            $availableWords = \count($words);
             $lastWord = '';
 
             // If we have to preserve words
@@ -133,28 +125,28 @@ class TextExtension extends AbstractExtension
                         // Split the string by spaces until the breakpoint
                         $words = explode(' ', $substr($strippedValue, 0, $breakpoint, $charset));
                         // If the space is not the next char, we should remove last word
-                        if ($nextSpace > 0) {
+                        if (0 < $nextSpace) {
                             // Remove the last element which is outside the scope of defined length
                             array_pop($words);
                         }
                         // Get the count of available words
-                        $availableWords = count($words);
+                        $availableWords = \count($words);
                     } else { // Otherwise remove the last word from the array
-                        $availableWords--;
+                        --$availableWords;
                     }
                 } else { // Otherwise remove the last word from the array
-                    $availableWords--;
+                    --$availableWords;
                 }
             } else { // Otherwise, preserve the last word part and remove it from the array
-                $lastWord = $words[count($words) - 1];
-                $availableWords--;
+                $lastWord = $words[\count($words) - 1];
+                --$availableWords;
             }
 
             // Split the piped value by spaces
             $words = explode(' ', $pipedValue);
             // Remove words that are not in the scope defined by the length
-            $words = array_slice($words, 0, $availableWords);
-            if ($lastWord !== '') {
+            $words = \array_slice($words, 0, $availableWords);
+            if ('' !== $lastWord) {
                 $words[] = $lastWord;
             }
 
@@ -163,8 +155,7 @@ class TextExtension extends AbstractExtension
             // Replace back pipes in html tags to spaces
             $value = preg_replace_callback(
                 '#<([^>]*)(|)([^<]*)>#',
-                function($matches)
-                {
+                function ($matches) {
                     return str_replace('|', ' ', $matches[0]);
                 },
                 $pipedValue
@@ -175,12 +166,11 @@ class TextExtension extends AbstractExtension
         }
 
         return $value;
-
     }
 
     /**
      * Enable/disable MultiByte string
-     * Useful for Unit Testing
+     * Useful for Unit Testing.
      *
      * @param bool $useMultiByteString
      */
@@ -193,29 +183,27 @@ class TextExtension extends AbstractExtension
     }
 
     /**
-     * Check if MultiByte string is used
+     * Check if MultiByte string is used.
      *
-     * @return boolean
+     * @return bool
      */
     public function getMultiByteString()
     {
         return $this->useMultiByteString;
     }
 
-
     /**
-     * Check if MultiByte string is available
+     * Check if MultiByte string is available.
      *
      * @return bool
      */
     public function isMultiByteStringAvailable()
     {
-
-        return function_exists('mb_get_info');
+        return \function_exists('mb_get_info');
     }
 
     /**
-     * Helper used to close html tags
+     * Helper used to close html tags.
      *
      * @param string $html
      *
@@ -224,25 +212,25 @@ class TextExtension extends AbstractExtension
     protected function closeTags($html)
     {
         preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
-        $openedTags = $result[1]; #put all closed tags into an array
+        $openedTags = $result[1]; //put all closed tags into an array
 
         preg_match_all('#</([a-z]+)>#iU', $html, $result);
         $closedTags = $result[1];
 
-        $len_opened = count($openedTags);
-        if (count($closedTags) == $len_opened) {
+        $len_opened = \count($openedTags);
+        if (\count($closedTags) === $len_opened) {
             return $html;
         }
 
         $openedTags = array_reverse($openedTags);
-        for ($i = 0; $i < $len_opened; $i++) {
-            if (!in_array($openedTags[$i], $closedTags)) {
+        for ($i = 0; $i < $len_opened; ++$i) {
+            if (!\in_array($openedTags[$i], $closedTags, true)) {
                 $html .= '</' . $openedTags[$i] . '>';
             } else {
-                unset($closedTags[array_search($openedTags[$i], $closedTags)]);
+                unset($closedTags[array_search($openedTags[$i], $closedTags, true)]);
             }
-
         }
+
         return $html;
     }
 }

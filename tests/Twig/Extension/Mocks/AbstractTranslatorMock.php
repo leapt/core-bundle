@@ -22,11 +22,11 @@ abstract class AbstractTranslatorMock implements TranslatorInterface
     }
 
     /**
-     * Method used to mock the trans and transChoice methods
+     * Method used to mock the trans and transChoice methods.
      *
-     * @param string      $id
-     * @param array       $parameters
-     * @param null        $number
+     * @param string $id
+     * @param array  $parameters
+     * @param null   $number
      *
      * @return string
      */
@@ -34,13 +34,13 @@ abstract class AbstractTranslatorMock implements TranslatorInterface
     {
         $separator = '|';
 
-        $parts = array();
+        $parts = [];
         $parts[] = $id;
-        if ($number !== null) {
+        if (null !== $number) {
             $parts[] = $number;
         }
 
-        foreach($parameters as $name => $value) {
+        foreach ($parameters as $name => $value) {
             $parts[] = $name . '=' . $value;
         }
 

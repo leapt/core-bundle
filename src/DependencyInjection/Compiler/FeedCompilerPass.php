@@ -7,17 +7,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class FeedCompilerPass
- * @package Leapt\CoreBundle\DependencyInjection\Compiler
+ * Class FeedCompilerPass.
  */
 class FeedCompilerPass implements CompilerPassInterface
 {
     /**
-     * Check for indexer services in configuration
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * Check for indexer services in configuration.
      */
-    function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
         if (false === $container->hasDefinition('leapt_core.feed_manager')) {
             return;
@@ -27,7 +24,7 @@ class FeedCompilerPass implements CompilerPassInterface
             $alias = isset($tag[0]['alias'])
                 ? $tag[0]['alias']
                 : $serviceId;
-            $definition->addMethodCall('registerFeed', array($alias, new Reference($serviceId)));
+            $definition->addMethodCall('registerFeed', [$alias, new Reference($serviceId)]);
         }
     }
 }

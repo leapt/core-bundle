@@ -3,10 +3,8 @@
 namespace Leapt\CoreBundle\Datalist;
 
 /**
- * Class DatalistConfig
- * @package Leapt\CoreBundle\Datalist
+ * Class DatalistConfig.
  */
 class DatalistConfig extends Config
 {
-
 }

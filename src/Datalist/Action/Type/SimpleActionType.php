@@ -9,8 +9,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- * Class SimpleActionType
- * @package Leapt\CoreBundle\Datalist\Action\Type
+ * Class SimpleActionType.
  */
 class SimpleActionType extends AbstractActionType
 {
@@ -19,17 +18,11 @@ class SimpleActionType extends AbstractActionType
      */
     protected $router;
 
-    /**
-     * @param \Symfony\Component\Routing\RouterInterface $router
-     */
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
     }
 
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -43,16 +36,15 @@ class SimpleActionType extends AbstractActionType
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Action\DatalistActionInterface $action
      * @param object $item
-     * @param array $options
+     *
      * @return string
      */
     public function getUrl(DatalistActionInterface $action, $item, array $options = [])
     {
         $parameters = [];
         $accessor = PropertyAccess::createPropertyAccessor();
-        foreach($options['params'] as $paramName => $paramPath) {
+        foreach ($options['params'] as $paramName => $paramPath) {
             $paramValue = $accessor->getValue($item, $paramPath);
             $parameters[$paramName] = $paramValue;
         }
@@ -61,10 +53,7 @@ class SimpleActionType extends AbstractActionType
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\ViewContext $viewContext
-     * @param \Leapt\CoreBundle\Datalist\Action\DatalistActionInterface $action
      * @param $item
-     * @param array $options
      */
     public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options)
     {

@@ -5,7 +5,7 @@ namespace Leapt\CoreBundle\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * This class is meant to signal a file deletion - used in forms (see Leapt\CoreBundle\Form\Type\FileType)
+ * This class is meant to signal a file deletion - used in forms (see Leapt\CoreBundle\Form\Type\FileType).
  */
 class CondemnedFile extends UploadedFile
 {
@@ -15,7 +15,7 @@ class CondemnedFile extends UploadedFile
     private $path;
 
     /**
-     * Override parent constructor
+     * Override parent constructor.
      */
     public function __construct()
     {

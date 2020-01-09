@@ -8,14 +8,10 @@ use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AbstractDatalistType
- * @package Leapt\CoreBundle\Datalist\Type
+ * Class AbstractDatalistType.
  */
 abstract class AbstractDatalistType implements DatalistTypeInterface
 {
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -38,20 +34,12 @@ abstract class AbstractDatalistType implements DatalistTypeInterface
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\DatalistBuilder $builder
-     * @param array $options
      * @return mixed|void
      */
     public function buildDatalist(DatalistBuilder $builder, array $options)
     {
-
     }
 
-    /**
-     * @param \Leapt\CoreBundle\Datalist\ViewContext $viewContext
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
-     * @param array $options
-     */
     public function buildViewContext(ViewContext $viewContext, DatalistInterface $datalist, array $options)
     {
         $viewContext['datalist'] = $datalist;

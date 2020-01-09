@@ -16,9 +16,6 @@ class DatalistFilter implements DatalistFilterInterface
      */
     private $datalist;
 
-    /**
-     * @param DatalistFilterConfig $config
-     */
     public function __construct(DatalistFilterConfig $config)
     {
         $this->config = $config;
@@ -42,6 +39,7 @@ class DatalistFilter implements DatalistFilterInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name)
@@ -51,7 +49,7 @@ class DatalistFilter implements DatalistFilterInterface
 
     /**
      * @param string $name
-     * @param mixed $default
+     * @param mixed  $default
      */
     public function getOption($name, $default = null)
     {
@@ -66,9 +64,6 @@ class DatalistFilter implements DatalistFilterInterface
         return $this->config->getType();
     }
 
-    /**
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
-     */
     public function setDatalist(DatalistInterface $datalist)
     {
         $this->datalist = $datalist;

@@ -7,8 +7,7 @@ use Twig\TwigFunction;
 use Twig\TwigTest;
 
 /**
- * Class SiteExtension
- * @package Leapt\CoreBundle\Twig\Extension
+ * Class SiteExtension.
  */
 class SiteExtension extends AbstractExtension
 {
@@ -58,6 +57,7 @@ class SiteExtension extends AbstractExtension
     /**
      * @param string $baseTitle
      * @param string $seperator
+     *
      * @return string
      */
     public function getPageTitle($baseTitle, $seperator = ' - ')
@@ -73,6 +73,7 @@ class SiteExtension extends AbstractExtension
 
     /**
      * @param string $defaultDescription
+     *
      * @return string
      */
     public function getMetaDescription($defaultDescription)
@@ -89,14 +90,13 @@ class SiteExtension extends AbstractExtension
     }
 
     /**
-     * @param array $defaultKeywords
      * @return string
      */
     public function getMetaKeywords(array $defaultKeywords)
     {
         $merged = array_merge($defaultKeywords, $this->metaKeywords);
         $exploded = [];
-        foreach($merged as $item) {
+        foreach ($merged as $item) {
             $exploded = array_merge($exploded, explode(',', $item));
         }
         $trimmed = array_map('trim', $exploded);
@@ -104,9 +104,6 @@ class SiteExtension extends AbstractExtension
         return implode(',', array_unique($trimmed));
     }
 
-    /**
-     * @param array $keywords
-     */
     public function addMetaKeywords(array $keywords)
     {
         $this->metaKeywords = array_merge($this->metaKeywords, $keywords);

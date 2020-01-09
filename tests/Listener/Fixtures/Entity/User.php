@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -97,5 +97,4 @@ class User
     {
         return $this->userName;
     }
-
 }

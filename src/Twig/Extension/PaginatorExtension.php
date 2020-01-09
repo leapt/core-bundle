@@ -11,8 +11,7 @@ use Twig\Template;
 use Twig\TwigFunction;
 
 /**
- * Class PaginatorExtension
- * @package Leapt\CoreBundle\Twig\Extension
+ * Class PaginatorExtension.
  */
 class PaginatorExtension extends AbstractExtension
 {
@@ -33,7 +32,6 @@ class PaginatorExtension extends AbstractExtension
 
     /**
      * @param string $template
-     * @param RequestStack $requestStack
      */
     public function __construct($template, RequestStack $requestStack)
     {
@@ -61,9 +59,8 @@ class PaginatorExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param PaginatorInterface $paginator
      * @return string
+     *
      * @throws \Exception
      */
     public function renderPaginatorWidget(Environment $env, PaginatorInterface $paginator)
@@ -78,7 +75,7 @@ class PaginatorExtension extends AbstractExtension
         $context = [
             'paginator'    => $paginator,
             'route'        => $route,
-            'route_params' => $newRouteParams
+            'route_params' => $newRouteParams,
         ];
 
         return $this->renderBlock($env, $paginator, [$blockName], $context);
@@ -93,20 +90,6 @@ class PaginatorExtension extends AbstractExtension
     }
 
     /**
-     * @param PaginatorInterface $paginator
-     * @return array
-     */
-    private function getTemplatesForPaginator(PaginatorInterface $paginator)
-    {
-        if (isset($this->themes[$paginator])){
-            return $this->themes[$paginator];
-        }
-
-        return [$this->template];
-    }
-
-    /**
-     * @param PaginatorInterface $paginator
      * @param $ressources
      */
     public function setTheme(PaginatorInterface $paginator, $ressources)
@@ -115,11 +98,20 @@ class PaginatorExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param PaginatorInterface $paginator
-     * @param array $blockNames
-     * @param array $context
+     * @return array
+     */
+    private function getTemplatesForPaginator(PaginatorInterface $paginator)
+    {
+        if (isset($this->themes[$paginator])) {
+            return $this->themes[$paginator];
+        }
+
+        return [$this->template];
+    }
+
+    /**
      * @return string
+     *
      * @throws \Exception
      * @throws \Twig\Error\LoaderError
      */
@@ -136,8 +128,7 @@ class PaginatorExtension extends AbstractExtension
                         return $template->renderBlock($blockName, $context);
                     }
                 }
-            }
-            while (($template = $template->getParent($context)) !== false);
+            } while (false !== ($template = $template->getParent($context)));
         }
 
         throw new \Exception(sprintf('No block found (tried to find %s)', implode(',', $blockNames)));

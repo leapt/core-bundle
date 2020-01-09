@@ -35,6 +35,13 @@ Contributing
 Feel free to contribute, like sending [pull requests](https://github.com/leapt/core-bundle/pulls) to add features/tests
 or [creating issues](https://github.com/leapt/core-bundle/issues) :)
 
+Note there are a few helpers to maintain code quality, that you can run using these commands:
+
+```bash
+composer cs:dry # Code style check
+vendor/bin/simple-phpunit # Run tests
+```
+
 History
 -------
 

@@ -8,8 +8,7 @@ use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
 /**
- * Class DatalistThemeTokenParser
- * @package Leapt\CoreBundle\Twig\TokenParser
+ * Class DatalistThemeTokenParser.
  */
 final class DatalistThemeTokenParser extends AbstractTokenParser
 {

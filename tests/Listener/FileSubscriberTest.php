@@ -13,8 +13,8 @@ use Leapt\CoreBundle\Listener\FileSubscriber;
 use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\Novel;
 use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
 
 class FileSubscriberTest extends TestCase
 {
@@ -40,42 +40,6 @@ class FileSubscriberTest extends TestCase
         'Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User',
         'Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\Novel',
     ];
-
-    /**
-     * @return \Doctrine\ORM\EntityManager
-     */
-    private function buildEntityManager()
-    {
-        AnnotationRegistry::registerFile(__DIR__ . '/../../src/Doctrine/Mapping/File.php');
-
-        $config = Setup::createAnnotationMetadataConfiguration(
-            [__DIR__ . '/Fixtures'],
-            false,
-            \sys_get_temp_dir(),
-            null,
-            false
-        );
-        $config->setAutoGenerateProxyClasses(true);
-
-        $params = [
-            'driver' => 'pdo_sqlite',
-            'memory' => true,
-        ];
-
-        return EntityManager::create($params, $config);
-    }
-
-    private function createSchema()
-    {
-        $em = $this->em;
-        $schema = array_map(function ($class) use ($em) {
-            return $em->getClassMetadata($class);
-        }, $this->classes);
-
-        $schemaTool = new SchemaTool($em);
-        $schemaTool->dropSchema([]);
-        $schemaTool->createSchema($schema);
-    }
 
     protected function setUp(): void
     {
@@ -135,7 +99,7 @@ class FileSubscriberTest extends TestCase
         $this->subscriber->postPersist($eventArgs);
 
         $this->assertNull($user->getCvFile());
-        $this->assertFileExists($this->rootDir .'/' . $cvPath);
+        $this->assertFileExists($this->rootDir . '/' . $cvPath);
     }
 
     public function testPostPersistForMappedSuperClass()
@@ -148,7 +112,7 @@ class FileSubscriberTest extends TestCase
         $this->subscriber->postPersist($eventArgs);
 
         $this->assertNull($novel->getAttachmentFile());
-        $this->assertFileExists($this->rootDir .'/' . $attachmentPath);
+        $this->assertFileExists($this->rootDir . '/' . $attachmentPath);
     }
 
     public function testPostUpdate()
@@ -161,7 +125,7 @@ class FileSubscriberTest extends TestCase
         $this->subscriber->postUpdate($eventArgs);
 
         $this->assertNull($user->getCvFile());
-        $this->assertFileExists($this->rootDir .'/' . $cvPath);
+        $this->assertFileExists($this->rootDir . '/' . $cvPath);
     }
 
     public function testPostUpdateWithPrevousFile()
@@ -174,14 +138,14 @@ class FileSubscriberTest extends TestCase
 
         $this->em->getUnitOfWork()->propertyChanged($user, 'cv', $oldCvPath, $newCvPath);
 
-        $this->assertFileExists($this->rootDir .'/' . $oldCvPath);
+        $this->assertFileExists($this->rootDir . '/' . $oldCvPath);
 
         $eventArgs = new LifecycleEventArgs($user, $this->em);
         $this->subscriber->postUpdate($eventArgs);
 
         $this->assertNull($user->getCvFile());
-        $this->assertFileExists($this->rootDir .'/' . $newCvPath);
-        $this->assertFileNotExists($this->rootDir .'/' . $oldCvPath);
+        $this->assertFileExists($this->rootDir . '/' . $newCvPath);
+        $this->assertFileNotExists($this->rootDir . '/' . $oldCvPath);
     }
 
     public function testPostUpdateWithCondemnedFile()
@@ -191,7 +155,7 @@ class FileSubscriberTest extends TestCase
         $this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/' . $cvPath);
         $user->setCv($cvPath);
 
-        $this->assertFileExists($this->rootDir .'/' . $cvPath);
+        $this->assertFileExists($this->rootDir . '/' . $cvPath);
         $user->setCvFile(new CondemnedFile());
 
         $preFlushEventArgs = new PreFlushEventArgs($this->em);
@@ -200,7 +164,7 @@ class FileSubscriberTest extends TestCase
         $this->subscriber->postUpdate($eventArgs);
 
         $this->assertNull($user->getCvFile());
-        $this->assertFileNotExists($this->rootDir .'/' . $cvPath);
+        $this->assertFileNotExists($this->rootDir . '/' . $cvPath);
     }
 
     public function testPostRemove()
@@ -210,19 +174,56 @@ class FileSubscriberTest extends TestCase
         $this->copyFile(__DIR__ . '/Fixtures/files/test_file.txt', '/' . $cvPath);
         $user->setCv($cvPath);
 
-        $this->assertFileExists($this->rootDir .'/' . $cvPath);
+        $this->assertFileExists($this->rootDir . '/' . $cvPath);
 
         $eventArgs = new LifecycleEventArgs($user, $this->em);
 
         $this->subscriber->preRemove($eventArgs);
         $this->subscriber->postRemove($eventArgs);
 
-        $this->assertFileNotExists($this->rootDir .'/' . $cvPath);
+        $this->assertFileNotExists($this->rootDir . '/' . $cvPath);
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    private function buildEntityManager()
+    {
+        AnnotationRegistry::registerFile(__DIR__ . '/../../src/Doctrine/Mapping/File.php');
+
+        $config = Setup::createAnnotationMetadataConfiguration(
+            [__DIR__ . '/Fixtures'],
+            false,
+            \sys_get_temp_dir(),
+            null,
+            false
+        );
+        $config->setAutoGenerateProxyClasses(true);
+
+        $params = [
+            'driver' => 'pdo_sqlite',
+            'memory' => true,
+        ];
+
+        return EntityManager::create($params, $config);
+    }
+
+    private function createSchema()
+    {
+        $em = $this->em;
+        $schema = array_map(function ($class) use ($em) {
+            return $em->getClassMetadata($class);
+        }, $this->classes);
+
+        $schemaTool = new SchemaTool($em);
+        $schemaTool->dropSchema([]);
+        $schemaTool->createSchema($schema);
     }
 
     /**
      * @param string $from
      * @param string $to
+     *
      * @return string
      */
     private function copyFile($from, $to)

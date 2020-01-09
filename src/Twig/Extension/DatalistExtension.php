@@ -14,10 +14,6 @@ use Twig\Extension\AbstractExtension;
 use Twig\Template;
 use Twig\TwigFunction;
 
-/**
- * Class DatalistExtension
- * @package Leapt\CoreBundle\Twig\Extension
- */
 final class DatalistExtension extends AbstractExtension
 {
     /**
@@ -41,10 +37,7 @@ final class DatalistExtension extends AbstractExtension
         $this->themes = new \SplObjectStorage();
     }
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('datalist_widget', [$this, 'renderDatalistWidget'], ['is_safe' => ['html'], 'needs_environment' => true]),
@@ -56,18 +49,14 @@ final class DatalistExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [new DatalistThemeTokenParser()];
     }
 
     /**
-     * @param Environment $env
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return string
+     *
      * @throws \Exception
      */
     public function renderDatalistWidget(Environment $env, DatalistInterface $datalist)
@@ -85,10 +74,10 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface $field
      * @param mixed $row
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public function renderDatalistField(Environment $env, DatalistFieldInterface $field, $row)
@@ -105,9 +94,8 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return string
+     *
      * @throws \Exception
      */
     public function renderDatalistSearch(Environment $env, DatalistInterface $datalist)
@@ -126,9 +114,8 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return string
+     *
      * @throws \Exception
      */
     public function renderDatalistFilters(Environment $env, DatalistInterface $datalist)
@@ -149,9 +136,8 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param \Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface $filter
      * @return string
+     *
      * @throws \Exception
      */
     public function renderDatalistFilter(Environment $env, DatalistFilterInterface $filter)
@@ -170,10 +156,10 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param \Leapt\CoreBundle\Datalist\Action\DatalistActionInterface $action
      * @param mixed $item
+     *
      * @return string
+     *
      * @throws \Exception
      */
     public function renderDatalistAction(Environment $env, DatalistActionInterface $action, $item)
@@ -195,11 +181,16 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
-     * @param array $blockNames
-     * @param array $context
+     * @param $ressources
+     */
+    public function setTheme(DatalistInterface $datalist, $ressources)
+    {
+        $this->themes[$datalist] = $ressources;
+    }
+
+    /**
      * @return string
+     *
      * @throws \Exception
      * @throws \Twig\Error\LoaderError
      */
@@ -216,32 +207,21 @@ final class DatalistExtension extends AbstractExtension
                         return $template->renderBlock($blockName, $context);
                     }
                 }
-            }
-            while (($template = $template->getParent($context)) !== false);
+            } while (false !== ($template = $template->getParent($context)));
         }
 
         throw new \Exception(sprintf('No block found (tried to find %s)', implode(',', $blockNames)));
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return array
      */
     private function getTemplatesForDatalist(DatalistInterface $datalist)
     {
-        if (isset($this->themes[$datalist])){
+        if (isset($this->themes[$datalist])) {
             return $this->themes[$datalist];
         }
 
         return [$this->defaultTheme];
-    }
-
-    /**
-     * @param DatalistInterface $datalist
-     * @param $ressources
-     */
-    public function setTheme(DatalistInterface $datalist, $ressources)
-    {
-        $this->themes[$datalist] = $ressources;
     }
 }

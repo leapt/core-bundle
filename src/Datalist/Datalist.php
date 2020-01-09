@@ -12,8 +12,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class Datalist
- * @package Leapt\CoreBundle\Datalist
+ * Class Datalist.
  */
 class Datalist implements DatalistInterface, \Countable
 {
@@ -97,9 +96,6 @@ class Datalist implements DatalistInterface, \Countable
      */
     private $routeParams = [];
 
-    /**
-     * @param DatalistConfig $config
-     */
     public function __construct(DatalistConfig $config)
     {
         $this->config = $config;
@@ -114,7 +110,6 @@ class Datalist implements DatalistInterface, \Countable
     }
 
     /**
-     * @param DatalistFieldInterface $field
      * @return Datalist
      */
     public function addField(DatalistFieldInterface $field)
@@ -132,8 +127,8 @@ class Datalist implements DatalistInterface, \Countable
         if (!isset($this->sortedFields)) {
             $sortedFields = $this->fields;
             $i = 1;
-            array_walk($sortedFields, function(DatalistFieldInterface $field) use(&$i) {
-                if(null === $field->getOption('order')) {
+            array_walk($sortedFields, function (DatalistFieldInterface $field) use (&$i) {
+                if (null === $field->getOption('order')) {
                     $field->setOption('order', $i);
                 }
                 ++$i;
@@ -151,23 +146,8 @@ class Datalist implements DatalistInterface, \Countable
     }
 
     /**
-     * @param string $name
-     * @return null|Field\DatalistField
-     */
-    protected function getField($name)
-    {
-        foreach ($this->fields as $field) {
-            /** @var \Leapt\CoreBundle\Datalist\Field\DatalistField $field */
-            if ($name === $field->getName()) {
-                return $field;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * @param Filter\DatalistFilterInterface $filter
+     *
      * @return DatalistInterface
      */
     public function addFilter(DatalistFilterInterface $filter)
@@ -203,6 +183,7 @@ class Datalist implements DatalistInterface, \Countable
 
     /**
      * @param Action\DatalistActionInterface $action
+     *
      * @return DatalistInterface
      */
     public function addAction(DatalistActionInterface $action)
@@ -222,6 +203,7 @@ class Datalist implements DatalistInterface, \Countable
 
     /**
      * @param DatasourceInterface $datasource
+     *
      * @return DatalistInterface
      */
     public function setDatasource($datasource)
@@ -277,6 +259,7 @@ class Datalist implements DatalistInterface, \Countable
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name)
@@ -286,7 +269,8 @@ class Datalist implements DatalistInterface, \Countable
 
     /**
      * @param string $name
-     * @param mixed $default
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public function getOption($name, $default = null)
@@ -299,7 +283,7 @@ class Datalist implements DatalistInterface, \Countable
      */
     public function isFilterable()
     {
-        return count($this->filters) > 0;
+        return 0 < \count($this->filters);
     }
 
     /**
@@ -311,7 +295,6 @@ class Datalist implements DatalistInterface, \Countable
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
      * @return DatalistInterface
      */
     public function setSearchForm(FormInterface $form)
@@ -322,7 +305,6 @@ class Datalist implements DatalistInterface, \Countable
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
      * @return DatalistInterface
      */
     public function setFilterForm(FormInterface $form)
@@ -349,9 +331,10 @@ class Datalist implements DatalistInterface, \Countable
     }
 
     /**
-     * Bind search / filter data to the datalist
+     * Bind search / filter data to the datalist.
      *
      * @param mixed $data a data array, a Request instance or an arbitrary object
+     *
      * @return DatalistInterface
      */
     public function bind($data)
@@ -368,12 +351,12 @@ class Datalist implements DatalistInterface, \Countable
         // Handle search
         if (isset($data['search'])) {
             $this->searchQuery = $data['search'];
-            $this->searchForm->submit(array('search' => $data['search']));
+            $this->searchForm->submit(['search' => $data['search']]);
         }
 
         // Handle filters
         foreach ($this->filters as $filter) {
-            if (isset($data[$filter->getName()]) && "" !== $data[$filter->getName()]) {
+            if (isset($data[$filter->getName()]) && '' !== $data[$filter->getName()]) {
                 $this->filterData[$filter->getName()] = $data[$filter->getName()];
             } elseif ($filter->hasOption('default')) {
                 $this->filterData[$filter->getName()] = $filter->getOption('default');
@@ -399,11 +382,12 @@ class Datalist implements DatalistInterface, \Countable
     {
         $this->initialize();
 
-        return count($this->datasource);
+        return \count($this->datasource);
     }
 
     /**
      * @param array $routeParams
+     *
      * @return DatalistInterface
      */
     public function setRouteParams($routeParams)
@@ -421,11 +405,13 @@ class Datalist implements DatalistInterface, \Countable
 
     /**
      * @param string $route
+     *
      * @return DatalistInterface
      */
     public function setRoute($route)
     {
         $this->route = $route;
+
         return $this;
     }
 
@@ -438,8 +424,24 @@ class Datalist implements DatalistInterface, \Countable
     }
 
     /**
-     * This method populates the iterator property
+     * @param string $name
      *
+     * @return Field\DatalistField|null
+     */
+    protected function getField($name)
+    {
+        foreach ($this->fields as $field) {
+            /** @var \Leapt\CoreBundle\Datalist\Field\DatalistField $field */
+            if ($field->getName() === $name) {
+                return $field;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * This method populates the iterator property.
      */
     private function initialize()
     {

@@ -3,8 +3,7 @@
 namespace Leapt\CoreBundle\Datalist;
 
 /**
- * Class ViewContext
- * @package Leapt\CoreBundle\Datalist
+ * Class ViewContext.
  */
 class ViewContext implements \ArrayAccess
 {
@@ -15,6 +14,7 @@ class ViewContext implements \ArrayAccess
 
     /**
      * @param mixed $offset
+     *
      * @return bool
      */
     public function offsetExists($offset)
@@ -24,6 +24,7 @@ class ViewContext implements \ArrayAccess
 
     /**
      * @param mixed $offset
+     *
      * @return mixed
      */
     public function offsetGet($offset)

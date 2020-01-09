@@ -6,14 +6,11 @@ use Twig\Compiler;
 use Twig\Node\Node;
 
 /**
- * Class PaginatorThemeNode
- * @package Leapt\CoreBundle\Twig\Node
+ * Class PaginatorThemeNode.
  */
 class PaginatorThemeNode extends Node
 {
     /**
-     * @param Node $paginator
-     * @param Node $resources
      * @param $lineno
      * @param null $tag
      */

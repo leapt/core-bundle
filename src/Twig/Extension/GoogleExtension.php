@@ -7,8 +7,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
- * Class GoogleExtension
- * @package Leapt\CoreBundle\Twig\Extension
+ * Class GoogleExtension.
  */
 class GoogleExtension extends AbstractExtension
 {
@@ -46,7 +45,7 @@ class GoogleExtension extends AbstractExtension
     }
 
     /**
-     * Get all available functions
+     * Get all available functions.
      *
      * @return array
      *
@@ -110,7 +109,6 @@ class GoogleExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
      * @return string
      */
     public function getAnalyticsTrackingCode(Environment $env)
@@ -130,34 +128,34 @@ class GoogleExtension extends AbstractExtension
     }
 
     /**
-     * Send eCommerce order to Google Analytics
+     * Send eCommerce order to Google Analytics.
      *
-     * @param Environment $env
      * @param array|object $order
-     * Example :
-     * array(
-     *  'id' => '1234',           // order ID - required
-     *  'name' => 'Acme Clothing',  // affiliation or store name
-     *  'total' => '1199',          // total in cents - required
-     *  'tax' => '129',           // tax in cents
-     *  'shipping' => '5',              // shipping in cents
-     *  'city' => 'San Jose',       // city
-     *  'state' => 'California',     // state or province
-     *  'country' => 'USA'             // country
-     *  'items' => array(
-     *      array(
-     *          'id' => 'DD44',           // SKU/code - required
-     *          'name' => 'T-Shirt',        // product name
-     *          'category' => 'Green Medium',   // category or variation
-     *          'price' => '1199',          // unit price in cents - required
-     *          'quantity' => '1',               // quantity - required
-     *      )
-     *  )
+     *                            Example :
+     *                            array(
+     *                            'id' => '1234',           // order ID - required
+     *                            'name' => 'Acme Clothing',  // affiliation or store name
+     *                            'total' => '1199',          // total in cents - required
+     *                            'tax' => '129',           // tax in cents
+     *                            'shipping' => '5',              // shipping in cents
+     *                            'city' => 'San Jose',       // city
+     *                            'state' => 'California',     // state or province
+     *                            'country' => 'USA'             // country
+     *                            'items' => array(
+     *                            array(
+     *                            'id' => 'DD44',           // SKU/code - required
+     *                            'name' => 'T-Shirt',        // product name
+     *                            'category' => 'Green Medium',   // category or variation
+     *                            'price' => '1199',          // unit price in cents - required
+     *                            'quantity' => '1',               // quantity - required
+     *                            )
+     *                            )
+     *
      * @return string
      */
     public function getAnalyticsCommerce(Environment $env, $order)
     {
-        if (null !== $this->accountId || $this->domainName === 'none') {
+        if (null !== $this->accountId || 'none' === $this->domainName) {
             $template = $env->load('@LeaptCore/Google/tracking_commerce.html.twig');
 
             return $template->render(['order' => $order]);
@@ -167,7 +165,6 @@ class GoogleExtension extends AbstractExtension
     }
 
     /**
-     * @param Environment $env
      * @return string
      */
     public function getTagsManagerCode(Environment $env)

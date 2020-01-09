@@ -8,17 +8,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class DatalistCompilerPass
- * @package Leapt\CoreBundle\DependencyInjection\Compiler
+ * Class DatalistCompilerPass.
  */
 class DatalistCompilerPass implements CompilerPassInterface
 {
     /**
-     * Check for indexer services in configuration
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * Check for indexer services in configuration.
      */
-    function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
         if (false === $container->hasDefinition(DatalistFactory::class)) {
             return;

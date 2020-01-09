@@ -10,8 +10,7 @@ use Leapt\CoreBundle\Datalist\Type\DatalistTypeInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Interface DatalistInterface
- * @package Leapt\CoreBundle\Datalist
+ * Interface DatalistInterface.
  */
 interface DatalistInterface extends \IteratorAggregate
 {
@@ -21,7 +20,6 @@ interface DatalistInterface extends \IteratorAggregate
     public function getType();
 
     /**
-     * @param DatalistFieldInterface $field
      * @return DatalistInterface
      */
     public function addField(DatalistFieldInterface $field);
@@ -33,6 +31,7 @@ interface DatalistInterface extends \IteratorAggregate
 
     /**
      * @param Filter\DatalistFilterInterface $filter
+     *
      * @return DatalistInterface
      */
     public function addFilter(DatalistFilterInterface $filter);
@@ -54,6 +53,7 @@ interface DatalistInterface extends \IteratorAggregate
 
     /**
      * @param Action\DatalistActionInterface $action
+     *
      * @return DatalistInterface
      */
     public function addAction(DatalistActionInterface $action);
@@ -87,13 +87,14 @@ interface DatalistInterface extends \IteratorAggregate
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name);
 
     /**
      * @param string $name
-     * @param mixed $default
+     * @param mixed  $default
      */
     public function getOption($name, $default = null);
 
@@ -115,13 +116,11 @@ interface DatalistInterface extends \IteratorAggregate
     public function isSearchable();
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
      * @return DatalistInterface
      */
     public function setSearchForm(FormInterface $form);
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
      * @return DatalistInterface
      */
     public function setFilterForm(FormInterface $form);
@@ -138,6 +137,7 @@ interface DatalistInterface extends \IteratorAggregate
 
     /**
      * @param mixed $data
+     *
      * @return DatalistInterface
      */
     public function bind($data);
@@ -149,6 +149,7 @@ interface DatalistInterface extends \IteratorAggregate
 
     /**
      * @param string $route
+     *
      * @return DatalistInterface
      */
     public function setRoute($route);
@@ -160,6 +161,7 @@ interface DatalistInterface extends \IteratorAggregate
 
     /**
      * @param array $routeParams
+     *
      * @return array
      */
     public function setRouteParams($routeParams);

@@ -16,8 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * Class FileType
- * @package Leapt\CoreBundle\Form\Type
+ * Class FileType.
  */
 class FileType extends AbstractType
 {
@@ -34,9 +33,6 @@ class FileType extends AbstractType
         return 'leapt_core_file';
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -44,22 +40,17 @@ class FileType extends AbstractType
                 'file_path',
             ])
             ->setDefaults([
-                'compound'       => true,
-                'error_bubbling' => false,
-                'data_class'     => null,
-                'delete_label'   => null,
-                'download_label' => null,
-                'allow_delete'   => true,
-                'file_label'     => null,
+                'compound'        => true,
+                'error_bubbling'  => false,
+                'data_class'      => null,
+                'delete_label'    => null,
+                'download_label'  => null,
+                'allow_delete'    => true,
+                'file_label'      => null,
                 'file_label_attr' => [],
             ]);
     }
 
-
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array                                        $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $filePath = $options['file_path'];
@@ -83,23 +74,17 @@ class FileType extends AbstractType
                     $data['file']->setPath($uploadDir . '/' . $imagePath);
                 }
             });
-        ;
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface     $form
-     * @param array                                     $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        if (array_key_exists('file_path', $options)) {
+        if (\array_key_exists('file_path', $options)) {
             $parentData = $form->getParent()->getData();
             try {
                 $fileUrl = null;
-                if ($parentData !== null) {
-                    if (is_callable($options['file_path'])) {
-                        $fileUrl = call_user_func($options['file_path'], $parentData);
+                if (null !== $parentData) {
+                    if (\is_callable($options['file_path'])) {
+                        $fileUrl = \call_user_func($options['file_path'], $parentData);
                     } else {
                         $accessor = PropertyAccess::createPropertyAccessor();
                         $fileUrl = $accessor->getValue($parentData, $options['file_path']);

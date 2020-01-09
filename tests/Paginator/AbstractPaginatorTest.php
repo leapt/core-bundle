@@ -2,14 +2,12 @@
 
 namespace Leapt\CoreBundle\Tests\Paginator;
 
-use Faker\Factory as FakerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class AbstractPaginatorTest extends WebTestCase
 {
     /**
-     * Test the default value of the paginator class
-     *
+     * Test the default value of the paginator class.
      */
     public function testDefaults()
     {
@@ -20,19 +18,17 @@ abstract class AbstractPaginatorTest extends WebTestCase
     }
 
     /**
-     * Test the implementation of the countabmle interface
-     *
+     * Test the implementation of the countabmle interface.
      */
     public function testCount()
     {
         $paginator = $this->buildPaginator(7);
 
-        $this->assertEquals(7, count($paginator));
+        $this->assertEquals(7, \count($paginator));
     }
 
     /**
-     * Test the page count method
-     *
+     * Test the page count method.
      */
     public function testGetPageCount()
     {
@@ -46,8 +42,7 @@ abstract class AbstractPaginatorTest extends WebTestCase
     }
 
     /**
-     * Test the getRange method
-     *
+     * Test the getRange method.
      */
     public function testGetRange()
     {
@@ -64,19 +59,18 @@ abstract class AbstractPaginatorTest extends WebTestCase
 
         $paginator->setPage(14);
         $this->assertEquals(range(6, 15), $paginator->getRange());
-
     }
 
     /**
-     * Test the IteratorAggregate implementation
-     *
+     * Test the IteratorAggregate implementation.
      */
     abstract public function testIteration();
 
     /**
-     * Build a populated paginator instance
+     * Build a populated paginator instance.
      *
      * @param int $limit
+     *
      * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
      */
     abstract protected function buildPaginator($limit);

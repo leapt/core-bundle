@@ -6,8 +6,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
 /**
- * Class DoctrineORMPaginator
- * @package Leapt\CoreBundle\Paginator
+ * Class DoctrineORMPaginator.
  */
 class DoctrineORMPaginator extends AbstractPaginator
 {
@@ -16,9 +15,6 @@ class DoctrineORMPaginator extends AbstractPaginator
      */
     private $doctrinePaginator;
 
-    /**
-     * @param \Doctrine\ORM\AbstractQuery $query
-     */
     public function __construct(AbstractQuery $query)
     {
         $this->doctrinePaginator = new ORMPaginator($query);
@@ -26,11 +22,12 @@ class DoctrineORMPaginator extends AbstractPaginator
 
     /**
      * @param int $page
+     *
      * @return $this
      */
     public function setPage($page)
     {
-        $page = $page > 0 ? $page : 1;
+        $page = 0 < $page ? $page : 1;
         $this->page = $page;
         $this->doctrinePaginator->getQuery()->setFirstResult($this->getOffset());
 
@@ -39,6 +36,7 @@ class DoctrineORMPaginator extends AbstractPaginator
 
     /**
      * @param int $limitPerPage
+     *
      * @return $this
      */
     public function setLimitPerPage($limitPerPage)

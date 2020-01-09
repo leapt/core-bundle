@@ -7,8 +7,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
- * Class FacebookExtension
- * @package Leapt\CoreBundle\Twig\Extension
+ * Class FacebookExtension.
  */
 class FacebookExtension extends AbstractExtension
 {
@@ -33,7 +32,6 @@ class FacebookExtension extends AbstractExtension
     }
 
     /**
-     * @param \Twig\Environment $env
      * @return string
      */
     public function getFacebookSdkCode(Environment $env)

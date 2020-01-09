@@ -6,14 +6,11 @@ use Twig\Compiler;
 use Twig\Node\Node;
 
 /**
- * Class DatalistThemeNode
- * @package Leapt\CoreBundle\Twig\Node
+ * Class DatalistThemeNode.
  */
 final class DatalistThemeNode extends Node
 {
     /**
-     * @param Node $datalist
-     * @param Node $resources
      * @param $lineno
      * @param null $tag
      */

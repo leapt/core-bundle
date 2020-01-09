@@ -2,15 +2,12 @@
 
 namespace Leapt\CoreBundle\Tests\Paginator;
 
-use Doctrine\ORM\Query;
-
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
-use Faker\Factory as FakerFactory;
 use Leapt\CoreBundle\Paginator\DoctrineORMPaginator;
 use Leapt\CoreBundle\Tests\Paginator\Fixtures\LoadPlayerData;
 
@@ -19,20 +16,19 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
     /**
      * @var EntityManager
      */
-    static protected $em;
+    protected static $em;
 
     /**
-     * Class initialization
-     *
+     * Class initialization.
      */
     public static function setUpBeforeClass(): void
     {
-        $dbParams = array(
+        $dbParams = [
             'driver'   => 'pdo_sqlite',
-            'memory'   => true
-        );
+            'memory'   => true,
+        ];
 
-        $config = Setup::createAnnotationMetadataConfiguration(array(static::getEntityPath()), false);
+        $config = Setup::createAnnotationMetadataConfiguration([static::getEntityPath()], false);
         $cache = new \Doctrine\Common\Cache\ArrayCache();
         $driverImpl = $config->newDefaultAnnotationDriver(static::getEntityPath(), false);
 
@@ -48,7 +44,7 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
 
         $tool = new \Doctrine\ORM\Tools\SchemaTool($em);
 
-        $classes = array_map(function($className) use($em) {
+        $classes = array_map(function ($className) use ($em) {
             return $em->getClassMetadata($className);
         }, static::getEntityClasses());
         $tool->createSchema($classes);
@@ -57,8 +53,7 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
     }
 
     /**
-     * Test the IteratorAggregate implementation
-     *
+     * Test the IteratorAggregate implementation.
      */
     public function testIteration()
     {
@@ -66,9 +61,10 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
     }
 
     /**
-     * Build a populated paginator instance
+     * Build a populated paginator instance.
      *
      * @param int $limit
+     *
      * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
      */
     protected function buildPaginator($limit)
@@ -85,9 +81,7 @@ DQL;
     }
 
     /**
-     * Load the given fixture
-     *
-     * @param \Doctrine\Common\DataFixtures\FixtureInterface $fixture
+     * Load the given fixture.
      */
     protected function loadFixture(FixtureInterface $fixture)
     {
@@ -98,24 +92,23 @@ DQL;
         $executor->execute($loader->getFixtures());
     }
 
-
     /**
-     * Return an array of classes for which metadata should be loaded
+     * Return an array of classes for which metadata should be loaded.
      *
      * @return array
      */
-    static protected function getEntityClasses()
+    protected static function getEntityClasses()
     {
-        return array('Leapt\CoreBundle\Tests\Paginator\Entity\Player');
+        return ['Leapt\CoreBundle\Tests\Paginator\Entity\Player'];
     }
 
     /**
-     * Return the full path to the Entity directory
+     * Return the full path to the Entity directory.
      *
      * @return string
      */
-    static protected function getEntityPath()
+    protected static function getEntityPath()
     {
-        return __DIR__ . "/Entity";
+        return __DIR__ . '/Entity';
     }
 }

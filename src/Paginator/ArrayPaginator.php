@@ -3,8 +3,7 @@
 namespace Leapt\CoreBundle\Paginator;
 
 /**
- * Class ArrayPaginator
- * @package Leapt\CoreBundle\Paginator
+ * Class ArrayPaginator.
  */
 class ArrayPaginator extends AbstractPaginator
 {
@@ -19,9 +18,10 @@ class ArrayPaginator extends AbstractPaginator
     }
 
     /**
-     * Set the paginator current page
+     * Set the paginator current page.
      *
      * @param int $page
+     *
      * @return PaginatorInterface
      */
     public function setPage($page)
@@ -32,9 +32,10 @@ class ArrayPaginator extends AbstractPaginator
     }
 
     /**
-     * Set the maximum number of items to display on a single page
+     * Set the maximum number of items to display on a single page.
      *
      * @param int $limitPerPage
+     *
      * @return PaginatorInterface
      */
     public function setLimitPerPage($limitPerPage)
@@ -46,16 +47,18 @@ class ArrayPaginator extends AbstractPaginator
 
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
-     * Count elements of an object
-     * @link http://php.net/manual/en/countable.count.php
+     * Count elements of an object.
+     *
+     * @see http://php.net/manual/en/countable.count.php
+     *
      * @return int The custom count as an integer.
-     * </p>
-     * <p>
-     * The return value is cast to an integer.
+     *             </p>
+     *             <p>
+     *             The return value is cast to an integer.
      */
     public function count()
     {
-        return count($this->items);
+        return \count($this->items);
     }
 
     /**

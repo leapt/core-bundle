@@ -23,11 +23,11 @@ class LoadPlayerData extends AbstractFixture
     }
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $faker = FakerFactory::create();
         for ($i = 1; $i <= $this->limit; ++$i) {
@@ -39,5 +39,4 @@ class LoadPlayerData extends AbstractFixture
 
         $manager->flush();
     }
-
 }

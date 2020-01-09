@@ -3,8 +3,7 @@
 namespace Leapt\CoreBundle\Util;
 
 /**
- * Class StringUtil
- * @package Leapt\CoreBundle\Util
+ * Class StringUtil.
  */
 class StringUtil
 {
@@ -29,39 +28,41 @@ class StringUtil
      */
     public static function underscore($id)
     {
-        return strtolower(preg_replace(array('/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'), array('\\1_\\2', '\\1_\\2'), strtr($id, '_', '.')));
+        return strtolower(preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], strtr($id, '_', '.')));
     }
 
     /**
-     * Removes the accents from an UTF-8 string
+     * Removes the accents from an UTF-8 string.
      *
      * @static
+     *
      * @param string $string
      * @param bool   $onlyUpperCase
+     *
      * @return string
      */
-    static public function unaccent($string, $onlyUpperCase = false)
+    public static function unaccent($string, $onlyUpperCase = false)
     {
-        $replacements = array(
+        $replacements = [
             'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A',
             'Ä' => 'A', 'Å' => 'A', 'Ç' => 'C', 'È' => 'E',
             'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I',
             'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ò' => 'O',
             'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O',
             'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U',
-            'Ý' => 'Y'
-        );
+            'Ý' => 'Y',
+        ];
 
-        if(!$onlyUpperCase) {
-            $replacements = array_merge($replacements, array(
+        if (!$onlyUpperCase) {
+            $replacements = array_merge($replacements, [
                 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a',
                 'ä' => 'a', 'å' => 'a', 'ç' => 'c', 'è' => 'e',
                 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i',
                 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o',
                 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
                 'ö' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u',
-                'ü' => 'u', 'ý' => 'y', 'ÿ' => 'y', 'œ' => 'oe'
-            ));
+                'ü' => 'u', 'ý' => 'y', 'ÿ' => 'y', 'œ' => 'oe',
+            ]);
         }
 
         return strtr($string, $replacements);
@@ -69,10 +70,12 @@ class StringUtil
 
     /**
      * @static
+     *
      * @param $string
+     *
      * @return string
      */
-    static public function slugify($string)
+    public static function slugify($string)
     {
         $slug = self::unaccent($string);
         $slug = strtolower($slug);
@@ -91,12 +94,14 @@ class StringUtil
 
     /**
      * @param string $string
+     *
      * @return string
+     *
      * @deprecated
      */
-    static public function sluggify($string)
+    public static function sluggify($string)
     {
-        trigger_error('sluggify() is deprecated. Use slugify instead', E_USER_DEPRECATED);
+        @trigger_error('sluggify() is deprecated. Use slugify instead', E_USER_DEPRECATED);
 
         return self::slugify($string);
     }

@@ -3,11 +3,9 @@
 namespace Leapt\CoreBundle\Datalist\Datasource;
 
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AbstractDatasource
- * @package Leapt\CoreBundle\Datalist\Datasource
+ * Class AbstractDatasource.
  */
 abstract class AbstractDatasource implements DatasourceInterface
 {
@@ -87,17 +85,11 @@ abstract class AbstractDatasource implements DatasourceInterface
         return $this;
     }
 
-    /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface $expression
-     */
     public function setSearchExpression(ExpressionInterface $expression)
     {
         $this->searchExpression = $expression;
     }
 
-    /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface $expression
-     */
     public function setFilterExpression(ExpressionInterface $expression)
     {
         $this->filterExpression = $expression;
@@ -106,11 +98,12 @@ abstract class AbstractDatasource implements DatasourceInterface
     /**
      * @param string $field
      * @param string $direction
+     *
      * @throws \InvalidArgumentException
      */
     public function setSort($field, $direction)
     {
-        if (!in_array($direction, array('asc', 'desc'))) {
+        if (!\in_array($direction, ['asc', 'desc'], true)) {
             throw new \InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');
         }
 
@@ -135,17 +128,17 @@ abstract class AbstractDatasource implements DatasourceInterface
     }
 
     /**
-     * This method should populated the iterator and paginator member variables
-     */
-    abstract protected function initialize();
-
-    /**
      * @return int
      */
     public function count()
     {
         $this->initialize();
 
-        return count($this->iterator);
+        return \count($this->iterator);
     }
+
+    /**
+     * This method should populated the iterator and paginator member variables.
+     */
+    abstract protected function initialize();
 }

@@ -9,9 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\MappedSuperClass
  */
-class Book {
+class Book
+{
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -95,5 +96,4 @@ class Book {
     {
         return $this->title;
     }
-
 }

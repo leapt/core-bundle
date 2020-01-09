@@ -9,8 +9,7 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 use Leapt\CoreBundle\Paginator\DoctrineORMPaginator;
 
 /**
- * Class DoctrineORMDatasource
- * @package Leapt\CoreBundle\Datalist\Datasource
+ * Class DoctrineORMDatasource.
  */
 class DoctrineORMDatasource extends AbstractDatasource
 {
@@ -24,9 +23,6 @@ class DoctrineORMDatasource extends AbstractDatasource
      */
     private $initialized = false;
 
-    /**
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder
-     */
     public function __construct(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
@@ -53,23 +49,22 @@ class DoctrineORMDatasource extends AbstractDatasource
     }
 
     /**
-     * Load the collection
-     *
+     * Load the collection.
      */
     protected function initialize()
     {
-        if($this->initialized) {
+        if ($this->initialized) {
             return;
         }
 
         // Handle search
-        if(isset($this->searchExpression)) {
+        if (isset($this->searchExpression)) {
             $queryBuilderExpression = $this->buildQueryBuilderExpression($this->searchExpression);
             $this->queryBuilder->andWhere($queryBuilderExpression);
         }
 
         // Handle filters
-        if(isset($this->filterExpression)) {
+        if (isset($this->filterExpression)) {
             $queryBuilderExpression = $this->buildQueryBuilderExpression($this->filterExpression);
             $this->queryBuilder->andWhere($queryBuilderExpression);
         }
@@ -85,7 +80,7 @@ class DoctrineORMDatasource extends AbstractDatasource
         }
 
         // Handle pagination
-        if(isset($this->limitPerPage)) {
+        if (isset($this->limitPerPage)) {
             $paginator = new DoctrineORMPaginator($this->queryBuilder->getQuery());
             $paginator
                 ->setLimitPerPage($this->limitPerPage)
@@ -93,8 +88,7 @@ class DoctrineORMDatasource extends AbstractDatasource
                 ->setPage($this->page);
             $this->iterator = $paginator->getIterator();
             $this->paginator = $paginator;
-        }
-        else {
+        } else {
             $items = $this->queryBuilder->getQuery()->getResult();
             $this->iterator = new \ArrayIterator($items);
             $this->paginator = null;
@@ -104,8 +98,8 @@ class DoctrineORMDatasource extends AbstractDatasource
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface $expression
      * @return \Doctrine\ORM\Query\Expr\Andx|\Doctrine\ORM\Query\Expr\Comparison|\Doctrine\ORM\Query\Expr\Orx
+     *
      * @throws \InvalidArgumentException
      */
     private function buildQueryBuilderExpression(ExpressionInterface $expression)
@@ -115,32 +109,30 @@ class DoctrineORMDatasource extends AbstractDatasource
             $queryBuilderExpression = $this->buildQueryBuilderCombinedExpression($expression);
         } elseif ($expression instanceof ComparisonExpression) {
             $queryBuilderExpression = $this->buildQueryBuilderComparisonExpression($expression);
-        }
-        else {
-            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', get_class($expression)));
+        } else {
+            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', \get_class($expression)));
         }
 
         return $queryBuilderExpression;
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\CombinedExpression $expression
      * @return \Doctrine\ORM\Query\Expr\Andx|\Doctrine\ORM\Query\Expr\Orx
+     *
      * @throws \UnexpectedValueException
      */
-    private function buildQueryBuilderCombinedExpression(CombinedExpression $expression) {
-        $queryBuilderSubExpressions = array();
+    private function buildQueryBuilderCombinedExpression(CombinedExpression $expression)
+    {
+        $queryBuilderSubExpressions = [];
         foreach ($expression->getExpressions() as $subExpression) {
-            $queryBuilderSubExpressions [] = $this->buildQueryBuilderExpression($subExpression);
+            $queryBuilderSubExpressions[] = $this->buildQueryBuilderExpression($subExpression);
         }
         $operator = $expression->getOperator();
-        if(CombinedExpression::OPERATOR_AND === $operator) {
+        if (CombinedExpression::OPERATOR_AND === $operator) {
             $expr = $this->queryBuilder->expr()->andX();
-        }
-        elseif(CombinedExpression::OPERATOR_OR === $operator) {
+        } elseif (CombinedExpression::OPERATOR_OR === $operator) {
             $expr = $this->queryBuilder->expr()->orX();
-        }
-        else {
+        } else {
             throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
         }
         $expr->addMultiple($queryBuilderSubExpressions);
@@ -149,17 +141,18 @@ class DoctrineORMDatasource extends AbstractDatasource
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ComparisonExpression $expression
      * @return \Doctrine\ORM\Query\Expr\Comparison
+     *
      * @throws \UnexpectedValueException
      */
-    private function buildQueryBuilderComparisonExpression(ComparisonExpression $expression) {
+    private function buildQueryBuilderComparisonExpression(ComparisonExpression $expression)
+    {
         $propertyPath = $expression->getPropertyPath();
-        $placeholder=  ':' . uniqid('p');
+        $placeholder = ':' . uniqid('p');
         $comparisonValue = $expression->getValue();
         $operator = $expression->getOperator();
 
-        switch($operator) {
+        switch ($operator) {
             case ComparisonExpression::OPERATOR_EQ:
                 $expr = $this->queryBuilder->expr()->eq($propertyPath, $placeholder);
                 break;
@@ -199,7 +192,7 @@ class DoctrineORMDatasource extends AbstractDatasource
                 break;
         }
 
-        if (!in_array($operator, array(ComparisonExpression::OPERATOR_IS_NULL, ComparisonExpression::OPERATOR_IS_NOT_NULL))) {
+        if (!\in_array($operator, [ComparisonExpression::OPERATOR_IS_NULL, ComparisonExpression::OPERATOR_IS_NOT_NULL], true)) {
             $this->queryBuilder->setParameter($placeholder, $comparisonValue);
         }
 

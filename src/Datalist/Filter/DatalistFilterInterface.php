@@ -31,13 +31,14 @@ interface DatalistFilterInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name);
 
     /**
      * @param string $name
-     * @param mixed $default
+     * @param mixed  $default
      */
     public function getOption($name, $default = null);
 }

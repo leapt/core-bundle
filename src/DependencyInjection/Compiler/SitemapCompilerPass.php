@@ -7,17 +7,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class SitemapCompilerPass
- * @package Leapt\CoreBundle\DependencyInjection\Compiler
+ * Class SitemapCompilerPass.
  */
 class SitemapCompilerPass implements CompilerPassInterface
 {
     /**
-     * Check for indexer services in configuration
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * Check for indexer services in configuration.
      */
-    function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container)
     {
         if (false === $container->hasDefinition('leapt_core.sitemap_manager')) {
             return;
@@ -27,7 +24,7 @@ class SitemapCompilerPass implements CompilerPassInterface
             $alias = isset($tag[0]['alias'])
                 ? $tag[0]['alias']
                 : $serviceId;
-            $definition->addMethodCall('registerSitemap', array($alias, new Reference($serviceId)));
+            $definition->addMethodCall('registerSitemap', [$alias, new Reference($serviceId)]);
         }
     }
 }

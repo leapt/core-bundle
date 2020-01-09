@@ -7,10 +7,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-/**
- * Class DateExtension
- * @package Leapt\CoreBundle\Twig\Extension
- */
 class DateExtension extends AbstractExtension
 {
     /**
@@ -18,22 +14,12 @@ class DateExtension extends AbstractExtension
      */
     private $translator;
 
-    /**
-     * Date extension constructor
-     *
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * Get all available filters
-     *
-     * @return array
-     */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('time_ago', [$this, 'timeAgo']),
@@ -41,7 +27,7 @@ class DateExtension extends AbstractExtension
     }
 
     /**
-     * Filter used to display the time ago for a specific date
+     * Filter used to display the time ago for a specific date.
      *
      * @param \Datetime|string $datetime
      *
@@ -51,20 +37,20 @@ class DateExtension extends AbstractExtension
     {
         $interval = $this->relativeTime($datetime);
 
-        $years = $interval->format('%y');
-        $months = $interval->format('%m');
-        $days = $interval->format('%d');
-        $hours = (int)$interval->format('%H');
-        $minutes = (int)$interval->format('%i');
-        if ($years != 0) {
+        $years = (int) $interval->format('%y');
+        $months = (int) $interval->format('%m');
+        $days = (int) $interval->format('%d');
+        $hours = (int) $interval->format('%H');
+        $minutes = (int) $interval->format('%i');
+        if (0 !== $years) {
             $ago = $this->transChoice('timeago.yearsago', $years, ['%years%' => $years], $locale);
-        } elseif ($months == 0 && $days == 0 && $hours == 0 && $minutes == 0) {
+        } elseif (0 === $months && 0 === $days && 0 === $hours && 0 === $minutes) {
             $ago = $this->translator->trans('timeago.justnow', [], 'LeaptCoreBundle', $locale);
-        } elseif ($months == 0 && $days == 0 && $hours == 0) {
+        } elseif (0 === $months && 0 === $days && 0 === $hours) {
             $ago = $this->transChoice('timeago.minutesago', $minutes, ['%minutes%' => $minutes], $locale);
-        } elseif ($months == 0 && $days == 0) {
+        } elseif (0 === $months && 0 === $days) {
             $ago = $this->transChoice('timeago.hoursago', $hours, ['%hours%' => $hours], $locale);
-        } elseif ($months == 0) {
+        } elseif (0 === $months) {
             $ago = $this->transChoice('timeago.daysago', $days, ['%days%' => $days], $locale);
         } else {
             $ago = $this->transChoice('timeago.monthsago', $months, ['%months%' => $months], $locale);
@@ -74,7 +60,7 @@ class DateExtension extends AbstractExtension
     }
 
     /**
-     * Helper used to get a date interval between a date and now
+     * Helper used to get a date interval between a date and now.
      *
      * @param string|\DateTime $datetime
      *
@@ -82,25 +68,19 @@ class DateExtension extends AbstractExtension
      */
     private function relativeTime($datetime)
     {
-        if (is_string($datetime)) {
+        if (\is_string($datetime)) {
             $datetime = new \DateTime($datetime);
         }
 
-        $current_date = new \DateTime();
+        $currentDate = new \DateTime();
 
-        $interval = $current_date->diff($datetime);
-
-        return $interval;
+        return $currentDate->diff($datetime);
     }
 
     private function transChoice($id, $count, array $parameters, $locale = null)
     {
-        if (Kernel::VERSION_ID >= 40200) {
-            $parameters = array_merge($parameters, ['%count%' => $count]);
+        $parameters = array_merge($parameters, ['%count%' => $count]);
 
-            return $this->translator->trans($id, $parameters, 'LeaptCoreBundle', $locale);
-        }
-
-        return $this->translator->transChoice($id, $count, $parameters, 'LeaptCoreBundle', $locale);
+        return $this->translator->trans($id, $parameters, 'LeaptCoreBundle', $locale);
     }
 }

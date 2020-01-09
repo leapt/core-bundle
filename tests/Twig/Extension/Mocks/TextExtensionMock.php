@@ -11,4 +11,3 @@ class TextExtensionMock extends TextExtension
         return false;
     }
 }
-

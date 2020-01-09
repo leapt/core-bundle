@@ -8,8 +8,7 @@ use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
- * Class DatalistField
- * @package Leapt\CoreBundle\Datalist\Field
+ * Class DatalistField.
  */
 class DatalistField implements DatalistFieldInterface
 {
@@ -23,9 +22,6 @@ class DatalistField implements DatalistFieldInterface
      */
     private $datalist;
 
-    /**
-     * @param DatalistFieldConfig $config
-     */
     public function __construct(DatalistFieldConfig $config)
     {
         $this->config = $config;
@@ -49,6 +45,7 @@ class DatalistField implements DatalistFieldInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name)
@@ -58,7 +55,8 @@ class DatalistField implements DatalistFieldInterface
 
     /**
      * @param string $name
-     * @param mixed $default
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public function getOption($name, $default = null)
@@ -69,6 +67,7 @@ class DatalistField implements DatalistFieldInterface
     /**
      * @param string $name
      * @param $value
+     *
      * @return mixed|void
      */
     public function setOption($name, $value)
@@ -78,7 +77,9 @@ class DatalistField implements DatalistFieldInterface
 
     /**
      * @param mixed $row
+     *
      * @return mixed
+     *
      * @throws \UnexpectedValueException
      */
     public function getData($row)
@@ -88,7 +89,7 @@ class DatalistField implements DatalistFieldInterface
         try {
             $value = $accessor->getValue($row, $propertyPath);
         } catch (NoSuchPropertyException $e) {
-            if (is_object($row) && !$this->getDatalist()->hasOption('data_class')) {
+            if (\is_object($row) && !$this->getDatalist()->hasOption('data_class')) {
                 $message = sprintf('Missing "data_class" option');
             } else {
                 $message = sprintf('unknown property "%s"', $propertyPath);
@@ -98,7 +99,7 @@ class DatalistField implements DatalistFieldInterface
             $value = null;
         }
 
-        if(null === $value && $this->hasOption('default')) {
+        if (null === $value && $this->hasOption('default')) {
             $value = $this->getOption('default');
         }
 
@@ -106,7 +107,6 @@ class DatalistField implements DatalistFieldInterface
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return mixed
      */
     public function setDatalist(DatalistInterface $datalist)

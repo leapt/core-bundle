@@ -15,8 +15,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class DatalistBuilder
- * @package Leapt\CoreBundle\Datalist
+ * Class DatalistBuilder.
  */
 class DatalistBuilder extends DatalistConfig
 {
@@ -46,11 +45,8 @@ class DatalistBuilder extends DatalistConfig
     private $formFactory;
 
     /**
-     * @param string $name
+     * @param string                     $name
      * @param Type\DatalistTypeInterface $type
-     * @param array $options
-     * @param DatalistFactory $factory
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
      */
     public function __construct($name, DatalistTypeInterface $type, array $options, DatalistFactory $factory, FormFactoryInterface $formFactory)
     {
@@ -63,14 +59,14 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @param string $field
      * @param string $type
-     * @param array $options
+     *
      * @return DatalistBuilder
      */
     public function addField($field, $type = null, array $options = [])
     {
         $this->fields[$field] = [
             'type'    => $type,
-            'options' => $options
+            'options' => $options,
         ];
 
         return $this;
@@ -78,11 +74,12 @@ class DatalistBuilder extends DatalistConfig
 
     /**
      * @param $field
+     *
      * @return $this
      */
     public function removeField($field)
     {
-        if (array_key_exists($field, $this->fields)) {
+        if (\array_key_exists($field, $this->fields)) {
             unset($this->fields[$field]);
         }
 
@@ -100,14 +97,14 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @param string $filter
      * @param string $type
-     * @param array $options
+     *
      * @return DatalistBuilder
      */
     public function addFilter($filter, $type = null, array $options = [])
     {
         $this->filters[$filter] = [
             'type'    => $type,
-            'options' => $options
+            'options' => $options,
         ];
 
         return $this;
@@ -115,11 +112,12 @@ class DatalistBuilder extends DatalistConfig
 
     /**
      * @param $filter
+     *
      * @return $this
      */
     public function removeFilter($filter)
     {
-        if (array_key_exists($filter, $this->filters)) {
+        if (\array_key_exists($filter, $this->filters)) {
             unset($this->filters[$filter]);
         }
 
@@ -129,14 +127,14 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @param string $action
      * @param string $type
-     * @param array $options
+     *
      * @return $this
      */
     public function addAction($action, $type = null, array $options = [])
     {
         $this->actions[$action] = [
             'type'    => $type,
-            'options' => $options
+            'options' => $options,
         ];
 
         return $this;
@@ -144,11 +142,12 @@ class DatalistBuilder extends DatalistConfig
 
     /**
      * @param string $action
+     *
      * @return $this
      */
     public function removeAction($action)
     {
-        if (array_key_exists($action, $this->actions)) {
+        if (\array_key_exists($action, $this->actions)) {
             unset($this->actions[$action]);
         }
 
@@ -208,12 +207,12 @@ class DatalistBuilder extends DatalistConfig
 
     /**
      * @param string $fieldName
-     * @param array $fieldConfig
+     *
      * @return \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface
      */
     private function createField($fieldName, array $fieldConfig)
     {
-        $type = $this->factory->getFieldType($fieldConfig['type'] ? : 'text');
+        $type = $this->factory->getFieldType($fieldConfig['type'] ?: 'text');
 
         // Handle field options
         $resolver = new OptionsResolver();
@@ -228,7 +227,7 @@ class DatalistBuilder extends DatalistConfig
 
     /**
      * @param string $filterName
-     * @param array $filterConfig
+     *
      * @return Filter\DatalistFilter
      */
     private function createFilter($filterName, array $filterConfig)
@@ -248,7 +247,7 @@ class DatalistBuilder extends DatalistConfig
 
     /**
      * @param string $actionName
-     * @param array $actionConfig
+     *
      * @return DatalistAction
      */
     private function createAction($actionName, array $actionConfig)

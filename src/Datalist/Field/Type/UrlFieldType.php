@@ -7,15 +7,12 @@ use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UrlFieldType
+ * Class UrlFieldType.
  *
  * Add a link surrounding the TextFieldType
  */
 class UrlFieldType extends TextFieldType
 {
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -27,10 +24,7 @@ class UrlFieldType extends TextFieldType
     }
 
     /**
-     * @param ViewContext $viewContext
-     * @param DatalistFieldInterface $field
      * @param mixed $row
-     * @param array $options
      */
     public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
     {
@@ -38,8 +32,8 @@ class UrlFieldType extends TextFieldType
 
         $url = $field->getOption('url');
 
-        if (is_callable($url)) {
-            $url = call_user_func($url, $row);
+        if (\is_callable($url)) {
+            $url = \call_user_func($url, $row);
         }
 
         $viewContext['url'] = $url;

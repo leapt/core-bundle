@@ -6,29 +6,29 @@ use Leapt\CoreBundle\Util\PasswordStrengthChecker;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-
 /**
- * Validator based on the Symfony1 snippet to validate password strength
+ * Validator based on the Symfony1 snippet to validate password strength.
  *
- * @link http://snippets.symfony-project.org/snippet/235
+ * @see http://snippets.symfony-project.org/snippet/235
  */
 class PasswordStrengthValidator extends ConstraintValidator
 {
     /**
-     * @param string                                  $value
-     * @param \Symfony\Component\Validator\Constraint $constraint
+     * @param string $value
      */
     public function validate($value, Constraint $constraint)
     {
         if (null === $value || '' === $value) {
             return;
         }
-        if (null !== $constraint->min && strlen($value) < $constraint->min) {
-            $this->context->addViolation($constraint->minMessage, array('{{ limit }}' => $constraint->min));
+        if (null !== $constraint->min && \strlen($value) < $constraint->min) {
+            $this->context->addViolation($constraint->minMessage, ['{{ limit }}' => $constraint->min]);
+
             return;
         }
-        if (null !== $constraint->max && strlen($value) > $constraint->max) {
-            $this->context->addViolation($constraint->maxMessage, array('{{ limit }}' => $constraint->max));
+        if (null !== $constraint->max && \strlen($value) > $constraint->max) {
+            $this->context->addViolation($constraint->maxMessage, ['{{ limit }}' => $constraint->max]);
+
             return;
         }
 

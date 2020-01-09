@@ -7,8 +7,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 /**
- * Class NavigationExtension
- * @package Leapt\CoreBundle\Twig\Extension
+ * Class NavigationExtension.
  */
 class NavigationExtension extends AbstractExtension
 {
@@ -23,7 +22,7 @@ class NavigationExtension extends AbstractExtension
     }
 
     /**
-     * Get all available functions
+     * Get all available functions.
      *
      * @return array
      *
@@ -43,7 +42,7 @@ class NavigationExtension extends AbstractExtension
     }
 
     /**
-     * Set the paths to be considered as active (navigation-wise)
+     * Set the paths to be considered as active (navigation-wise).
      *
      * @param array $paths an array of URI paths
      */
@@ -53,7 +52,7 @@ class NavigationExtension extends AbstractExtension
     }
 
     /**
-     * Add a path to be considered as active (navigation-wise)
+     * Add a path to be considered as active (navigation-wise).
      *
      * @param array $paths an array of URI paths
      */
@@ -63,7 +62,7 @@ class NavigationExtension extends AbstractExtension
     }
 
     /**
-     * Get the active paths previously set
+     * Get the active paths previously set.
      *
      * @return array
      */
@@ -73,7 +72,7 @@ class NavigationExtension extends AbstractExtension
     }
 
     /**
-     * Checks if the provided path is to be considered as active
+     * Checks if the provided path is to be considered as active.
      *
      * @param string $path
      *

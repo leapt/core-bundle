@@ -5,8 +5,7 @@ namespace Leapt\CoreBundle\Datalist\Datasource;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 
 /**
- * Interface DatasourceInterface
- * @package Leapt\CoreBundle\Datalist\Datasource
+ * Interface DatasourceInterface.
  */
 interface DatasourceInterface extends \IteratorAggregate, \Countable
 {
@@ -24,13 +23,11 @@ interface DatasourceInterface extends \IteratorAggregate, \Countable
     public function setPage($page);
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface $expression
      * @return mixed
      */
     public function setSearchExpression(ExpressionInterface $expression);
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface $expression
      * @return mixed
      */
     public function setFilterExpression(ExpressionInterface $expression);
@@ -43,6 +40,7 @@ interface DatasourceInterface extends \IteratorAggregate, \Countable
     /**
      * @param string $field
      * @param string $direction
+     *
      * @throws \InvalidArgumentException
      */
     public function setSort($field, $direction);

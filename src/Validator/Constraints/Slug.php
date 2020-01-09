@@ -29,7 +29,7 @@ class Slug extends Regex
      */
     public function getRequiredOptions()
     {
-        return array();
+        return [];
     }
 
     /**

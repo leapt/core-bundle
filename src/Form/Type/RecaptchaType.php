@@ -47,10 +47,9 @@ class RecaptchaType extends AbstractType
     protected $localeResolver;
 
     /**
-     * @param string         $publicKey      Recaptcha public key
-     * @param bool           $enabled        Recaptache status
-     * @param bool           $ajax           Ajax status
-     * @param LocaleResolver $localeResolver
+     * @param string $publicKey Recaptcha public key
+     * @param bool   $enabled   Recaptache status
+     * @param bool   $ajax      Ajax status
      */
     public function __construct($publicKey, $enabled, $ajax, LocaleResolver $localeResolver)
     {
@@ -65,10 +64,10 @@ class RecaptchaType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars = array_replace($view->vars, array(
+        $view->vars = array_replace($view->vars, [
             'leapt_core_recaptcha_enabled' => $this->enabled,
-            'leapt_core_recaptcha_ajax' => $this->ajax,
-        ));
+            'leapt_core_recaptcha_ajax'    => $this->ajax,
+        ]);
 
         if (!$this->enabled) {
             return;
@@ -79,15 +78,15 @@ class RecaptchaType extends AbstractType
         }
 
         if (!$this->ajax) {
-            $view->vars = array_replace($view->vars, array(
+            $view->vars = array_replace($view->vars, [
                 'url_challenge' => sprintf('%s?hl=%s', self::RECAPTCHA_API_SERVER, $options['language']),
-                'public_key' => $this->publicKey,
-            ));
+                'public_key'    => $this->publicKey,
+            ]);
         } else {
-            $view->vars = array_replace($view->vars, array(
-                'url_api' => self::RECAPTCHA_API_JS_SERVER,
+            $view->vars = array_replace($view->vars, [
+                'url_api'    => self::RECAPTCHA_API_JS_SERVER,
                 'public_key' => $this->publicKey,
-            ));
+            ]);
         }
     }
 
@@ -96,26 +95,26 @@ class RecaptchaType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'compound' => false,
-            'language' => $this->localeResolver->resolve(),
-            'public_key' => null,
+        $resolver->setDefaults([
+            'compound'      => false,
+            'language'      => $this->localeResolver->resolve(),
+            'public_key'    => null,
             'url_challenge' => null,
-            'url_noscript' => null,
-            'attr' => array(
-                'options' => array(
-                    'theme' => 'light',
-                    'type' => 'image',
-                    'size' => 'normal',
-                    'callback' => null,
+            'url_noscript'  => null,
+            'attr'          => [
+                'options' => [
+                    'theme'           => 'light',
+                    'type'            => 'image',
+                    'size'            => 'normal',
+                    'callback'        => null,
                     'expiredCallback' => null,
-                    'bind' => null,
-                    'defer' => false,
-                    'async' => false,
-                    'badge' => null,
-                ),
-            ),
-        ));
+                    'bind'            => null,
+                    'defer'           => false,
+                    'async'           => false,
+                    'badge'           => null,
+                ],
+            ],
+        ]);
     }
 
     /**

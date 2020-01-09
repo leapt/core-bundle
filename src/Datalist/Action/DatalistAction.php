@@ -5,8 +5,7 @@ namespace Leapt\CoreBundle\Datalist\Action;
 use Leapt\CoreBundle\Datalist\DatalistInterface;
 
 /**
- * Class DatalistAction
- * @package Leapt\CoreBundle\Datalist\Action
+ * Class DatalistAction.
  */
 class DatalistAction implements DatalistActionInterface
 {
@@ -20,9 +19,6 @@ class DatalistAction implements DatalistActionInterface
      */
     private $datalist;
 
-    /**
-     * @param DatalistActionConfig $config
-     */
     public function __construct(DatalistActionConfig $config)
     {
         $this->config = $config;
@@ -46,6 +42,7 @@ class DatalistAction implements DatalistActionInterface
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name)
@@ -55,7 +52,7 @@ class DatalistAction implements DatalistActionInterface
 
     /**
      * @param string $name
-     * @param mixed $default
+     * @param mixed  $default
      */
     public function getOption($name, $default = null)
     {
@@ -63,7 +60,6 @@ class DatalistAction implements DatalistActionInterface
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\DatalistInterface $datalist
      * @return mixed
      */
     public function setDatalist(DatalistInterface $datalist)

@@ -3,8 +3,7 @@
 namespace Leapt\CoreBundle\Datalist;
 
 /**
- * Class Config
- * @package Leapt\CoreBundle\Datalist
+ * Class Config.
  */
 abstract class Config
 {
@@ -21,14 +20,12 @@ abstract class Config
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @param $name
-     * @param TypeInterface $type
-     * @param array $options
      */
-    public function __construct($name, TypeInterface $type, array $options = array())
+    public function __construct($name, TypeInterface $type, array $options = [])
     {
         $this->name = $name;
         $this->type = $type;
@@ -53,6 +50,7 @@ abstract class Config
 
     /**
      * @param string $name
+     *
      * @return bool
      */
     public function hasOption($name)
@@ -63,6 +61,7 @@ abstract class Config
     /**
      * @param $name
      * @param null $default
+     *
      * @return null
      */
     public function getOption($name, $default = null)

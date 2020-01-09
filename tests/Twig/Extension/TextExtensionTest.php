@@ -14,17 +14,17 @@ class TextExtensionTest extends TestCase
      */
     private $extension;
 
+    public function setUp(): void
+    {
+        $this->extension = new TextExtension();
+    }
+
     /**
-     * Test that the constructor correctly set the default MultiByte string
+     * Test that the constructor correctly set the default MultiByte string.
      */
     public function testConstruct()
     {
         $this->assertSame($this->extension->isMultiByteStringAvailable(), $this->extension->getMultiByteString(), '__construct: Check that MultiByte string is correctly set');
-    }
-
-    public function setUp(): void
-    {
-        $this->extension = new TextExtension();
     }
 
     public function testGetFilters(): void
@@ -45,14 +45,13 @@ class TextExtensionTest extends TestCase
             $this->markTestSkipped('mb_string is not available.');
         }
         $this->assertSafeTruncate();
-
     }
 
     public function testSetMultiByteString(): void
     {
         $this->extension->setMultiByteString(true);
 
-        $this->assertSame(true, $this->extension->getMultiByteString());
+        $this->assertTrue($this->extension->getMultiByteString());
     }
 
     public function testSetMultiByteStringException(): void
@@ -65,11 +64,11 @@ class TextExtensionTest extends TestCase
     }
 
     /**
-     * Test that isMultiByteStringAvailable method returns the same as function_exists('mb_get_info')
+     * Test that isMultiByteStringAvailable method returns the same as function_exists('mb_get_info').
      */
     public function testIsMultiByteStringAvailable(): void
     {
-        $this->assertSame(function_exists('mb_get_info'), $this->extension->isMultiByteStringAvailable());
+        $this->assertSame(\function_exists('mb_get_info'), $this->extension->isMultiByteStringAvailable());
     }
 
     private function assertSafeTruncate(): void
@@ -79,7 +78,7 @@ class TextExtensionTest extends TestCase
         $env = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $env->expects($this->any())->method('getCharset')->will($this->returnValue('utf8'));
+        $env->expects($this->any())->method('getCharset')->willReturn('utf8');
 
         // Simple text
         $test = 'Lorem ipsum dolor sit amet';
@@ -106,6 +105,5 @@ class TextExtensionTest extends TestCase
         // Testing the condition where there is no extra space after the defined length
         $test = 'Lorem Ipsum DolorSitAmet';
         $this->assertEquals('Lorem Ipsum' . $separator, $this->extension->safeTruncate($env, $test, 15, $separator), 'safeTruncate= Should trim after second word with separator');
-
     }
 }

@@ -5,8 +5,7 @@ namespace Leapt\CoreBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * Class ImageType
- * @package Leapt\CoreBundle\Form\Type
+ * Class ImageType.
  */
 class ImageType extends AbstractType
 {
@@ -21,7 +20,7 @@ class ImageType extends AbstractType
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getParent()
     {

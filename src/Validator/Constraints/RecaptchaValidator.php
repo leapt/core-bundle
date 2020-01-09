@@ -10,6 +10,10 @@ use Symfony\Component\Validator\Exception\ValidatorException;
 class RecaptchaValidator extends ConstraintValidator
 {
     /**
+     * The reCAPTCHA server URL's.
+     */
+    const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
+    /**
      * Enable recaptcha?
      *
      * @var bool
@@ -45,16 +49,9 @@ class RecaptchaValidator extends ConstraintValidator
     protected $verifyHost;
 
     /**
-     * The reCAPTCHA server URL's.
-     */
-    const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
-
-    /**
-     * @param bool         $enabled
-     * @param string       $privateKey
-     * @param RequestStack $requestStack
-     * @param array        $httpProxy
-     * @param bool         $verifyHost
+     * @param bool   $enabled
+     * @param string $privateKey
+     * @param bool   $verifyHost
      */
     public function __construct($enabled, $privateKey, RequestStack $requestStack, array $httpProxy, $verifyHost)
     {
@@ -83,11 +80,11 @@ class RecaptchaValidator extends ConstraintValidator
         // Verify user response with Google
         $response = $this->checkAnswer($this->privateKey, $remoteip, $answer);
 
-        if (false === $response || $response['success'] !== true) {
+        if (false === $response || true !== $response['success']) {
             $this->context->addViolation($constraint->message);
         }
         // Perform server side hostname check
-        elseif ($this->verifyHost && $response['hostname'] !== $masterRequest->getHost()) {
+        elseif ($this->verifyHost && $masterRequest->getHost() !== $response['hostname']) {
             $this->context->addViolation($constraint->invalidHostMessage);
         }
     }
@@ -105,20 +102,20 @@ class RecaptchaValidator extends ConstraintValidator
      */
     private function checkAnswer($privateKey, $remoteip, $answer)
     {
-        if ($remoteip == null || $remoteip == '') {
+        if (null === $remoteip || '' === $remoteip) {
             throw new ValidatorException('For security reasons, you must pass the remote ip to reCAPTCHA');
         }
 
         // discard spam submissions
-        if ($answer == null || strlen($answer) == 0) {
+        if (null === $answer || 0 === \strlen($answer)) {
             return false;
         }
 
-        $response = $this->httpGet(self::RECAPTCHA_VERIFY_SERVER, '/recaptcha/api/siteverify', array(
-            'secret' => $privateKey,
+        $response = $this->httpGet(self::RECAPTCHA_VERIFY_SERVER, '/recaptcha/api/siteverify', [
+            'secret'   => $privateKey,
             'remoteip' => $remoteip,
             'response' => $answer,
-        ));
+        ]);
 
         return json_decode($response, true);
     }
@@ -142,7 +139,7 @@ class RecaptchaValidator extends ConstraintValidator
     }
 
     /**
-     * @return null|resource
+     * @return resource|null
      */
     private function getResourceContext()
     {
@@ -150,13 +147,13 @@ class RecaptchaValidator extends ConstraintValidator
             return null;
         }
 
-        $options = array();
-        foreach (array('http', 'https') as $protocol) {
-            $options[$protocol] = array(
-                'method' => 'GET',
-                'proxy' => sprintf('tcp://%s:%s', $this->httpProxy['host'], $this->httpProxy['port']),
+        $options = [];
+        foreach (['http', 'https'] as $protocol) {
+            $options[$protocol] = [
+                'method'          => 'GET',
+                'proxy'           => sprintf('tcp://%s:%s', $this->httpProxy['host'], $this->httpProxy['port']),
                 'request_fulluri' => true,
-            );
+            ];
 
             if (null !== $this->httpProxy['auth']) {
                 $options[$protocol]['header'] = sprintf('Proxy-Authorization: Basic %s', base64_encode($this->httpProxy['auth']));

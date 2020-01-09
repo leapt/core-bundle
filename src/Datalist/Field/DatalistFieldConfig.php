@@ -6,5 +6,4 @@ use Leapt\CoreBundle\Datalist\Config;
 
 class DatalistFieldConfig extends Config
 {
-
 }

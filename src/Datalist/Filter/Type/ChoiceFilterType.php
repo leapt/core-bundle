@@ -10,14 +10,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ChoiceFilterType
- * @package Leapt\CoreBundle\Datalist\Filter\Type
+ * Class ChoiceFilterType.
  */
 class ChoiceFilterType extends AbstractFilterType
 {
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -27,11 +23,6 @@ class ChoiceFilterType extends AbstractFilterType
             ->setDefined($this->getDefinedOptions());
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param \Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface $filter
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options)
     {
         $formOptions = [
@@ -50,10 +41,7 @@ class ChoiceFilterType extends AbstractFilterType
     }
 
     /**
-     * @param \Leapt\CoreBundle\Datalist\Filter\DatalistFilterExpressionBuilder $builder
-     * @param \Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface $filter
      * @param mixed $value
-     * @param array $options
      */
     public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options)
     {
