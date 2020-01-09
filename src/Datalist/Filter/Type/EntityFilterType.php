@@ -40,6 +40,10 @@ class EntityFilterType extends AbstractFilterType
             }
         }
 
+        if (!class_exists(EntityType::class)) {
+            throw new \LogicException('You can not use the EntityFilterType as Doctrine bridge is not installed.');
+        }
+
         $builder->add($filter->getName(), EntityType::class, $formOptions);
     }
 

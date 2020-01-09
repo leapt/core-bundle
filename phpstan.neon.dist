@@ -1,0 +1,9 @@
+parameters:
+    autoload_directories:
+        - vendor/bin/.phpunit/phpunit-8.3-0/src
+    paths:
+        - src
+        - tests
+    level: 0
+    ignoreErrors:
+        - '#^Class Symfony\\Bridge\\Doctrine\\Form\\Type\\EntityType not found.$#'

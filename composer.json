@@ -33,19 +33,21 @@
         "symfony/http-kernel": "^4.4|^5.0",
         "symfony/routing": "^4.4|^5.0",
         "symfony/translation": "^4.4|^5.0",
-        "symfony/validator": "^4.4|^5.0",
         "symfony/twig-bundle": "^4.4|^5.0",
+        "symfony/validator": "^4.4|^5.0",
         "twig/twig": "^2.9|^3.0"
     },
     "require-dev": {
+        "doctrine/data-fixtures": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.16.1",
         "fzaninotto/faker": "^1.1",
-        "doctrine/data-fixtures": "^1.0",
+        "phpstan/phpstan": "^0.12.4",
         "symfony/phpunit-bridge": "^4.4|^5.0"
     },
     "scripts": {
         "cs:dry": "php-cs-fixer fix --diff --diff-format=udiff --dry-run --no-interaction --ansi",
-        "cs:fix": "php-cs-fixer fix --ansi"
+        "cs:fix": "php-cs-fixer fix --ansi",
+        "phpstan": "vendor/bin/phpstan analyse --ansi"
     },
     "autoload": {
         "psr-4": {

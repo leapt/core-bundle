@@ -46,6 +46,8 @@ class RecaptchaType extends AbstractType
      */
     protected $localeResolver;
 
+    protected $scripts = [];
+
     /**
      * @param string $publicKey Recaptcha public key
      * @param bool   $enabled   Recaptache status
