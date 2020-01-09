@@ -2,7 +2,6 @@
 
 namespace Leapt\CoreBundle\Twig\Extension;
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
