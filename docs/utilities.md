@@ -46,7 +46,7 @@ use Leapt\CoreBundle\Util\StringUtil;
 
 $name = 'Café means coffee';
 
-$withoutAccents = StringUtil::slugify($name); // Cafe means coffee
+$withoutAccents = StringUtil::unaccent($name); // Cafe means coffee
 $slug = StringUtil::slugify($name); // cafe-means-coffee
 ```
 
