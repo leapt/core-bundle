@@ -1,3 +1,8 @@
+3.0.1
+-----
+
+* Initialize Datalist search when grabbing Paginator (allows getting total count)
+
 3.0.0
 -----
 

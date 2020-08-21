@@ -226,6 +226,8 @@ class Datalist implements DatalistInterface, \Countable
      */
     public function getPaginator()
     {
+        $this->initialize();
+
         return $this->datasource->getPaginator();
     }
 
