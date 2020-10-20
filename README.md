@@ -5,7 +5,7 @@ Leapt Core Bundle
 [![Build Status](https://img.shields.io/travis/leapt/core-bundle.svg?branch=master&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=master)
 [![PHP Version](https://img.shields.io/packagist/php-v/leapt/core-bundle.svg?branch=master&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
-[![Code coverage](https://img.shields.io/coveralls/github/leapt/core-bundle.svg?style=flat-square)](LICENSE)
+[![Code coverage](https://img.shields.io/coveralls/github/leapt/core-bundle.svg?style=flat-square)](https://coveralls.io/github/leapt/core-bundle)
 
 The current version (3.x) of the bundle works with Symfony 4.4 & Symfony 5.
 
