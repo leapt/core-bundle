@@ -3,7 +3,7 @@
 namespace Leapt\CoreBundle\Tests\Paginator\Fixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory as FakerFactory;
 use Leapt\CoreBundle\Tests\Paginator\Entity\Player;
 
@@ -24,8 +24,6 @@ class LoadPlayerData extends AbstractFixture
 
     /**
      * Load data fixtures with the passed EntityManager.
-     *
-     * @param Doctrine\Common\Persistence\ObjectManager $manager
      */
     public function load(ObjectManager $manager)
     {
