@@ -39,8 +39,5 @@ jobs:
       - name: "Install dependencies with Composer"
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      - name: "Install phpunit"
-        run: "vendor/bin/simple-phpunit"
-
       - name: "Run php-cs-fixer"
         run: "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run --no-interaction --ansi | cs2pr"
