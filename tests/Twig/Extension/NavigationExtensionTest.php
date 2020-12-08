@@ -15,7 +15,7 @@ class NavigationExtensionTest extends TestCase
      */
     private $extension;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $requestStack = new RequestStack();
         $request = Request::create('some/request/uri');

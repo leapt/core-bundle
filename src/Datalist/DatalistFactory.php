@@ -98,7 +98,7 @@ class DatalistFactory
         if (\is_string($type)) {
             $type = $this->getType($type);
         } elseif (!$type instanceof DatalistType\DatalistTypeInterface) {
-            throw new \InvalidArgumentException(sprintf('The type must be a string or an instance of DatalistTypeInterface'));
+            throw new \InvalidArgumentException('The type must be a string or an instance of DatalistTypeInterface');
         }
 
         // Handle datalist options

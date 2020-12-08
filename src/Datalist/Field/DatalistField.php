@@ -90,7 +90,7 @@ class DatalistField implements DatalistFieldInterface
             $value = $accessor->getValue($row, $propertyPath);
         } catch (NoSuchPropertyException $e) {
             if (\is_object($row) && !$this->getDatalist()->hasOption('data_class')) {
-                $message = sprintf('Missing "data_class" option');
+                $message = 'Missing "data_class" option';
             } else {
                 $message = sprintf('unknown property "%s"', $propertyPath);
             }

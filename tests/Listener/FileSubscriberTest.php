@@ -145,7 +145,7 @@ class FileSubscriberTest extends TestCase
 
         $this->assertNull($user->getCvFile());
         $this->assertFileExists($this->rootDir . '/' . $newCvPath);
-        $this->assertFileNotExists($this->rootDir . '/' . $oldCvPath);
+        $this->assertFileDoesNotExist($this->rootDir . '/' . $oldCvPath);
     }
 
     public function testPostUpdateWithCondemnedFile()
@@ -164,7 +164,7 @@ class FileSubscriberTest extends TestCase
         $this->subscriber->postUpdate($eventArgs);
 
         $this->assertNull($user->getCvFile());
-        $this->assertFileNotExists($this->rootDir . '/' . $cvPath);
+        $this->assertFileDoesNotExist($this->rootDir . '/' . $cvPath);
     }
 
     public function testPostRemove()
@@ -181,7 +181,7 @@ class FileSubscriberTest extends TestCase
         $this->subscriber->preRemove($eventArgs);
         $this->subscriber->postRemove($eventArgs);
 
-        $this->assertFileNotExists($this->rootDir . '/' . $cvPath);
+        $this->assertFileDoesNotExist($this->rootDir . '/' . $cvPath);
     }
 
     /**

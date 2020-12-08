@@ -13,7 +13,7 @@ class DateExtensionTest extends TestCase
      */
     private $extension;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $translator = new TranslatorMock();
         $this->extension = new DateExtension($translator);

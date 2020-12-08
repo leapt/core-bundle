@@ -14,7 +14,7 @@ class TextExtensionTest extends TestCase
      */
     private $extension;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->extension = new TextExtension();
     }

@@ -14,7 +14,7 @@ class GoogleExtensionTest extends TestCase
      */
     private $env;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $loader = new FilesystemLoader();
         $loader->addPath(__DIR__ . '/../../../src/Resources/views', 'LeaptCore');

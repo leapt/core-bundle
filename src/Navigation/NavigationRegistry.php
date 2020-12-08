@@ -77,7 +77,7 @@ class NavigationRegistry
     {
         $pair = [$path, $label];
         if (!\in_array($pair, $this->breadcrumbsPaths, true)) {
-            array_push($this->breadcrumbsPaths, $pair);
+            $this->breadcrumbsPaths[] = $pair;
         }
     }
 
