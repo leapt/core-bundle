@@ -101,7 +101,7 @@ class StringUtil
      */
     public static function sluggify($string)
     {
-        @trigger_error('sluggify() is deprecated. Use slugify instead', E_USER_DEPRECATED);
+        @trigger_error('sluggify() is deprecated. Use slugify instead', \E_USER_DEPRECATED);
 
         return self::slugify($string);
     }
