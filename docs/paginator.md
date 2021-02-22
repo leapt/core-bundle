@@ -76,6 +76,6 @@ leapt_core:
 
 ----------
 
-&larr; [Form Types](/form_types.html)
+&larr; [File Uploads](/file_uploads.html)
 
 [Data lists](/data_lists.html) &rarr;

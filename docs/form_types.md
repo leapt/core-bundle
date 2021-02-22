@@ -68,4 +68,4 @@ leapt_core:
 
 &larr; [Installation](/install.html)
 
-[Paginator](/paginator.html) &rarr;
+[File Uploads](/file_uploads.html) &rarr;

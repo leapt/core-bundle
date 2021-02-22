@@ -2,6 +2,7 @@
 -----
 
 * Drop support for PHP < 7.4
+* File annotation is available as PHP 8 attribute
 
 3.0.2
 -----

@@ -2,13 +2,13 @@
 
 namespace Leapt\CoreBundle\Doctrine\Mapping;
 
-use Doctrine\Common\Annotations\Annotation;
-
 /**
  * @Annotation
- * @Target({"METHOD","PROPERTY"})
+ * @NamedArgumentConstructor
+ * @Target({"PROPERTY"})
  */
-class File extends Annotation
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
+class File
 {
     /** @var string */
     public $path;
@@ -20,4 +20,13 @@ class File extends Annotation
     public $filename;
     /** @var string */
     public $nameCallback;
+
+    public function __construct(string $path = null, string $pathCallback = null, string $mappedBy = null, string $filename = null, string $nameCallback = null)
+    {
+        $this->path = $path;
+        $this->pathCallback = $pathCallback;
+        $this->mappedBy = $mappedBy;
+        $this->filename = $filename;
+        $this->nameCallback = $nameCallback;
+    }
 }

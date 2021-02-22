@@ -10,6 +10,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Events;
+use Leapt\CoreBundle\Doctrine\Mapping\File as FileAnnotation;
 use Leapt\CoreBundle\File\CondemnedFile;
 use Leapt\CoreBundle\Util\StringUtil;
 use Symfony\Component\HttpFoundation\File\File;
@@ -36,11 +37,17 @@ class FileSubscriber implements EventSubscriber
     private $uploadDir;
 
     /**
+     * @var AnnotationReader
+     */
+    private $reader;
+
+    /**
      * @param string $uploadDir
      */
     public function __construct($uploadDir)
     {
         $this->uploadDir = $uploadDir;
+        $this->reader = new AnnotationReader();
     }
 
     public function getSubscribedEvents()
@@ -272,7 +279,6 @@ class FileSubscriber implements EventSubscriber
         $class = \get_class($entity);
 
         if (!\array_key_exists($class, $this->config)) {
-            $reader = new AnnotationReader();
             $meta = $entityManager->getClassMetaData($class);
             foreach ($meta->getReflectionClass()->getProperties() as $property) {
                 if ($meta->isMappedSuperclass && !$property->isPrivate() ||
@@ -281,7 +287,8 @@ class FileSubscriber implements EventSubscriber
                 ) {
                     continue;
                 }
-                if ($annotation = $reader->getPropertyAnnotation($property, 'Leapt\\CoreBundle\\Doctrine\\Mapping\\File')) {
+                $annotations = $this->getAnnotations($property);
+                foreach ($annotations as $annotation) {
                     $property->setAccessible(true);
                     $field = $property->getName();
 
@@ -305,6 +312,25 @@ class FileSubscriber implements EventSubscriber
                         'pathCallback' => $annotation->pathCallback,
                     ];
                 }
+            }
+        }
+    }
+
+    /**
+     * @return iterable|FileAnnotation[]
+     */
+    private function getAnnotations(\ReflectionProperty $reflection): iterable
+    {
+        if (\PHP_VERSION_ID >= 80000) {
+            foreach ($reflection->getAttributes(FileAnnotation::class) as $attribute) {
+                yield $attribute->newInstance();
+            }
+        }
+
+        $annotations = $this->reader->getPropertyAnnotations($reflection);
+        foreach ($annotations as $annotation) {
+            if ($annotation instanceof FileAnnotation) {
+                yield $annotation;
             }
         }
     }
