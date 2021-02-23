@@ -48,6 +48,11 @@
         "symfony/phpunit-bridge": "^4.4 || ^5.0"
     },
     "scripts": {
+        "ci": [
+            "@cs:dry",
+            "@phpstan",
+            "vendor/bin/simple-phpunit"
+        ],
         "cs:dry": "php-cs-fixer fix --diff --diff-format=udiff --dry-run --no-interaction --ansi",
         "cs:fix": "php-cs-fixer fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi"

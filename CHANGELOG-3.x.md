@@ -1,3 +1,8 @@
+3.1.1
+-----
+
+* Validator constraints are available as PHP 8 attributes
+
 3.1.0
 -----
 

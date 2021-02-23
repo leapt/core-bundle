@@ -13,6 +13,8 @@ The bundle currently provides 3 validator constraints:
 
 They are all located under the `Leapt\CoreBundle\Validator\Constraints` namespace.
 
+All validators are available as PHP 8 attributes since version 3.1.1.
+
 ## <a name="password-strength"></a> PasswordStrength
 
 The PasswordStrengthChecker is based on a snipped provided in Symfony 1.
@@ -33,11 +35,12 @@ The PasswordStrengthChecker is based on a snipped provided in Symfony 1.
 ```php
 use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
+// Available as an annotation
 /**
- * @var string
- *
  * @LeaptAssert\PasswordStrength(min=6, max=72, score=80)
  */
+// Or as a PHP 8 attribute
+#[LeaptAssert\PasswordStrength(min: 6, max: 72, score: 80')]
 public $plainPassword;
 ```
 
@@ -58,11 +61,12 @@ This validator should be used with the [Recaptcha Type](/form-types.html#recaptc
 ```php
 use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
+// Available as an annotation
 /**
- * @var bool
- *
  * @LeaptAssert\Recaptcha(message="Invalid captcha.")
  */
+// Or as a PHP 8 attribute
+#[LeaptAssert\Recaptcha(message: 'Invalid captcha.')]
 public $recaptcha;
 ```
 
@@ -83,11 +87,12 @@ Helps to validate that the provided value matches a valid slug format.
 ```php
 use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
+// Available as an annotation
 /**
- * @var string
- *
  * @LeaptAssert\Slug()
  */
+// Or as a PHP 8 attribute
+#[LeaptAssert\Slug]
 public $slug;
 ```
 
