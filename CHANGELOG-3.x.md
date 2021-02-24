@@ -1,3 +1,8 @@
+3.1.2
+-----
+
+* Fix slug constraint
+
 3.1.1
 -----
 

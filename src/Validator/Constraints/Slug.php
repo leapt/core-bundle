@@ -15,8 +15,6 @@ class Slug extends Regex
 
     public $pattern = '/^([a-z0-9-]+)$/';
 
-    public $match = false;
-
     public function __construct(string $pattern = null, string $message = null, string $htmlPattern = null, bool $match = null, callable $normalizer = null, array $groups = null, $payload = null, array $options = [])
     {
         parent::__construct($pattern ?? $this->pattern, $message ?? $this->message, $htmlPattern, $match, $normalizer, $groups, $payload, $options);

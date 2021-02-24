@@ -79,8 +79,7 @@ Helps to validate that the provided value matches a valid slug format.
 | Name | Description | Default value |
 | ---- | ----------- | ------------- |
 | message | Message shown if the slug is not valid. | A slug can only contain lowercase letters, numbers and hyphens. |
-| pattern | Pattern used to check the slug format. | `/([^a-z0-9\-])/` |
-| match | Whether the provided slug must match the pattern or not. | `false` |
+| pattern | Pattern used to check the slug format. | `/^([a-z0-9-]+)$/` |
 
 ### Usage
 
