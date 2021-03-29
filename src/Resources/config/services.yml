@@ -39,6 +39,11 @@ services:
             - { name: twig.extension }
 
     # Twig extensions
+    leapt_core.twig_gravatar:
+        class: Leapt\CoreBundle\Twig\Extension\GravatarExtension
+        tags:
+            - { name: twig.extension }
+
     leapt_core.twig_date:
         class: Leapt\CoreBundle\Twig\Extension\DateExtension
         arguments: [ "@translator" ]
