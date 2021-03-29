@@ -1,3 +1,8 @@
+3.1.3
+-----
+
+* Translate validator errors to French
+
 3.1.2
 -----
 
