@@ -30,8 +30,8 @@ class LoadPlayerData extends AbstractFixture
         $faker = FakerFactory::create();
         for ($i = 1; $i <= $this->limit; ++$i) {
             $player = new Player();
-            $player->setFirstName($faker->firstName);
-            $player->setLastName($faker->lastName);
+            $player->setFirstName($faker->firstName());
+            $player->setLastName($faker->lastName());
             $manager->persist($player);
         }
 
