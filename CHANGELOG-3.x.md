@@ -1,3 +1,9 @@
+3.2.0
+-----
+
+* Add Gravatar Twig filter
+* Translate validator errors to French
+
 3.1.2
 -----
 

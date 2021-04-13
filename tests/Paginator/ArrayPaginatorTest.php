@@ -54,8 +54,8 @@ class ArrayPaginatorTest extends AbstractPaginatorTest
         $items = [];
         for ($i = 1; $i <= $limit; ++$i) {
             $items[] = [
-                'first_name' => $faker->firstName,
-                'last_name'  => $faker->lastName,
+                'first_name' => $faker->firstName(),
+                'last_name'  => $faker->lastName(),
             ];
         }
 
