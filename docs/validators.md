@@ -1,13 +1,8 @@
----
-layout: default
-permalink: /validators.html
----
-
 # Validator Constraints
 
 The bundle currently provides 3 validator constraints:
 
-- [PasswordStrength](#password-strength)
+- [PasswordStrength](#passwordstrength)
 - [Recaptcha](#recaptcha)
 - [Slug](#slug)
 
@@ -15,7 +10,7 @@ They are all located under the `Leapt\CoreBundle\Validator\Constraints` namespac
 
 All validators are available as PHP 8 attributes since version 3.1.1.
 
-## <a name="password-strength"></a> PasswordStrength
+## PasswordStrength
 
 The PasswordStrengthChecker is based on a snipped provided in Symfony 1.
 
@@ -32,21 +27,27 @@ The PasswordStrengthChecker is based on a snipped provided in Symfony 1.
 
 ### Usage
 
-```php
-use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+=== "Attributes"
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
-// Available as an annotation
-/**
- * @LeaptAssert\PasswordStrength(min=6, max=72, score=80)
- */
-// Or as a PHP 8 attribute
-#[LeaptAssert\PasswordStrength(min: 6, max: 72, score: 80')]
-public $plainPassword;
-```
+    #[LeaptAssert\PasswordStrength(min: 6, max: 72, score: 80')]
+    public string $plainPassword;
+    ```
 
-## <a name="recaptcha"></a> Recaptcha
+=== "Annotations"
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
-This validator should be used with the [Recaptcha Type](/form-types.html#recaptcha-type), and is based on the
+    /**
+     * @LeaptAssert\PasswordStrength(min=6, max=72, score=80)
+     */
+    public string $plainPassword;
+    ```
+
+## Recaptcha
+
+This validator should be used with the [Recaptcha Type](form_types.md#recaptcha-type), and is based on the
 [EWZRecaptchaBundle](https://github.com/excelwebzone/EWZRecaptchaBundle/).
 
 ### Options
@@ -58,19 +59,25 @@ This validator should be used with the [Recaptcha Type](/form-types.html#recaptc
 
 ### Usage
 
-```php
-use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+=== "Attributes"
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
-// Available as an annotation
-/**
- * @LeaptAssert\Recaptcha(message="Invalid captcha.")
- */
-// Or as a PHP 8 attribute
-#[LeaptAssert\Recaptcha(message: 'Invalid captcha.')]
-public $recaptcha;
-```
+    #[LeaptAssert\Recaptcha(message: 'Invalid captcha.')]
+    public $recaptcha;
+    ```
 
-## <a name="slug"></a> Slug
+=== "Annotations"
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+
+    /**
+     * @LeaptAssert\Recaptcha(message="Invalid captcha.")
+     */
+    public $recaptcha;
+    ```
+
+## Slug
 
 Helps to validate that the provided value matches a valid slug format.
 
@@ -83,20 +90,20 @@ Helps to validate that the provided value matches a valid slug format.
 
 ### Usage
 
-```php
-use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+=== "Attributes"
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
-// Available as an annotation
-/**
- * @LeaptAssert\Slug()
- */
-// Or as a PHP 8 attribute
-#[LeaptAssert\Slug]
-public $slug;
-```
+    #[LeaptAssert\Slug]
+    public string $slug;
+    ```
 
-----------
+=== "Annotations"
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
-&larr; [Utilities](/utilities.html)
-
-[Twig Extensions](/twig_extensions.html) &rarr;
+    /**
+     * @LeaptAssert\Slug()
+     */
+    public string $slug;
+    ```

@@ -1,13 +1,7 @@
----
-layout: default
-permalink: /configuration_reference.html
----
-
 # Configuration Reference
 
 ```yaml
 # config/packages/leapt_core.yaml
-
 leapt_core:
     upload_dir: '%kernel.project_dir%/public'
     paginator:
@@ -17,7 +11,3 @@ leapt_core:
         private_key: 'your_private_key'
         enabled: true
 ```
-
-----------
-
-&larr; [Twig Extensions](/twig_extensions.html)

@@ -19,7 +19,7 @@ The bundle provides 5 Form Types:
 
 ## <a name="image-type"></a> Image Type
 
-## <a name="recaptcha-type"></a> Recaptcha Type
+## Recaptcha Type
 
 This Form Type is based on the [EWZRecaptchaBundle](https://github.com/excelwebzone/EWZRecaptchaBundle/), and allow you 
 to generate a Recaptcha in your form, and validate it.

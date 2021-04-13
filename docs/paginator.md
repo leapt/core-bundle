@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /paginator.html
----
-
 # Paginator
 
 The Paginator will help you iterate and paginate items.
@@ -40,15 +35,15 @@ As you can do it using PHP, you can also iterate on the Paginator to use/render 
 The `paginator_widget` function will render the pagination, if there are more than one page available.
 
 ```twig
-{{ "{% if paginator|length > 0  " }}%}
-    {{ "{% for news in paginator " }}%}
-        {{ "{{ include('news/_item.html.twig') " }}}}
-    {{ "{% endfor " }}%}
+{% if paginator|length > 0 %}
+    {% for news in paginator %}
+        {{ include('news/_item.html.twig') }}
+    {% endfor %}
     
-    {{ "{{ paginator_widget(paginator) " }}}}
-{{ "{% else " }}%}
+    {{ paginator_widget(paginator) }}
+{% else %}
     <p>There are no news available.</p>
-{{ "{% endif " }}%}
+{% endif %}
 ```
 
 ## Twig Pagination
@@ -62,7 +57,7 @@ Three pagination templates are provided by the bundle (but you can of course cre
 You can override the pagination template locally (like you would do for form themes):
 
 ```twig
-{{ "{% paginator_theme paginator '@LeaptCore/Paginator/paginator_bootstrap4_layout.html.twig' " }}%}
+{% paginator_theme paginator '@LeaptCore/Paginator/paginator_bootstrap4_layout.html.twig' %}
 ```
 
 Or globally, in the configuration:
@@ -73,9 +68,3 @@ leapt_core:
     paginator:
         template: '@LeaptCore/Paginator/paginator_bootstrap4_layout.html.twig'
 ```
-
-----------
-
-&larr; [File Uploads](/file_uploads.html)
-
-[Data lists](/data_lists.html) &rarr;

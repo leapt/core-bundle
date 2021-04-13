@@ -1,0 +1,47 @@
+site_name: leapt/core-bundle
+site_description: Documentation for leapt/core-bundle
+
+repo_name: leapt/core-bundle
+repo_url: https://github.com/leapt/core-bundle
+edit_uri: https://github.com/leapt/core-bundle/edit/master/docs/
+
+theme:
+    name: material
+    language: en
+    features:
+        - navigation.instant
+
+extra:
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/leapt/core-bundle
+          name: leapt/core-bundle repository
+
+plugins:
+    - search: { }
+
+nav:
+    - index.md
+    - form_types.md
+    - file_uploads.md
+    - paginator.md
+    - data_lists.md
+    - rss_feeds.md
+    - sitemaps.md
+    - navigation_helper.md
+    - utilities.md
+    - validators.md
+    - twig_extensions.md
+    - configuration_reference.md
+
+markdown_extensions:
+    - toc:
+        permalink: '#'
+    - pymdownx.details: { }
+    - pymdownx.inlinehilite: { }
+    - pymdownx.highlight:
+        extend_pygments_lang:
+            - { name: php, lang: php, options: { startinline: true } }
+    - pymdownx.superfences: { }
+    - pymdownx.tabbed: { }
+

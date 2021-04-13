@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /navigation_helper.html
----
-
 # Navigation Helper
 
 The Navigation helper is a set of tools to figure out which page you are on.
@@ -23,14 +18,12 @@ The Twig Extension provides 4 functions:
 - `is_active_path`: check if the provided path is the current one, returns a boolean. Note that this function will check 
 if the specified path is either in the provided active paths, or the current request URI.
 
-### Usage
-
 ```twig
-{{ "{% do add_active_path(path('app_news_index')) " }}%}
+{% do add_active_path(path('app_news_index')) %}
 
 <a
-    href="{{ "{{ path('app_news_index') " }}}}"
-    class="{{ "{{ is_active_path(path('app_news_index')) ? 'active' : ''" }}}}"
+    href="{{ path('app_news_index') }}"
+    class="{{ is_active_path(path('app_news_index')) ? 'active' : '' }}"
 >
     News list
 </a>
@@ -47,17 +40,11 @@ Easily build breadcrumbs. 3 functions are provided:
 ### Usage
 
 ```twig
-{{ "{% do append_breadcrumbs(path('app_news_index'), 'News list') " }}%}
-{{ "{% do prepend_breadcrumbs(path('app_default_index'), 'ACME Website') " }}%}
+{% do append_breadcrumbs(path('app_news_index'), 'News list') %}
+{% do prepend_breadcrumbs(path('app_default_index'), 'ACME Website') %}
 
-{{ "{% for breadcrumb in get_breadcrumbs() " }}%}
+{% for breadcrumb in get_breadcrumbs() %}
     {# Index 0 is the path, index 1 is the label #}
-    <a href="{{ "{{ breadcrumb[0] " }}}}">{{ "{{ breadcrumb[1] " }}}}</a>
-{{ "{% endfor " }}%}
+    <a href="{{ breadcrumb[0] }}">{{ breadcrumb[1] }}</a>
+{% endfor %}
 ```
-
-----------
-
-&larr; [Sitemaps](/sitemaps.html)
-
-[Utilities](/utilities.html) &rarr;

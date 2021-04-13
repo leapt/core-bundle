@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /data_lists/custom_data_list.html
----
-
 # Data list - Create a custom Datalist class
 
 ```php
@@ -12,26 +7,16 @@ use App\Datalist\Type\NewsDatalistType;
 use App\Repository\NewsRepository;
 use Leapt\CoreBundle\Datalist\DatalistFactory;
 use Leapt\CoreBundle\Datalist\Datasource\DoctrineORMDatasource;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class NewsController extends Controller
+final class NewsController extends AbstractController
 {
-    /**
-     * @var DatalistFactory
-     */
-    private $datalistFactory;
-    
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-    
-    public function __construct(DatalistFactory $datalistFactory, NewsRepository $newsRepository)
-    {
-        $this->datalistFactory = $datalistFactory;
-        $this->newsRepository = $newsRepository;
+    public function __construct(
+        private DatalistFactory $datalistFactory,
+        private NewsRepository $newsRepository,
+    ) {
     }
     
     public function index(Request $request): Response
@@ -105,6 +90,4 @@ final class NewsDatalistType extends DatalistType
 }
 ```
 
-----------
-
-[Go back to Data lists documentation](/data_lists.html)
+[Go back to Data lists documentation](../data_lists.md)

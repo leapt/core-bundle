@@ -43,6 +43,8 @@ composer phpstan # Static analysis
 vendor/bin/simple-phpunit # Run tests
 ```
 
+Docs are built using mkdocs. To launch the docs server locally, run `make docs-start` & open http://127.0.0.1:8000/.
+
 History
 -------
 

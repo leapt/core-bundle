@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /rss_feeds.html
----
-
 # RSS Feeds
 
 The Feed Helper allows you to easily create RSS Feeds in minutes.
@@ -33,20 +28,10 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class ArticleFeed implements FeedInterface
 {
-    /**
-     * @var ArticleRepository
-     */
-    private $articleRepository;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    public function __construct(ArticleRepository $articleRepository, RouterInterface $router)
-    {
-        $this->articleRepository = $articleRepository;
-        $this->router = $router;
+    public function __construct(
+        private ArticleRepository $articleRepository,
+        private RouterInterface $router,
+    ) {
     }
 
     public function getId(): string
@@ -121,16 +106,7 @@ Now, your feed will be available at:
 
 And using Twig:
 
-{% assign rss_link = "{{ path('leapt_core_feed', { 'feedName': 'news', '_format': 'rss' }) }}" %}
-{% assign atom_link = "{{ path('leapt_core_feed', { 'feedName': 'news', '_format': 'atom' }) }}" %}
-
 ```twig
-<link rel="alternate" type="application/rss+xml" href="{{ rss_link }}">
-<link rel="alternate" type="application/atom+xml" href="{{ atom_link }}">
+<link rel="alternate" type="application/rss+xml" href="{{ path('leapt_core_feed', { 'feedName': 'news', '_format': 'rss' }) }}">
+<link rel="alternate" type="application/atom+xml" href="{{ path('leapt_core_feed', { 'feedName': 'news', '_format': 'atom' }) }}">
 ```
-
-----------
-
-&larr; [Data lists](/data_lists.html)
-
-[Sitemaps](/sitemaps.html) &rarr;

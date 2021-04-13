@@ -1,10 +1,3 @@
----
-layout: default
-permalink: /data_lists.html
-field_types: ["Boolean", "DateTime", "Heading", "Image", "Label", "Text", "Url"]
-filter_types: ["Choice", "Entity", "Search"]
----
-
 # Data lists
 
 The Datalist component will help you create powerful data lists and lets you:
@@ -14,104 +7,88 @@ The Datalist component will help you create powerful data lists and lets you:
 - Create filters to narrow the search
 - Paginate automatically (using the [Paginator](/paginator.html) defined earlier)
 
-Summary:
-
-- [Create your first Data list](#first-data-list)
-- [Render the Data list](#render)
-- [Available Field Types](#field-types)
-- [Available Filter Types](#filter-types)
-- [Available Action Types](#action-types)
-
-## <a name="first-data-list"></a> Create your first Data list
+## Create your first Data list
 
 The following example creates a paginated list of News (10 per page), ordered by descending publication date.
 
 It will display a search filter, two fields (title and publicationDate), and a link to update the news.
 
-```php
-namespace App\Controller;
-
-use App\Entity\News;
-use App\Repository\NewsRepository;
-use Leapt\CoreBundle\Datalist\Action\Type\SimpleActionType;
-use Leapt\CoreBundle\Datalist\DatalistFactory;
-use Leapt\CoreBundle\Datalist\Datasource\DoctrineORMDatasource;
-use Leapt\CoreBundle\Datalist\Field\Type\DateTimeFieldType;
-use Leapt\CoreBundle\Datalist\Field\Type\TextFieldType;
-use Leapt\CoreBundle\Datalist\Filter\Type\SearchFilterType;
-use Leapt\CoreBundle\Datalist\Type\DatalistType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-final class NewsController extends Controller
-{
-    /**
-     * @var DatalistFactory
-     */
-    private $datalistFactory;
+??? example "Example"
+    ```php
+    namespace App\Controller;
     
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
+    use App\Entity\News;
+    use App\Repository\NewsRepository;
+    use Leapt\CoreBundle\Datalist\Action\Type\SimpleActionType;
+    use Leapt\CoreBundle\Datalist\DatalistFactory;
+    use Leapt\CoreBundle\Datalist\Datasource\DoctrineORMDatasource;
+    use Leapt\CoreBundle\Datalist\Field\Type\DateTimeFieldType;
+    use Leapt\CoreBundle\Datalist\Field\Type\TextFieldType;
+    use Leapt\CoreBundle\Datalist\Filter\Type\SearchFilterType;
+    use Leapt\CoreBundle\Datalist\Type\DatalistType;
+    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
     
-    public function __construct(DatalistFactory $datalistFactory, NewsRepository $newsRepository)
+    final class NewsController extends AbstractController
     {
-        $this->datalistFactory = $datalistFactory;
-        $this->newsRepository = $newsRepository;
-    }
+        public function __construct(
+            private DatalistFactory $datalistFactory,
+            private NewsRepository $newsRepository,
+        ) {
+        }
+        
+        public function index(Request $request): Response
+        {
+            $queryBuilder = $this->newsRepository->createQueryBuilder('e')
+                ->orderBy('e.publicationDate', 'DESC');
+            
+            $datalist = $this->datalistFactory->createBuilder(DatalistType::class, [
+                    'limit_per_page' => 10,
+                    'data_class'     => News::class,
+                ])
+                ->addField('title', TextFieldType::class, [
+                    'label' => 'news.title',
+                ])
+                ->addField('publicationDate', DateTimeFieldType::class, [
+                    'label'  => 'news.publication_date',
+                    'format' => 'Y/m/d',
+                ])
+                ->addFilter('title', SearchFilterType::class, [
+                    'label'         => 'news.title',
+                    'search_fields' => ['e.title'],
+                ])
+                ->addAction('update', SimpleActionType::class, [
+                    'route'  => 'app_news_update',
+                    'label'  => 'content.index.update',
+                    'params' => ['id' => 'id'],
+                ])
+                ->getDatalist();
     
-    public function index(Request $request): Response
-    {
-        $queryBuilder = $this->newsRepository->createQueryBuilder('e')
-            ->orderBy('e.publicationDate', 'DESC');
-        
-        $datalist = $this->datalistFactory->createBuilder(DatalistType::class, [
-                'limit_per_page' => 10,
-                'data_class'     => News::class,
-            ])
-            ->addField('title', TextFieldType::class, [
-                'label' => 'news.title',
-            ])
-            ->addField('publicationDate', DateTimeFieldType::class, [
-                'label'  => 'news.publication_date',
-                'format' => 'Y/m/d',
-            ])
-            ->addFilter('title', SearchFilterType::class, [
-                'label'         => 'news.title',
-                'search_fields' => ['e.title'],
-            ])
-            ->addAction('update', SimpleActionType::class, [
-                'route'  => 'app_news_update',
-                'label'  => 'content.index.update',
-                'params' => ['id' => 'id'],
-            ])
-            ->getDatalist();
-
-        $datalist->setRoute($request->attributes->get('_route'))
-            ->setRouteParams($request->query->all());
-        $datasource = new DoctrineORMDatasource($queryBuilder);
-        $datalist->setDatasource($datasource);
-        $datalist->bind($request);
-        
-        return $this->render('news/index.html.twig', [
-            'datalist' => $datalist,
-        ]);
+            $datalist->setRoute($request->attributes->get('_route'))
+                ->setRouteParams($request->query->all());
+            $datasource = new DoctrineORMDatasource($queryBuilder);
+            $datalist->setDatasource($datasource);
+            $datalist->bind($request);
+            
+            return $this->render('news/index.html.twig', [
+                'datalist' => $datalist,
+            ]);
+        }
     }
-}
-```
+    ```
 
-You can also lighten your controller by [creating a custom Datalist class](/data_lists/custom_data_list.html).
+???+ tip "Tip"
+    You can also lighten your controller by [creating a custom Datalist class](data_lists/custom_data_list.md).
 
 ## <a name="render"></a> Render the Data list
 
-```
-{{ "{% if datalist is empty " }}%}
+```twig
+{% if datalist is empty %}
     No news available.
-{{ "{% else " }}%}
-    {{ "{{ datalist_widget(datalist) " }}}}
-{{ "{% endif " }}%}
+{% else %}
+    {{ datalist_widget(datalist) }}
+{% endif %}
 ```
 
 The data list is built using the `@LeaptCore/Datalist/datalist_grid_layout.html.twig` by default, but you can
@@ -123,38 +100,38 @@ of course create your own. Here are the templates provided by the bundle:
 And like the Paginator component, you can override it using a Twig tag:
 
 ```twig
-{{ "{% datalist_theme datalist '@LeaptCore/Datalist/datalist_grid_layout.html.twig' " }}%}
+{% datalist_theme datalist '@LeaptCore/Datalist/datalist_grid_layout.html.twig' %}
 ```
 
 Don't hesitate to create your own to adapt it to your layout/styles.
 
-## <a name="field-types"></a> Available Field Types
+## Available Field types
 
 Here are the Field Types provided by the bundle. Feel free to check the classes to know the available options.
 
 You can also create your own.
 
-{% for field_type in page.field_types %}
-- [{{ field_type }}FieldType](https://github.com/leapt/core-bundle/blob/master/Datalist/Field/Type/{{ field_type }}FieldType.php){% endfor %}
+- [BooleanFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/BooleanFieldType.php)
+- [DateTimeFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/DateTimeFieldType.php)
+- [HeadingFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/HeadingFieldType.php)
+- [ImageFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/ImageFieldType.php)
+- [LabelFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/LabelFieldType.php)
+- [TextFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/TextFieldType.php)
+- [UrlFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/UrlFieldType.php)
 
-## <a name="filter-types"></a> Available Filter Types
+## Available Filter types
 
 Here are the Filter Types provided by the bundle. Feel free to check the classes to know the available options.
 
 You can also create your own.
 
-{% for filter_type in page.filter_types %}
-- [{{ filter_type }}FieldType](https://github.com/leapt/core-bundle/blob/master/Datalist/Filter/Type/{{ filter_type }}FilterType.php){% endfor %}
+- [ChoiceFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Filter/Type/ChoiceFilterType.php)
+- [EntityFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Filter/Type/EntityFilterType.php)
+- [SearchFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Filter/Type/SearchFilterType.php)
 
-## <a name="action-types"></a> Available Action Types
+## Available Action types
 
-There is currently one Action Type provided by the bundle: [SimpleActionType](https://github.com/leapt/core-bundle/blob/master/Datalist/Action/Type/SimpleActionType.php).
+There is currently one Action Type provided by the bundle: [SimpleActionType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Action/Type/SimpleActionType.php).
 Feel free to check the class to know the available options.
 
 You can also create your own.
-
-----------
-
-&larr; [Paginator](/paginator.html)
-
-[RSS Feeds](/rss_feeds.html) &rarr;

@@ -1,8 +1,3 @@
----
-layout: default
-permalink: /sitemaps.html
----
-
 # Sitemaps
 
 ## Enable routing
@@ -30,20 +25,10 @@ use Symfony\Component\Routing\Router;
 
 final class Sitemap extends AbstractSitemap
 {
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $em;
-
-    /**
-     * @var string
-     */
-    private $locale;
-
-    public function __construct(EntityManagerInterface $em, string $locale)
-    {
-        $this->em = $em;
-        $this->locale = $locale;
+    public function __construct(
+        private EntityManagerInterface $em,
+        private string $locale,
+    ) {
     }
 
     public function build(Router $router)
@@ -88,9 +73,3 @@ If you defined several with aliases then the main sitemap will list all of them,
 - sitemap.xml
 - sitemap_fr.xml
 - sitemap_en.xml
-
-----------
-
-&larr; [RSS Feeds](/rss_feeds.html)
-
-[Navigation Helper](/navigation_helper.html) &rarr;
