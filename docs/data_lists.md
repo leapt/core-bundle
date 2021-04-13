@@ -81,7 +81,7 @@ It will display a search filter, two fields (title and publicationDate), and a l
 ???+ tip "Tip"
     You can also lighten your controller by [creating a custom Datalist class](data_lists/custom_data_list.md).
 
-## <a name="render"></a> Render the Data list
+## Render the Data list
 
 ```twig
 {% if datalist is empty %}

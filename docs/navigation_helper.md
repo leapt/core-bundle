@@ -18,16 +18,18 @@ The Twig Extension provides 4 functions:
 - `is_active_path`: check if the provided path is the current one, returns a boolean. Note that this function will check 
 if the specified path is either in the provided active paths, or the current request URI.
 
-```twig
-{% do add_active_path(path('app_news_index')) %}
+!!! example "Usage"
 
-<a
-    href="{{ path('app_news_index') }}"
-    class="{{ is_active_path(path('app_news_index')) ? 'active' : '' }}"
->
-    News list
-</a>
-```
+    ```twig
+    {% do add_active_path(path('app_news_index')) %}
+    
+    <a
+        href="{{ path('app_news_index') }}"
+        class="{{ is_active_path(path('app_news_index')) ? 'active' : '' }}"
+    >
+        News list
+    </a>
+    ```
 
 ## Breadcrumbs
 
@@ -37,14 +39,14 @@ Easily build breadcrumbs. 3 functions are provided:
 - `prepend_breadcrumb`: same as `append_breadcrumb`, but simply prepends it instead of appending it
 - `get_breadcrumbs`: get an array of previously set breadcrumbs
 
-### Usage
+!!! example "Usage"
 
-```twig
-{% do append_breadcrumbs(path('app_news_index'), 'News list') %}
-{% do prepend_breadcrumbs(path('app_default_index'), 'ACME Website') %}
-
-{% for breadcrumb in get_breadcrumbs() %}
-    {# Index 0 is the path, index 1 is the label #}
-    <a href="{{ breadcrumb[0] }}">{{ breadcrumb[1] }}</a>
-{% endfor %}
-```
+    ```twig
+    {% do append_breadcrumbs(path('app_news_index'), 'News list') %}
+    {% do prepend_breadcrumbs(path('app_default_index'), 'ACME Website') %}
+    
+    {% for breadcrumb in get_breadcrumbs() %}
+        {# Index 0 is the path, index 1 is the label #}
+        <a href="{{ breadcrumb[0] }}">{{ breadcrumb[1] }}</a>
+    {% endfor %}
+    ```

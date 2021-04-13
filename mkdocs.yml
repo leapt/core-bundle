@@ -44,4 +44,5 @@ markdown_extensions:
             - { name: php, lang: php, options: { startinline: true } }
     - pymdownx.superfences: { }
     - pymdownx.tabbed: { }
+    - admonition: { }
 
