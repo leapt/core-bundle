@@ -10,12 +10,18 @@ theme:
     language: en
     features:
         - navigation.instant
+        - navigation.top
+        - toc.integrate
+    palette:
+        scheme: slate
+        primary: green
 
 extra:
     social:
         - icon: fontawesome/brands/github
           link: https://github.com/leapt/core-bundle
           name: leapt/core-bundle repository
+    generator: false
 
 plugins:
     - search: { }
