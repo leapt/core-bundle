@@ -10,14 +10,10 @@ The `File` annotation/attribute is available to automatically handle file upload
         
         class News
         {
-            /**
-             * @ORM\Column(type="string")
-             */
+            #[ORM\Column(type: 'string')]
             private ?string $name = null;
         
-            /**
-             * @ORM\Column(type="string")
-             */
+            #[ORM\Column(type: 'string')]
             private ?string $image = null;
     
             #[LeaptCore\File(path: 'uploads/news', mappedBy: 'image', nameCallback: 'name')]
