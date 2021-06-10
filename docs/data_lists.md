@@ -5,7 +5,7 @@ The Datalist component will help you create powerful data lists and lets you:
 - Specify a data source (bundle provides datasource handlers for arrays and Doctrine ORM)
 - Define all the fields (data) you want
 - Create filters to narrow the search
-- Paginate automatically (using the [Paginator](/paginator.html) defined earlier)
+- Paginate automatically (using the [Paginator](paginator.md) defined earlier)
 
 ## Create your first Data list
 

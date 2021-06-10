@@ -96,9 +96,3 @@ To be updated soon.
 ## Video type
 
 To be updated soon.
-
-----------
-
-&larr; [Installation](/install.html)
-
-[File Uploads](/file_uploads.html) &rarr;
