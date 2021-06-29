@@ -73,9 +73,13 @@ class RecaptchaValidator extends ConstraintValidator
         }
 
         // define variable for recaptcha check answer
-        $masterRequest = $this->requestStack->getMasterRequest();
-        $remoteip = $masterRequest->getClientIp();
-        $answer = $masterRequest->get('g-recaptcha-response');
+        if (method_exists(RequestStack::class, 'getMainRequest')) {
+            $mainRequest = $this->requestStack->getMainRequest();
+        } else {
+            $mainRequest = $this->requestStack->getMasterRequest();
+        }
+        $remoteip = $mainRequest->getClientIp();
+        $answer = $mainRequest->get('g-recaptcha-response');
 
         // Verify user response with Google
         $response = $this->checkAnswer($this->privateKey, $remoteip, $answer);
@@ -84,7 +88,7 @@ class RecaptchaValidator extends ConstraintValidator
             $this->context->addViolation($constraint->message);
         }
         // Perform server side hostname check
-        elseif ($this->verifyHost && $masterRequest->getHost() !== $response['hostname']) {
+        elseif ($this->verifyHost && $mainRequest->getHost() !== $response['hostname']) {
             $this->context->addViolation($constraint->invalidHostMessage);
         }
     }

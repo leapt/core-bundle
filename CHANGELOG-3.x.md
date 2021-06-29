@@ -1,3 +1,8 @@
+3.2.1
+-----
+
+* Fix Symfony 5.3 deprecation about calling RequestStack->getMasterRequest()
+
 3.2.0
 -----
 
