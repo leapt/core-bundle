@@ -4,17 +4,17 @@ namespace Leapt\CoreBundle\Datalist\Filter\Expression;
 
 class ComparisonExpression implements ExpressionInterface
 {
-    const OPERATOR_EQ = 'eq';
-    const OPERATOR_NEQ = 'neq';
-    const OPERATOR_GT = 'gt';
-    const OPERATOR_GTE = 'gte';
-    const OPERATOR_LT = 'lt';
-    const OPERATOR_LTE = 'lte';
-    const OPERATOR_LIKE = 'like';
-    const OPERATOR_IN = 'in';
-    const OPERATOR_NIN = 'nin';
-    const OPERATOR_IS_NULL = 'is_null';
-    const OPERATOR_IS_NOT_NULL = 'is_not_null';
+    public const OPERATOR_EQ = 'eq';
+    public const OPERATOR_NEQ = 'neq';
+    public const OPERATOR_GT = 'gt';
+    public const OPERATOR_GTE = 'gte';
+    public const OPERATOR_LT = 'lt';
+    public const OPERATOR_LTE = 'lte';
+    public const OPERATOR_LIKE = 'like';
+    public const OPERATOR_IN = 'in';
+    public const OPERATOR_NIN = 'nin';
+    public const OPERATOR_IS_NULL = 'is_null';
+    public const OPERATOR_IS_NOT_NULL = 'is_not_null';
 
     /**
      * @var string

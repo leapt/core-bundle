@@ -29,12 +29,9 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
         ];
 
         $config = Setup::createAnnotationMetadataConfiguration([static::getEntityPath()], false);
-        $cache = new \Doctrine\Common\Cache\ArrayCache();
         $driverImpl = $config->newDefaultAnnotationDriver(static::getEntityPath(), false);
 
-        $config->setMetadataCacheImpl($cache);
         $config->setMetadataDriverImpl($driverImpl);
-        $config->setQueryCacheImpl($cache);
         $proxiesIdentifier = uniqid('Proxies', true);
         $config->setProxyDir(sys_get_temp_dir() . '/' . $proxiesIdentifier);
         $config->setProxyNamespace('MyProject\Proxies\\' . $proxiesIdentifier);

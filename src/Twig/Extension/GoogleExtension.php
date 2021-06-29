@@ -11,7 +11,7 @@ use Twig\TwigFunction;
  */
 class GoogleExtension extends AbstractExtension
 {
-    const INVALID_DOMAIN_NAME_EXCEPTION = 10;
+    public const INVALID_DOMAIN_NAME_EXCEPTION = 10;
 
     /**
      * @var string

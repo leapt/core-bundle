@@ -12,7 +12,7 @@ class RecaptchaValidator extends ConstraintValidator
     /**
      * The reCAPTCHA server URL's.
      */
-    const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
+    public const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
     /**
      * Enable recaptcha?
      *

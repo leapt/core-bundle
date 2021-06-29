@@ -12,7 +12,7 @@ use Twig\TwigFilter;
  */
 class TextExtension extends AbstractExtension
 {
-    const MISSING_EXTENSION_EXCEPTION = 10;
+    public const MISSING_EXTENSION_EXCEPTION = 10;
 
     /**
      * @var bool

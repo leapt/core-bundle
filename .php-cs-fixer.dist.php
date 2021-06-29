@@ -5,16 +5,15 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/tests')
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'no_unneeded_final_method' => false,
         'dir_constant' => true,
-        'concat_space' => ['spacing' => 'none'],
         'modernize_types_casting' => true,
-        'no_short_echo_tag' => true,
+        'echo_tag_syntax' => ['format' => 'short'],
         'no_useless_else' => true,
         'no_useless_return' => true,
         'native_function_invocation' => ['include' => ['@compiler_optimized']],

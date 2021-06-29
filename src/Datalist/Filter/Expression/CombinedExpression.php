@@ -4,8 +4,8 @@ namespace Leapt\CoreBundle\Datalist\Filter\Expression;
 
 class CombinedExpression implements ExpressionInterface
 {
-    const OPERATOR_AND = 'and';
-    const OPERATOR_OR = 'or';
+    public const OPERATOR_AND = 'and';
+    public const OPERATOR_OR = 'or';
 
     /**
      * @var string

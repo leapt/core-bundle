@@ -9,13 +9,13 @@ use Symfony\Component\Routing\Router;
  */
 abstract class AbstractSitemap
 {
-    const CHANGEFREQ_ALWAYS = 'always';
-    const CHANGEFREQ_HOURLY = 'hourly';
-    const CHANGEFREQ_DAILY = 'daily';
-    const CHANGEFREQ_WEEKLY = 'weekly';
-    const CHANGEFREQ_MONTHLY = 'monthly';
-    const CHANGEFREQ_YEARLY = 'yearly';
-    const CHANGEFREQ_NEVER = 'never';
+    public const CHANGEFREQ_ALWAYS = 'always';
+    public const CHANGEFREQ_HOURLY = 'hourly';
+    public const CHANGEFREQ_DAILY = 'daily';
+    public const CHANGEFREQ_WEEKLY = 'weekly';
+    public const CHANGEFREQ_MONTHLY = 'monthly';
+    public const CHANGEFREQ_YEARLY = 'yearly';
+    public const CHANGEFREQ_NEVER = 'never';
 
     /**
      * @var array

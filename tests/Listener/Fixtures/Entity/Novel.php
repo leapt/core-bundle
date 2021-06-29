@@ -3,8 +3,6 @@
 namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Leapt\CoreBundle\Doctrine\Mapping as LeaptORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity

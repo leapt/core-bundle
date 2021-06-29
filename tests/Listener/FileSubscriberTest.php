@@ -194,7 +194,7 @@ class FileSubscriberTest extends TestCase
         $config = Setup::createAnnotationMetadataConfiguration(
             [__DIR__ . '/Fixtures'],
             false,
-            \sys_get_temp_dir(),
+            sys_get_temp_dir(),
             null,
             false
         );
