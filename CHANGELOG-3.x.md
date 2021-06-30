@@ -1,3 +1,8 @@
+3.3.1
+-----
+
+* Render RecaptchaV3 errors
+
 3.3.0
 -----
 
