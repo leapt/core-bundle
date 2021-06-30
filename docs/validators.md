@@ -73,6 +73,43 @@ This validator should be used with the [Recaptcha Type](form_types.md#recaptcha-
 
 See also [RecaptchaType](form_types.md#recaptcha-type).
 
+## RecaptchaV3
+
+This validator should be used with the [RecaptchaV3 Type](form_types.md#recaptchav3-type), and is based on the
+[EWZRecaptchaBundle](https://github.com/excelwebzone/EWZRecaptchaBundle/).
+
+It requires you to have the `google/recaptcha` package installed in your application. If it is not installed, a clear
+error message should be displayed in debug mode when validating.
+
+!!! example "Usage"
+
+    === "Attributes"
+        ```php
+        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+
+        #[LeaptAssert\RecaptchaV3(message: 'Invalid captcha.')]
+        public $recaptcha;
+        ```
+    
+    === "Annotations"
+        ```php
+        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+
+        /**
+         * @LeaptAssert\RecaptchaV3(message="Invalid captcha.")
+         */
+        public $recaptcha;
+        ```
+
+??? info "Options"
+
+    | Name | Description | Default value |
+    | ---- | ----------- | ------------- |
+    | message | Message shown if the captcha is not valid. | The submitted captcha is invalid. |
+    | invalidHostMessage | Message shown if the host is not valid. | The captcha was not resolved on the right domain. |
+
+See also [RecaptchaType](form_types.md#recaptchav3-type).
+
 ## Slug
 
 Helps to validate that the provided value matches a valid slug format.

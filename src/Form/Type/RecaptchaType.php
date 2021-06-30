@@ -3,37 +3,13 @@
 namespace Leapt\CoreBundle\Form\Type;
 
 use Leapt\CoreBundle\Locale\LocaleResolver;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * A field for entering a recaptcha text.
- */
-class RecaptchaType extends AbstractType
+class RecaptchaType extends AbstractRecaptchaType
 {
-    /**
-     * The reCAPTCHA server URL's.
-     */
-    public const RECAPTCHA_API_SERVER = 'https://www.google.com/recaptcha/api.js';
-    public const RECAPTCHA_API_JS_SERVER = '//www.google.com/recaptcha/api/js/recaptcha_ajax.js';
-
-    /**
-     * The public key.
-     *
-     * @var string
-     */
-    protected $publicKey;
-
-    /**
-     * Enable recaptcha?
-     *
-     * @var bool
-     */
-    protected $enabled;
-
     /**
      * Use AJAX api?
      *
@@ -41,55 +17,15 @@ class RecaptchaType extends AbstractType
      */
     protected $ajax;
 
-    /**
-     * @var LocaleResolver
-     */
+    /** @var LocaleResolver */
     protected $localeResolver;
 
-    protected $scripts = [];
-
-    /**
-     * @param string $publicKey Recaptcha public key
-     * @param bool   $enabled   Recaptache status
-     * @param bool   $ajax      Ajax status
-     */
-    public function __construct($publicKey, $enabled, $ajax, LocaleResolver $localeResolver)
+    public function __construct($publicKey, $enabled, $ajax, LocaleResolver $localeResolver, $apiHost = 'www.google.com')
     {
-        $this->publicKey = $publicKey;
-        $this->enabled = $enabled;
+        parent::__construct($publicKey, $enabled, $apiHost);
+
         $this->ajax = $ajax;
         $this->localeResolver = $localeResolver;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
-        $view->vars = array_replace($view->vars, [
-            'leapt_core_recaptcha_enabled' => $this->enabled,
-            'leapt_core_recaptcha_ajax'    => $this->ajax,
-        ]);
-
-        if (!$this->enabled) {
-            return;
-        }
-
-        if (!isset($options['language'])) {
-            $options['language'] = $this->localeResolver->resolve();
-        }
-
-        if (!$this->ajax) {
-            $view->vars = array_replace($view->vars, [
-                'url_challenge' => sprintf('%s?hl=%s', self::RECAPTCHA_API_SERVER, $options['language']),
-                'public_key'    => $this->publicKey,
-            ]);
-        } else {
-            $view->vars = array_replace($view->vars, [
-                'url_api'    => self::RECAPTCHA_API_JS_SERVER,
-                'public_key' => $this->publicKey,
-            ]);
-        }
     }
 
     /**
@@ -136,24 +72,26 @@ class RecaptchaType extends AbstractType
     }
 
     /**
-     * Gets the Javascript source URLs.
-     *
-     * @param string $key The script name
-     *
-     * @return string The javascript source URL
+     * {@inheritdoc}
      */
-    public function getScriptURL($key)
+    protected function addCustomVars(FormView $view, FormInterface $form, array $options): void
     {
-        return isset($this->scripts[$key]) ? $this->scripts[$key] : null;
-    }
+        $view->vars = array_replace($view->vars, [
+            'leapt_core_recaptcha_ajax' => $this->ajax,
+        ]);
 
-    /**
-     * Gets the public key.
-     *
-     * @return string The javascript source URL
-     */
-    public function getPublicKey()
-    {
-        return $this->publicKey;
+        if (!isset($options['language'])) {
+            $options['language'] = $this->localeResolver->resolve();
+        }
+
+        if (!$this->ajax) {
+            $view->vars = array_replace($view->vars, [
+                'url_challenge' => sprintf('%s?hl=%s', $this->recaptchaApiServer, $options['language']),
+            ]);
+        } else {
+            $view->vars = array_replace($view->vars, [
+                'url_api' => sprintf('//%s/recaptcha/api/js/recaptcha_ajax.js', $this->apiHost),
+            ]);
+        }
     }
 }

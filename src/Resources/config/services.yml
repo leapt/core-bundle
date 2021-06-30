@@ -117,6 +117,16 @@ services:
             - '%leapt_core.recaptcha.enabled%'
             - '%leapt_core.recaptcha.ajax%'
             - '@Leapt\CoreBundle\Locale\LocaleResolver'
+            - '%leapt_core.recaptcha.api_host%'
+        tags:
+            - { name: form.type }
+
+    Leapt\CoreBundle\Form\Type\RecaptchaV3Type:
+        arguments:
+            - '%leapt_core.recaptcha.public_key%'
+            - '%leapt_core.recaptcha.enabled%'
+            - '%leapt_core.recaptcha.hide_badge%'
+            - '%leapt_core.recaptcha.api_host%'
         tags:
             - { name: form.type }
 
@@ -129,6 +139,16 @@ services:
             - '%leapt_core.recaptcha.verify_host%'
         tags:
             - { name: validator.constraint_validator, alias: 'leapt_core.recaptcha' }
+
+    Leapt\CoreBundle\Validator\Constraints\RecaptchaV3Validator:
+        arguments:
+            - '%leapt_core.recaptcha.enabled%'
+            - '%leapt_core.recaptcha.private_key%'
+            - '%leapt_core.recaptcha.score_threshold%'
+            - '@request_stack'
+            - '@logger'
+        tags:
+            - { name: validator.constraint_validator, alias: 'leapt_core.recaptcha_v3' }
 
     Leapt\CoreBundle\Datalist\DatalistFactory:
         $formFactory: '@form.factory'

@@ -10,4 +10,9 @@ leapt_core:
         public_key:  'your_public_key'
         private_key: 'your_private_key'
         enabled: true
+        verify_host: false
+        ajax: false
+        api_host: www.google.com
+        hide_badge: false
+        score_threshold: 0.5
 ```

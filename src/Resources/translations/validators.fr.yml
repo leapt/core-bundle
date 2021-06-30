@@ -1,5 +1,6 @@
 "This value is not a valid captcha.": Vous devez cocher la case "Je ne suis pas un robot".
 "The captcha was not resolved on the right domain.": Le captcha est rempli sur un domaine inconnu.
+"The submitted captcha is invalid.": Le captcha envoyé est invalide, veuillez réessayer.
 "A slug can only contain lowercase letters, numbers and hyphens.": Un slug ne peut contenir que des lettres minuscules sans accents, des chiffres et des tirets.
 "This password is not strong enough.": Le mot de passe n'est pas assez fort.
 "This password is too short. It should have {{ limit }} characters or more.": Le mot de passe est trop court et doit contenir au moins {{ limit }} caractères.

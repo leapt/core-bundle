@@ -1,3 +1,9 @@
+3.3.0
+-----
+
+* Add RecaptchaV3 type & validator
+* Allow setting Recaptcha API URL
+
 3.2.1
 -----
 

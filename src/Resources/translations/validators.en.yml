@@ -1,5 +1,6 @@
 "This value is not a valid captcha.": This value is not a valid captcha.
 "The captcha was not resolved on the right domain.": The captcha was not resolved on the right domain.
+"The submitted captcha is invalid.": The submitted captcha is invalid.
 "A slug can only contain lowercase letters, numbers and hyphens.": A slug can only contain lowercase letters, numbers and hyphens.
 "This password is not strong enough.": This password is not strong enough.
 "This password is too short. It should have {{ limit }} characters or more.": This password is too short. It should have {{ limit }} characters or more.
