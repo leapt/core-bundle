@@ -30,7 +30,7 @@ class RecaptchaV3Validator extends ConstraintValidator
      */
     public function __construct(
         bool $enabled,
-        string $secretKey,
+        ?string $secretKey,
         float $scoreThreshold,
         RequestStack $requestStack,
         LoggerInterface $logger
