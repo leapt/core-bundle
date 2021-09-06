@@ -365,6 +365,8 @@ class Datalist implements DatalistInterface, \Countable
             }
         }
         $this->filterForm->submit($this->filterData);
+
+        return $this;
     }
 
     /**
@@ -395,6 +397,8 @@ class Datalist implements DatalistInterface, \Countable
     public function setRouteParams($routeParams)
     {
         $this->routeParams = $routeParams;
+
+        return $this;
     }
 
     /**
