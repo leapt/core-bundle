@@ -1,3 +1,9 @@
+3.3.2
+-----
+
+* RecaptchaV3Validator: make secretKey nullable (thanks to @Ikimoo)
+* Fix errors raised by phpstan
+
 3.3.1
 -----
 
