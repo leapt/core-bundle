@@ -1,43 +1,36 @@
-name: "Coding Standards"
+name: Coding Standards
 
 on:
   pull_request:
     branches:
-      - "master"
+      - master
   push:
     branches:
-      - "master"
+      - master
 
 jobs:
-  coding-standards:
-    name: "Coding Standards"
-    runs-on: "ubuntu-20.04"
+  php-cs-fixer:
+    name: PHP CS Fixer (PHP ${{ matrix.php-version }})
+    runs-on: ubuntu-20.04
 
     strategy:
       matrix:
         php-version:
-          - "8.0"
+          - '8.0'
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2"
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
         with:
-          coverage: "none"
-          php-version: "${{ matrix.php-version }}"
-          tools: "cs2pr"
+          coverage: none
+          php-version: ${{ matrix.php-version }}
+          tools: cs2pr
 
-      - name: "Cache dependencies installed with Composer"
-        uses: "actions/cache@v2"
-        with:
-          path: "~/.composer/cache"
-          key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
-          restore-keys: "php-${{ matrix.php-version }}-composer-locked-"
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v1
 
-      - name: "Install dependencies with Composer"
-        run: "composer install --no-interaction --no-progress --no-suggest"
-
-      - name: "Run php-cs-fixer"
-        run: "vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr"
+      - name: Run PHP CS Fixer
+        run: 'vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr'
