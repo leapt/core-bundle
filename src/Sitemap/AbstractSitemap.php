@@ -56,8 +56,6 @@ abstract class AbstractSitemap
      *
      * The easiest way to implement this method is to use the addUrl method
      *
-     * @abstract
-     *
      * @return mixed
      */
     abstract public function build(Router $router);
