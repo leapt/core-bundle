@@ -111,7 +111,7 @@ class RecaptchaValidator extends ConstraintValidator
         }
 
         // discard spam submissions
-        if (null === $answer || 0 === \strlen($answer)) {
+        if (null === $answer || '' === $answer) {
             return false;
         }
 
