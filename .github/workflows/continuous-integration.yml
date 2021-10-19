@@ -10,7 +10,7 @@ on:
 
 jobs:
   phpunit:
-    name: PHPUnit (PHP ${{ matrix.php-version }})
+    name: PHPUnit (PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }})
     runs-on: ubuntu-20.04
     env:
       SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
