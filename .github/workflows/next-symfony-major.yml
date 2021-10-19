@@ -42,6 +42,9 @@ jobs:
       - name: Set composer minimum stability
         run: composer config minimum-stability dev
 
+      - name: Remove not compatible vendors
+        run: composer remove --no-update --dev friendsofphp/php-cs-fixer
+
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
 
