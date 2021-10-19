@@ -24,7 +24,7 @@ class CondemnedFile extends UploadedFile
     /**
      * @return bool
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return true;
     }
