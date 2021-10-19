@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Next Symfony major version
 
 on:
   pull_request:
@@ -18,13 +18,10 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - '7.4'
           - '8.0'
           - '8.1'
         symfony-version:
-          - '4.4.*'
-          - '5.3.*'
-          - '5.4.x@dev'
+          - '6.0.x@dev'
 
     steps:
       - name: Checkout code
@@ -44,13 +41,9 @@ jobs:
 
       - name: Set composer minimum stability
         run: composer config minimum-stability dev
-        if: matrix.symfony-version == '5.4.x@dev'
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
 
       - name: Run PHPUnit
         run: vendor/bin/simple-phpunit --coverage-clover=coverage.xml
-
-      - name: Upload to Codecov
-        uses: codecov/codecov-action@v2
