@@ -25,6 +25,7 @@ jobs:
           - '4.4.*'
           - '5.3.*'
           - '5.4.x@dev'
+          - '6.0.x@dev'
 
     steps:
       - name: Checkout code
@@ -44,7 +45,7 @@ jobs:
 
       - name: Set composer minimum stability
         run: composer config minimum-stability dev
-        if: matrix.symfony-version == '5.4.x@dev'
+        if: matrix.symfony-version == '5.4.x@dev' || matrix.symfony-version == '6.0.x@dev'
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
