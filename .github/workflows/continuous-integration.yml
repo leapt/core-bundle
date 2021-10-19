@@ -44,6 +44,7 @@ jobs:
 
       - name: Set composer minimum stability
         run: composer config minimum-stability dev
+        if: matrix.symfony-version == '5.4.x@dev'
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
