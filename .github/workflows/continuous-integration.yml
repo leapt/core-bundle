@@ -24,7 +24,7 @@ jobs:
         symfony-version:
           - '4.4.*'
           - '5.3.*'
-          - '5.4.*'
+          - '5.4.x@dev'
 
     steps:
       - name: Checkout code
