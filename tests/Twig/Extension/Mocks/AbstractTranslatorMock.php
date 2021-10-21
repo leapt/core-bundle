@@ -1,22 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Tests\Twig\Extension\Mocks;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class AbstractTranslatorMock implements TranslatorInterface
 {
-    /**
-     * @var string
-     */
-    protected $locale;
+    protected string $locale;
 
-    public function setLocale($locale)
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }
 
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
@@ -27,10 +26,8 @@ abstract class AbstractTranslatorMock implements TranslatorInterface
      * @param string $id
      * @param array  $parameters
      * @param null   $number
-     *
-     * @return string
      */
-    protected function mockTrans($id, $parameters, $number = null)
+    protected function mockTrans($id, $parameters, $number = null): string
     {
         $separator = '|';
 

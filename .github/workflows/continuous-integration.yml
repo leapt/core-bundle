@@ -23,6 +23,15 @@ jobs:
           - '4.4.*'
           - '5.3.*'
           - '5.4.x@dev'
+        include:
+          - php-version: '8.0'
+            symfony-version: '6.0.x@dev'
+            env:
+              SYMFONY_DEPRECATIONS_HELPER: disabled
+          - php-version: '8.1'
+            symfony-version: '6.0.x@dev'
+            env:
+              SYMFONY_DEPRECATIONS_HELPER: disabled
 
     steps:
       - name: Checkout code
@@ -42,7 +51,11 @@ jobs:
 
       - name: Set composer minimum stability
         run: composer config minimum-stability dev
-        if: matrix.symfony-version == '5.4.x@dev'
+        if: matrix.symfony-version == '5.4.x@dev' || matrix.symfony-version == '6.0.x@dev'
+
+      - name: Remove not compatible vendors
+        run: composer remove --no-update --dev friendsofphp/php-cs-fixer
+        if: matrix.symfony-version == '6.0.x@dev'
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
@@ -52,3 +65,4 @@ jobs:
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v2
+        if: matrix.php-version == '8.0' && matrix.symfony-version == '5.3.*'
