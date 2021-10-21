@@ -2,11 +2,9 @@ name: Coding Standards
 
 on:
   pull_request:
-    branches:
-      - master
+    branches: ['4.x', '3.x']
   push:
-    branches:
-      - master
+    branches: ['4.x', '3.x']
 
 jobs:
   php-cs-fixer:
