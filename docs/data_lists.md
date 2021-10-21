@@ -111,13 +111,13 @@ Here are the Field Types provided by the bundle. Feel free to check the classes 
 
 You can also create your own.
 
-- [BooleanFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/BooleanFieldType.php)
-- [DateTimeFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/DateTimeFieldType.php)
-- [HeadingFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/HeadingFieldType.php)
-- [ImageFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/ImageFieldType.php)
-- [LabelFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/LabelFieldType.php)
-- [TextFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/TextFieldType.php)
-- [UrlFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Field/Type/UrlFieldType.php)
+- [BooleanFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/BooleanFieldType.php)
+- [DateTimeFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/DateTimeFieldType.php)
+- [HeadingFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/HeadingFieldType.php)
+- [ImageFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/ImageFieldType.php)
+- [LabelFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/LabelFieldType.php)
+- [TextFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/TextFieldType.php)
+- [UrlFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/UrlFieldType.php)
 
 ## Available Filter types
 
@@ -125,13 +125,13 @@ Here are the Filter Types provided by the bundle. Feel free to check the classes
 
 You can also create your own.
 
-- [ChoiceFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Filter/Type/ChoiceFilterType.php)
-- [EntityFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Filter/Type/EntityFilterType.php)
-- [SearchFieldType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Filter/Type/SearchFilterType.php)
+- [ChoiceFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/ChoiceFilterType.php)
+- [EntityFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/EntityFilterType.php)
+- [SearchFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/SearchFilterType.php)
 
 ## Available Action types
 
-There is currently one Action Type provided by the bundle: [SimpleActionType](https://github.com/leapt/core-bundle/blob/master/src/Datalist/Action/Type/SimpleActionType.php).
+There is currently one Action Type provided by the bundle: [SimpleActionType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Action/Type/SimpleActionType.php).
 Feel free to check the class to know the available options.
 
 You can also create your own.
