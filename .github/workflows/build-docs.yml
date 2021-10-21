@@ -1,9 +1,8 @@
-name: "Build docs"
+name: Build docs
 
 on:
   push:
-    branches:
-      - "master"
+    branches: ['4.x']
 
 jobs:
   deploy:
