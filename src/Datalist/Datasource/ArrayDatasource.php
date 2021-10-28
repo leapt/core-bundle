@@ -162,44 +162,20 @@ class ArrayDatasource extends AbstractDatasource
             $comparisonValue = $expression->getValue();
             $operator = $expression->getOperator();
 
-            switch ($operator) {
-                case ComparisonExpression::OPERATOR_EQ:
-                    $result = $value === $comparisonValue;
-                    break;
-                case ComparisonExpression::OPERATOR_NEQ:
-                    $result = $value !== $comparisonValue;
-                    break;
-                case ComparisonExpression::OPERATOR_GT:
-                    $result = $value > $comparisonValue;
-                    break;
-                case ComparisonExpression::OPERATOR_GTE:
-                    $result = $value >= $comparisonValue;
-                    break;
-                case ComparisonExpression::OPERATOR_LT:
-                    $result = $value < $comparisonValue;
-                    break;
-                case ComparisonExpression::OPERATOR_LTE:
-                    $result = $value <= $comparisonValue;
-                    break;
-                case ComparisonExpression::OPERATOR_LIKE:
-                    $result = str_contains($value, $comparisonValue);
-                    break;
-                case ComparisonExpression::OPERATOR_IN:
-                    $result = \in_array($value, $comparisonValue, true);
-                    break;
-                case ComparisonExpression::OPERATOR_NIN:
-                    $result = !\in_array($value, $comparisonValue, true);
-                    break;
-                case ComparisonExpression::OPERATOR_IS_NULL:
-                    $result = null === $value;
-                    break;
-                case ComparisonExpression::OPERATOR_IS_NOT_NULL:
-                    $result = null !== $value;
-                    break;
-                default:
-                    throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
-                    break;
-            }
+            $result = match ($operator) {
+                ComparisonExpression::OPERATOR_EQ => $value === $comparisonValue,
+                ComparisonExpression::OPERATOR_NEQ => $value !== $comparisonValue,
+                ComparisonExpression::OPERATOR_GT => $value > $comparisonValue,
+                ComparisonExpression::OPERATOR_GTE => $value >= $comparisonValue,
+                ComparisonExpression::OPERATOR_LT => $value < $comparisonValue,
+                ComparisonExpression::OPERATOR_LTE => $value <= $comparisonValue,
+                ComparisonExpression::OPERATOR_LIKE => str_contains($value, $comparisonValue),
+                ComparisonExpression::OPERATOR_IN => \in_array($value, $comparisonValue, true),
+                ComparisonExpression::OPERATOR_NIN => !\in_array($value, $comparisonValue, true),
+                ComparisonExpression::OPERATOR_IS_NULL => null === $value,
+                ComparisonExpression::OPERATOR_IS_NOT_NULL => null !== $value,
+                default => throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator)),
+            };
 
             return $result;
         };
