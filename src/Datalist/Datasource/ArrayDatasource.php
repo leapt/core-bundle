@@ -182,7 +182,7 @@ class ArrayDatasource extends AbstractDatasource
                     $result = $value <= $comparisonValue;
                     break;
                 case ComparisonExpression::OPERATOR_LIKE:
-                    $result = false !== strpos($value, $comparisonValue);
+                    $result = str_contains($value, $comparisonValue);
                     break;
                 case ComparisonExpression::OPERATOR_IN:
                     $result = \in_array($value, $comparisonValue, true);
