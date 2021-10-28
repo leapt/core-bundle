@@ -13,20 +13,11 @@ use Twig\Environment;
  */
 class FeedController
 {
-    /**
-     * @var FeedManager
-     */
-    private $feedManager;
+    private FeedManager $feedManager;
 
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
+    private ValidatorInterface $validator;
 
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private Environment $twig;
 
     public function __construct(FeedManager $feedManager, ValidatorInterface $validator, Environment $twig)
     {
@@ -36,13 +27,11 @@ class FeedController
     }
 
     /**
-     * @param string $feedName
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \ErrorException
      */
-    public function indexAction(Request $request, $feedName)
+    public function indexAction(Request $request, string $feedName)
     {
         $feed = $this->feedManager->getFeed($feedName);
 

@@ -9,15 +9,9 @@ use Leapt\CoreBundle\Datalist\DatalistInterface;
  */
 class DatalistAction implements DatalistActionInterface
 {
-    /**
-     * @var DatalistActionConfig
-     */
-    private $config;
+    private DatalistActionConfig $config;
 
-    /**
-     * @var DatalistInterface
-     */
-    private $datalist;
+    private DatalistInterface $datalist;
 
     public function __construct(DatalistActionConfig $config)
     {

@@ -12,38 +12,30 @@ abstract class AbstractRecaptchaType extends AbstractType
 {
     /**
      * The public key.
-     *
-     * @var string
      */
-    protected $publicKey;
+    protected string $publicKey;
 
     /**
      * Enable recaptcha?
-     *
-     * @var bool
      */
-    protected $enabled;
+    protected bool $enabled;
 
     /**
      * The API server host name.
-     *
-     * @var string
      */
-    protected $apiHost;
+    protected string $apiHost;
 
     /**
      * The reCAPTCHA server URL.
-     *
-     * @var string
      */
-    protected $recaptchaApiServer;
+    protected string $recaptchaApiServer;
 
     /**
      * @param string $publicKey Recaptcha public key
      * @param bool   $enabled   Recaptcha status
      * @param string $apiHost   Api host
      */
-    public function __construct($publicKey, $enabled, $apiHost = 'www.google.com')
+    public function __construct(string $publicKey, bool $enabled, string $apiHost = 'www.google.com')
     {
         $this->publicKey = $publicKey;
         $this->enabled = $enabled;

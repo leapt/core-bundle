@@ -14,10 +14,7 @@ class TextExtension extends AbstractExtension
 {
     public const MISSING_EXTENSION_EXCEPTION = 10;
 
-    /**
-     * @var bool
-     */
-    protected $useMultiByteString = false;
+    protected bool $useMultiByteString = false;
 
     /**
      * Core extension constructor
@@ -54,14 +51,9 @@ class TextExtension extends AbstractExtension
     /**
      * Filter used to safely truncate a string with html.
      *
-     * @param string $value
-     * @param int    $length
-     * @param bool   $preserve
-     * @param string $separator
-     *
      * @return string
      */
-    public function safeTruncate(Environment $env, $value, $length = 30, $preserve = true, $separator = '...')
+    public function safeTruncate(Environment $env, string $value, int $length = 30, bool $preserve = true, string $separator = '...')
     {
         $charset = $env->getCharset();
 
@@ -171,10 +163,8 @@ class TextExtension extends AbstractExtension
     /**
      * Enable/disable MultiByte string
      * Useful for Unit Testing.
-     *
-     * @param bool $useMultiByteString
      */
-    public function setMultiByteString($useMultiByteString)
+    public function setMultiByteString(bool $useMultiByteString)
     {
         if ($useMultiByteString && !$this->isMultiByteStringAvailable()) {
             throw new \BadFunctionCallException('mbstring extension is not enabled', self::MISSING_EXTENSION_EXCEPTION);
@@ -205,11 +195,9 @@ class TextExtension extends AbstractExtension
     /**
      * Helper used to close html tags.
      *
-     * @param string $html
-     *
      * @return string
      */
-    protected function closeTags($html)
+    protected function closeTags(string $html)
     {
         preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
         $openedTags = $result[1]; //put all closed tags into an array

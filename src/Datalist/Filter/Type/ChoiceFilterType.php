@@ -40,10 +40,7 @@ class ChoiceFilterType extends AbstractFilterType
         $builder->add($filter->getName(), ChoiceType::class, $formOptions);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options)
     {
         $builder->add(new ComparisonExpression($filter->getPropertyPath(), ComparisonExpression::OPERATOR_EQ, $value));
     }

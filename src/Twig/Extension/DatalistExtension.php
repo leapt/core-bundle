@@ -16,20 +16,11 @@ use Twig\TwigFunction;
 
 final class DatalistExtension extends AbstractExtension
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var string
-     */
-    private $defaultTheme = '@LeaptCore/Datalist/datalist_grid_layout.html.twig';
+    private string $defaultTheme = '@LeaptCore/Datalist/datalist_grid_layout.html.twig';
 
-    /**
-     * @var \SplObjectStorage
-     */
-    private $themes;
+    private \SplObjectStorage $themes;
 
     public function __construct(RequestStack $requestStack)
     {
@@ -74,13 +65,11 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param mixed $row
-     *
      * @return string
      *
      * @throws \Exception
      */
-    public function renderDatalistField(Environment $env, DatalistFieldInterface $field, $row)
+    public function renderDatalistField(Environment $env, DatalistFieldInterface $field, mixed $row)
     {
         $blockNames = [
             '_' . $field->getDatalist()->getType()->getBlockName() . '_' . $field->getName() . '_field',
@@ -156,13 +145,11 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @param mixed $item
-     *
      * @return string
      *
      * @throws \Exception
      */
-    public function renderDatalistAction(Environment $env, DatalistActionInterface $action, $item)
+    public function renderDatalistAction(Environment $env, DatalistActionInterface $action, mixed $item)
     {
         $blockNames = [
             '_' . $action->getDatalist()->getName() . '_' . $action->getName() . '_action',

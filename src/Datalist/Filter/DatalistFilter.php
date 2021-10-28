@@ -6,15 +6,12 @@ use Leapt\CoreBundle\Datalist\DatalistInterface;
 
 class DatalistFilter implements DatalistFilterInterface
 {
-    /**
-     * @var DatalistFilterConfig
-     */
-    private $config;
+    private DatalistFilterConfig $config;
 
     /**
      * @var
      */
-    private $datalist;
+    private DatalistInterface $datalist;
 
     public function __construct(DatalistFilterConfig $config)
     {
@@ -38,20 +35,14 @@ class DatalistFilter implements DatalistFilterInterface
     }
 
     /**
-     * @param string $name
-     *
      * @return bool
      */
-    public function hasOption($name)
+    public function hasOption(string $name)
     {
         return $this->config->hasOption($name);
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null)
+    public function getOption(string $name, mixed $default = null)
     {
         return $this->config->getOption($name, $default);
     }

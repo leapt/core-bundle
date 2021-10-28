@@ -17,15 +17,9 @@ abstract class AbstractSitemap
     public const CHANGEFREQ_YEARLY = 'yearly';
     public const CHANGEFREQ_NEVER = 'never';
 
-    /**
-     * @var array
-     */
-    private $urls = [];
+    private array $urls = [];
 
-    /**
-     * @var string
-     */
-    private $alias;
+    private string $alias;
 
     /**
      * @return array
@@ -35,10 +29,7 @@ abstract class AbstractSitemap
         return $this->urls;
     }
 
-    /**
-     * @param string $alias
-     */
-    public function setAlias($alias)
+    public function setAlias(string $alias)
     {
         $this->alias = $alias;
     }
@@ -63,13 +54,10 @@ abstract class AbstractSitemap
     /**
      * @param $loc
      * @param \DateTime $lastMod
-     * @param string    $changeFreq
-     * @param mixed     $priority
-     * @param array     $images
      *
      * @return AbstractSitemap
      */
-    protected function addUrl($loc, \DateTime $lastMod = null, $changeFreq = null, $priority = null, $images = [])
+    protected function addUrl($loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = [])
     {
         $url = [
             'loc' => $loc,
@@ -95,11 +83,9 @@ abstract class AbstractSitemap
     }
 
     /**
-     * @param string $changeFreq
-     *
      * @throws \InvalidArgumentException
      */
-    private function validateChangeFreq($changeFreq)
+    private function validateChangeFreq(string $changeFreq)
     {
         if (!\in_array($changeFreq, [
             self::CHANGEFREQ_ALWAYS,
@@ -116,11 +102,9 @@ abstract class AbstractSitemap
     }
 
     /**
-     * @param string $priority
-     *
      * @throws \InvalidArgumentException
      */
-    private function validatePriority($priority)
+    private function validatePriority(string $priority)
     {
         if (!is_numeric($priority) || 1 < $priority || 0 > $priority) {
             throw new \InvalidArgumentException('The priority parameter must be a number between 0 and 1');

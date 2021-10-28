@@ -13,30 +13,15 @@ class GoogleExtension extends AbstractExtension
 {
     public const INVALID_DOMAIN_NAME_EXCEPTION = 10;
 
-    /**
-     * @var string
-     */
-    private $accountId;
+    private ?string $accountId;
 
-    /**
-     * @var string
-     */
-    private $domainName;
+    private string $domainName;
 
-    /**
-     * @var string
-     */
-    private $allowLinker;
+    private string $allowLinker;
 
-    /**
-     * @var bool
-     */
-    private $debug;
+    private bool $debug;
 
-    /**
-     * @var string
-     */
-    private $tagsManagerId;
+    private string $tagsManagerId;
 
     public function __construct($accountId, $debug = false)
     {
@@ -63,7 +48,7 @@ class GoogleExtension extends AbstractExtension
     /**
      * @param string $domainName Available options are "auto" or "none" or a real domain name
      */
-    public function setDomainName($domainName)
+    public function setDomainName(string $domainName)
     {
         $this->domainName = $domainName;
     }
@@ -84,10 +69,7 @@ class GoogleExtension extends AbstractExtension
         return $this->domainName;
     }
 
-    /**
-     * @param string $allowLinker
-     */
-    public function setAllowLinker($allowLinker)
+    public function setAllowLinker(string $allowLinker)
     {
         $this->allowLinker = $allowLinker;
     }
@@ -100,10 +82,7 @@ class GoogleExtension extends AbstractExtension
         return $this->allowLinker;
     }
 
-    /**
-     * @param string $tagsManagerId
-     */
-    public function setTagsManagerId($tagsManagerId)
+    public function setTagsManagerId(string $tagsManagerId)
     {
         $this->tagsManagerId = $tagsManagerId;
     }
@@ -130,7 +109,7 @@ class GoogleExtension extends AbstractExtension
     /**
      * Send eCommerce order to Google Analytics.
      *
-     * @param array|object $order
+     * @param object|array $order
      *                            Example :
      *                            array(
      *                            'id' => '1234',           // order ID - required
@@ -153,7 +132,7 @@ class GoogleExtension extends AbstractExtension
      *
      * @return string
      */
-    public function getAnalyticsCommerce(Environment $env, $order)
+    public function getAnalyticsCommerce(Environment $env, object|array $order)
     {
         if (null !== $this->accountId || 'none' === $this->domainName) {
             $template = $env->load('@LeaptCore/Google/tracking_commerce.html.twig');

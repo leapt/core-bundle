@@ -21,30 +21,15 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  */
 class FileSubscriber implements EventSubscriber
 {
-    /**
-     * @var array
-     */
-    private $config = [];
+    private array $config = [];
 
-    /**
-     * @var array
-     */
-    private $unlinkQueue = [];
+    private array $unlinkQueue = [];
 
-    /**
-     * @var string
-     */
-    private $uploadDir;
+    private string $uploadDir;
 
-    /**
-     * @var AnnotationReader
-     */
-    private $reader;
+    private AnnotationReader $reader;
 
-    /**
-     * @param string $uploadDir
-     */
-    public function __construct($uploadDir)
+    public function __construct(string $uploadDir)
     {
         $this->uploadDir = $uploadDir;
         $this->reader = new AnnotationReader();

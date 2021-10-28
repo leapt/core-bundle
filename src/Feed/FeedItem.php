@@ -16,7 +16,7 @@ class FeedItem
      * @var string
      */
     #[Assert\NotBlank]
-    public $id;
+    public string $id;
 
     /**
      * Property used to generate RSS and ATOM "title" elements.
@@ -24,7 +24,7 @@ class FeedItem
      * @var string
      */
     #[Assert\NotBlank]
-    public $title;
+    public string $title;
 
     /**
      * Property used to generate the ATOM "updated" element.
@@ -33,7 +33,7 @@ class FeedItem
      */
     #[Assert\NotBlank]
     #[Assert\Type(\DateTime::class)]
-    public $updatedAt;
+    public \DateTime $updatedAt;
 
     /**
      * Property used to generate the RSS "pubDate" element ATOM "published" element.
@@ -42,17 +42,15 @@ class FeedItem
      */
     #[Assert\NotBlank]
     #[Assert\Type(\DateTime::class)]
-    public $createdAt;
+    public \DateTime $createdAt;
 
     /**
      * Property used to generate the RSS "description" element as well as
      * the ATOM "content" element.
      *
      * This value must be set if the link is not set
-     *
-     * @var string
      */
-    public $description;
+    public string $description;
 
     /**
      * Property used to generate the RSS "link" element as well as the ATOM "link" element
@@ -64,7 +62,7 @@ class FeedItem
      * @var string
      */
     #[Assert\Url]
-    public $link;
+    public string $link;
 
     /**
      * Property used to build RSS and ATOM "author" elements
@@ -85,7 +83,7 @@ class FeedItem
      */
     #[Assert\NotBlank]
     #[Assert\Type('array')]
-    public $author;
+    public array $author;
 
     /**
      * Check that the feed item has at least a link or a description.

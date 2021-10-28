@@ -13,15 +13,9 @@ use Leapt\CoreBundle\Paginator\DoctrineORMPaginator;
  */
 class DoctrineORMDatasource extends AbstractDatasource
 {
-    /**
-     * @var \Doctrine\ORM\QueryBuilder
-     */
-    private $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
-    /**
-     * @var bool
-     */
-    private $initialized = false;
+    private bool $initialized = false;
 
     public function __construct(QueryBuilder $queryBuilder)
     {

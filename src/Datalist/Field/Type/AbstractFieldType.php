@@ -24,10 +24,7 @@ abstract class AbstractFieldType implements FieldTypeInterface
             ->setAllowedTypes('callback', 'callable');
     }
 
-    /**
-     * @param mixed $row
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $row, array $options)
     {
         if (isset($options['callback'])) {
             $viewContext['value'] = \call_user_func($options['callback'], $row);

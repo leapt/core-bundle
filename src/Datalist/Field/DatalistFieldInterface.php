@@ -25,30 +25,18 @@ interface DatalistFieldInterface
     public function getOptions();
 
     /**
-     * @param string $name
-     *
      * @return bool
      */
-    public function hasOption($name);
+    public function hasOption(string $name);
+
+    public function getOption(string $name, mixed $default = null);
+
+    public function setOption(string $name, mixed $value);
 
     /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null);
-
-    /**
-     * @param string $name
-     * @param mixed  $value
-     */
-    public function setOption($name, $value);
-
-    /**
-     * @param mixed $row
-     *
      * @return mixed
      */
-    public function getData($row);
+    public function getData(mixed $row);
 
     public function setDatalist(DatalistInterface $datalist);
 

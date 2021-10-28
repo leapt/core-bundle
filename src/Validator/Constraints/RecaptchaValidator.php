@@ -15,45 +15,30 @@ class RecaptchaValidator extends ConstraintValidator
     public const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
     /**
      * Enable recaptcha?
-     *
-     * @var bool
      */
-    protected $enabled;
+    protected bool $enabled;
 
     /**
      * Recaptcha Private Key.
-     *
-     * @var bool
      */
-    protected $privateKey;
+    protected bool $privateKey;
 
     /**
      * Request Stack.
-     *
-     * @var RequestStack
      */
-    protected $requestStack;
+    protected RequestStack $requestStack;
 
     /**
      * HTTP Proxy informations.
-     *
-     * @var array
      */
-    protected $httpProxy;
+    protected array $httpProxy;
 
     /**
      * Enable serverside host check.
-     *
-     * @var bool
      */
-    protected $verifyHost;
+    protected bool $verifyHost;
 
-    /**
-     * @param bool   $enabled
-     * @param string $privateKey
-     * @param bool   $verifyHost
-     */
-    public function __construct($enabled, $privateKey, RequestStack $requestStack, array $httpProxy, $verifyHost)
+    public function __construct(bool $enabled, string $privateKey, RequestStack $requestStack, array $httpProxy, bool $verifyHost)
     {
         $this->enabled = $enabled;
         $this->privateKey = $privateKey;
@@ -96,15 +81,11 @@ class RecaptchaValidator extends ConstraintValidator
     /**
      * Calls an HTTP POST function to verify if the user's guess was correct.
      *
-     * @param string $privateKey
-     * @param string $remoteip
-     * @param string $answer
-     *
-     * @throws ValidatorException When missing remote ip
-     *
      * @return bool
+     *
+     *@throws ValidatorException When missing remote ip
      */
-    private function checkAnswer($privateKey, $remoteip, $answer)
+    private function checkAnswer(string $privateKey, string $remoteip, string $answer)
     {
         if (null === $remoteip || '' === $remoteip) {
             throw new ValidatorException('For security reasons, you must pass the remote ip to reCAPTCHA');
@@ -127,13 +108,9 @@ class RecaptchaValidator extends ConstraintValidator
     /**
      * Submits an HTTP POST to a reCAPTCHA server.
      *
-     * @param string $host
-     * @param string $path
-     * @param array  $data
-     *
      * @return array response
      */
-    private function httpGet($host, $path, $data)
+    private function httpGet(string $host, string $path, array $data)
     {
         $host = sprintf('%s%s?%s', $host, $path, http_build_query($data));
 

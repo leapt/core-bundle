@@ -18,10 +18,7 @@ abstract class AbstractFilterType implements FilterTypeInterface
             ->setDefined(['default']);
     }
 
-    /**
-     * @param mixed $row
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistFilterInterface $filter, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFilterInterface $filter, mixed $row, array $options)
     {
         $viewContext['translation_domain'] = $filter->getDatalist()->getOption('translation_domain');
     }

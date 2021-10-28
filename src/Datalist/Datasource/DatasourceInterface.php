@@ -10,17 +10,11 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 interface DatasourceInterface extends \IteratorAggregate, \Countable
 {
     /**
-     * @param int $limitPerPage
-     * @param int $rangeLimit
-     *
      * @return DatasourceInterface
      */
-    public function paginate($limitPerPage, $rangeLimit);
+    public function paginate(int $limitPerPage, int $rangeLimit);
 
-    /**
-     * @param int $page
-     */
-    public function setPage($page);
+    public function setPage(int $page);
 
     /**
      * @return mixed
@@ -38,10 +32,7 @@ interface DatasourceInterface extends \IteratorAggregate, \Countable
     public function getPaginator();
 
     /**
-     * @param string $field
-     * @param string $direction
-     *
      * @throws \InvalidArgumentException
      */
-    public function setSort($field, $direction);
+    public function setSort(string $field, string $direction);
 }

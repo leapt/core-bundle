@@ -7,20 +7,11 @@ class CombinedExpression implements ExpressionInterface
     public const OPERATOR_AND = 'and';
     public const OPERATOR_OR = 'or';
 
-    /**
-     * @var string
-     */
-    private $operator;
+    private string $operator;
 
-    /**
-     * @var array
-     */
-    private $expressions = [];
+    private array $expressions = [];
 
-    /**
-     * @param string $operator
-     */
-    public function __construct($operator)
+    public function __construct(string $operator)
     {
         if (!\in_array($operator, self::getValidOperators(), true)) {
             throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));

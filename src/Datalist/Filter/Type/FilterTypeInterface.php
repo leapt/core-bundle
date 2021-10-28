@@ -14,8 +14,5 @@ interface FilterTypeInterface extends TypeInterface
 {
     public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options);
 
-    /**
-     * @param mixed $value
-     */
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options);
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options);
 }

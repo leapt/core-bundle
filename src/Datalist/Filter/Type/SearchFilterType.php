@@ -31,10 +31,7 @@ class SearchFilterType extends AbstractFilterType
         ]);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options)
     {
         $terms = true === $options['search_explode_terms'] ? explode(' ', $value) : [$value];
         $baseExpression = new CombinedExpression(CombinedExpression::OPERATOR_AND);

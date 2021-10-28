@@ -13,10 +13,7 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class SimpleActionType extends AbstractActionType
 {
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
-    protected $router;
+    protected RouterInterface $router;
 
     public function __construct(RouterInterface $router)
     {

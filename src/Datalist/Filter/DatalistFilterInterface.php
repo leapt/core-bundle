@@ -30,15 +30,9 @@ interface DatalistFilterInterface
     public function getOptions();
 
     /**
-     * @param string $name
-     *
      * @return bool
      */
-    public function hasOption($name);
+    public function hasOption(string $name);
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null);
+    public function getOption(string $name, mixed $default = null);
 }

@@ -23,17 +23,14 @@ class UrlFieldType extends TextFieldType
         ;
     }
 
-    /**
-     * @param mixed $row
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options)
     {
-        parent::buildViewContext($viewContext, $field, $row, $options);
+        parent::buildViewContext($viewContext, $field, $value, $options);
 
         $url = $field->getOption('url');
 
         if (\is_callable($url)) {
-            $url = \call_user_func($url, $row);
+            $url = \call_user_func($url, $value);
         }
 
         $viewContext['url'] = $url;

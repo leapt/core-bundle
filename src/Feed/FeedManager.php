@@ -7,17 +7,12 @@ namespace Leapt\CoreBundle\Feed;
  */
 class FeedManager
 {
-    /**
-     * @var array
-     */
-    protected $feeds = [];
+    protected array $feeds = [];
 
     /**
      * Register a feed in the manager.
-     *
-     * @param string $alias
      */
-    public function registerFeed($alias, FeedInterface $feed)
+    public function registerFeed(string $alias, FeedInterface $feed)
     {
         $this->feeds[$alias] = $feed;
     }
@@ -25,13 +20,11 @@ class FeedManager
     /**
      * Get a feed by name.
      *
-     * @param string $feedName
-     *
      * @return FeedInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function getFeed($feedName)
+    public function getFeed(string $feedName)
     {
         if (!isset($this->feeds[$feedName])) {
             throw new \InvalidArgumentException(sprintf('Unknown feed "%s"', $feedName));

@@ -8,10 +8,7 @@ use Twig\TwigFilter;
 
 class DateExtension extends AbstractExtension
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -28,11 +25,9 @@ class DateExtension extends AbstractExtension
     /**
      * Filter used to display the time ago for a specific date.
      *
-     * @param \Datetime|string $datetime
-     *
      * @return string
      */
-    public function timeAgo($datetime, $locale = null)
+    public function timeAgo(\Datetime|string $datetime, $locale = null)
     {
         $interval = $this->relativeTime($datetime);
 
@@ -61,11 +56,9 @@ class DateExtension extends AbstractExtension
     /**
      * Helper used to get a date interval between a date and now.
      *
-     * @param string|\DateTime $datetime
-     *
      * @return \DateInterval
      */
-    private function relativeTime($datetime)
+    private function relativeTime(\DateTime|string $datetime)
     {
         if (\is_string($datetime)) {
             $datetime = new \DateTime($datetime);

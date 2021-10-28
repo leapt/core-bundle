@@ -14,7 +14,7 @@ class StringUtil
      *
      * @return string The camelized string
      */
-    public static function camelize($id)
+    public static function camelize(string $id)
     {
         return preg_replace_callback('/(^|_|\.)+(.)/', function ($match) { return ('.' === $match[1] ? '_' : '') . strtoupper($match[2]); }, $id);
     }
@@ -26,7 +26,7 @@ class StringUtil
      *
      * @return string The underscored string
      */
-    public static function underscore($id)
+    public static function underscore(string $id)
     {
         return strtolower(preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], strtr($id, '_', '.')));
     }
@@ -36,12 +36,9 @@ class StringUtil
      *
      * @static
      *
-     * @param string $string
-     * @param bool   $onlyUpperCase
-     *
      * @return string
      */
-    public static function unaccent($string, $onlyUpperCase = false)
+    public static function unaccent(string $string, bool $onlyUpperCase = false)
     {
         $replacements = [
             'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A',
@@ -93,13 +90,11 @@ class StringUtil
     }
 
     /**
-     * @param string $string
-     *
      * @return string
      *
      * @deprecated
      */
-    public static function sluggify($string)
+    public static function sluggify(string $string)
     {
         @trigger_error('sluggify() is deprecated. Use slugify instead', \E_USER_DEPRECATED);
 

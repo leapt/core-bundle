@@ -9,20 +9,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class NavigationRegistry
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var array
-     */
-    private $activePaths = [];
+    private array $activePaths = [];
 
-    /**
-     * @var array
-     */
-    private $breadcrumbsPaths = [];
+    private array $breadcrumbsPaths = [];
 
     public function __construct(RequestStack $requestStack)
     {
@@ -39,10 +30,7 @@ class NavigationRegistry
         $this->activePaths = $paths;
     }
 
-    /**
-     * @param string $path
-     */
-    public function addActivePath($path)
+    public function addActivePath(string $path)
     {
         $this->activePaths[] = $path;
     }
@@ -60,20 +48,14 @@ class NavigationRegistry
     /**
      * Checks if the provided path is to be considered as active.
      *
-     * @param string $path
-     *
      * @return bool
      */
-    public function isActivePath($path)
+    public function isActivePath(string $path)
     {
         return \in_array($path, $this->activePaths, true) || $this->requestStack->getCurrentRequest()->getRequestUri() === $path;
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function appendBreadcrumb($path, $label)
+    public function appendBreadcrumb(string $path, string $label)
     {
         $pair = [$path, $label];
         if (!\in_array($pair, $this->breadcrumbsPaths, true)) {
@@ -81,11 +63,7 @@ class NavigationRegistry
         }
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function prependBreadcrumb($path, $label)
+    public function prependBreadcrumb(string $path, string $label)
     {
         $pair = [$path, $label];
         if (!\in_array($pair, $this->breadcrumbsPaths, true)) {

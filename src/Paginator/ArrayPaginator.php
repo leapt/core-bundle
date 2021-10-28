@@ -7,10 +7,7 @@ namespace Leapt\CoreBundle\Paginator;
  */
 class ArrayPaginator extends AbstractPaginator
 {
-    /**
-     * @var array
-     */
-    private $items;
+    private array $items;
 
     public function __construct(array $items)
     {
@@ -20,11 +17,9 @@ class ArrayPaginator extends AbstractPaginator
     /**
      * Set the paginator current page.
      *
-     * @param int $page
-     *
      * @return PaginatorInterface
      */
-    public function setPage($page)
+    public function setPage(int $page)
     {
         $this->page = $page;
 
@@ -34,11 +29,9 @@ class ArrayPaginator extends AbstractPaginator
     /**
      * Set the maximum number of items to display on a single page.
      *
-     * @param int $limitPerPage
-     *
      * @return PaginatorInterface
      */
-    public function setLimitPerPage($limitPerPage)
+    public function setLimitPerPage(int $limitPerPage)
     {
         $this->limitPerPage = $limitPerPage;
 

@@ -13,15 +13,9 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  */
 class ArrayDatasource extends AbstractDatasource
 {
-    /**
-     * @var bool
-     */
-    private $initialized = false;
+    private bool $initialized = false;
 
-    /**
-     * @var array
-     */
-    private $items = [];
+    private array $items = [];
 
     public function __construct(array $items)
     {
@@ -163,18 +157,18 @@ class ArrayDatasource extends AbstractDatasource
             $operator = $expression->getOperator();
 
             $result = match ($operator) {
-                ComparisonExpression::OPERATOR_EQ => $value === $comparisonValue,
-                ComparisonExpression::OPERATOR_NEQ => $value !== $comparisonValue,
-                ComparisonExpression::OPERATOR_GT => $value > $comparisonValue,
-                ComparisonExpression::OPERATOR_GTE => $value >= $comparisonValue,
-                ComparisonExpression::OPERATOR_LT => $value < $comparisonValue,
-                ComparisonExpression::OPERATOR_LTE => $value <= $comparisonValue,
-                ComparisonExpression::OPERATOR_LIKE => str_contains($value, $comparisonValue),
-                ComparisonExpression::OPERATOR_IN => \in_array($value, $comparisonValue, true),
-                ComparisonExpression::OPERATOR_NIN => !\in_array($value, $comparisonValue, true),
-                ComparisonExpression::OPERATOR_IS_NULL => null === $value,
+                ComparisonExpression::OPERATOR_EQ          => $value === $comparisonValue,
+                ComparisonExpression::OPERATOR_NEQ         => $value !== $comparisonValue,
+                ComparisonExpression::OPERATOR_GT          => $value > $comparisonValue,
+                ComparisonExpression::OPERATOR_GTE         => $value >= $comparisonValue,
+                ComparisonExpression::OPERATOR_LT          => $value < $comparisonValue,
+                ComparisonExpression::OPERATOR_LTE         => $value <= $comparisonValue,
+                ComparisonExpression::OPERATOR_LIKE        => str_contains($value, $comparisonValue),
+                ComparisonExpression::OPERATOR_IN          => \in_array($value, $comparisonValue, true),
+                ComparisonExpression::OPERATOR_NIN         => !\in_array($value, $comparisonValue, true),
+                ComparisonExpression::OPERATOR_IS_NULL     => null === $value,
                 ComparisonExpression::OPERATOR_IS_NOT_NULL => null !== $value,
-                default => throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator)),
+                default                                    => throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator)),
             };
 
             return $result;

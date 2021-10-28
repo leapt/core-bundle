@@ -22,14 +22,12 @@ class LabelFieldType extends AbstractFieldType
     }
 
     /**
-     * @param $row
-     *
      * @throws \UnexpectedValueException
      * @throws \Exception
      */
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options)
     {
-        parent::buildViewContext($viewContext, $field, $row, $options);
+        parent::buildViewContext($viewContext, $field, $value, $options);
 
         $mappings = $options['mappings'];
 

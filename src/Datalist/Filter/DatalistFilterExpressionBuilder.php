@@ -10,7 +10,7 @@ class DatalistFilterExpressionBuilder
     /**
      * @var Expression\CombinedExpression
      */
-    private $expression;
+    private CombinedExpression $expression;
 
     public function __construct()
     {

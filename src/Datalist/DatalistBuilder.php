@@ -19,30 +19,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class DatalistBuilder extends DatalistConfig
 {
-    /**
-     * @var array
-     */
-    private $fields = [];
+    private array $fields = [];
 
-    /**
-     * @var array
-     */
-    private $filters = [];
+    private array $filters = [];
 
-    /**
-     * @var array
-     */
-    private $actions = [];
+    private array $actions = [];
 
-    /**
-     * @var DatalistFactory
-     */
-    private $factory;
+    private DatalistFactory $factory;
 
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
      * @param string                     $name
@@ -57,12 +42,9 @@ class DatalistBuilder extends DatalistConfig
     }
 
     /**
-     * @param string $field
-     * @param string $type
-     *
      * @return DatalistBuilder
      */
-    public function addField($field, $type = null, array $options = [])
+    public function addField(string $field, string $type = null, array $options = [])
     {
         $this->fields[$field] = [
             'type'    => $type,
@@ -95,12 +77,9 @@ class DatalistBuilder extends DatalistConfig
     }
 
     /**
-     * @param string $filter
-     * @param string $type
-     *
      * @return DatalistBuilder
      */
-    public function addFilter($filter, $type = null, array $options = [])
+    public function addFilter(string $filter, string $type = null, array $options = [])
     {
         $this->filters[$filter] = [
             'type'    => $type,
@@ -125,12 +104,9 @@ class DatalistBuilder extends DatalistConfig
     }
 
     /**
-     * @param string $action
-     * @param string $type
-     *
      * @return $this
      */
-    public function addAction($action, $type = null, array $options = [])
+    public function addAction(string $action, string $type = null, array $options = [])
     {
         $this->actions[$action] = [
             'type'    => $type,
@@ -141,11 +117,9 @@ class DatalistBuilder extends DatalistConfig
     }
 
     /**
-     * @param string $action
-     *
      * @return $this
      */
-    public function removeAction($action)
+    public function removeAction(string $action)
     {
         if (\array_key_exists($action, $this->actions)) {
             unset($this->actions[$action]);
@@ -206,11 +180,9 @@ class DatalistBuilder extends DatalistConfig
     }
 
     /**
-     * @param string $fieldName
-     *
      * @return \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface
      */
-    private function createField($fieldName, array $fieldConfig)
+    private function createField(string $fieldName, array $fieldConfig)
     {
         $type = $this->factory->getFieldType($fieldConfig['type'] ?: 'text');
 
@@ -226,11 +198,9 @@ class DatalistBuilder extends DatalistConfig
     }
 
     /**
-     * @param string $filterName
-     *
      * @return Filter\DatalistFilter
      */
-    private function createFilter($filterName, array $filterConfig)
+    private function createFilter(string $filterName, array $filterConfig)
     {
         $type = $this->factory->getFilterType($filterConfig['type']);
 
@@ -246,11 +216,9 @@ class DatalistBuilder extends DatalistConfig
     }
 
     /**
-     * @param string $actionName
-     *
      * @return DatalistAction
      */
-    private function createAction($actionName, array $actionConfig)
+    private function createAction(string $actionName, array $actionConfig)
     {
         $type = $this->factory->getActionType($actionConfig['type'] ?: 'simple');
 

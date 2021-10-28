@@ -11,20 +11,11 @@ use Twig\TwigTest;
  */
 class SiteExtension extends AbstractExtension
 {
-    /**
-     * @var array
-     */
-    private $titleParts = ['prepend' => [], 'append' => []];
+    private array $titleParts = ['prepend' => [], 'append' => []];
 
-    /**
-     * @var string
-     */
-    private $metaDescription;
+    private string $metaDescription;
 
-    /**
-     * @var array
-     */
-    private $metaKeywords = [];
+    private array $metaKeywords = [];
 
     /**
      * @return array
@@ -55,12 +46,9 @@ class SiteExtension extends AbstractExtension
     }
 
     /**
-     * @param string $baseTitle
-     * @param string $seperator
-     *
      * @return string
      */
-    public function getPageTitle($baseTitle, $seperator = ' - ')
+    public function getPageTitle(string $baseTitle, string $seperator = ' - ')
     {
         $parts = array_merge(
             $this->titleParts['prepend'],
@@ -72,19 +60,14 @@ class SiteExtension extends AbstractExtension
     }
 
     /**
-     * @param string $defaultDescription
-     *
      * @return string
      */
-    public function getMetaDescription($defaultDescription)
+    public function getMetaDescription(string $defaultDescription)
     {
         return $this->metaDescription ?: $defaultDescription;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setMetaDescription($description)
+    public function setMetaDescription(string $description)
     {
         $this->metaDescription = $description;
     }
@@ -109,18 +92,12 @@ class SiteExtension extends AbstractExtension
         $this->metaKeywords = array_merge($this->metaKeywords, $keywords);
     }
 
-    /**
-     * @param string $prepend
-     */
-    public function prependPageTitle($prepend)
+    public function prependPageTitle(string $prepend)
     {
         array_unshift($this->titleParts['prepend'], $prepend);
     }
 
-    /**
-     * @param string $append
-     */
-    public function appendPageTitle($append)
+    public function appendPageTitle(string $append)
     {
         $this->titleParts['append'][] = $append;
     }

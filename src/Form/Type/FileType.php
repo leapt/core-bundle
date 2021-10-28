@@ -20,10 +20,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  */
 class FileType extends AbstractType
 {
-    /**
-     * @var string
-     */
-    private $uploadDir;
+    private string $uploadDir;
 
     /**
      * @return string
@@ -101,10 +98,7 @@ class FileType extends AbstractType
         $view->vars['allow_delete'] = $options['allow_delete'];
     }
 
-    /**
-     * @param string $uploadDir
-     */
-    public function setUploadDir($uploadDir)
+    public function setUploadDir(string $uploadDir)
     {
         $this->uploadDir = $uploadDir;
     }

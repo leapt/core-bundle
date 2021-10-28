@@ -10,9 +10,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class SitemapManager
 {
     /**
-     * @var AbstractSitemap
+     * @var AbstractSitemap[]
      */
-    private $sitemaps = [];
+    private array $sitemaps = [];
 
     /**
      * @throws \BadMethodCallException
@@ -34,13 +34,11 @@ class SitemapManager
     }
 
     /**
-     * @param string $alias
-     *
      * @return AbstractSitemap
      *
      * @throws NotFoundHttpException
      */
-    public function getSitemap($alias)
+    public function getSitemap(string $alias)
     {
         if (!isset($this->sitemaps[$alias])) {
             throw new NotFoundHttpException(sprintf('There is no sitemap with alias "%s"', $alias));

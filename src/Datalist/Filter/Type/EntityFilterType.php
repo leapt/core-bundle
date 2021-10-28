@@ -47,10 +47,7 @@ class EntityFilterType extends AbstractFilterType
         $builder->add($filter->getName(), EntityType::class, $formOptions);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options)
     {
         $operator = true === $options['multiple'] ? ComparisonExpression::OPERATOR_IN : ComparisonExpression::OPERATOR_EQ;
         $builder->add(new ComparisonExpression($filter->getPropertyPath(), $operator, $value));

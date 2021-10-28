@@ -13,17 +13,13 @@ class RecaptchaV3Validator extends ConstraintValidator
 {
     private bool $enabled;
 
-    /** @var string */
-    private $secretKey;
+    private string $secretKey;
 
-    /** @var float */
-    private $scoreThreshold;
+    private float $scoreThreshold;
 
-    /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * ContainsRecaptchaValidator constructor.

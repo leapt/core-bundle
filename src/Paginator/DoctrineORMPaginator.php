@@ -10,10 +10,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
  */
 class DoctrineORMPaginator extends AbstractPaginator
 {
-    /**
-     * @var \Doctrine\ORM\Tools\Pagination\Paginator
-     */
-    private $doctrinePaginator;
+    private ORMPaginator $doctrinePaginator;
 
     public function __construct(AbstractQuery $query)
     {
@@ -21,11 +18,9 @@ class DoctrineORMPaginator extends AbstractPaginator
     }
 
     /**
-     * @param int $page
-     *
      * @return $this
      */
-    public function setPage($page)
+    public function setPage(int $page)
     {
         $page = 0 < $page ? $page : 1;
         $this->page = $page;
@@ -35,11 +30,9 @@ class DoctrineORMPaginator extends AbstractPaginator
     }
 
     /**
-     * @param int $limitPerPage
-     *
      * @return $this
      */
-    public function setLimitPerPage($limitPerPage)
+    public function setLimitPerPage(int $limitPerPage)
     {
         $this->limitPerPage = $limitPerPage;
         $this->doctrinePaginator->getQuery()->setMaxResults($limitPerPage);

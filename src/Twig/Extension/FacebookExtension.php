@@ -11,10 +11,7 @@ use Twig\TwigFunction;
  */
 class FacebookExtension extends AbstractExtension
 {
-    /**
-     * @var string
-     */
-    private $appId;
+    private string $appId;
 
     public function __construct($appId)
     {

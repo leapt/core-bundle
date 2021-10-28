@@ -9,63 +9,30 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
  */
 abstract class AbstractDatasource implements DatasourceInterface
 {
-    /**
-     * @var int
-     */
-    protected $page;
+    protected int $page;
+
+    protected int $limitPerPage;
+
+    protected int $rangeLimit;
+
+    protected string $searchQuery;
+
+    protected ExpressionInterface $filterExpression;
+
+    protected ExpressionInterface $searchExpression;
+
+    protected \Traversable $iterator;
+
+    protected \Leapt\CoreBundle\Paginator\PaginatorInterface $paginator;
+
+    protected string $sortField;
+
+    protected string $sortDirection;
 
     /**
-     * @var int
-     */
-    protected $limitPerPage;
-
-    /**
-     * @var int
-     */
-    protected $rangeLimit;
-
-    /**
-     * @var string
-     */
-    protected $searchQuery;
-
-    /**
-     * @var ExpressionInterface
-     */
-    protected $filterExpression;
-
-    /**
-     * @var ExpressionInterface
-     */
-    protected $searchExpression;
-
-    /**
-     * @var \Traversable
-     */
-    protected $iterator;
-
-    /**
-     * @var \Leapt\CoreBundle\Paginator\PaginatorInterface
-     */
-    protected $paginator;
-
-    /**
-     * @var string
-     */
-    protected $sortField;
-
-    /**
-     * @var string
-     */
-    protected $sortDirection;
-
-    /**
-     * @param int $limitPerPage
-     * @param int $rangeLimit
-     *
      * @return DatasourceInterface
      */
-    public function paginate($limitPerPage, $rangeLimit)
+    public function paginate(int $limitPerPage, int $rangeLimit)
     {
         $this->limitPerPage = $limitPerPage;
         $this->rangeLimit = $rangeLimit;
@@ -74,11 +41,9 @@ abstract class AbstractDatasource implements DatasourceInterface
     }
 
     /**
-     * @param int $page
-     *
      * @return DatasourceInterface
      */
-    public function setPage($page)
+    public function setPage(int $page)
     {
         $this->page = $page;
 
@@ -96,12 +61,9 @@ abstract class AbstractDatasource implements DatasourceInterface
     }
 
     /**
-     * @param string $field
-     * @param string $direction
-     *
      * @throws \InvalidArgumentException
      */
-    public function setSort($field, $direction)
+    public function setSort(string $field, string $direction)
     {
         if (!\in_array($direction, ['asc', 'desc'], true)) {
             throw new \InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');

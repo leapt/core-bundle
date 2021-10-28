@@ -12,15 +12,9 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  */
 class DatalistField implements DatalistFieldInterface
 {
-    /**
-     * @var DatalistFieldConfig
-     */
-    private $config;
+    private DatalistFieldConfig $config;
 
-    /**
-     * @var DatalistInterface
-     */
-    private $datalist;
+    private DatalistInterface $datalist;
 
     public function __construct(DatalistFieldConfig $config)
     {
@@ -44,45 +38,35 @@ class DatalistField implements DatalistFieldInterface
     }
 
     /**
-     * @param string $name
-     *
      * @return bool
      */
-    public function hasOption($name)
+    public function hasOption(string $name)
     {
         return $this->config->hasOption($name);
     }
 
     /**
-     * @param string $name
-     * @param mixed  $default
-     *
      * @return mixed
      */
-    public function getOption($name, $default = null)
+    public function getOption(string $name, mixed $default = null)
     {
         return $this->config->getOption($name, $default);
     }
 
     /**
-     * @param string $name
-     * @param $value
-     *
      * @return mixed|void
      */
-    public function setOption($name, $value)
+    public function setOption(string $name, mixed $value)
     {
         $this->config->setOption($name, $value);
     }
 
     /**
-     * @param mixed $row
-     *
      * @return mixed
      *
      * @throws \UnexpectedValueException
      */
-    public function getData($row)
+    public function getData(mixed $row)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
         $propertyPath = $this->getPropertyPath();

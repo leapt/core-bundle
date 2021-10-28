@@ -25,12 +25,9 @@ class BooleanFieldType extends AbstractFieldType
         ;
     }
 
-    /**
-     * @param mixed $row
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options)
     {
-        parent::buildViewContext($viewContext, $field, $row, $options);
+        parent::buildViewContext($viewContext, $field, $value, $options);
 
         $viewContext['true_label'] = $options['true_label'];
         $viewContext['false_label'] = $options['false_label'];

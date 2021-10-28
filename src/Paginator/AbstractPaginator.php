@@ -7,20 +7,11 @@ namespace Leapt\CoreBundle\Paginator;
  */
 abstract class AbstractPaginator implements PaginatorInterface
 {
-    /**
-     * @var int
-     */
-    protected $page = 1;
+    protected int $page = 1;
 
-    /**
-     * @var int
-     */
-    protected $limitPerPage = 0;
+    protected int $limitPerPage = 0;
 
-    /**
-     * @var int
-     */
-    protected $rangeLimit = 10;
+    protected int $rangeLimit = 10;
 
     /**
      * @return int
@@ -41,11 +32,9 @@ abstract class AbstractPaginator implements PaginatorInterface
     /**
      * Set the maximum numbers of pagination links (1 2 3 4 > >>) to display.
      *
-     * @param int $rangeLimit
-     *
      * @return PaginatorInterface
      */
-    public function setRangeLimit($rangeLimit)
+    public function setRangeLimit(int $rangeLimit)
     {
         $this->rangeLimit = $rangeLimit;
 

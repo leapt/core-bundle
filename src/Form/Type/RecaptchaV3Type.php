@@ -11,8 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RecaptchaV3Type extends AbstractRecaptchaType
 {
-    /** @var bool */
-    private $hideBadge;
+    private bool $hideBadge;
 
     /**
      * RecaptchaV3Type constructor.
@@ -20,9 +19,8 @@ class RecaptchaV3Type extends AbstractRecaptchaType
      * @param string $publicKey
      * @param bool   $enabled
      * @param bool   $hideBadge
-     * @param string $apiHost
      */
-    public function __construct($publicKey, $enabled, $hideBadge, $apiHost = 'www.google.com')
+    public function __construct($publicKey, $enabled, $hideBadge, string $apiHost = 'www.google.com')
     {
         parent::__construct($publicKey, $enabled, $apiHost);
 

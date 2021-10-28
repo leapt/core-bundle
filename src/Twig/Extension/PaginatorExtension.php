@@ -15,25 +15,13 @@ use Twig\TwigFunction;
  */
 class PaginatorExtension extends AbstractExtension
 {
-    /**
-     * @var string
-     */
-    private $template;
+    private string $template;
 
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var \SplObjectStorage
-     */
-    private $themes;
+    private \SplObjectStorage $themes;
 
-    /**
-     * @param string $template
-     */
-    public function __construct($template, RequestStack $requestStack)
+    public function __construct(string $template, RequestStack $requestStack)
     {
         $this->template = $template;
         $this->requestStack = $requestStack;
@@ -81,10 +69,7 @@ class PaginatorExtension extends AbstractExtension
         return $this->renderBlock($env, $paginator, [$blockName], $context);
     }
 
-    /**
-     * @param string $template
-     */
-    public function setTemplate($template)
+    public function setTemplate(string $template)
     {
         $this->template = $template;
     }

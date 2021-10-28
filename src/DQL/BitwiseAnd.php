@@ -12,15 +12,9 @@ use Doctrine\ORM\Query\SqlWalker;
  */
 class BitwiseAnd extends FunctionNode
 {
-    /**
-     * @var \Doctrine\ORM\Query\AST\Literal
-     */
-    private $firstValue;
+    private \Doctrine\ORM\Query\AST\Literal $firstValue;
 
-    /**
-     * @var \Doctrine\ORM\Query\AST\Literal
-     */
-    private $secondValue;
+    private \Doctrine\ORM\Query\AST\Literal $secondValue;
 
     public function parse(Parser $parser)
     {

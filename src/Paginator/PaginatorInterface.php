@@ -10,11 +10,9 @@ interface PaginatorInterface extends \Countable, \IteratorAggregate
     /**
      * Set the paginator current page.
      *
-     * @param int $page
-     *
      * @return PaginatorInterface
      */
-    public function setPage($page);
+    public function setPage(int $page);
 
     /**
      * Get the paginator current page.
@@ -26,11 +24,9 @@ interface PaginatorInterface extends \Countable, \IteratorAggregate
     /**
      * Set the maximum number of items to display on a single page.
      *
-     * @param int $limitPerPage
-     *
      * @return PaginatorInterface
      */
-    public function setLimitPerPage($limitPerPage);
+    public function setLimitPerPage(int $limitPerPage);
 
     /**
      * Get the maximum number of items to display on a single page.
@@ -42,11 +38,9 @@ interface PaginatorInterface extends \Countable, \IteratorAggregate
     /**
      * Set the maximum numbers of pagination links (1 2 3 4 > >>) to display.
      *
-     * @param int $rangeLimit
-     *
      * @return PaginatorInterface
      */
-    public function setRangeLimit($rangeLimit);
+    public function setRangeLimit(int $rangeLimit);
 
     /**
      * Get the maximum numbers of pagination links to display.

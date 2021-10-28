@@ -14,25 +14,10 @@ use Twig\Environment;
  */
 class SitemapController
 {
-    /**
-     * @var SitemapManager
-     */
-    private $sitemapManager;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
-     * @var Environment
-     */
-    private $twig;
-
-    /**
-     * @var HttpKernelInterface
-     */
-    private $httpKernel;
+    private SitemapManager $sitemapManager;
+    private RouterInterface $router;
+    private Environment $twig;
+    private HttpKernelInterface $httpKernel;
 
     public function __construct(SitemapManager $sitemapManager, RouterInterface $router, Environment $twig, HttpKernelInterface $httpKernel)
     {
@@ -59,10 +44,7 @@ class SitemapController
         throw new \UnexpectedValueException('No sitemap has been defined');
     }
 
-    /**
-     * @param string $sitemap
-     */
-    public function sitemapAction($sitemap)
+    public function sitemapAction(string $sitemap)
     {
         $sitemap = $this->sitemapManager->getSitemap($sitemap);
         $sitemap->build($this->router);

@@ -11,15 +11,19 @@ namespace Leapt\CoreBundle\Doctrine\Mapping;
 class File
 {
     /** @var string */
-    public $path;
+    public ?string $path = null;
+
     /** @var string */
-    public $pathCallback;
+    public ?string $pathCallback = null;
+
     /** @var string */
-    public $mappedBy;
+    public ?string $mappedBy = null;
+
     /** @var string */
-    public $filename;
+    public ?string $filename = null;
+
     /** @var string */
-    public $nameCallback;
+    public ?string $nameCallback = null;
 
     public function __construct(string $path = null, string $pathCallback = null, string $mappedBy = null, string $filename = null, string $nameCallback = null)
     {

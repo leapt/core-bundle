@@ -16,85 +16,37 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Datalist implements DatalistInterface, \Countable
 {
-    /**
-     * @var DatalistConfig
-     */
-    private $config;
+    private DatalistConfig $config;
 
-    /**
-     * @var DatasourceInterface
-     */
-    private $datasource;
+    private DatasourceInterface $datasource;
 
-    /**
-     * @var array
-     */
-    private $fields = [];
+    private array $fields = [];
 
-    /**
-     * @var array
-     */
-    private $sortedFields;
+    private array $sortedFields;
 
-    /**
-     * @var array
-     */
-    private $filters = [];
+    private array $filters = [];
 
-    /**
-     * @var DatalistFilterInterface
-     */
-    private $searchFilter;
+    private DatalistFilterInterface $searchFilter;
 
-    /**
-     * @var array
-     */
-    private $actions = [];
+    private array $actions = [];
 
-    /**
-     * @var int
-     */
-    private $page = 1;
+    private int $page = 1;
 
-    /**
-     * @var string
-     */
-    private $searchQuery;
+    private string $searchQuery;
 
-    /**
-     * @var array
-     */
-    private $filterData = [];
+    private array $filterData = [];
 
-    /**
-     * @var Form
-     */
-    private $searchForm;
+    private Form $searchForm;
 
-    /**
-     * @var Form
-     */
-    private $filterForm;
+    private Form $filterForm;
 
-    /**
-     * @var \Iterator
-     */
-    private $iterator;
+    private \Iterator $iterator;
 
-    /**
-     * @var bool
-     */
-    private $initialized = false;
+    private bool $initialized = false;
 
-    /**
-     * @var string
-     */
-    private $route;
+    private string $route;
 
-    /**
-     * @var array
-     */
-    private $routeParams = [];
+    private array $routeParams = [];
 
     public function __construct(DatalistConfig $config)
     {

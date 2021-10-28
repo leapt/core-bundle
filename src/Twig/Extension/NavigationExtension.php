@@ -11,10 +11,7 @@ use Twig\TwigFunction;
  */
 class NavigationExtension extends AbstractExtension
 {
-    /**
-     * @var \Leapt\CoreBundle\Navigation\NavigationRegistry
-     */
-    private $registry;
+    private NavigationRegistry $registry;
 
     public function __construct(NavigationRegistry $registry)
     {
@@ -74,29 +71,19 @@ class NavigationExtension extends AbstractExtension
     /**
      * Checks if the provided path is to be considered as active.
      *
-     * @param string $path
-     *
      * @return bool
      */
-    public function isActivePath($path)
+    public function isActivePath(string $path)
     {
         return $this->registry->isActivePath($path);
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function appendBreadcrumb($path, $label)
+    public function appendBreadcrumb(string $path, string $label)
     {
         $this->registry->appendBreadcrumb($path, $label);
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function prependBreadcrumb($path, $label)
+    public function prependBreadcrumb(string $path, string $label)
     {
         $this->registry->prependBreadcrumb($path, $label);
     }

@@ -12,13 +12,10 @@ class RecaptchaType extends AbstractRecaptchaType
 {
     /**
      * Use AJAX api?
-     *
-     * @var bool
      */
-    protected $ajax;
+    protected bool $ajax;
 
-    /** @var LocaleResolver */
-    protected $localeResolver;
+    protected LocaleResolver $localeResolver;
 
     public function __construct($publicKey, $enabled, $ajax, LocaleResolver $localeResolver, $apiHost = 'www.google.com')
     {
