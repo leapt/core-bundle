@@ -13,39 +13,35 @@ class FeedItem
     /**
      * Property used to generate ATOM "id" element.
      *
-     * @Assert\NotBlank()
-     *
      * @var string
      */
+    #[Assert\NotBlank]
     public $id;
 
     /**
      * Property used to generate RSS and ATOM "title" elements.
      *
-     * @Assert\NotBlank()
-     *
      * @var string
      */
+    #[Assert\NotBlank]
     public $title;
 
     /**
      * Property used to generate the ATOM "updated" element.
      *
-     * @Assert\NotBlank()
-     * @Assert\Type(type="\DateTime")
-     *
      * @var \DateTime
      */
+    #[Assert\NotBlank]
+    #[Assert\Type(\DateTime::class)]
     public $updatedAt;
 
     /**
      * Property used to generate the RSS "pubDate" element ATOM "published" element.
      *
-     * @Assert\NotBlank()
-     * @Assert\Type(type="\DateTime")
-     *
      * @var \DateTime
      */
+    #[Assert\NotBlank]
+    #[Assert\Type(\DateTime::class)]
     public $createdAt;
 
     /**
@@ -65,10 +61,9 @@ class FeedItem
      *
      * This value must be set if the description is not set
      *
-     * @Assert\Url()
-     *
      * @var string
      */
+    #[Assert\Url]
     public $link;
 
     /**
@@ -76,8 +71,6 @@ class FeedItem
      * This property should be built as an associative array, e.a :
      * array('name' => 'John Doe', 'email' => 'john@doe.com').
      *
-     * @Assert\NotBlank()
-     * @Assert\Type(type="array")
      * @Assert\Collection(
      *     fields = {
      *         "name" = @Assert\NotBlank(),
@@ -90,13 +83,14 @@ class FeedItem
      *
      * @var array
      */
+    #[Assert\NotBlank]
+    #[Assert\Type('array')]
     public $author;
 
     /**
      * Check that the feed item has at least a link or a description.
-     *
-     * @Assert\Callback()
      */
+    #[Assert\Callback]
     public function hasLinkOrDescription(ExecutionContextInterface $context)
     {
         if (!isset($this->link) || !isset($this->description)) {
