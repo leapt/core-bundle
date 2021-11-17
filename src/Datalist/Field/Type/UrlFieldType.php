@@ -7,9 +7,7 @@ use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UrlFieldType.
- *
- * Add a link surrounding the TextFieldType
+ * Add a link surrounding the TextFieldType.
  */
 class UrlFieldType extends TextFieldType
 {

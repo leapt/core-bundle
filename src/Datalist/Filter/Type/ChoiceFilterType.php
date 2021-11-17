@@ -9,9 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class ChoiceFilterType.
- */
 class ChoiceFilterType extends AbstractFilterType
 {
     public function configureOptions(OptionsResolver $resolver)

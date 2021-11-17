@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Feed;
 
-/**
- * Class FeedManager.
- */
 class FeedManager
 {
     protected array $feeds = [];

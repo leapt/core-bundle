@@ -7,18 +7,12 @@ use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-/**
- * Class DatalistField.
- */
 class DatalistField implements DatalistFieldInterface
 {
-    private DatalistFieldConfig $config;
-
     private DatalistInterface $datalist;
 
-    public function __construct(DatalistFieldConfig $config)
+    public function __construct(private DatalistFieldConfig $config)
     {
-        $this->config = $config;
     }
 
     /**

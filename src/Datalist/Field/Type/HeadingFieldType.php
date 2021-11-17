@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Datalist\Field\Type;
 
-/**
- * Class HeadingFieldType.
- */
 class HeadingFieldType extends TextFieldType
 {
     /**

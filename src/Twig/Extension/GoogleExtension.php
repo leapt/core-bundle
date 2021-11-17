@@ -6,27 +6,18 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-/**
- * Class GoogleExtension.
- */
 class GoogleExtension extends AbstractExtension
 {
     public const INVALID_DOMAIN_NAME_EXCEPTION = 10;
-
-    private ?string $accountId;
 
     private string $domainName;
 
     private string $allowLinker;
 
-    private bool $debug;
-
     private string $tagsManagerId;
 
-    public function __construct($accountId, $debug = false)
+    public function __construct(private ?string $accountId = null, private bool $debug = false)
     {
-        $this->accountId = $accountId;
-        $this->debug = $debug;
     }
 
     /**

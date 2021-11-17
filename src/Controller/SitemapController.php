@@ -9,22 +9,14 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
-/**
- * Class SitemapController.
- */
 class SitemapController
 {
-    private SitemapManager $sitemapManager;
-    private RouterInterface $router;
-    private Environment $twig;
-    private HttpKernelInterface $httpKernel;
-
-    public function __construct(SitemapManager $sitemapManager, RouterInterface $router, Environment $twig, HttpKernelInterface $httpKernel)
-    {
-        $this->sitemapManager = $sitemapManager;
-        $this->router = $router;
-        $this->twig = $twig;
-        $this->httpKernel = $httpKernel;
+    public function __construct(
+        private SitemapManager $sitemapManager,
+        private RouterInterface $router,
+        private Environment $twig,
+        private HttpKernelInterface $httpKernel
+    ) {
     }
 
     public function defaultAction(Request $request)

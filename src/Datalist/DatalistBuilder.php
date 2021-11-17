@@ -14,9 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class DatalistBuilder.
- */
 class DatalistBuilder extends DatalistConfig
 {
     private array $fields = [];
@@ -25,20 +22,14 @@ class DatalistBuilder extends DatalistConfig
 
     private array $actions = [];
 
-    private DatalistFactory $factory;
-
-    private FormFactoryInterface $formFactory;
-
-    /**
-     * @param string                     $name
-     * @param Type\DatalistTypeInterface $type
-     */
-    public function __construct($name, DatalistTypeInterface $type, array $options, DatalistFactory $factory, FormFactoryInterface $formFactory)
-    {
+    public function __construct(
+        string $name,
+        DatalistTypeInterface $type,
+        array $options,
+        private DatalistFactory $factory,
+        private FormFactoryInterface $formFactory
+    ) {
         parent::__construct($name, $type, $options);
-
-        $this->factory = $factory;
-        $this->formFactory = $formFactory;
     }
 
     /**

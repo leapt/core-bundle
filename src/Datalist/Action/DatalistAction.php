@@ -4,18 +4,12 @@ namespace Leapt\CoreBundle\Datalist\Action;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
 
-/**
- * Class DatalistAction.
- */
 class DatalistAction implements DatalistActionInterface
 {
-    private DatalistActionConfig $config;
-
     private DatalistInterface $datalist;
 
-    public function __construct(DatalistActionConfig $config)
+    public function __construct(private DatalistActionConfig $config)
     {
-        $this->config = $config;
     }
 
     /**

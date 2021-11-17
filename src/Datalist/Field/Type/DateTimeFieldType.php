@@ -4,9 +4,6 @@ namespace Leapt\CoreBundle\Datalist\Field\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class DateTimeFieldType.
- */
 class DateTimeFieldType extends AbstractFieldType
 {
     public function configureOptions(OptionsResolver $resolver)

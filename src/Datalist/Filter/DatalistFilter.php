@@ -6,16 +6,10 @@ use Leapt\CoreBundle\Datalist\DatalistInterface;
 
 class DatalistFilter implements DatalistFilterInterface
 {
-    private DatalistFilterConfig $config;
-
-    /**
-     * @var
-     */
     private DatalistInterface $datalist;
 
-    public function __construct(DatalistFilterConfig $config)
+    public function __construct(private DatalistFilterConfig $config)
     {
-        $this->config = $config;
     }
 
     /**

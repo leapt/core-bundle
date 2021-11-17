@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Util;
 
-/**
- * Class StringUtil.
- */
 class StringUtil
 {
     /**
@@ -87,17 +84,5 @@ class StringUtil
                     preg_replace('/::/', '/', $slug)))));
 
         return trim($slug, '-');
-    }
-
-    /**
-     * @return string
-     *
-     * @deprecated
-     */
-    public static function sluggify(string $string)
-    {
-        @trigger_error('sluggify() is deprecated. Use slugify instead', \E_USER_DEPRECATED);
-
-        return self::slugify($string);
     }
 }

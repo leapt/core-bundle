@@ -9,9 +9,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class EntityFilterType.
- */
 class EntityFilterType extends AbstractFilterType
 {
     public function configureOptions(OptionsResolver $resolver)

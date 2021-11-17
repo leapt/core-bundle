@@ -5,31 +5,22 @@ namespace Leapt\CoreBundle\Feed;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- * Class FeedItem.
- */
 class FeedItem
 {
     /**
      * Property used to generate ATOM "id" element.
-     *
-     * @var string
      */
     #[Assert\NotBlank]
     public string $id;
 
     /**
      * Property used to generate RSS and ATOM "title" elements.
-     *
-     * @var string
      */
     #[Assert\NotBlank]
     public string $title;
 
     /**
      * Property used to generate the ATOM "updated" element.
-     *
-     * @var \DateTime
      */
     #[Assert\NotBlank]
     #[Assert\Type(\DateTime::class)]
@@ -37,8 +28,6 @@ class FeedItem
 
     /**
      * Property used to generate the RSS "pubDate" element ATOM "published" element.
-     *
-     * @var \DateTime
      */
     #[Assert\NotBlank]
     #[Assert\Type(\DateTime::class)]
@@ -58,8 +47,6 @@ class FeedItem
      * library does not).
      *
      * This value must be set if the description is not set
-     *
-     * @var string
      */
     #[Assert\Url]
     public string $link;
@@ -78,8 +65,6 @@ class FeedItem
      *         }
      *     }
      * )
-     *
-     * @var array
      */
     #[Assert\NotBlank]
     #[Assert\Type('array')]

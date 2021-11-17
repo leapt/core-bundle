@@ -7,9 +7,6 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-/**
- * Class TextExtension.
- */
 class TextExtension extends AbstractExtension
 {
     public const MISSING_EXTENSION_EXCEPTION = 10;

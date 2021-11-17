@@ -6,16 +6,10 @@ use Leapt\CoreBundle\Navigation\NavigationRegistry;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-/**
- * Class NavigationExtension.
- */
 class NavigationExtension extends AbstractExtension
 {
-    private NavigationRegistry $registry;
-
-    public function __construct(NavigationRegistry $registry)
+    public function __construct(private NavigationRegistry $registry)
     {
-        $this->registry = $registry;
     }
 
     /**

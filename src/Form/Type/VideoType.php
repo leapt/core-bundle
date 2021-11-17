@@ -8,9 +8,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class VideoType.
- */
 class VideoType extends AbstractType
 {
     /**

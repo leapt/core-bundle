@@ -13,38 +13,20 @@ class RecaptchaValidator extends ConstraintValidator
      * The reCAPTCHA server URL's.
      */
     public const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
-    /**
-     * Enable recaptcha?
-     */
-    protected bool $enabled;
 
     /**
      * Recaptcha Private Key.
      */
     protected bool $privateKey;
 
-    /**
-     * Request Stack.
-     */
-    protected RequestStack $requestStack;
-
-    /**
-     * HTTP Proxy informations.
-     */
-    protected array $httpProxy;
-
-    /**
-     * Enable serverside host check.
-     */
-    protected bool $verifyHost;
-
-    public function __construct(bool $enabled, string $privateKey, RequestStack $requestStack, array $httpProxy, bool $verifyHost)
-    {
-        $this->enabled = $enabled;
+    public function __construct(
+        protected bool $enabled,
+        string $privateKey,
+        protected RequestStack $requestStack,
+        protected array $httpProxy,
+        protected bool $verifyHost
+    ) {
         $this->privateKey = $privateKey;
-        $this->requestStack = $requestStack;
-        $this->httpProxy = $httpProxy;
-        $this->verifyHost = $verifyHost;
     }
 
     /**

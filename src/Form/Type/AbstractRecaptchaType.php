@@ -11,21 +11,6 @@ use Symfony\Component\Form\FormView;
 abstract class AbstractRecaptchaType extends AbstractType
 {
     /**
-     * The public key.
-     */
-    protected string $publicKey;
-
-    /**
-     * Enable recaptcha?
-     */
-    protected bool $enabled;
-
-    /**
-     * The API server host name.
-     */
-    protected string $apiHost;
-
-    /**
      * The reCAPTCHA server URL.
      */
     protected string $recaptchaApiServer;
@@ -35,11 +20,8 @@ abstract class AbstractRecaptchaType extends AbstractType
      * @param bool   $enabled   Recaptcha status
      * @param string $apiHost   Api host
      */
-    public function __construct(string $publicKey, bool $enabled, string $apiHost = 'www.google.com')
+    public function __construct(protected string $publicKey, protected bool $enabled, protected string $apiHost = 'www.google.com')
     {
-        $this->publicKey = $publicKey;
-        $this->enabled = $enabled;
-        $this->apiHost = $apiHost;
         $this->recaptchaApiServer = sprintf('https://%s/recaptcha/api.js', $apiHost);
     }
 

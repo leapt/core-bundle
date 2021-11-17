@@ -6,9 +6,6 @@ use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class AbstractActionType.
- */
 abstract class AbstractActionType implements ActionTypeInterface
 {
     public function configureOptions(OptionsResolver $resolver)

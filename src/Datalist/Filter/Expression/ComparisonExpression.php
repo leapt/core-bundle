@@ -16,24 +16,17 @@ class ComparisonExpression implements ExpressionInterface
     public const OPERATOR_IS_NULL = 'is_null';
     public const OPERATOR_IS_NOT_NULL = 'is_not_null';
 
-    private string $propertyPath;
-
-    private string $operator;
-
-    private mixed $value;
-
     /**
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $propertyPath, string $operator, mixed $value)
-    {
+    public function __construct(
+        private string $propertyPath,
+        private string $operator,
+        private mixed $value
+    ) {
         if (!\in_array($operator, self::getValidOperators(), true)) {
             throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));
         }
-
-        $this->propertyPath = $propertyPath;
-        $this->operator = $operator;
-        $this->value = $value;
     }
 
     /**

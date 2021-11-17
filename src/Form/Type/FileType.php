@@ -15,9 +15,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-/**
- * Class FileType.
- */
 class FileType extends AbstractType
 {
     private string $uploadDir;

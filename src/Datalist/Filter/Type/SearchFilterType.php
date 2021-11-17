@@ -10,9 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class SearchFilterType.
- */
 class SearchFilterType extends AbstractFilterType
 {
     public function configureOptions(OptionsResolver $resolver)

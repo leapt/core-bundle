@@ -16,22 +16,16 @@ use Leapt\CoreBundle\Util\StringUtil;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-/**
- * Class FileSubscriber.
- */
 class FileSubscriber implements EventSubscriber
 {
     private array $config = [];
 
     private array $unlinkQueue = [];
 
-    private string $uploadDir;
-
     private AnnotationReader $reader;
 
-    public function __construct(string $uploadDir)
+    public function __construct(private string $uploadDir)
     {
-        $this->uploadDir = $uploadDir;
         $this->reader = new AnnotationReader();
     }
 

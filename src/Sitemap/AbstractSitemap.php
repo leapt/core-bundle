@@ -4,9 +4,6 @@ namespace Leapt\CoreBundle\Sitemap;
 
 use Symfony\Component\Routing\Router;
 
-/**
- * Class AbstractSitemap.
- */
 abstract class AbstractSitemap
 {
     public const CHANGEFREQ_ALWAYS = 'always';

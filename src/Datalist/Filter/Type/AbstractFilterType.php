@@ -6,9 +6,6 @@ use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class AbstractFilterType.
- */
 abstract class AbstractFilterType implements FilterTypeInterface
 {
     public function configureOptions(OptionsResolver $resolver)

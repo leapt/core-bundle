@@ -4,9 +4,6 @@ namespace Leapt\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 
-/**
- * Class ImageType.
- */
 class ImageType extends AbstractType
 {
     /**

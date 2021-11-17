@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Paginator;
 
-/**
- * Class AbstractPaginator.
- */
 abstract class AbstractPaginator implements PaginatorInterface
 {
     protected int $page = 1;

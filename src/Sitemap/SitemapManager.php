@@ -4,9 +4,6 @@ namespace Leapt\CoreBundle\Sitemap;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * Class SitemapManager.
- */
 class SitemapManager
 {
     /**

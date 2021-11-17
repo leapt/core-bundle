@@ -5,9 +5,6 @@ namespace Leapt\CoreBundle\Paginator;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
-/**
- * Class DoctrineORMPaginator.
- */
 class DoctrineORMPaginator extends AbstractPaginator
 {
     private ORMPaginator $doctrinePaginator;

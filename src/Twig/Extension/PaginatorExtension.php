@@ -10,21 +10,12 @@ use Twig\Extension\AbstractExtension;
 use Twig\Template;
 use Twig\TwigFunction;
 
-/**
- * Class PaginatorExtension.
- */
 class PaginatorExtension extends AbstractExtension
 {
-    private string $template;
-
-    private RequestStack $requestStack;
-
     private \SplObjectStorage $themes;
 
-    public function __construct(string $template, RequestStack $requestStack)
+    public function __construct(private string $template, private RequestStack $requestStack)
     {
-        $this->template = $template;
-        $this->requestStack = $requestStack;
         $this->themes = new \SplObjectStorage();
     }
 

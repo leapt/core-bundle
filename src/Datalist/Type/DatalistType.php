@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Datalist\Type;
 
-/**
- * Class DatalistType.
- */
 class DatalistType extends AbstractDatalistType
 {
     /**

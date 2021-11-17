@@ -6,16 +6,10 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-/**
- * Class FacebookExtension.
- */
 class FacebookExtension extends AbstractExtension
 {
-    private string $appId;
-
-    public function __construct($appId)
+    public function __construct(private string $appId)
     {
-        $this->appId = $appId;
     }
 
     /**

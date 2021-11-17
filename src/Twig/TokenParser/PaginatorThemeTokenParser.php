@@ -7,9 +7,6 @@ use Twig\Node\Expression\ArrayExpression;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
-/**
- * Class PaginatorThemeTokenParser.
- */
 class PaginatorThemeTokenParser extends AbstractTokenParser
 {
     public function parse(Token $token)

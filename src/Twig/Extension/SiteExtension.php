@@ -6,9 +6,6 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
-/**
- * Class SiteExtension.
- */
 class SiteExtension extends AbstractExtension
 {
     private array $titleParts = ['prepend' => [], 'append' => []];

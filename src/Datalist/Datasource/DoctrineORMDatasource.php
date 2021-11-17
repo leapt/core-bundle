@@ -8,18 +8,12 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\ComparisonExpression;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 use Leapt\CoreBundle\Paginator\DoctrineORMPaginator;
 
-/**
- * Class DoctrineORMDatasource.
- */
 class DoctrineORMDatasource extends AbstractDatasource
 {
-    private QueryBuilder $queryBuilder;
-
     private bool $initialized = false;
 
-    public function __construct(QueryBuilder $queryBuilder)
+    public function __construct(private QueryBuilder $queryBuilder)
     {
-        $this->queryBuilder = $queryBuilder;
     }
 
     /**

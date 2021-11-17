@@ -4,9 +4,6 @@ namespace Leapt\CoreBundle\Datalist\Datasource;
 
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 
-/**
- * Class AbstractDatasource.
- */
 abstract class AbstractDatasource implements DatasourceInterface
 {
     protected int $page;

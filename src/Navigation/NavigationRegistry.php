@@ -4,20 +4,14 @@ namespace Leapt\CoreBundle\Navigation;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * Class NavigationRegistry.
- */
 class NavigationRegistry
 {
-    private RequestStack $requestStack;
-
     private array $activePaths = [];
 
     private array $breadcrumbsPaths = [];
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
     /**

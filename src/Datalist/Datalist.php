@@ -11,13 +11,8 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class Datalist.
- */
 class Datalist implements DatalistInterface, \Countable
 {
-    private DatalistConfig $config;
-
     private DatasourceInterface $datasource;
 
     private array $fields = [];
@@ -48,9 +43,8 @@ class Datalist implements DatalistInterface, \Countable
 
     private array $routeParams = [];
 
-    public function __construct(DatalistConfig $config)
+    public function __construct(private DatalistConfig $config)
     {
-        $this->config = $config;
     }
 
     /**

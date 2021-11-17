@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Datalist;
 
-/**
- * Class ViewContext.
- */
 class ViewContext implements \ArrayAccess
 {
     /**

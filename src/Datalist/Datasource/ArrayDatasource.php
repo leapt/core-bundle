@@ -8,18 +8,12 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 use Leapt\CoreBundle\Paginator\ArrayPaginator;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-/**
- * Class ArrayDatasource.
- */
 class ArrayDatasource extends AbstractDatasource
 {
     private bool $initialized = false;
 
-    private array $items = [];
-
-    public function __construct(array $items)
+    public function __construct(private array $items = [])
     {
-        $this->items = $items;
     }
 
     /**
@@ -156,7 +150,7 @@ class ArrayDatasource extends AbstractDatasource
             $comparisonValue = $expression->getValue();
             $operator = $expression->getOperator();
 
-            $result = match ($operator) {
+            return match ($operator) {
                 ComparisonExpression::OPERATOR_EQ          => $value === $comparisonValue,
                 ComparisonExpression::OPERATOR_NEQ         => $value !== $comparisonValue,
                 ComparisonExpression::OPERATOR_GT          => $value > $comparisonValue,
@@ -170,8 +164,6 @@ class ArrayDatasource extends AbstractDatasource
                 ComparisonExpression::OPERATOR_IS_NOT_NULL => null !== $value,
                 default                                    => throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator)),
             };
-
-            return $result;
         };
 
         return $function;

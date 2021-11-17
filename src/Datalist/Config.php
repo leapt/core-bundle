@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Datalist;
 
-/**
- * Class Config.
- */
 abstract class Config
 {
     protected string $name;
@@ -58,10 +55,7 @@ abstract class Config
         return isset($this->options[$name]) ? $this->options[$name] : $default;
     }
 
-    /**
-     * @param $value
-     */
-    public function setOption(string $name, $value)
+    public function setOption(string $name, mixed $value)
     {
         $this->options[$name] = $value;
     }

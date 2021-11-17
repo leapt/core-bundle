@@ -7,9 +7,6 @@ use Twig\Node\Expression\ArrayExpression;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
-/**
- * Class DatalistThemeTokenParser.
- */
 final class DatalistThemeTokenParser extends AbstractTokenParser
 {
     public function parse(Token $token)

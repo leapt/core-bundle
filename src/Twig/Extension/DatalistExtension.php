@@ -16,15 +16,12 @@ use Twig\TwigFunction;
 
 final class DatalistExtension extends AbstractExtension
 {
-    private RequestStack $requestStack;
-
     private string $defaultTheme = '@LeaptCore/Datalist/datalist_grid_layout.html.twig';
 
     private \SplObjectStorage $themes;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
         $this->themes = new \SplObjectStorage();
     }
 

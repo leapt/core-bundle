@@ -6,9 +6,6 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class BooleanFieldType.
- */
 class BooleanFieldType extends AbstractFieldType
 {
     public function configureOptions(OptionsResolver $resolver)

@@ -2,16 +2,10 @@
 
 namespace Leapt\CoreBundle\Paginator;
 
-/**
- * Class ArrayPaginator.
- */
 class ArrayPaginator extends AbstractPaginator
 {
-    private array $items;
-
-    public function __construct(array $items)
+    public function __construct(private array $items)
     {
-        $this->items = $items;
     }
 
     /**

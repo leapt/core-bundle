@@ -15,14 +15,11 @@ class RecaptchaType extends AbstractRecaptchaType
      */
     protected bool $ajax;
 
-    protected LocaleResolver $localeResolver;
-
-    public function __construct($publicKey, $enabled, $ajax, LocaleResolver $localeResolver, $apiHost = 'www.google.com')
+    public function __construct($publicKey, $enabled, $ajax, protected LocaleResolver $localeResolver, $apiHost = 'www.google.com')
     {
         parent::__construct($publicKey, $enabled, $apiHost);
 
         $this->ajax = $ajax;
-        $this->localeResolver = $localeResolver;
     }
 
     /**

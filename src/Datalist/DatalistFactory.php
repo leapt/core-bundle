@@ -10,9 +10,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * Class DatalistFactory.
- */
 class DatalistFactory
 {
     /**

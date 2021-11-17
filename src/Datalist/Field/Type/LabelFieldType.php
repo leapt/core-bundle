@@ -6,9 +6,6 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class LabelFieldType.
- */
 class LabelFieldType extends AbstractFieldType
 {
     public function configureOptions(OptionsResolver $resolver)
