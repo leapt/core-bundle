@@ -6,9 +6,6 @@ class FeedManager
 {
     protected array $feeds = [];
 
-    /**
-     * Register a feed in the manager.
-     */
     public function registerFeed(string $alias, FeedInterface $feed)
     {
         $this->feeds[$alias] = $feed;
