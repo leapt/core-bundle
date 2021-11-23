@@ -137,7 +137,7 @@ class Datalist implements DatalistInterface, \Countable
                 $sortedFields,
                 function (DatalistFieldInterface $field1, DatalistFieldInterface $field2) {
                     return $field1->getOption('order', 0) >= $field2->getOption('order', 0) ? 1 : -1;
-                }
+                },
             );
             $this->sortedFields = $sortedFields;
         }
@@ -473,7 +473,7 @@ class Datalist implements DatalistInterface, \Countable
                 $expressionBuilder,
                 $this->searchFilter,
                 $this->searchQuery,
-                $this->searchFilter->getOptions()
+                $this->searchFilter->getOptions(),
             );
             $this->datasource->setSearchExpression($expressionBuilder->getExpression());
         }

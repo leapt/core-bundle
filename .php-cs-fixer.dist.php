@@ -36,6 +36,7 @@ return (new PhpCsFixer\Config())
             'identical' => true,
             'less_and_greater' => true,
         ],
+        'trailing_comma_in_multiline' => ['elements' => ['arrays', 'arguments', 'parameters']],
     ])
     ->setFinder($finder)
     ->setCacheFile(__DIR__.'/.php_cs.cache')

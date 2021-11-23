@@ -65,7 +65,7 @@ class SiteExtension extends AbstractExtension
         $parts = array_merge(
             $this->titleParts['prepend'],
             [$baseTitle],
-            $this->titleParts['append']
+            $this->titleParts['append'],
         );
 
         return implode($seperator, $parts);

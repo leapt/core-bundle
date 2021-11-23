@@ -176,7 +176,7 @@ final class DatalistExtension extends AbstractExtension
             $env,
             $action->getDatalist(),
             $blockNames,
-            $viewContext->all()
+            $viewContext->all(),
         );
     }
 

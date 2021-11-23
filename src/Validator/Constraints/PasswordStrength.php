@@ -19,7 +19,7 @@ class PasswordStrength extends Constraint
 
     public function __construct(
         array $options = null, int $min = null, string $minMessage = null, int $max = null, string $maxMessage = null,
-        int $score = null, string $scoreMessage = null, array $groups = null, $payload = null
+        int $score = null, string $scoreMessage = null, array $groups = null, $payload = null,
     ) {
         parent::__construct($options ?? [], $groups, $payload);
 

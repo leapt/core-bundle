@@ -33,7 +33,7 @@ class RecaptchaV3Validator extends ConstraintValidator
         ?string $secretKey,
         float $scoreThreshold,
         RequestStack $requestStack,
-        LoggerInterface $logger
+        LoggerInterface $logger,
     ) {
         $this->enabled = $enabled;
         $this->secretKey = $secretKey;
@@ -90,7 +90,7 @@ class RecaptchaV3Validator extends ConstraintValidator
                 'reCAPTCHA validator error: ' . $exception->getMessage(),
                 [
                     'exception' => $exception,
-                ]
+                ],
             );
 
             return false;

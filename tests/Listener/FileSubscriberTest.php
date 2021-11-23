@@ -196,7 +196,7 @@ class FileSubscriberTest extends TestCase
             false,
             sys_get_temp_dir(),
             null,
-            false
+            false,
         );
         $config->setAutoGenerateProxyClasses(true);
 
