@@ -2,37 +2,24 @@
 
 namespace Leapt\CoreBundle\Datalist\Filter;
 
+use Leapt\CoreBundle\Datalist\TypeInterface;
+
 interface DatalistFilterInterface
 {
     /**
      * @return \Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface
      */
-    public function getType();
+    public function getType(): TypeInterface;
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\DatalistInterface
-     */
-    public function getDatalist();
+    public function getDatalist(): \Leapt\CoreBundle\Datalist\DatalistInterface;
 
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 
-    /**
-     * @return string
-     */
-    public function getPropertyPath();
+    public function getPropertyPath(): string;
 
-    /**
-     * @return array
-     */
-    public function getOptions();
+    public function getOptions(): array;
 
-    /**
-     * @return bool
-     */
-    public function hasOption(string $name);
+    public function hasOption(string $name): bool;
 
     public function getOption(string $name, mixed $default = null);
 }

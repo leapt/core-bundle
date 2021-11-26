@@ -19,10 +19,7 @@ class FileType extends AbstractType
 {
     private string $uploadDir;
 
-    /**
-     * @return string
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'leapt_core_file';
     }

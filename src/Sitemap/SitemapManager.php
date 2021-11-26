@@ -21,21 +21,19 @@ class SitemapManager
     }
 
     /**
-     * @return AbstractSitemap
+     * @return AbstractSitemap[]
      *
      * @throws \UnexpectedValueException
      */
-    public function getSitemaps()
+    public function getSitemaps(): array
     {
         return $this->sitemaps;
     }
 
     /**
-     * @return AbstractSitemap
-     *
      * @throws NotFoundHttpException
      */
-    public function getSitemap(string $alias)
+    public function getSitemap(string $alias): AbstractSitemap
     {
         if (!isset($this->sitemaps[$alias])) {
             throw new NotFoundHttpException(sprintf('There is no sitemap with alias "%s"', $alias));

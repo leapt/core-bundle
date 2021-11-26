@@ -6,7 +6,6 @@ use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;
 use Leapt\CoreBundle\Datalist\Datasource\DatasourceInterface;
 use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
-use Leapt\CoreBundle\Datalist\Type\DatalistTypeInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -14,32 +13,18 @@ use Symfony\Component\Form\FormInterface;
  */
 interface DatalistInterface extends \IteratorAggregate
 {
-    /**
-     * @return DatalistTypeInterface
-     */
-    public function getType();
+    public function getType(): TypeInterface;
 
-    /**
-     * @return DatalistInterface
-     */
-    public function addField(DatalistFieldInterface $field);
+    public function addField(DatalistFieldInterface $field): self;
 
-    /**
-     * @return array
-     */
-    public function getFields();
+    public function getFields(): array;
 
     /**
      * @param Filter\DatalistFilterInterface $filter
-     *
-     * @return DatalistInterface
      */
-    public function addFilter(DatalistFilterInterface $filter);
+    public function addFilter(DatalistFilterInterface $filter): self;
 
-    /**
-     * @return array
-     */
-    public function getFilters();
+    public function getFilters(): array;
 
     /**
      * @param Filter\DatalistFilterInterface $filter
@@ -49,48 +34,30 @@ interface DatalistInterface extends \IteratorAggregate
     /**
      * @return Filter\DatalistFilterInterface
      */
-    public function getSearchFilter();
+    public function getSearchFilter(): DatalistFilterInterface;
 
     /**
      * @param Action\DatalistActionInterface $action
-     *
-     * @return DatalistInterface
      */
-    public function addAction(DatalistActionInterface $action);
+    public function addAction(DatalistActionInterface $action): self;
 
-    /**
-     * @return array
-     */
-    public function getActions();
+    public function getActions(): array;
 
     /**
      * @param DatasourceInterface $datasource
-     *
-     * @return DatalistInterface
      */
-    public function setDatasource($datasource);
+    public function setDatasource($datasource): self;
 
-    /**
-     * @return DatasourceInterface
-     */
-    public function getDatasource();
+    public function getDatasource(): DatasourceInterface;
 
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 
-    /**
-     * @return array
-     */
-    public function getOptions();
+    public function getOptions(): array;
 
     /**
      * @param string $name
-     *
-     * @return bool
      */
-    public function hasOption($name);
+    public function hasOption($name): bool;
 
     /**
      * @param string $name
@@ -100,69 +67,34 @@ interface DatalistInterface extends \IteratorAggregate
 
     /**
      * @param int $page
-     *
-     * @return DatalistInterface
      */
-    public function setPage($page);
+    public function setPage($page): self;
 
-    /**
-     * @return bool
-     */
-    public function isFilterable();
+    public function isFilterable(): bool;
 
-    /**
-     * @return bool
-     */
-    public function isSearchable();
+    public function isSearchable(): bool;
 
-    /**
-     * @return DatalistInterface
-     */
-    public function setSearchForm(FormInterface $form);
+    public function setSearchForm(FormInterface $form): self;
 
-    /**
-     * @return DatalistInterface
-     */
-    public function setFilterForm(FormInterface $form);
+    public function setFilterForm(FormInterface $form): self;
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function getSearchForm();
+    public function getSearchForm(): FormInterface;
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function getFilterForm();
+    public function getFilterForm(): FormInterface;
 
     /**
      * @param mixed $data
-     *
-     * @return DatalistInterface
      */
-    public function bind($data);
+    public function bind($data): self;
 
-    /**
-     * @return string
-     */
-    public function getRoute();
+    public function getRoute(): string;
 
     /**
      * @param string $route
-     *
-     * @return DatalistInterface
      */
-    public function setRoute($route);
+    public function setRoute($route): self;
 
-    /**
-     * @return array
-     */
-    public function getRouteParams();
+    public function getRouteParams(): array;
 
-    /**
-     * @param array $routeParams
-     *
-     * @return array
-     */
-    public function setRouteParams($routeParams);
+    public function setRouteParams(array $routeParams): mixed;
 }

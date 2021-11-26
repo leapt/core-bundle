@@ -25,7 +25,7 @@ class DatalistFilterExpressionBuilder
     /**
      * @return ExpressionInterface
      */
-    public function getExpression()
+    public function getExpression(): CombinedExpression
     {
         return $this->expression;
     }

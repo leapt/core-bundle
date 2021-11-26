@@ -67,7 +67,7 @@ class RecaptchaValidator extends ConstraintValidator
      *
      *@throws ValidatorException When missing remote ip
      */
-    private function checkAnswer(string $privateKey, string $remoteip, string $answer)
+    private function checkAnswer(string $privateKey, string $remoteip, string $answer): mixed
     {
         if (null === $remoteip || '' === $remoteip) {
             throw new ValidatorException('For security reasons, you must pass the remote ip to reCAPTCHA');
@@ -92,7 +92,7 @@ class RecaptchaValidator extends ConstraintValidator
      *
      * @return array response
      */
-    private function httpGet(string $host, string $path, array $data)
+    private function httpGet(string $host, string $path, array $data): false|string
     {
         $host = sprintf('%s%s?%s', $host, $path, http_build_query($data));
 

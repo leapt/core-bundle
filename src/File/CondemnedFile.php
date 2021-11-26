@@ -28,10 +28,7 @@ class CondemnedFile extends UploadedFile
         $this->path = $path;
     }
 
-    /**
-     * @return string
-     */
-    public function getPathName()
+    public function getPathName(): string
     {
         return $this->path;
     }

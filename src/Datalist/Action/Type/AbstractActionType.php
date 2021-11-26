@@ -22,7 +22,7 @@ abstract class AbstractActionType implements ActionTypeInterface
     /**
      * @param mixed $item
      */
-    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options): void
     {
         $viewContext['attr'] = $options['attr'];
 

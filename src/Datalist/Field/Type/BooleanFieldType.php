@@ -30,18 +30,12 @@ class BooleanFieldType extends AbstractFieldType
         $viewContext['false_label'] = $options['false_label'];
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'boolean';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'boolean';
     }

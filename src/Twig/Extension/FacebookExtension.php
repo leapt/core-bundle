@@ -12,20 +12,14 @@ class FacebookExtension extends AbstractExtension
     {
     }
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('facebook_sdk_code', [$this, 'getFacebookSdkCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getFacebookSdkCode(Environment $env)
+    public function getFacebookSdkCode(Environment $env): string
     {
         if (null !== $this->appId) {
             $template = $env->load('@LeaptCore/Facebook/sdk_code.html.twig');

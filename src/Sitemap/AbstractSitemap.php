@@ -18,10 +18,7 @@ abstract class AbstractSitemap
 
     private string $alias;
 
-    /**
-     * @return array
-     */
-    public function getUrls()
+    public function getUrls(): array
     {
         return $this->urls;
     }
@@ -31,10 +28,7 @@ abstract class AbstractSitemap
         $this->alias = $alias;
     }
 
-    /**
-     * @return string
-     */
-    public function getAlias()
+    public function getAlias(): string
     {
         return $this->alias;
     }
@@ -43,10 +37,8 @@ abstract class AbstractSitemap
      * Build the sitemap.
      *
      * The easiest way to implement this method is to use the addUrl method
-     *
-     * @return mixed
      */
-    abstract public function build(Router $router);
+    abstract public function build(Router $router): mixed;
 
     /**
      * @param $loc
@@ -54,7 +46,7 @@ abstract class AbstractSitemap
      *
      * @return AbstractSitemap
      */
-    protected function addUrl($loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = [])
+    protected function addUrl($loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = []): self
     {
         $url = [
             'loc' => $loc,

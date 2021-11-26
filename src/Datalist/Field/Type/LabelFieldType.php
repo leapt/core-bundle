@@ -45,18 +45,12 @@ class LabelFieldType extends AbstractFieldType
         $viewContext['value'] = $mapping['label'];
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'label';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'label';
     }

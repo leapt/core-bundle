@@ -50,26 +50,17 @@ class EntityFilterType extends AbstractFilterType
         $builder->add(new ComparisonExpression($filter->getPropertyPath(), $operator, $value));
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'entity';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'entity';
     }
 
-    /**
-     * @return array
-     */
-    private function getDefinedOptions()
+    private function getDefinedOptions(): array
     {
         return [
             'choices', 'property', 'placeholder', 'group_by', 'attr',

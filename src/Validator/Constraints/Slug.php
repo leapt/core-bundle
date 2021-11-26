@@ -20,12 +20,12 @@ class Slug extends Regex
         parent::__construct($pattern ?? $this->pattern, $message ?? $this->message, $htmlPattern, $match, $normalizer, $groups, $payload, $options);
     }
 
-    public function getRequiredOptions()
+    public function getRequiredOptions(): array
     {
         return [];
     }
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return RegexValidator::class;
     }

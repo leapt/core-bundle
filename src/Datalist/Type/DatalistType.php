@@ -4,18 +4,12 @@ namespace Leapt\CoreBundle\Datalist\Type;
 
 class DatalistType extends AbstractDatalistType
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'datalist';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'datalist';
     }

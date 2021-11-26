@@ -14,10 +14,7 @@ class SiteExtension extends AbstractExtension
 
     private array $metaKeywords = [];
 
-    /**
-     * @return array
-     */
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('false', function ($var) {
@@ -26,10 +23,7 @@ class SiteExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('prepend_page_title', [$this, 'prependPageTitle']),
@@ -42,10 +36,7 @@ class SiteExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getPageTitle(string $baseTitle, string $seperator = ' - ')
+    public function getPageTitle(string $baseTitle, string $seperator = ' - '): string
     {
         $parts = array_merge(
             $this->titleParts['prepend'],
@@ -56,10 +47,7 @@ class SiteExtension extends AbstractExtension
         return implode($seperator, $parts);
     }
 
-    /**
-     * @return string
-     */
-    public function getMetaDescription(string $defaultDescription)
+    public function getMetaDescription(string $defaultDescription): string
     {
         return $this->metaDescription ?: $defaultDescription;
     }
@@ -69,10 +57,7 @@ class SiteExtension extends AbstractExtension
         $this->metaDescription = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function getMetaKeywords(array $defaultKeywords)
+    public function getMetaKeywords(array $defaultKeywords): string
     {
         $merged = array_merge($defaultKeywords, $this->metaKeywords);
         $exploded = [];

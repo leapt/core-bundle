@@ -21,10 +21,8 @@ class DateExtension extends AbstractExtension
 
     /**
      * Filter used to display the time ago for a specific date.
-     *
-     * @return string
      */
-    public function timeAgo(\Datetime|string $datetime, $locale = null)
+    public function timeAgo(\Datetime|string $datetime, $locale = null): string
     {
         $interval = $this->relativeTime($datetime);
 
@@ -52,10 +50,8 @@ class DateExtension extends AbstractExtension
 
     /**
      * Helper used to get a date interval between a date and now.
-     *
-     * @return \DateInterval
      */
-    private function relativeTime(\DateTime|string $datetime)
+    private function relativeTime(\DateTime|string $datetime): \DateInterval
     {
         if (\is_string($datetime)) {
             $datetime = new \DateTime($datetime);
@@ -66,7 +62,7 @@ class DateExtension extends AbstractExtension
         return $currentDate->diff($datetime);
     }
 
-    private function transChoice($id, $count, array $parameters, $locale = null)
+    private function transChoice($id, $count, array $parameters, $locale = null): string
     {
         $parameters = array_merge($parameters, ['%count%' => $count]);
 

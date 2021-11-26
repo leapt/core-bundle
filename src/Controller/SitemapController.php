@@ -19,7 +19,7 @@ class SitemapController
     ) {
     }
 
-    public function defaultAction(Request $request)
+    public function defaultAction(Request $request): Response
     {
         $sitemaps = $this->sitemapManager->getSitemaps();
 
@@ -36,7 +36,7 @@ class SitemapController
         throw new \UnexpectedValueException('No sitemap has been defined');
     }
 
-    public function sitemapAction(string $sitemap)
+    public function sitemapAction(string $sitemap): Response
     {
         $sitemap = $this->sitemapManager->getSitemap($sitemap);
         $sitemap->build($this->router);

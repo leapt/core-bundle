@@ -4,42 +4,24 @@ namespace Leapt\CoreBundle\Datalist;
 
 abstract class Config
 {
-    protected string $name;
-
-    protected TypeInterface $type;
-
-    protected array $options = [];
-
-    /**
-     * @param $name
-     */
-    public function __construct($name, TypeInterface $type, array $options = [])
-    {
-        $this->name = $name;
-        $this->type = $type;
-        $this->options = $options;
+    public function __construct(
+        protected string $name,
+        protected TypeInterface $type,
+        protected array $options = []
+    ) {
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasOption(string $name)
+    public function hasOption(string $name): bool
     {
         return isset($this->options[$name]);
     }
@@ -63,7 +45,7 @@ abstract class Config
     /**
      * @return \Leapt\CoreBundle\Datalist\TypeInterface
      */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->type;
     }

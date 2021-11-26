@@ -9,50 +9,38 @@ interface PaginatorInterface extends \Countable, \IteratorAggregate
 {
     /**
      * Set the paginator current page.
-     *
-     * @return PaginatorInterface
      */
-    public function setPage(int $page);
+    public function setPage(int $page): self;
 
     /**
      * Get the paginator current page.
-     *
-     * @return int
      */
-    public function getPage();
+    public function getPage(): int;
 
     /**
      * Set the maximum number of items to display on a single page.
-     *
-     * @return PaginatorInterface
      */
-    public function setLimitPerPage(int $limitPerPage);
+    public function setLimitPerPage(int $limitPerPage): self;
 
     /**
      * Get the maximum number of items to display on a single page.
-     *
-     * @return int
      */
-    public function getLimitPerPage();
+    public function getLimitPerPage(): int;
 
     /**
      * Set the maximum numbers of pagination links (1 2 3 4 > >>) to display.
-     *
-     * @return PaginatorInterface
      */
-    public function setRangeLimit(int $rangeLimit);
+    public function setRangeLimit(int $rangeLimit): self;
 
     /**
      * Get the maximum numbers of pagination links to display.
      *
      * @return PaginatorInterface
      */
-    public function getRange();
+    public function getRange(): array;
 
     /**
      * Get the number of pages.
-     *
-     * @return int
      */
-    public function getPageCount();
+    public function getPageCount(): int;
 }

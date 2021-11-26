@@ -11,15 +11,12 @@ class ImageType extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'leapt_core_image';
     }
 
-    /**
-     * @return string|null
-     */
-    public function getParent()
+    public function getParent(): ?string
     {
         return FileType::class;
     }

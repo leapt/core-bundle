@@ -43,11 +43,9 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      */
-    public function renderDatalistWidget(Environment $env, DatalistInterface $datalist)
+    public function renderDatalistWidget(Environment $env, DatalistInterface $datalist): string
     {
         $blockNames = [
             '_' . $datalist->getType()->getBlockName() . '_datalist',
@@ -62,11 +60,9 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      */
-    public function renderDatalistField(Environment $env, DatalistFieldInterface $field, mixed $row)
+    public function renderDatalistField(Environment $env, DatalistFieldInterface $field, mixed $row): string
     {
         $blockNames = [
             '_' . $field->getDatalist()->getType()->getBlockName() . '_' . $field->getName() . '_field',
@@ -80,11 +76,9 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      */
-    public function renderDatalistSearch(Environment $env, DatalistInterface $datalist)
+    public function renderDatalistSearch(Environment $env, DatalistInterface $datalist): string
     {
         $blockNames = [
             '_' . $datalist->getType()->getBlockName() . '_search',
@@ -100,11 +94,9 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      */
-    public function renderDatalistFilters(Environment $env, DatalistInterface $datalist)
+    public function renderDatalistFilters(Environment $env, DatalistInterface $datalist): string
     {
         $blockNames = [
             '_' . $datalist->getType()->getBlockName() . '_filters',
@@ -122,11 +114,9 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      */
-    public function renderDatalistFilter(Environment $env, DatalistFilterInterface $filter)
+    public function renderDatalistFilter(Environment $env, DatalistFilterInterface $filter): string
     {
         $blockNames = [
             '_' . $filter->getDatalist()->getName() . '_' . $filter->getName() . '_filter',
@@ -142,11 +132,9 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      */
-    public function renderDatalistAction(Environment $env, DatalistActionInterface $action, mixed $item)
+    public function renderDatalistAction(Environment $env, DatalistActionInterface $action, mixed $item): string
     {
         $blockNames = [
             '_' . $action->getDatalist()->getName() . '_' . $action->getName() . '_action',
@@ -173,12 +161,10 @@ final class DatalistExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      * @throws \Twig\Error\LoaderError
      */
-    private function renderBlock(Environment $env, DatalistInterface $datalist, array $blockNames, array $context = [])
+    private function renderBlock(Environment $env, DatalistInterface $datalist, array $blockNames, array $context = []): string
     {
         $datalistTemplates = $this->getTemplatesForDatalist($datalist);
         foreach ($datalistTemplates as $template) {
@@ -197,10 +183,7 @@ final class DatalistExtension extends AbstractExtension
         throw new \Exception(sprintf('No block found (tried to find %s)', implode(',', $blockNames)));
     }
 
-    /**
-     * @return array
-     */
-    private function getTemplatesForDatalist(DatalistInterface $datalist)
+    private function getTemplatesForDatalist(DatalistInterface $datalist): array
     {
         if (isset($this->themes[$datalist])) {
             return $this->themes[$datalist];

@@ -47,7 +47,7 @@ abstract class AbstractRecaptchaType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'leapt_core_recaptcha';
     }
@@ -57,7 +57,7 @@ abstract class AbstractRecaptchaType extends AbstractType
      *
      * @return string The javascript source URL
      */
-    public function getPublicKey()
+    public function getPublicKey(): string
     {
         return $this->publicKey;
     }
@@ -67,7 +67,7 @@ abstract class AbstractRecaptchaType extends AbstractType
      *
      * @return string The hostname for API
      */
-    public function getApiHost()
+    public function getApiHost(): string
     {
         return $this->apiHost;
     }

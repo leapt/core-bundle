@@ -29,34 +29,22 @@ class ComparisonExpression implements ExpressionInterface
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getOperator()
+    public function getOperator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
-    public function getPropertyPath()
+    public function getPropertyPath(): string
     {
         return $this->propertyPath;
     }
 
-    /**
-     * @return array
-     */
-    private static function getValidOperators()
+    private static function getValidOperators(): array
     {
         return [
             self::OPERATOR_EQ, self::OPERATOR_NEQ, self::OPERATOR_GT, self::OPERATOR_GTE,

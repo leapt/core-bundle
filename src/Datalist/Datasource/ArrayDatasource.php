@@ -6,6 +6,7 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\CombinedExpression;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ComparisonExpression;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 use Leapt\CoreBundle\Paginator\ArrayPaginator;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class ArrayDatasource extends AbstractDatasource
@@ -16,27 +17,21 @@ class ArrayDatasource extends AbstractDatasource
     {
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Paginator\ArrayPaginator
-     */
-    public function getPaginator()
+    public function getPaginator(): PaginatorInterface
     {
         $this->initialize();
 
         return $this->paginator;
     }
 
-    /**
-     * @return \ArrayIterator
-     */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         $this->initialize();
 
         return $this->iterator;
     }
 
-    protected function initialize()
+    protected function initialize(): void
     {
         if ($this->initialized) {
             return;
@@ -81,7 +76,7 @@ class ArrayDatasource extends AbstractDatasource
      *
      * @throws \InvalidArgumentException
      */
-    private function buildExpressionCallback(ExpressionInterface $expression)
+    private function buildExpressionCallback(ExpressionInterface $expression): callable|\Closure
     {
         // If we have a combined expression ("AND" / "OR")
         if ($expression instanceof CombinedExpression) {
@@ -100,7 +95,7 @@ class ArrayDatasource extends AbstractDatasource
      *
      * @throws \UnexpectedValueException
      */
-    private function buildCombinedExpressionCallback(CombinedExpression $expression)
+    private function buildCombinedExpressionCallback(CombinedExpression $expression): callable|\Closure
     {
         $tests = [];
         foreach ($expression->getExpressions() as $subExpression) {
@@ -142,7 +137,7 @@ class ArrayDatasource extends AbstractDatasource
      *
      * @throws \UnexpectedValueException
      */
-    private function buildComparisonExpressionCallback(ComparisonExpression $expression)
+    private function buildComparisonExpressionCallback(ComparisonExpression $expression): callable|\Closure
     {
         $function = function ($item) use ($expression) {
             $accessor = PropertyAccess::createPropertyAccessor();

@@ -3,6 +3,7 @@
 namespace Leapt\CoreBundle\Datalist\Field;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
+use Leapt\CoreBundle\Datalist\TypeInterface;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -15,34 +16,22 @@ class DatalistField implements DatalistFieldInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->config->getName();
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->config->getOptions();
     }
 
-    /**
-     * @return bool
-     */
-    public function hasOption(string $name)
+    public function hasOption(string $name): bool
     {
         return $this->config->hasOption($name);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getOption(string $name, mixed $default = null)
+    public function getOption(string $name, mixed $default = null): mixed
     {
         return $this->config->getOption($name, $default);
     }
@@ -56,11 +45,9 @@ class DatalistField implements DatalistFieldInterface
     }
 
     /**
-     * @return mixed
-     *
      * @throws \UnexpectedValueException
      */
-    public function getData(mixed $row)
+    public function getData(mixed $row): mixed
     {
         $accessor = PropertyAccess::createPropertyAccessor();
         $propertyPath = $this->getPropertyPath();
@@ -87,23 +74,17 @@ class DatalistField implements DatalistFieldInterface
     /**
      * @return mixed
      */
-    public function setDatalist(DatalistInterface $datalist)
+    public function setDatalist(DatalistInterface $datalist): void
     {
         $this->datalist = $datalist;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\DatalistInterface
-     */
-    public function getDatalist()
+    public function getDatalist(): DatalistInterface
     {
         return $this->datalist;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface
-     */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->config->getType();
     }
@@ -113,7 +94,7 @@ class DatalistField implements DatalistFieldInterface
      *
      * TODO: check if not better handled through options
      */
-    private function getPropertyPath()
+    private function getPropertyPath(): string
     {
         $propertyPath = $this->getOption('property_path');
         if (null === $propertyPath) {

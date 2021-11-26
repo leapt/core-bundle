@@ -12,10 +12,7 @@ use Leapt\CoreBundle\Datalist\ViewContext;
  */
 interface DatalistTypeInterface extends TypeInterface
 {
-    /**
-     * @return mixed
-     */
-    public function buildDatalist(DatalistBuilder $builder, array $options);
+    public function buildDatalist(DatalistBuilder $builder, array $options): void;
 
     public function buildViewContext(ViewContext $viewContext, DatalistInterface $datalist, array $options);
 }

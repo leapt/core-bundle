@@ -4,18 +4,12 @@ namespace Leapt\CoreBundle\Datalist\Field\Type;
 
 class HeadingFieldType extends TextFieldType
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'heading';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'heading';
     }

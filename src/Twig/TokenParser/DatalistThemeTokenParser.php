@@ -9,7 +9,7 @@ use Twig\TokenParser\AbstractTokenParser;
 
 final class DatalistThemeTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token)
+    public function parse(Token $token): DatalistThemeNode
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
@@ -31,7 +31,7 @@ final class DatalistThemeTokenParser extends AbstractTokenParser
         return new DatalistThemeNode($datalist, $resources, $lineno, $this->getTag());
     }
 
-    public function getTag()
+    public function getTag(): string
     {
         return 'datalist_theme';
     }

@@ -31,20 +31,16 @@ class NavigationRegistry
 
     /**
      * Get the active paths previously set.
-     *
-     * @return array
      */
-    public function getActivePaths()
+    public function getActivePaths(): array
     {
         return $this->activePaths;
     }
 
     /**
      * Checks if the provided path is to be considered as active.
-     *
-     * @return bool
      */
-    public function isActivePath(string $path)
+    public function isActivePath(string $path): bool
     {
         return \in_array($path, $this->activePaths, true) || $this->requestStack->getCurrentRequest()->getRequestUri() === $path;
     }
@@ -65,10 +61,7 @@ class NavigationRegistry
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getBreadcrumbs()
+    public function getBreadcrumbs(): array
     {
         return $this->breadcrumbsPaths;
     }

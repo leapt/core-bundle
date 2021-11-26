@@ -3,6 +3,7 @@
 namespace Leapt\CoreBundle\Datalist\Filter;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
+use Leapt\CoreBundle\Datalist\TypeInterface;
 
 class DatalistFilter implements DatalistFilterInterface
 {
@@ -12,26 +13,17 @@ class DatalistFilter implements DatalistFilterInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->config->getName();
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->config->getOptions();
     }
 
-    /**
-     * @return bool
-     */
-    public function hasOption(string $name)
+    public function hasOption(string $name): bool
     {
         return $this->config->hasOption($name);
     }
@@ -41,10 +33,7 @@ class DatalistFilter implements DatalistFilterInterface
         return $this->config->getOption($name, $default);
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface
-     */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->config->getType();
     }
@@ -54,18 +43,12 @@ class DatalistFilter implements DatalistFilterInterface
         $this->datalist = $datalist;
     }
 
-    /**
-     * @return DatalistInterface
-     */
-    public function getDatalist()
+    public function getDatalist(): DatalistInterface
     {
         return $this->datalist;
     }
 
-    /**
-     * @return string
-     */
-    public function getPropertyPath()
+    public function getPropertyPath(): string
     {
         $propertyPath = $this->getOption('property_path');
         if (null === $propertyPath) {

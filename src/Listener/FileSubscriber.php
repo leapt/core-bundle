@@ -29,7 +29,7 @@ class FileSubscriber implements EventSubscriber
         $this->reader = new AnnotationReader();
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::preFlush,
@@ -116,10 +116,8 @@ class FileSubscriber implements EventSubscriber
      * Return all the file fields for the provided entity.
      *
      * @param $entity
-     *
-     * @return array
      */
-    private function getFileFields($entity, EntityManager $em)
+    private function getFileFields($entity, EntityManager $em): array
     {
         $className = \get_class($entity);
         $this->checkClassConfig($entity, $em);
@@ -224,10 +222,8 @@ class FileSubscriber implements EventSubscriber
 
     /**
      * @param $fileEntity
-     *
-     * @return string
      */
-    private function generateFileName($fileEntity, array $fileConfig)
+    private function generateFileName($fileEntity, array $fileConfig): string
     {
         $path = $fileConfig['path'];
         if (null !== $fileConfig['pathCallback']) {

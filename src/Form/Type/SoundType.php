@@ -10,18 +10,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SoundType extends AbstractType
 {
-    /**
-     * @return string
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'leapt_core_sound';
     }
 
-    /**
-     * @return string
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return TextType::class;
     }

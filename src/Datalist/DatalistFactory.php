@@ -48,10 +48,8 @@ class DatalistFactory
 
     /**
      * @param string $type
-     *
-     * @return DatalistInterface
      */
-    public function create($type = 'datalist', array $options = [])
+    public function create($type = 'datalist', array $options = []): DatalistInterface
     {
         return $this->createBuilder($type, $options)->getDatalist();
     }
@@ -59,20 +57,16 @@ class DatalistFactory
     /**
      * @param string $name
      * @param string $type
-     *
-     * @return Datalist
      */
-    public function createNamed($name, $type = 'datalist', array $options = [])
+    public function createNamed($name, $type = 'datalist', array $options = []): Datalist
     {
         return $this->createNamedBuilder($name, $type, $options)->getDatalist();
     }
 
     /**
      * @param mixed $type
-     *
-     * @return DatalistBuilder
      */
-    public function createBuilder($type = 'datalist', array $options = [])
+    public function createBuilder($type = 'datalist', array $options = []): DatalistBuilder
     {
         $name = $type instanceof DatalistType\DatalistTypeInterface
             ? $type->getName()
@@ -85,11 +79,9 @@ class DatalistFactory
      * @param $name
      * @param mixed $type
      *
-     * @return DatalistBuilder
-     *
      * @throws \InvalidArgumentException
      */
-    public function createNamedBuilder($name, $type = 'datalist', array $options = [])
+    public function createNamedBuilder($name, $type = 'datalist', array $options = []): DatalistBuilder
     {
         // Determine datalist type
         if (\is_string($type)) {
@@ -113,7 +105,7 @@ class DatalistFactory
     /**
      * @return DatalistType\DatalistTypeInterface
      */
-    public function getType($alias)
+    public function getType($alias): Type\DatalistTypeInterface
     {
         if (!\array_key_exists($alias, $this->types)) {
             throw new \InvalidArgumentException(sprintf('Unknown type "%s"', $alias));
@@ -133,11 +125,9 @@ class DatalistFactory
     /**
      * @param $alias
      *
-     * @return FieldType\FieldTypeInterface
-     *
      * @throws \InvalidArgumentException
      */
-    public function getFieldType($alias)
+    public function getFieldType($alias): FieldType\FieldTypeInterface
     {
         if (!\array_key_exists($alias, $this->fieldTypes)) {
             throw new \InvalidArgumentException(sprintf('Unknown field type "%s"', $alias));
@@ -154,11 +144,9 @@ class DatalistFactory
     /**
      * @param string $alias
      *
-     * @return FilterType\FilterTypeInterface
-     *
      * @throws \InvalidArgumentException
      */
-    public function getFilterType($alias)
+    public function getFilterType($alias): FilterType\FilterTypeInterface
     {
         if (!\array_key_exists($alias, $this->filterTypes)) {
             throw new \InvalidArgumentException(sprintf('Unknown filter type "%s"', $alias));
@@ -175,11 +163,9 @@ class DatalistFactory
     /**
      * @param string $alias
      *
-     * @return ActionType\ActionTypeInterface
-     *
      * @throws \InvalidArgumentException
      */
-    public function getActionType($alias)
+    public function getActionType($alias): ActionType\ActionTypeInterface
     {
         if (!\array_key_exists($alias, $this->actionTypes)) {
             throw new \InvalidArgumentException(sprintf('Unknown action type "%s"', $alias));

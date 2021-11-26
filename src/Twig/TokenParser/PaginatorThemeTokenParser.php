@@ -9,7 +9,7 @@ use Twig\TokenParser\AbstractTokenParser;
 
 class PaginatorThemeTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token)
+    public function parse(Token $token): PaginatorThemeNode
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
@@ -31,7 +31,7 @@ class PaginatorThemeTokenParser extends AbstractTokenParser
         return new PaginatorThemeNode($paginator, $resources, $lineno, $this->getTag());
     }
 
-    public function getTag()
+    public function getTag(): string
     {
         return 'paginator_theme';
     }

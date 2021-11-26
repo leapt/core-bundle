@@ -8,10 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TextFieldType extends AbstractFieldType
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'text';
     }
@@ -32,10 +29,7 @@ class TextFieldType extends AbstractFieldType
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'text';
     }

@@ -11,20 +11,16 @@ class ViewContext implements \ArrayAccess
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->vars);
     }
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->vars[$offset];
     }
@@ -46,10 +42,7 @@ class ViewContext implements \ArrayAccess
         unset($this->vars[$offset]);
     }
 
-    /**
-     * @return array
-     */
-    public function all()
+    public function all(): array
     {
         return $this->vars;
     }

@@ -33,7 +33,7 @@ abstract class AbstractDatalistType implements DatalistTypeInterface
     /**
      * @return mixed|void
      */
-    public function buildDatalist(DatalistBuilder $builder, array $options)
+    public function buildDatalist(DatalistBuilder $builder, array $options): void
     {
     }
 

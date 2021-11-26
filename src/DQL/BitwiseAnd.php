@@ -24,10 +24,7 @@ class BitwiseAnd extends FunctionNode
         $parser->match(Lexer::T_CLOSE_PARENTHESIS); // (3)
     }
 
-    /**
-     * @return string
-     */
-    public function getSql(SqlWalker $sqlWalker)
+    public function getSql(SqlWalker $sqlWalker): string
     {
         return $this->firstValue->dispatch($sqlWalker) . ' & ' . $this->secondValue->dispatch($sqlWalker); // (7)
     }

@@ -19,30 +19,22 @@ class PaginatorExtension extends AbstractExtension
         $this->themes = new \SplObjectStorage();
     }
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('paginator_widget', [$this, 'renderPaginatorWidget'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [new PaginatorThemeTokenParser()];
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      */
-    public function renderPaginatorWidget(Environment $env, PaginatorInterface $paginator)
+    public function renderPaginatorWidget(Environment $env, PaginatorInterface $paginator): string
     {
         $blockName = 'paginator_widget';
 
@@ -73,10 +65,7 @@ class PaginatorExtension extends AbstractExtension
         $this->themes[$paginator] = $ressources;
     }
 
-    /**
-     * @return array
-     */
-    private function getTemplatesForPaginator(PaginatorInterface $paginator)
+    private function getTemplatesForPaginator(PaginatorInterface $paginator): array
     {
         if (isset($this->themes[$paginator])) {
             return $this->themes[$paginator];
@@ -86,12 +75,10 @@ class PaginatorExtension extends AbstractExtension
     }
 
     /**
-     * @return string
-     *
      * @throws \Exception
      * @throws \Twig\Error\LoaderError
      */
-    private function renderBlock(Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = [])
+    private function renderBlock(Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = []): string
     {
         $paginatorTemplates = $this->getTemplatesForPaginator($paginator);
         foreach ($paginatorTemplates as $template) {

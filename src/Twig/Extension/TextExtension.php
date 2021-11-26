@@ -24,10 +24,8 @@ class TextExtension extends AbstractExtension
 
     /**
      * Get all available filters.
-     *
-     * @return array
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('camelize', [$this, 'camelize'], ['is_safe' => ['html']]),
@@ -37,20 +35,16 @@ class TextExtension extends AbstractExtension
 
     /**
      * @param $string
-     *
-     * @return string
      */
-    public function camelize($string)
+    public function camelize($string): string
     {
         return StringUtil::camelize($string);
     }
 
     /**
      * Filter used to safely truncate a string with html.
-     *
-     * @return string
      */
-    public function safeTruncate(Environment $env, string $value, int $length = 30, bool $preserve = true, string $separator = '...')
+    public function safeTruncate(Environment $env, string $value, int $length = 30, bool $preserve = true, string $separator = '...'): string
     {
         $charset = $env->getCharset();
 
@@ -171,30 +165,24 @@ class TextExtension extends AbstractExtension
 
     /**
      * Check if MultiByte string is used.
-     *
-     * @return bool
      */
-    public function getMultiByteString()
+    public function getMultiByteString(): bool
     {
         return $this->useMultiByteString;
     }
 
     /**
      * Check if MultiByte string is available.
-     *
-     * @return bool
      */
-    public function isMultiByteStringAvailable()
+    public function isMultiByteStringAvailable(): bool
     {
         return \function_exists('mb_get_info');
     }
 
     /**
      * Helper used to close html tags.
-     *
-     * @return string
      */
-    protected function closeTags(string $html)
+    protected function closeTags(string $html): string
     {
         preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
         $openedTags = $result[1]; //put all closed tags into an array

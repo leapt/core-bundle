@@ -51,18 +51,12 @@ class SearchFilterType extends AbstractFilterType
         $builder->add($baseExpression);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'search';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'search';
     }

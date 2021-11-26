@@ -3,6 +3,7 @@
 namespace Leapt\CoreBundle\Datalist\Action;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
+use Leapt\CoreBundle\Datalist\TypeInterface;
 
 class DatalistAction implements DatalistActionInterface
 {
@@ -12,28 +13,20 @@ class DatalistAction implements DatalistActionInterface
     {
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->config->getName();
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->config->getOptions();
     }
 
     /**
      * @param string $name
-     *
-     * @return bool
      */
-    public function hasOption($name)
+    public function hasOption($name): bool
     {
         return $this->config->hasOption($name);
     }
@@ -50,23 +43,17 @@ class DatalistAction implements DatalistActionInterface
     /**
      * @return mixed
      */
-    public function setDatalist(DatalistInterface $datalist)
+    public function setDatalist(DatalistInterface $datalist): void
     {
         $this->datalist = $datalist;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\DatalistInterface
-     */
-    public function getDatalist()
+    public function getDatalist(): DatalistInterface
     {
         return $this->datalist;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface
-     */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->config->getType();
     }

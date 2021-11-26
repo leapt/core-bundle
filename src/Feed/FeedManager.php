@@ -6,7 +6,7 @@ class FeedManager
 {
     protected array $feeds = [];
 
-    public function registerFeed(string $alias, FeedInterface $feed)
+    public function registerFeed(string $alias, FeedInterface $feed): void
     {
         $this->feeds[$alias] = $feed;
     }
@@ -14,11 +14,9 @@ class FeedManager
     /**
      * Get a feed by name.
      *
-     * @return FeedInterface
-     *
      * @throws \InvalidArgumentException
      */
-    public function getFeed(string $feedName)
+    public function getFeed(string $feedName): FeedInterface
     {
         if (!isset($this->feeds[$feedName])) {
             throw new \InvalidArgumentException(sprintf('Unknown feed "%s"', $feedName));

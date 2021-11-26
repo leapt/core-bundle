@@ -26,10 +26,7 @@ abstract class AbstractDatasource implements DatasourceInterface
 
     protected string $sortDirection;
 
-    /**
-     * @return DatasourceInterface
-     */
-    public function paginate(int $limitPerPage, int $rangeLimit)
+    public function paginate(int $limitPerPage, int $rangeLimit): DatasourceInterface
     {
         $this->limitPerPage = $limitPerPage;
         $this->rangeLimit = $rangeLimit;
@@ -37,24 +34,25 @@ abstract class AbstractDatasource implements DatasourceInterface
         return $this;
     }
 
-    /**
-     * @return DatasourceInterface
-     */
-    public function setPage(int $page)
+    public function setPage(int $page): DatasourceInterface
     {
         $this->page = $page;
 
         return $this;
     }
 
-    public function setSearchExpression(ExpressionInterface $expression)
+    public function setSearchExpression(ExpressionInterface $expression): self
     {
         $this->searchExpression = $expression;
+
+        return $this;
     }
 
-    public function setFilterExpression(ExpressionInterface $expression)
+    public function setFilterExpression(ExpressionInterface $expression): self
     {
         $this->filterExpression = $expression;
+
+        return $this;
     }
 
     /**
@@ -70,26 +68,17 @@ abstract class AbstractDatasource implements DatasourceInterface
         $this->sortDirection = $direction;
     }
 
-    /**
-     * @return string
-     */
-    public function getSortDirection()
+    public function getSortDirection(): string
     {
         return $this->sortDirection;
     }
 
-    /**
-     * @return string
-     */
-    public function getSortField()
+    public function getSortField(): string
     {
         return $this->sortField;
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         $this->initialize();
 

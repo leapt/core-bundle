@@ -15,11 +15,9 @@ class NavigationExtension extends AbstractExtension
     /**
      * Get all available functions.
      *
-     * @return array
-     *
      * @codeCoverageIgnore
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('set_active_paths', [$this, 'setActivePaths']),
@@ -54,20 +52,16 @@ class NavigationExtension extends AbstractExtension
 
     /**
      * Get the active paths previously set.
-     *
-     * @return array
      */
-    public function getActivePaths()
+    public function getActivePaths(): array
     {
         return $this->registry->getActivePaths();
     }
 
     /**
      * Checks if the provided path is to be considered as active.
-     *
-     * @return bool
      */
-    public function isActivePath(string $path)
+    public function isActivePath(string $path): bool
     {
         return $this->registry->isActivePath($path);
     }
@@ -82,10 +76,7 @@ class NavigationExtension extends AbstractExtension
         $this->registry->prependBreadcrumb($path, $label);
     }
 
-    /**
-     * @return array
-     */
-    public function getBreadcrumbs()
+    public function getBreadcrumbs(): array
     {
         return $this->registry->getBreadcrumbs();
     }

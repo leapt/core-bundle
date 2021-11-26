@@ -42,26 +42,17 @@ class ChoiceFilterType extends AbstractFilterType
         $builder->add(new ComparisonExpression($filter->getPropertyPath(), ComparisonExpression::OPERATOR_EQ, $value));
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'choice';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'choice';
     }
 
-    /**
-     * @return array
-     */
-    private function getDefinedOptions()
+    private function getDefinedOptions(): array
     {
         return [
             'placeholder',

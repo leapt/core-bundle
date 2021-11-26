@@ -23,26 +23,17 @@ class CombinedExpression implements ExpressionInterface
         $this->expressions[] = $expression;
     }
 
-    /**
-     * @return array
-     */
-    public function getExpressions()
+    public function getExpressions(): array
     {
         return $this->expressions;
     }
 
-    /**
-     * @return string
-     */
-    public function getOperator()
+    public function getOperator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * @return array
-     */
-    private static function getValidOperators()
+    private static function getValidOperators(): array
     {
         return [
             self::OPERATOR_AND, self::OPERATOR_OR,

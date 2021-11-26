@@ -9,27 +9,15 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
  */
 interface DatasourceInterface extends \IteratorAggregate, \Countable
 {
-    /**
-     * @return DatasourceInterface
-     */
-    public function paginate(int $limitPerPage, int $rangeLimit);
+    public function paginate(int $limitPerPage, int $rangeLimit): self;
 
     public function setPage(int $page);
 
-    /**
-     * @return mixed
-     */
-    public function setSearchExpression(ExpressionInterface $expression);
+    public function setSearchExpression(ExpressionInterface $expression): mixed;
 
-    /**
-     * @return mixed
-     */
-    public function setFilterExpression(ExpressionInterface $expression);
+    public function setFilterExpression(ExpressionInterface $expression): mixed;
 
-    /**
-     * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
-     */
-    public function getPaginator();
+    public function getPaginator(): \Leapt\CoreBundle\Paginator\PaginatorInterface;
 
     /**
      * @throws \InvalidArgumentException

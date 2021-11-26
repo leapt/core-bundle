@@ -34,18 +34,12 @@ class UrlFieldType extends TextFieldType
         $viewContext['url'] = $url;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'url';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'url';
     }

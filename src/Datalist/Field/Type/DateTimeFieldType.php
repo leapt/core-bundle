@@ -15,18 +15,12 @@ class DateTimeFieldType extends AbstractFieldType
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'datetime';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'datetime';
     }

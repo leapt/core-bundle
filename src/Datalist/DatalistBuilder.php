@@ -35,7 +35,7 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @return DatalistBuilder
      */
-    public function addField(string $field, string $type = null, array $options = [])
+    public function addField(string $field, string $type = null, array $options = []): self
     {
         $this->fields[$field] = [
             'type'    => $type,
@@ -50,7 +50,7 @@ class DatalistBuilder extends DatalistConfig
      *
      * @return $this
      */
-    public function removeField($field)
+    public function removeField(mixed $field): self
     {
         if (\array_key_exists($field, $this->fields)) {
             unset($this->fields[$field]);
@@ -59,10 +59,7 @@ class DatalistBuilder extends DatalistConfig
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getFields()
+    public function getFields(): array
     {
         return $this->fields;
     }
@@ -70,7 +67,7 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @return DatalistBuilder
      */
-    public function addFilter(string $filter, string $type = null, array $options = [])
+    public function addFilter(string $filter, string $type = null, array $options = []): self
     {
         $this->filters[$filter] = [
             'type'    => $type,
@@ -85,7 +82,7 @@ class DatalistBuilder extends DatalistConfig
      *
      * @return $this
      */
-    public function removeFilter($filter)
+    public function removeFilter(mixed $filter): self
     {
         if (\array_key_exists($filter, $this->filters)) {
             unset($this->filters[$filter]);
@@ -97,7 +94,7 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @return $this
      */
-    public function addAction(string $action, string $type = null, array $options = [])
+    public function addAction(string $action, string $type = null, array $options = []): self
     {
         $this->actions[$action] = [
             'type'    => $type,
@@ -110,7 +107,7 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @return $this
      */
-    public function removeAction(string $action)
+    public function removeAction(string $action): self
     {
         if (\array_key_exists($action, $this->actions)) {
             unset($this->actions[$action]);
@@ -122,7 +119,7 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @return DatalistInterface
      */
-    public function getDatalist()
+    public function getDatalist(): Datalist
     {
         $datalist = new Datalist($this->getDatalistConfig());
 
@@ -173,7 +170,7 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @return \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface
      */
-    private function createField(string $fieldName, array $fieldConfig)
+    private function createField(string $fieldName, array $fieldConfig): DatalistField
     {
         $type = $this->factory->getFieldType($fieldConfig['type'] ?: 'text');
 
@@ -191,7 +188,7 @@ class DatalistBuilder extends DatalistConfig
     /**
      * @return Filter\DatalistFilter
      */
-    private function createFilter(string $filterName, array $filterConfig)
+    private function createFilter(string $filterName, array $filterConfig): DatalistFilter
     {
         $type = $this->factory->getFilterType($filterConfig['type']);
 
@@ -206,10 +203,7 @@ class DatalistBuilder extends DatalistConfig
         return new DatalistFilter($config);
     }
 
-    /**
-     * @return DatalistAction
-     */
-    private function createAction(string $actionName, array $actionConfig)
+    private function createAction(string $actionName, array $actionConfig): DatalistAction
     {
         $type = $this->factory->getActionType($actionConfig['type'] ?: 'simple');
 
@@ -224,10 +218,7 @@ class DatalistBuilder extends DatalistConfig
         return new DatalistAction($config);
     }
 
-    /**
-     * @return DatalistBuilder
-     */
-    private function getDatalistConfig()
+    private function getDatalistConfig(): self
     {
         $config = clone $this;
 
