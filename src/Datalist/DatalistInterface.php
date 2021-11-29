@@ -8,9 +8,6 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- * Interface DatalistInterface.
- */
 interface DatalistInterface extends \IteratorAggregate
 {
     public function getType(): TypeInterface;
@@ -89,10 +86,7 @@ interface DatalistInterface extends \IteratorAggregate
 
     public function getRoute(): string;
 
-    /**
-     * @param string $route
-     */
-    public function setRoute($route): self;
+    public function setRoute(string $route): self;
 
     public function getRouteParams(): array;
 

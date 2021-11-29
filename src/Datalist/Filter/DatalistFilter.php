@@ -28,7 +28,7 @@ class DatalistFilter implements DatalistFilterInterface
         return $this->config->hasOption($name);
     }
 
-    public function getOption(string $name, mixed $default = null)
+    public function getOption(string $name, mixed $default = null): ?string
     {
         return $this->config->getOption($name, $default);
     }

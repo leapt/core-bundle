@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractFieldType implements FieldTypeInterface
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
                 'property_path'      => null,
@@ -21,7 +21,7 @@ abstract class AbstractFieldType implements FieldTypeInterface
             ->setAllowedTypes('callback', 'callable');
     }
 
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $row, array $options): void
     {
         if (isset($options['callback'])) {
             $viewContext['value'] = \call_user_func($options['callback'], $row);

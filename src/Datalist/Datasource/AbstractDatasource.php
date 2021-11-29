@@ -2,7 +2,10 @@
 
 namespace Leapt\CoreBundle\Datalist\Datasource;
 
+use InvalidArgumentException;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
+use Traversable;
 
 abstract class AbstractDatasource implements DatasourceInterface
 {
@@ -18,9 +21,9 @@ abstract class AbstractDatasource implements DatasourceInterface
 
     protected ExpressionInterface $searchExpression;
 
-    protected \Traversable $iterator;
+    protected Traversable $iterator;
 
-    protected \Leapt\CoreBundle\Paginator\PaginatorInterface $paginator;
+    protected PaginatorInterface $paginator;
 
     protected string $sortField;
 
@@ -56,12 +59,12 @@ abstract class AbstractDatasource implements DatasourceInterface
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setSort(string $field, string $direction)
     {
         if (!\in_array($direction, ['asc', 'desc'], true)) {
-            throw new \InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');
+            throw new InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');
         }
 
         $this->sortField = $field;

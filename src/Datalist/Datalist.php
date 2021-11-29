@@ -220,18 +220,12 @@ class Datalist implements DatalistInterface, Countable
         return $this;
     }
 
-    /**
-     * @return FormInterface
-     */
-    public function getSearchForm(): FormInterface|Form
+    public function getSearchForm(): FormInterface
     {
         return $this->searchForm;
     }
 
-    /**
-     * @return FormInterface
-     */
-    public function getFilterForm(): FormInterface|Form
+    public function getFilterForm(): FormInterface
     {
         return $this->filterForm;
     }
@@ -300,10 +294,7 @@ class Datalist implements DatalistInterface, Countable
         return $this->routeParams;
     }
 
-    /**
-     * @param string $route
-     */
-    public function setRoute($route): DatalistInterface
+    public function setRoute(string $route): DatalistInterface
     {
         $this->route = $route;
 

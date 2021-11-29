@@ -72,11 +72,9 @@ class ArrayDatasource extends AbstractDatasource
     }
 
     /**
-     * @return callable
-     *
      * @throws \InvalidArgumentException
      */
-    private function buildExpressionCallback(ExpressionInterface $expression): callable|\Closure
+    private function buildExpressionCallback(ExpressionInterface $expression): callable
     {
         // If we have a combined expression ("AND" / "OR")
         if ($expression instanceof CombinedExpression) {
@@ -91,11 +89,9 @@ class ArrayDatasource extends AbstractDatasource
     }
 
     /**
-     * @return callable
-     *
      * @throws \UnexpectedValueException
      */
-    private function buildCombinedExpressionCallback(CombinedExpression $expression): callable|\Closure
+    private function buildCombinedExpressionCallback(CombinedExpression $expression): callable
     {
         $tests = [];
         foreach ($expression->getExpressions() as $subExpression) {
@@ -133,11 +129,9 @@ class ArrayDatasource extends AbstractDatasource
     }
 
     /**
-     * @return callable
-     *
      * @throws \UnexpectedValueException
      */
-    private function buildComparisonExpressionCallback(ComparisonExpression $expression): callable|\Closure
+    private function buildComparisonExpressionCallback(ComparisonExpression $expression): callable
     {
         $function = function ($item) use ($expression) {
             $accessor = PropertyAccess::createPropertyAccessor();

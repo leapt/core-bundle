@@ -11,7 +11,7 @@ interface TypeInterface
 {
     public function getName(): string;
 
-    public function configureOptions(OptionsResolver $resolver);
+    public function configureOptions(OptionsResolver $resolver): void;
 
     public function getBlockName(): string;
 }

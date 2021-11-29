@@ -5,9 +5,6 @@ namespace Leapt\CoreBundle\Datalist\Action;
 use Leapt\CoreBundle\Datalist\DatalistInterface;
 use Leapt\CoreBundle\Datalist\TypeInterface;
 
-/**
- * Interface DatalistActionInterface.
- */
 interface DatalistActionInterface
 {
     public function getType(): TypeInterface;

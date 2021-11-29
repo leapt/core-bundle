@@ -66,12 +66,12 @@ class NavigationExtension extends AbstractExtension
         return $this->registry->isActivePath($path);
     }
 
-    public function appendBreadcrumb(string $path, string $label)
+    public function appendBreadcrumb(string $path, string $label): void
     {
         $this->registry->appendBreadcrumb($path, $label);
     }
 
-    public function prependBreadcrumb(string $path, string $label)
+    public function prependBreadcrumb(string $path, string $label): void
     {
         $this->registry->prependBreadcrumb($path, $label);
     }

@@ -13,14 +13,14 @@ class TextFieldType extends AbstractFieldType
         return 'text';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
         $resolver->setDefined(['truncate']);
     }
 
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options): void
     {
         parent::buildViewContext($viewContext, $field, $value, $options);
 

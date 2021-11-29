@@ -74,7 +74,7 @@ abstract class AbstractSitemap
     /**
      * @throws \InvalidArgumentException
      */
-    private function validateChangeFreq(string $changeFreq)
+    private function validateChangeFreq(string $changeFreq): void
     {
         if (!\in_array($changeFreq, [
             self::CHANGEFREQ_ALWAYS,
@@ -93,7 +93,7 @@ abstract class AbstractSitemap
     /**
      * @throws \InvalidArgumentException
      */
-    private function validatePriority(string $priority)
+    private function validatePriority(string $priority): void
     {
         if (!is_numeric($priority) || 1 < $priority || 0 > $priority) {
             throw new \InvalidArgumentException('The priority parameter must be a number between 0 and 1');

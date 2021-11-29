@@ -24,7 +24,7 @@ class FileType extends AbstractType
         return 'leapt_core_file';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setRequired([
@@ -92,8 +92,10 @@ class FileType extends AbstractType
         $view->vars['allow_delete'] = $options['allow_delete'];
     }
 
-    public function setUploadDir(string $uploadDir)
+    public function setUploadDir(string $uploadDir): self
     {
         $this->uploadDir = $uploadDir;
+
+        return $this;
     }
 }

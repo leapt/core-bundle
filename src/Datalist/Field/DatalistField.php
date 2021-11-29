@@ -36,12 +36,11 @@ class DatalistField implements DatalistFieldInterface
         return $this->config->getOption($name, $default);
     }
 
-    /**
-     * @return mixed|void
-     */
-    public function setOption(string $name, mixed $value)
+    public function setOption(string $name, mixed $value): self
     {
         $this->config->setOption($name, $value);
+
+        return $this;
     }
 
     /**

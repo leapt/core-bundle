@@ -24,9 +24,11 @@ class NavigationRegistry
         $this->activePaths = $paths;
     }
 
-    public function addActivePath(string $path)
+    public function addActivePath(string $path): self
     {
         $this->activePaths[] = $path;
+
+        return $this;
     }
 
     /**
@@ -45,7 +47,7 @@ class NavigationRegistry
         return \in_array($path, $this->activePaths, true) || $this->requestStack->getCurrentRequest()->getRequestUri() === $path;
     }
 
-    public function appendBreadcrumb(string $path, string $label)
+    public function appendBreadcrumb(string $path, string $label): void
     {
         $pair = [$path, $label];
         if (!\in_array($pair, $this->breadcrumbsPaths, true)) {
@@ -53,7 +55,7 @@ class NavigationRegistry
         }
     }
 
-    public function prependBreadcrumb(string $path, string $label)
+    public function prependBreadcrumb(string $path, string $label): void
     {
         $pair = [$path, $label];
         if (!\in_array($pair, $this->breadcrumbsPaths, true)) {

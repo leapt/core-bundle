@@ -90,7 +90,7 @@ class DoctrineORMDatasource extends AbstractDatasource
     /**
      * @throws InvalidArgumentException
      */
-    private function buildQueryBuilderExpression(ExpressionInterface $expression): Orx|Andx|Comparison
+    private function buildQueryBuilderExpression(ExpressionInterface $expression): Comparison
     {
         // If we have a combined expression ("AND" / "OR")
         if ($expression instanceof CombinedExpression) {
@@ -105,11 +105,9 @@ class DoctrineORMDatasource extends AbstractDatasource
     }
 
     /**
-     * @return Andx|Orx
-     *
      * @throws UnexpectedValueException
      */
-    private function buildQueryBuilderCombinedExpression(CombinedExpression $expression)
+    private function buildQueryBuilderCombinedExpression(CombinedExpression $expression): Andx|Orx
     {
         $queryBuilderSubExpressions = [];
         foreach ($expression->getExpressions() as $subExpression) {

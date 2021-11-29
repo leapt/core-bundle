@@ -32,14 +32,16 @@ abstract class Config
      *
      * @return null
      */
-    public function getOption($name, $default = null)
+    public function getOption($name, $default = null): ?string
     {
         return isset($this->options[$name]) ? $this->options[$name] : $default;
     }
 
-    public function setOption(string $name, mixed $value)
+    public function setOption(string $name, mixed $value): self
     {
         $this->options[$name] = $value;
+
+        return $this;
     }
 
     /**

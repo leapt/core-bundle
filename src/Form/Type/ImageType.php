@@ -16,7 +16,7 @@ class ImageType extends AbstractType
         return 'leapt_core_image';
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return FileType::class;
     }

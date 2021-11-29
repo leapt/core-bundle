@@ -52,9 +52,11 @@ class SiteExtension extends AbstractExtension
         return $this->metaDescription ?: $defaultDescription;
     }
 
-    public function setMetaDescription(string $description)
+    public function setMetaDescription(string $description): self
     {
         $this->metaDescription = $description;
+
+        return $this;
     }
 
     public function getMetaKeywords(array $defaultKeywords): string
@@ -69,18 +71,24 @@ class SiteExtension extends AbstractExtension
         return implode(',', array_unique($trimmed));
     }
 
-    public function addMetaKeywords(array $keywords)
+    public function addMetaKeywords(array $keywords): self
     {
         $this->metaKeywords = array_merge($this->metaKeywords, $keywords);
+
+        return $this;
     }
 
-    public function prependPageTitle(string $prepend)
+    public function prependPageTitle(string $prepend): self
     {
         array_unshift($this->titleParts['prepend'], $prepend);
+
+        return $this;
     }
 
-    public function appendPageTitle(string $append)
+    public function appendPageTitle(string $append): self
     {
         $this->titleParts['append'][] = $append;
+
+        return $this;
     }
 }

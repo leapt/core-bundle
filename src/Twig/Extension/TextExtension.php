@@ -155,12 +155,14 @@ class TextExtension extends AbstractExtension
      * Enable/disable MultiByte string
      * Useful for Unit Testing.
      */
-    public function setMultiByteString(bool $useMultiByteString)
+    public function setMultiByteString(bool $useMultiByteString): self
     {
         if ($useMultiByteString && !$this->isMultiByteStringAvailable()) {
             throw new \BadFunctionCallException('mbstring extension is not enabled', self::MISSING_EXTENSION_EXCEPTION);
         }
         $this->useMultiByteString = $useMultiByteString;
+
+        return $this;
     }
 
     /**

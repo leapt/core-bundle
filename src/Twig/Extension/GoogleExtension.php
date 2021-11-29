@@ -37,9 +37,11 @@ class GoogleExtension extends AbstractExtension
     /**
      * @param string $domainName Available options are "auto" or "none" or a real domain name
      */
-    public function setDomainName(string $domainName)
+    public function setDomainName(string $domainName): self
     {
         $this->domainName = $domainName;
+
+        return $this;
     }
 
     /**
@@ -55,9 +57,11 @@ class GoogleExtension extends AbstractExtension
         return $this->domainName;
     }
 
-    public function setAllowLinker(string $allowLinker)
+    public function setAllowLinker(string $allowLinker): self
     {
         $this->allowLinker = $allowLinker;
+
+        return $this;
     }
 
     public function getAllowLinker(): string
@@ -65,9 +69,11 @@ class GoogleExtension extends AbstractExtension
         return $this->allowLinker;
     }
 
-    public function setTagsManagerId(string $tagsManagerId)
+    public function setTagsManagerId(string $tagsManagerId): self
     {
         $this->tagsManagerId = $tagsManagerId;
+
+        return $this;
     }
 
     public function getAnalyticsTrackingCode(Environment $env): string

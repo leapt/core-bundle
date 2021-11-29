@@ -52,9 +52,11 @@ class PaginatorExtension extends AbstractExtension
         return $this->renderBlock($env, $paginator, [$blockName], $context);
     }
 
-    public function setTemplate(string $template)
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
+
+        return $this;
     }
 
     /**

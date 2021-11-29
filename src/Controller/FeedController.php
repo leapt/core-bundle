@@ -18,11 +18,9 @@ class FeedController
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \ErrorException
      */
-    public function indexAction(Request $request, string $feedName)
+    public function indexAction(Request $request, string $feedName): Response
     {
         $feed = $this->feedManager->getFeed($feedName);
 

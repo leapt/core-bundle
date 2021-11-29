@@ -21,9 +21,9 @@ interface DatalistFieldInterface
 
     public function hasOption(string $name): bool;
 
-    public function getOption(string $name, mixed $default = null);
+    public function getOption(string $name, mixed $default = null): mixed;
 
-    public function setOption(string $name, mixed $value);
+    public function setOption(string $name, mixed $value): self;
 
     public function getData(mixed $row): mixed;
 

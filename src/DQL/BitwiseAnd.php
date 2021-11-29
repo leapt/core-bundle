@@ -14,7 +14,7 @@ class BitwiseAnd extends FunctionNode
 
     private Literal $secondValue;
 
-    public function parse(Parser $parser)
+    public function parse(Parser $parser): void
     {
         $parser->match(Lexer::T_IDENTIFIER); // (2)
         $parser->match(Lexer::T_OPEN_PARENTHESIS); // (3)

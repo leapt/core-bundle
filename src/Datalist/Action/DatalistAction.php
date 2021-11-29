@@ -35,7 +35,7 @@ class DatalistAction implements DatalistActionInterface
      * @param string $name
      * @param mixed  $default
      */
-    public function getOption($name, $default = null)
+    public function getOption($name, $default = null): ?string
     {
         return $this->config->getOption($name, $default);
     }
@@ -43,9 +43,11 @@ class DatalistAction implements DatalistActionInterface
     /**
      * @return mixed
      */
-    public function setDatalist(DatalistInterface $datalist): void
+    public function setDatalist(DatalistInterface $datalist): self
     {
         $this->datalist = $datalist;
+
+        return $this;
     }
 
     public function getDatalist(): DatalistInterface
