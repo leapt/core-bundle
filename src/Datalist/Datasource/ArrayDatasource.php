@@ -19,7 +19,7 @@ class ArrayDatasource extends AbstractDatasource
     {
     }
 
-    public function getPaginator(): PaginatorInterface
+    public function getPaginator(): ?PaginatorInterface
     {
         $this->initialize();
 

@@ -152,7 +152,7 @@ class Datalist implements DatalistInterface, Countable
         return $this->datasource;
     }
 
-    public function getPaginator(): PaginatorInterface
+    public function getPaginator(): ?PaginatorInterface
     {
         $this->initialize();
 
@@ -243,7 +243,7 @@ class Datalist implements DatalistInterface, Countable
 
         // Handle pagination
         if (isset($data['page'])) {
-            $this->setPage($data['page']);
+            $this->setPage((int) $data['page']);
         }
 
         // Handle search

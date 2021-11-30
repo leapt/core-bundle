@@ -71,7 +71,7 @@ class GoogleExtension extends AbstractExtension
         return $this->allowLinker;
     }
 
-    public function setTagsManagerId(string $tagsManagerId): self
+    public function setTagsManagerId(?string $tagsManagerId): self
     {
         $this->tagsManagerId = $tagsManagerId;
 
