@@ -36,7 +36,7 @@ final class GravatarExtension extends AbstractExtension
             md5(strtolower(trim($email))),
             $size,
             $imageSet,
-            $rating
+            $rating,
         );
 
         if ($img) {

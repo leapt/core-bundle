@@ -88,7 +88,7 @@ class TextExtension extends AbstractExtension
                     function ($matches) {
                         return str_replace(' ', '|', $matches[0]);
                     },
-                    $value
+                    $value,
                 );
             }
 
@@ -141,7 +141,7 @@ class TextExtension extends AbstractExtension
                 function ($matches) {
                     return str_replace('|', ' ', $matches[0]);
                 },
-                $pipedValue
+                $pipedValue,
             );
 
             // Finally close all unclosed tags and add trailing separator

@@ -22,7 +22,7 @@ class ComparisonExpression implements ExpressionInterface
     public function __construct(
         private string $propertyPath,
         private string $operator,
-        private mixed $value
+        private mixed $value,
     ) {
         if (!\in_array($operator, self::getValidOperators(), true)) {
             throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));

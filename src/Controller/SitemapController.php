@@ -15,7 +15,7 @@ class SitemapController
         private SitemapManager $sitemapManager,
         private RouterInterface $router,
         private Environment $twig,
-        private HttpKernelInterface $httpKernel
+        private HttpKernelInterface $httpKernel,
     ) {
     }
 

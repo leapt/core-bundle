@@ -27,7 +27,7 @@ class DatalistBuilder extends DatalistConfig
         DatalistTypeInterface $type,
         array $options,
         private DatalistFactory $factory,
-        private FormFactoryInterface $formFactory
+        private FormFactoryInterface $formFactory,
     ) {
         parent::__construct($name, $type, $options);
     }

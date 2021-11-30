@@ -12,7 +12,7 @@ final class LocaleResolver
     public function __construct(
         private string $defaultLocale,
         private bool $useLocaleFromRequest,
-        private RequestStack $requestStack
+        private RequestStack $requestStack,
     ) {
     }
 

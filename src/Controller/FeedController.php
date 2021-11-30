@@ -13,7 +13,7 @@ class FeedController
     public function __construct(
         private FeedManager $feedManager,
         private ValidatorInterface $validator,
-        private Environment $twig
+        private Environment $twig,
     ) {
     }
 

@@ -24,7 +24,7 @@ class RecaptchaValidator extends ConstraintValidator
         string $privateKey,
         protected RequestStack $requestStack,
         protected array $httpProxy,
-        protected bool $verifyHost
+        protected bool $verifyHost,
     ) {
         $this->privateKey = $privateKey;
     }

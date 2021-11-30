@@ -77,7 +77,10 @@ class StringUtil
         $slug = strtolower(preg_replace('/[^A-Z^a-z^0-9^\/]+/', '-',
             preg_replace('/([a-z\d])([A-Z])/', '\1_\2',
                 preg_replace('/([A-Z]+)([A-Z][a-z])/', '\1_\2',
-                    preg_replace('/::/', '/', $slug)))));
+                    preg_replace('/::/', '/', $slug),
+                ),
+            ),
+        ));
 
         return trim($slug, '-');
     }
