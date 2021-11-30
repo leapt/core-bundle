@@ -54,8 +54,8 @@
             "@phpstan",
             "vendor/bin/simple-phpunit"
         ],
-        "cs:dry": "php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
-        "cs:fix": "php-cs-fixer fix --ansi",
+        "cs:dry": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
+        "cs:fix": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi"
     },
     "autoload": {

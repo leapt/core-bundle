@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Twig\Extension;
 
 use Symfony\Contracts\Translation\TranslatorInterface;

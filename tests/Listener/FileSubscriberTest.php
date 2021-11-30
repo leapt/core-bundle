@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Tests\Listener;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;

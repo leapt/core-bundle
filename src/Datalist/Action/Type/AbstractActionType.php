@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Datalist\Action\Type;
 
 use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;

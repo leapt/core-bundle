@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
