@@ -21,15 +21,6 @@ jobs:
         symfony-version:
           - '5.4.*'
           - '6.0.*'
-        include:
-          - php-version: '8.0'
-            symfony-version: '6.1.x@dev'
-            env:
-              SYMFONY_DEPRECATIONS_HELPER: disabled
-          - php-version: '8.1'
-            symfony-version: '6.1.x@dev'
-            env:
-              SYMFONY_DEPRECATIONS_HELPER: disabled
 
     steps:
       - name: Checkout code
@@ -46,10 +37,6 @@ jobs:
 
       - name: Install Symfony Flex
         run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
-
-      - name: Set composer minimum stability
-        run: composer config minimum-stability dev
-        if: matrix.symfony-version == '6.1.x@dev'
 
       - name: Remove not compatible vendors
         run: composer remove --no-update --dev friendsofphp/php-cs-fixer
