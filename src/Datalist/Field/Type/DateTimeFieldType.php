@@ -4,12 +4,9 @@ namespace Leapt\CoreBundle\Datalist\Field\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class DateTimeFieldType.
- */
 class DateTimeFieldType extends AbstractFieldType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -18,18 +15,12 @@ class DateTimeFieldType extends AbstractFieldType
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'datetime';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'datetime';
     }

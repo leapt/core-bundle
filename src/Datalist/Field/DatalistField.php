@@ -3,86 +3,50 @@
 namespace Leapt\CoreBundle\Datalist\Field;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
+use Leapt\CoreBundle\Datalist\TypeInterface;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-/**
- * Class DatalistField.
- */
 class DatalistField implements DatalistFieldInterface
 {
-    /**
-     * @var DatalistFieldConfig
-     */
-    private $config;
+    private DatalistInterface $datalist;
 
-    /**
-     * @var DatalistInterface
-     */
-    private $datalist;
-
-    public function __construct(DatalistFieldConfig $config)
+    public function __construct(private DatalistFieldConfig $config)
     {
-        $this->config = $config;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->config->getName();
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->config->getOptions();
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function hasOption($name)
+    public function hasOption(string $name): bool
     {
         return $this->config->hasOption($name);
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     *
-     * @return mixed
-     */
-    public function getOption($name, $default = null)
+    public function getOption(string $name, mixed $default = null): mixed
     {
         return $this->config->getOption($name, $default);
     }
 
-    /**
-     * @param string $name
-     * @param $value
-     *
-     * @return mixed|void
-     */
-    public function setOption($name, $value)
+    public function setOption(string $name, mixed $value): self
     {
         $this->config->setOption($name, $value);
+
+        return $this;
     }
 
     /**
-     * @param mixed $row
-     *
-     * @return mixed
-     *
      * @throws \UnexpectedValueException
      */
-    public function getData($row)
+    public function getData(mixed $row): mixed
     {
         $accessor = PropertyAccess::createPropertyAccessor();
         $propertyPath = $this->getPropertyPath();
@@ -109,23 +73,17 @@ class DatalistField implements DatalistFieldInterface
     /**
      * @return mixed
      */
-    public function setDatalist(DatalistInterface $datalist)
+    public function setDatalist(DatalistInterface $datalist): void
     {
         $this->datalist = $datalist;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\DatalistInterface
-     */
-    public function getDatalist()
+    public function getDatalist(): DatalistInterface
     {
         return $this->datalist;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface
-     */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->config->getType();
     }
@@ -135,7 +93,7 @@ class DatalistField implements DatalistFieldInterface
      *
      * TODO: check if not better handled through options
      */
-    private function getPropertyPath()
+    private function getPropertyPath(): string
     {
         $propertyPath = $this->getOption('property_path');
         if (null === $propertyPath) {

@@ -5,9 +5,6 @@ namespace Leapt\CoreBundle\Twig\Node;
 use Twig\Compiler;
 use Twig\Node\Node;
 
-/**
- * Class PaginatorThemeNode.
- */
 class PaginatorThemeNode extends Node
 {
     /**

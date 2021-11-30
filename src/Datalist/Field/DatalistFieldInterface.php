@@ -3,6 +3,7 @@
 namespace Leapt\CoreBundle\Datalist\Field;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
+use Leapt\CoreBundle\Datalist\TypeInterface;
 
 /**
  * Interface DatalistFieldInterface.
@@ -12,48 +13,21 @@ interface DatalistFieldInterface
     /**
      * @return \Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface
      */
-    public function getType();
+    public function getType(): TypeInterface;
 
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 
-    /**
-     * @return array
-     */
-    public function getOptions();
+    public function getOptions(): array;
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function hasOption($name);
+    public function hasOption(string $name): bool;
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null);
+    public function getOption(string $name, mixed $default = null): mixed;
 
-    /**
-     * @param string $name
-     * @param mixed  $value
-     */
-    public function setOption($name, $value);
+    public function setOption(string $name, mixed $value): self;
 
-    /**
-     * @param mixed $row
-     *
-     * @return mixed
-     */
-    public function getData($row);
+    public function getData(mixed $row): mixed;
 
     public function setDatalist(DatalistInterface $datalist);
 
-    /**
-     * @return DatalistInterface
-     */
-    public function getDatalist();
+    public function getDatalist(): DatalistInterface;
 }

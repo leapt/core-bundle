@@ -10,12 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class SearchFilterType.
- */
 class SearchFilterType extends AbstractFilterType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -24,17 +21,14 @@ class SearchFilterType extends AbstractFilterType
             ->setAllowedTypes('search_explode_terms', ['boolean']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options)
+    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options): void
     {
         $builder->add($filter->getName(), SearchType::class, [
             'label' => $options['label'],
         ]);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options): void
     {
         $terms = true === $options['search_explode_terms'] ? explode(' ', $value) : [$value];
         $baseExpression = new CombinedExpression(CombinedExpression::OPERATOR_AND);
@@ -57,18 +51,12 @@ class SearchFilterType extends AbstractFilterType
         $builder->add($baseExpression);
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'search';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'search';
     }

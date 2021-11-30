@@ -9,40 +9,17 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
-/**
- * Class SitemapController.
- */
 class SitemapController
 {
-    /**
-     * @var SitemapManager
-     */
-    private $sitemapManager;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
-     * @var Environment
-     */
-    private $twig;
-
-    /**
-     * @var HttpKernelInterface
-     */
-    private $httpKernel;
-
-    public function __construct(SitemapManager $sitemapManager, RouterInterface $router, Environment $twig, HttpKernelInterface $httpKernel)
-    {
-        $this->sitemapManager = $sitemapManager;
-        $this->router = $router;
-        $this->twig = $twig;
-        $this->httpKernel = $httpKernel;
+    public function __construct(
+        private SitemapManager $sitemapManager,
+        private RouterInterface $router,
+        private Environment $twig,
+        private HttpKernelInterface $httpKernel
+    ) {
     }
 
-    public function defaultAction(Request $request)
+    public function defaultAction(Request $request): Response
     {
         $sitemaps = $this->sitemapManager->getSitemaps();
 
@@ -59,10 +36,7 @@ class SitemapController
         throw new \UnexpectedValueException('No sitemap has been defined');
     }
 
-    /**
-     * @param string $sitemap
-     */
-    public function sitemapAction($sitemap)
+    public function sitemapAction(string $sitemap): Response
     {
         $sitemap = $this->sitemapManager->getSitemap($sitemap);
         $sitemap->build($this->router);

@@ -11,35 +11,19 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RecaptchaV3Validator extends ConstraintValidator
 {
-    private bool $enabled;
-
-    /** @var string */
-    private $secretKey;
-
-    /** @var float */
-    private $scoreThreshold;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var LoggerInterface */
-    private $logger;
+    private string $secretKey;
 
     /**
      * ContainsRecaptchaValidator constructor.
      */
     public function __construct(
-        bool $enabled,
+        private bool $enabled,
         ?string $secretKey,
-        float $scoreThreshold,
-        RequestStack $requestStack,
-        LoggerInterface $logger
+        private float $scoreThreshold,
+        private RequestStack $requestStack,
+        private LoggerInterface $logger
     ) {
-        $this->enabled = $enabled;
         $this->secretKey = $secretKey;
-        $this->scoreThreshold = $scoreThreshold;
-        $this->requestStack = $requestStack;
-        $this->logger = $logger;
     }
 
     /**

@@ -2,18 +2,13 @@
 
 namespace Leapt\CoreBundle\Paginator;
 
+use ArrayIterator;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
-/**
- * Class DoctrineORMPaginator.
- */
 class DoctrineORMPaginator extends AbstractPaginator
 {
-    /**
-     * @var \Doctrine\ORM\Tools\Pagination\Paginator
-     */
-    private $doctrinePaginator;
+    private ORMPaginator $doctrinePaginator;
 
     public function __construct(AbstractQuery $query)
     {
@@ -21,11 +16,9 @@ class DoctrineORMPaginator extends AbstractPaginator
     }
 
     /**
-     * @param int $page
-     *
      * @return $this
      */
-    public function setPage($page)
+    public function setPage(int $page): self
     {
         $page = 0 < $page ? $page : 1;
         $this->page = $page;
@@ -35,11 +28,9 @@ class DoctrineORMPaginator extends AbstractPaginator
     }
 
     /**
-     * @param int $limitPerPage
-     *
      * @return $this
      */
-    public function setLimitPerPage($limitPerPage)
+    public function setLimitPerPage(int $limitPerPage): self
     {
         $this->limitPerPage = $limitPerPage;
         $this->doctrinePaginator->getQuery()->setMaxResults($limitPerPage);
@@ -47,10 +38,7 @@ class DoctrineORMPaginator extends AbstractPaginator
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return $this->doctrinePaginator->count();
     }
@@ -58,7 +46,7 @@ class DoctrineORMPaginator extends AbstractPaginator
     /**
      * @return \Traversable
      */
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return $this->doctrinePaginator->getIterator();
     }

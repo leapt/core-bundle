@@ -11,43 +11,17 @@ use Symfony\Component\Form\FormView;
 abstract class AbstractRecaptchaType extends AbstractType
 {
     /**
-     * The public key.
-     *
-     * @var string
-     */
-    protected $publicKey;
-
-    /**
-     * Enable recaptcha?
-     *
-     * @var bool
-     */
-    protected $enabled;
-
-    /**
-     * The API server host name.
-     *
-     * @var string
-     */
-    protected $apiHost;
-
-    /**
      * The reCAPTCHA server URL.
-     *
-     * @var string
      */
-    protected $recaptchaApiServer;
+    protected string $recaptchaApiServer;
 
     /**
      * @param string $publicKey Recaptcha public key
      * @param bool   $enabled   Recaptcha status
      * @param string $apiHost   Api host
      */
-    public function __construct($publicKey, $enabled, $apiHost = 'www.google.com')
+    public function __construct(protected string $publicKey, protected bool $enabled, protected string $apiHost = 'www.google.com')
     {
-        $this->publicKey = $publicKey;
-        $this->enabled = $enabled;
-        $this->apiHost = $apiHost;
         $this->recaptchaApiServer = sprintf('https://%s/recaptcha/api.js', $apiHost);
     }
 
@@ -73,7 +47,7 @@ abstract class AbstractRecaptchaType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'leapt_core_recaptcha';
     }
@@ -83,7 +57,7 @@ abstract class AbstractRecaptchaType extends AbstractType
      *
      * @return string The javascript source URL
      */
-    public function getPublicKey()
+    public function getPublicKey(): string
     {
         return $this->publicKey;
     }
@@ -93,7 +67,7 @@ abstract class AbstractRecaptchaType extends AbstractType
      *
      * @return string The hostname for API
      */
-    public function getApiHost()
+    public function getApiHost(): string
     {
         return $this->apiHost;
     }

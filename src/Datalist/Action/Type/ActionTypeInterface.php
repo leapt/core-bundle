@@ -11,15 +11,7 @@ use Leapt\CoreBundle\Datalist\ViewContext;
  */
 interface ActionTypeInterface extends TypeInterface
 {
-    /**
-     * @param $item
-     *
-     * @return string
-     */
-    public function getUrl(DatalistActionInterface $action, $item, array $options = []);
+    public function getUrl(DatalistActionInterface $action, mixed $item, array $options = []): string;
 
-    /**
-     * @param $item
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options);
+    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, mixed $item, array $options): void;
 }

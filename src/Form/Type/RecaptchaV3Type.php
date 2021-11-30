@@ -11,22 +11,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RecaptchaV3Type extends AbstractRecaptchaType
 {
-    /** @var bool */
-    private $hideBadge;
-
     /**
      * RecaptchaV3Type constructor.
-     *
-     * @param string $publicKey
-     * @param bool   $enabled
-     * @param bool   $hideBadge
-     * @param string $apiHost
      */
-    public function __construct($publicKey, $enabled, $hideBadge, $apiHost = 'www.google.com')
+    public function __construct(string $publicKey, bool $enabled, private bool $hideBadge, string $apiHost = 'www.google.com')
     {
         parent::__construct($publicKey, $enabled, $apiHost);
-
-        $this->hideBadge = $hideBadge;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -2,9 +2,6 @@
 
 namespace Leapt\CoreBundle\Util;
 
-/**
- * Class StringUtil.
- */
 class StringUtil
 {
     /**
@@ -14,7 +11,7 @@ class StringUtil
      *
      * @return string The camelized string
      */
-    public static function camelize($id)
+    public static function camelize(string $id): string
     {
         return preg_replace_callback('/(^|_|\.)+(.)/', function ($match) { return ('.' === $match[1] ? '_' : '') . strtoupper($match[2]); }, $id);
     }
@@ -26,7 +23,7 @@ class StringUtil
      *
      * @return string The underscored string
      */
-    public static function underscore($id)
+    public static function underscore(string $id): string
     {
         return strtolower(preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], strtr($id, '_', '.')));
     }
@@ -35,13 +32,8 @@ class StringUtil
      * Removes the accents from an UTF-8 string.
      *
      * @static
-     *
-     * @param string $string
-     * @param bool   $onlyUpperCase
-     *
-     * @return string
      */
-    public static function unaccent($string, $onlyUpperCase = false)
+    public static function unaccent(string $string, bool $onlyUpperCase = false): string
     {
         $replacements = [
             'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A',
@@ -72,10 +64,8 @@ class StringUtil
      * @static
      *
      * @param $string
-     *
-     * @return string
      */
-    public static function slugify($string)
+    public static function slugify($string): string
     {
         $slug = self::unaccent($string);
         $slug = strtolower($slug);
@@ -90,19 +80,5 @@ class StringUtil
                     preg_replace('/::/', '/', $slug)))));
 
         return trim($slug, '-');
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return string
-     *
-     * @deprecated
-     */
-    public static function sluggify($string)
-    {
-        @trigger_error('sluggify() is deprecated. Use slugify instead', \E_USER_DEPRECATED);
-
-        return self::slugify($string);
     }
 }

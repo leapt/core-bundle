@@ -9,12 +9,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class EntityFilterType.
- */
 class EntityFilterType extends AbstractFilterType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -24,7 +21,7 @@ class EntityFilterType extends AbstractFilterType
             ->setDefined($this->getDefinedOptions());
     }
 
-    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options)
+    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options): void
     {
         $formOptions = [
             'class'         => $options['class'],
@@ -47,35 +44,23 @@ class EntityFilterType extends AbstractFilterType
         $builder->add($filter->getName(), EntityType::class, $formOptions);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options): void
     {
         $operator = true === $options['multiple'] ? ComparisonExpression::OPERATOR_IN : ComparisonExpression::OPERATOR_EQ;
         $builder->add(new ComparisonExpression($filter->getPropertyPath(), $operator, $value));
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'entity';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'entity';
     }
 
-    /**
-     * @return array
-     */
-    private function getDefinedOptions()
+    private function getDefinedOptions(): array
     {
         return [
             'choices', 'property', 'placeholder', 'group_by', 'attr',

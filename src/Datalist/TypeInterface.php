@@ -9,15 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 interface TypeInterface
 {
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 
-    public function configureOptions(OptionsResolver $resolver);
+    public function configureOptions(OptionsResolver $resolver): void;
 
-    /**
-     * @return string
-     */
-    public function getBlockName();
+    public function getBlockName(): string;
 }

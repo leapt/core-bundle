@@ -54,7 +54,7 @@ use Leapt\CoreBundle\Datalist\Type\DatalistType;
 
 final class NewsDatalistType extends DatalistType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 

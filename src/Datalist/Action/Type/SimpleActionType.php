@@ -8,22 +8,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * Class SimpleActionType.
- */
 class SimpleActionType extends AbstractActionType
 {
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
-    protected $router;
-
-    public function __construct(RouterInterface $router)
+    public function __construct(protected RouterInterface $router)
     {
-        $this->router = $router;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -37,10 +28,8 @@ class SimpleActionType extends AbstractActionType
 
     /**
      * @param object $item
-     *
-     * @return string
      */
-    public function getUrl(DatalistActionInterface $action, $item, array $options = [])
+    public function getUrl(DatalistActionInterface $action, $item, array $options = []): string
     {
         $parameters = [];
         $accessor = PropertyAccess::createPropertyAccessor();
@@ -52,10 +41,7 @@ class SimpleActionType extends AbstractActionType
         return $this->router->generate($options['route'], $parameters);
     }
 
-    /**
-     * @param $item
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, mixed $item, array $options): void
     {
         parent::buildViewContext($viewContext, $action, $item, $options);
 
@@ -64,18 +50,12 @@ class SimpleActionType extends AbstractActionType
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'simple';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'simple';
     }

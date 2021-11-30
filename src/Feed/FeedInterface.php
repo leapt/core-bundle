@@ -8,48 +8,38 @@ interface FeedInterface
      * This method is used to build the ATOM channel "id" element.
      *
      * @abstract
-     *
-     * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * This method is used to generate the feed "title" element for ATOM and RSS.
      *
      * @abstract
-     *
-     * @return string
      */
-    public function getTitle();
+    public function getTitle(): string;
 
     /**
      * This method is used to generate the RSS "description" element as
      * well as the ATOM "subtitle" element.
      *
      * @abstract
-     *
-     * @return string
      */
-    public function getDescription();
+    public function getDescription(): string;
 
     /**
      * This method is used to build RSS and ATOM "link" elements
      * The generated url should point to the website containing the feed.
      *
      * @abstract
-     *
-     * @return string
      */
-    public function getLink();
+    public function getLink(): string;
 
     /**
      * This method is used to generated the "updated" atom element.
      *
      * @abstract
-     *
-     * @return \DateTime
      */
-    public function getUpdatedAt();
+    public function getUpdatedAt(): \DateTime;
 
     /**
      * This method should return an array, a collection (for example a Doctrine collection) or
@@ -57,17 +47,13 @@ interface FeedInterface
      * ATOM "entries" element.
      *
      * @abstract
-     *
-     * @return array|\Traversable
      */
-    public function getItems();
+    public function getItems(): \Traversable|array;
 
     /**
      * This method should return a valid FeedItem instance.
      *
      * @abstract
-     *
-     * @return FeedItem
      */
-    public function buildItem($item);
+    public function buildItem($item): FeedItem;
 }

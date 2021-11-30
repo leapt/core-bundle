@@ -4,9 +4,6 @@ namespace Leapt\CoreBundle\Sitemap;
 
 use Symfony\Component\Routing\Router;
 
-/**
- * Class AbstractSitemap.
- */
 abstract class AbstractSitemap
 {
     public const CHANGEFREQ_ALWAYS = 'always';
@@ -17,36 +14,21 @@ abstract class AbstractSitemap
     public const CHANGEFREQ_YEARLY = 'yearly';
     public const CHANGEFREQ_NEVER = 'never';
 
-    /**
-     * @var array
-     */
-    private $urls = [];
+    private array $urls = [];
 
-    /**
-     * @var string
-     */
-    private $alias;
+    private string $alias;
 
-    /**
-     * @return array
-     */
-    public function getUrls()
+    public function getUrls(): array
     {
         return $this->urls;
     }
 
-    /**
-     * @param string $alias
-     */
-    public function setAlias($alias)
+    public function setAlias(string $alias)
     {
         $this->alias = $alias;
     }
 
-    /**
-     * @return string
-     */
-    public function getAlias()
+    public function getAlias(): string
     {
         return $this->alias;
     }
@@ -55,21 +37,16 @@ abstract class AbstractSitemap
      * Build the sitemap.
      *
      * The easiest way to implement this method is to use the addUrl method
-     *
-     * @return mixed
      */
-    abstract public function build(Router $router);
+    abstract public function build(Router $router): mixed;
 
     /**
      * @param $loc
      * @param \DateTime $lastMod
-     * @param string    $changeFreq
-     * @param mixed     $priority
-     * @param array     $images
      *
      * @return AbstractSitemap
      */
-    protected function addUrl($loc, \DateTime $lastMod = null, $changeFreq = null, $priority = null, $images = [])
+    protected function addUrl($loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = []): self
     {
         $url = [
             'loc' => $loc,
@@ -95,11 +72,9 @@ abstract class AbstractSitemap
     }
 
     /**
-     * @param string $changeFreq
-     *
      * @throws \InvalidArgumentException
      */
-    private function validateChangeFreq($changeFreq)
+    private function validateChangeFreq(string $changeFreq): void
     {
         if (!\in_array($changeFreq, [
             self::CHANGEFREQ_ALWAYS,
@@ -116,11 +91,9 @@ abstract class AbstractSitemap
     }
 
     /**
-     * @param string $priority
-     *
      * @throws \InvalidArgumentException
      */
-    private function validatePriority($priority)
+    private function validatePriority(string $priority): void
     {
         if (!is_numeric($priority) || 1 < $priority || 0 > $priority) {
             throw new \InvalidArgumentException('The priority parameter must be a number between 0 and 1');

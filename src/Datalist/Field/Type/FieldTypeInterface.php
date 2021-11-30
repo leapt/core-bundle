@@ -11,8 +11,5 @@ use Leapt\CoreBundle\Datalist\ViewContext;
  */
 interface FieldTypeInterface extends TypeInterface
 {
-    /**
-     * @param mixed $value
-     */
     public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $value, array $options);
 }

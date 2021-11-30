@@ -3,33 +3,20 @@
 namespace Leapt\CoreBundle\Datalist\Action;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
+use Leapt\CoreBundle\Datalist\TypeInterface;
 
-/**
- * Interface DatalistActionInterface.
- */
 interface DatalistActionInterface
 {
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Action\Type\ActionTypeInterface
-     */
-    public function getType();
+    public function getType(): TypeInterface;
 
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 
-    /**
-     * @return array
-     */
-    public function getOptions();
+    public function getOptions(): array;
 
     /**
      * @param string $name
-     *
-     * @return bool
      */
-    public function hasOption($name);
+    public function hasOption($name): bool;
 
     /**
      * @param string $name
@@ -39,8 +26,5 @@ interface DatalistActionInterface
 
     public function setDatalist(DatalistInterface $datalist);
 
-    /**
-     * @return DatalistInterface
-     */
-    public function getDatalist();
+    public function getDatalist(): DatalistInterface;
 }

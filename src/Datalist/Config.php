@@ -2,58 +2,26 @@
 
 namespace Leapt\CoreBundle\Datalist;
 
-/**
- * Class Config.
- */
 abstract class Config
 {
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var TypeInterface
-     */
-    protected $type;
-
-    /**
-     * @var array
-     */
-    protected $options = [];
-
-    /**
-     * @param $name
-     */
-    public function __construct($name, TypeInterface $type, array $options = [])
-    {
-        $this->name = $name;
-        $this->type = $type;
-        $this->options = $options;
+    public function __construct(
+        protected string $name,
+        protected TypeInterface $type,
+        protected array $options = []
+    ) {
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function hasOption($name)
+    public function hasOption(string $name): bool
     {
         return isset($this->options[$name]);
     }
@@ -64,24 +32,22 @@ abstract class Config
      *
      * @return null
      */
-    public function getOption($name, $default = null)
+    public function getOption($name, $default = null): ?string
     {
         return isset($this->options[$name]) ? $this->options[$name] : $default;
     }
 
-    /**
-     * @param string $name
-     * @param $value
-     */
-    public function setOption($name, $value)
+    public function setOption(string $name, mixed $value): self
     {
         $this->options[$name] = $value;
+
+        return $this;
     }
 
     /**
      * @return \Leapt\CoreBundle\Datalist\TypeInterface
      */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->type;
     }

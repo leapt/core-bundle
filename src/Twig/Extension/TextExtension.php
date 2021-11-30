@@ -7,17 +7,11 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-/**
- * Class TextExtension.
- */
 class TextExtension extends AbstractExtension
 {
     public const MISSING_EXTENSION_EXCEPTION = 10;
 
-    /**
-     * @var bool
-     */
-    protected $useMultiByteString = false;
+    protected bool $useMultiByteString = false;
 
     /**
      * Core extension constructor
@@ -30,10 +24,8 @@ class TextExtension extends AbstractExtension
 
     /**
      * Get all available filters.
-     *
-     * @return array
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('camelize', [$this, 'camelize'], ['is_safe' => ['html']]),
@@ -43,25 +35,16 @@ class TextExtension extends AbstractExtension
 
     /**
      * @param $string
-     *
-     * @return string
      */
-    public function camelize($string)
+    public function camelize($string): string
     {
         return StringUtil::camelize($string);
     }
 
     /**
      * Filter used to safely truncate a string with html.
-     *
-     * @param string $value
-     * @param int    $length
-     * @param bool   $preserve
-     * @param string $separator
-     *
-     * @return string
      */
-    public function safeTruncate(Environment $env, $value, $length = 30, $preserve = true, $separator = '...')
+    public function safeTruncate(Environment $env, string $value, int $length = 30, bool $preserve = true, string $separator = '...'): string
     {
         $charset = $env->getCharset();
 
@@ -171,45 +154,37 @@ class TextExtension extends AbstractExtension
     /**
      * Enable/disable MultiByte string
      * Useful for Unit Testing.
-     *
-     * @param bool $useMultiByteString
      */
-    public function setMultiByteString($useMultiByteString)
+    public function setMultiByteString(bool $useMultiByteString): self
     {
         if ($useMultiByteString && !$this->isMultiByteStringAvailable()) {
             throw new \BadFunctionCallException('mbstring extension is not enabled', self::MISSING_EXTENSION_EXCEPTION);
         }
         $this->useMultiByteString = $useMultiByteString;
+
+        return $this;
     }
 
     /**
      * Check if MultiByte string is used.
-     *
-     * @return bool
      */
-    public function getMultiByteString()
+    public function getMultiByteString(): bool
     {
         return $this->useMultiByteString;
     }
 
     /**
      * Check if MultiByte string is available.
-     *
-     * @return bool
      */
-    public function isMultiByteStringAvailable()
+    public function isMultiByteStringAvailable(): bool
     {
         return \function_exists('mb_get_info');
     }
 
     /**
      * Helper used to close html tags.
-     *
-     * @param string $html
-     *
-     * @return string
      */
-    protected function closeTags($html)
+    protected function closeTags(string $html): string
     {
         preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
         $openedTags = $result[1]; //put all closed tags into an array

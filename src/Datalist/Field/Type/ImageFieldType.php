@@ -2,23 +2,14 @@
 
 namespace Leapt\CoreBundle\Datalist\Field\Type;
 
-/**
- * Class ImageFieldType.
- */
 class ImageFieldType extends AbstractFieldType
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'image';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'image';
     }

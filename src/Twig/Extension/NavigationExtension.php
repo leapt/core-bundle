@@ -6,29 +6,18 @@ use Leapt\CoreBundle\Navigation\NavigationRegistry;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-/**
- * Class NavigationExtension.
- */
 class NavigationExtension extends AbstractExtension
 {
-    /**
-     * @var \Leapt\CoreBundle\Navigation\NavigationRegistry
-     */
-    private $registry;
-
-    public function __construct(NavigationRegistry $registry)
+    public function __construct(private NavigationRegistry $registry)
     {
-        $this->registry = $registry;
     }
 
     /**
      * Get all available functions.
      *
-     * @return array
-     *
      * @codeCoverageIgnore
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('set_active_paths', [$this, 'setActivePaths']),
@@ -63,48 +52,31 @@ class NavigationExtension extends AbstractExtension
 
     /**
      * Get the active paths previously set.
-     *
-     * @return array
      */
-    public function getActivePaths()
+    public function getActivePaths(): array
     {
         return $this->registry->getActivePaths();
     }
 
     /**
      * Checks if the provided path is to be considered as active.
-     *
-     * @param string $path
-     *
-     * @return bool
      */
-    public function isActivePath($path)
+    public function isActivePath(string $path): bool
     {
         return $this->registry->isActivePath($path);
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function appendBreadcrumb($path, $label)
+    public function appendBreadcrumb(string $path, string $label): void
     {
         $this->registry->appendBreadcrumb($path, $label);
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function prependBreadcrumb($path, $label)
+    public function prependBreadcrumb(string $path, string $label): void
     {
         $this->registry->prependBreadcrumb($path, $label);
     }
 
-    /**
-     * @return array
-     */
-    public function getBreadcrumbs()
+    public function getBreadcrumbs(): array
     {
         return $this->registry->getBreadcrumbs();
     }

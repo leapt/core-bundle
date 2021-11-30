@@ -15,25 +15,16 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-/**
- * Class FileType.
- */
 class FileType extends AbstractType
 {
-    /**
-     * @var string
-     */
-    private $uploadDir;
+    private string $uploadDir;
 
-    /**
-     * @return string
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'leapt_core_file';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setRequired([
@@ -101,11 +92,10 @@ class FileType extends AbstractType
         $view->vars['allow_delete'] = $options['allow_delete'];
     }
 
-    /**
-     * @param string $uploadDir
-     */
-    public function setUploadDir($uploadDir)
+    public function setUploadDir(string $uploadDir): self
     {
         $this->uploadDir = $uploadDir;
+
+        return $this;
     }
 }

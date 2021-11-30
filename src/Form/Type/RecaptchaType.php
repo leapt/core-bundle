@@ -10,28 +10,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RecaptchaType extends AbstractRecaptchaType
 {
-    /**
-     * Use AJAX api?
-     *
-     * @var bool
-     */
-    protected $ajax;
-
-    /** @var LocaleResolver */
-    protected $localeResolver;
-
-    public function __construct($publicKey, $enabled, $ajax, LocaleResolver $localeResolver, $apiHost = 'www.google.com')
+    public function __construct($publicKey, $enabled, protected bool $ajax, protected LocaleResolver $localeResolver, $apiHost = 'www.google.com')
     {
         parent::__construct($publicKey, $enabled, $apiHost);
-
-        $this->ajax = $ajax;
-        $this->localeResolver = $localeResolver;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'compound'      => false,
@@ -58,7 +45,7 @@ class RecaptchaType extends AbstractRecaptchaType
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): string
     {
         return TextType::class;
     }
@@ -66,7 +53,7 @@ class RecaptchaType extends AbstractRecaptchaType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'leapt_core_recaptcha';
     }
