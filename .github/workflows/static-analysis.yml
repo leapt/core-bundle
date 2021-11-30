@@ -30,8 +30,5 @@ jobs:
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
 
-      - name: Install phpunit
-        run: vendor/bin/simple-phpunit
-
       - name: Run PHPStan
         run: 'vendor/bin/phpstan analyse --error-format=checkstyle | cs2pr'
