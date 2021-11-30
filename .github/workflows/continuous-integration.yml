@@ -46,7 +46,7 @@ jobs:
         uses: ramsey/composer-install@v1
 
       - name: Run PHPUnit
-        run: vendor/bin/simple-phpunit --coverage-clover=coverage.xml
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v2

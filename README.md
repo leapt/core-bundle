@@ -41,7 +41,7 @@ Note there are a few helpers to maintain code quality, that you can run using th
 ```bash
 composer cs:dry # Code style check
 composer phpstan # Static analysis
-vendor/bin/simple-phpunit # Run tests
+vendor/bin/phpunit # Run tests
 ```
 
 Docs are built using mkdocs. To launch the docs server locally, run `make docs-start` & open http://127.0.0.1:8000/.
