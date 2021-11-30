@@ -13,11 +13,6 @@ class FeedManager
         $this->feeds[$alias] = $feed;
     }
 
-    /**
-     * Get a feed by name.
-     *
-     * @throws \InvalidArgumentException
-     */
     public function getFeed(string $feedName): FeedInterface
     {
         if (!isset($this->feeds[$feedName])) {

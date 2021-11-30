@@ -11,10 +11,7 @@ use Twig\Environment;
 
 class TextExtensionTest extends TestCase
 {
-    /**
-     * @var TextExtension
-     */
-    private $extension;
+    private TextExtension $extension;
 
     protected function setUp(): void
     {
@@ -24,7 +21,7 @@ class TextExtensionTest extends TestCase
     /**
      * Test that the constructor correctly set the default MultiByte string.
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $this->assertSame($this->extension->isMultiByteStringAvailable(), $this->extension->getMultiByteString(), '__construct: Check that MultiByte string is correctly set');
     }

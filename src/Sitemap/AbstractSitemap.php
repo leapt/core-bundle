@@ -67,9 +67,6 @@ abstract class AbstractSitemap
         return $this;
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     private function validateChangeFreq(string $changeFreq): void
     {
         if (!\in_array($changeFreq, [
@@ -86,9 +83,6 @@ abstract class AbstractSitemap
         }
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     private function validatePriority(string $priority): void
     {
         if (!is_numeric($priority) || 1 < $priority || 0 > $priority) {

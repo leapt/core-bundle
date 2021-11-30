@@ -40,9 +40,6 @@ class DoctrineORMDatasource extends AbstractDatasource
         return $this->iterator;
     }
 
-    /**
-     * Load the collection.
-     */
     protected function initialize(): void
     {
         if ($this->initialized) {
@@ -89,9 +86,6 @@ class DoctrineORMDatasource extends AbstractDatasource
         $this->initialized = true;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
     private function buildQueryBuilderExpression(ExpressionInterface $expression): Andx|Orx|Comparison|Func|string
     {
         // If we have a combined expression ("AND" / "OR")
@@ -106,9 +100,6 @@ class DoctrineORMDatasource extends AbstractDatasource
         return $queryBuilderExpression;
     }
 
-    /**
-     * @throws UnexpectedValueException
-     */
     private function buildQueryBuilderCombinedExpression(CombinedExpression $expression): Andx|Orx
     {
         $queryBuilderSubExpressions = [];
@@ -128,15 +119,10 @@ class DoctrineORMDatasource extends AbstractDatasource
         return $expr;
     }
 
-    /**
-     * @return Comparison
-     *
-     * @throws UnexpectedValueException
-     */
     private function buildQueryBuilderComparisonExpression(ComparisonExpression $expression): Comparison|Func|string
     {
         $propertyPath = $expression->getPropertyPath();
-        $placeholder = ':' . uniqid('p');
+        $placeholder = ':' . uniqid('p', false);
         $comparisonValue = $expression->getValue();
         $operator = $expression->getOperator();
 

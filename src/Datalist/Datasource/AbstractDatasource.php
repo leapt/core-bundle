@@ -89,7 +89,7 @@ abstract class AbstractDatasource implements DatasourceInterface
     }
 
     /**
-     * This method should populated the iterator and paginator member variables.
+     * This method should populate the iterator and paginator member variables.
      */
     abstract protected function initialize();
 }

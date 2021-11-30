@@ -44,7 +44,7 @@ class FileType extends AbstractType
             ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $filePath = $options['file_path'];
         $uploadDir = $this->uploadDir;
@@ -69,7 +69,7 @@ class FileType extends AbstractType
             });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         if (\array_key_exists('file_path', $options)) {
             $parentData = $form->getParent()->getData();
@@ -83,7 +83,7 @@ class FileType extends AbstractType
                         $fileUrl = $accessor->getValue($parentData, $options['file_path']);
                     }
                 }
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 $fileUrl = null;
             }
             // set a "file_url" variable that will be available when rendering this field

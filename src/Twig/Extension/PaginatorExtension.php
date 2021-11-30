@@ -33,9 +33,6 @@ class PaginatorExtension extends AbstractExtension
         return [new PaginatorThemeTokenParser()];
     }
 
-    /**
-     * @throws \Exception
-     */
     public function renderPaginatorWidget(Environment $env, PaginatorInterface $paginator): string
     {
         $blockName = 'paginator_widget';
@@ -61,7 +58,7 @@ class PaginatorExtension extends AbstractExtension
         return $this;
     }
 
-    public function setTheme(PaginatorInterface $paginator, $ressources)
+    public function setTheme(PaginatorInterface $paginator, $ressources): void
     {
         $this->themes[$paginator] = $ressources;
     }
@@ -75,10 +72,6 @@ class PaginatorExtension extends AbstractExtension
         return [$this->template];
     }
 
-    /**
-     * @throws \Exception
-     * @throws \Twig\Error\LoaderError
-     */
     private function renderBlock(Environment $env, PaginatorInterface $paginator, array $blockNames, array $context = []): string
     {
         $paginatorTemplates = $this->getTemplatesForPaginator($paginator);

@@ -11,23 +11,11 @@ use Leapt\CoreBundle\Tests\Paginator\Entity\Player;
 
 class LoadPlayerData extends AbstractFixture
 {
-    /**
-     * @var int
-     */
-    private $limit;
-
-    /**
-     * @param int $limit
-     */
-    public function __construct($limit)
+    public function __construct(private int $limit)
     {
-        $this->limit = $limit;
     }
 
-    /**
-     * Load data fixtures with the passed EntityManager.
-     */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $faker = FakerFactory::create();
         for ($i = 1; $i <= $this->limit; ++$i) {

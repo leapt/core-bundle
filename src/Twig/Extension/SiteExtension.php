@@ -38,7 +38,7 @@ class SiteExtension extends AbstractExtension
         ];
     }
 
-    public function getPageTitle(string $baseTitle, string $seperator = ' - '): string
+    public function getPageTitle(string $baseTitle, string $separator = ' - '): string
     {
         $parts = array_merge(
             $this->titleParts['prepend'],
@@ -46,7 +46,7 @@ class SiteExtension extends AbstractExtension
             $this->titleParts['append'],
         );
 
-        return implode($seperator, $parts);
+        return implode($separator, $parts);
     }
 
     public function getMetaDescription(string $defaultDescription): string

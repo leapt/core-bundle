@@ -30,7 +30,7 @@ class DatalistFilter implements DatalistFilterInterface
         return $this->config->hasOption($name);
     }
 
-    public function getOption(string $name, mixed $default = null): ?string
+    public function getOption(string $name, mixed $default = null): mixed
     {
         return $this->config->getOption($name, $default);
     }

@@ -10,19 +10,14 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class FeedCompilerPass implements CompilerPassInterface
 {
-    /**
-     * Check for indexer services in configuration.
-     */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (false === $container->hasDefinition('leapt_core.feed_manager')) {
             return;
         }
         $definition = $container->getDefinition('leapt_core.feed_manager');
         foreach ($container->findTaggedServiceIds('leapt_core.feed') as $serviceId => $tag) {
-            $alias = isset($tag[0]['alias'])
-                ? $tag[0]['alias']
-                : $serviceId;
+            $alias = $tag[0]['alias'] ?? $serviceId;
             $definition->addMethodCall('registerFeed', [$alias, new Reference($serviceId)]);
         }
     }

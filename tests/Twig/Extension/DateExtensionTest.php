@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class DateExtensionTest extends TestCase
 {
-    /**
-     * @var DateExtension
-     */
-    private $extension;
+    private DateExtension $extension;
 
     protected function setUp(): void
     {
@@ -28,12 +25,9 @@ class DateExtensionTest extends TestCase
     }
 
     /**
-     * @param \Datetime|string $ago      The time to test
-     * @param string           $expected The expected string to assert
-     *
      * @dataProvider timeAgoData
      */
-    public function testTimeAgo($ago, string $expected): void
+    public function testTimeAgo(\Datetime|string $ago, string $expected): void
     {
         $this->assertEquals($expected, $this->extension->timeAgo($ago, 'en'));
     }

@@ -78,12 +78,9 @@ abstract class AbstractPaginator implements PaginatorInterface
             );
     }
 
-    /**
-     * @return int
-     */
-    protected function getOffset(): float|int
+    protected function getOffset(): int
     {
-        //Calculate offset for items based on current page number
+        // Calculate offset for items based on current page number
         return ($this->page - 1) * $this->limitPerPage;
     }
 }

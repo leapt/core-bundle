@@ -15,8 +15,6 @@ class NavigationExtension extends AbstractExtension
     }
 
     /**
-     * Get all available functions.
-     *
      * @codeCoverageIgnore
      */
     public function getFunctions(): array
@@ -32,35 +30,21 @@ class NavigationExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * Set the paths to be considered as active (navigation-wise).
-     *
-     * @param array $paths an array of URI paths
-     */
-    public function setActivePaths(array $paths)
+    public function setActivePaths(array $paths): void
     {
         $this->registry->setActivePaths($paths);
     }
 
-    /**
-     * Add a path to be considered as active (navigation-wise).
-     */
     public function addActivePath(string $path): void
     {
         $this->registry->addActivePath($path);
     }
 
-    /**
-     * Get the active paths previously set.
-     */
     public function getActivePaths(): array
     {
         return $this->registry->getActivePaths();
     }
 
-    /**
-     * Checks if the provided path is to be considered as active.
-     */
     public function isActivePath(string $path): bool
     {
         return $this->registry->isActivePath($path);

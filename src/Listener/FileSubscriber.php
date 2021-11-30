@@ -38,7 +38,7 @@ class FileSubscriber implements EventSubscriber
         ];
     }
 
-    public function preFlush(PreFlushEventArgs $ea)
+    public function preFlush(PreFlushEventArgs $ea): void
     {
         $entityManager = $ea->getEntityManager();
 
@@ -64,7 +64,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    public function onFlush(OnFlushEventArgs $ea)
+    public function onFlush(OnFlushEventArgs $ea): void
     {
         $entityManager = $ea->getEntityManager();
 
@@ -83,17 +83,17 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    public function postPersist(LifecycleEventArgs $ea)
+    public function postPersist(LifecycleEventArgs $ea): void
     {
         $this->postSave($ea);
     }
 
-    public function postUpdate(LifecycleEventArgs $ea)
+    public function postUpdate(LifecycleEventArgs $ea): void
     {
         $this->postSave($ea);
     }
 
-    public function preRemove(LifecycleEventArgs $ea)
+    public function preRemove(LifecycleEventArgs $ea): void
     {
         $entity = $ea->getEntity();
         foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $fileConfig) {
@@ -101,7 +101,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    public function postRemove(LifecycleEventArgs $ea)
+    public function postRemove(LifecycleEventArgs $ea): void
     {
         $entity = $ea->getEntity();
         foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $fileConfig) {
@@ -124,7 +124,7 @@ class FileSubscriber implements EventSubscriber
         return [];
     }
 
-    private function postSave(LifecycleEventArgs $ea)
+    private function postSave(LifecycleEventArgs $ea): void
     {
         $fileEntity = $ea->getEntity();
         foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileConfig) {
@@ -137,7 +137,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    private function preUpload($ea, mixed $fileEntity, array $fileConfig)
+    private function preUpload($ea, mixed $fileEntity, array $fileConfig): void
     {
         $propertyValue = $fileConfig['property']->getValue($fileEntity);
         if ($propertyValue instanceof File) {
@@ -159,7 +159,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    private function upload(LifecycleEventArgs $ea, object $fileEntity, array $fileConfig)
+    private function upload(LifecycleEventArgs $ea, object $fileEntity, array $fileConfig): void
     {
         $propertyValue = $fileConfig['property']->getValue($fileEntity);
         if (!$propertyValue instanceof File) {
@@ -185,7 +185,7 @@ class FileSubscriber implements EventSubscriber
         $fileConfig['property']->setValue($fileEntity, null);
     }
 
-    private function preRemoveUpload(object $fileEntity, array $fileConfig)
+    private function preRemoveUpload(object $fileEntity, array $fileConfig): void
     {
         $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
 
@@ -195,7 +195,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    private function removeUpload(object $fileEntity, array $fileConfig)
+    private function removeUpload(object $fileEntity, array $fileConfig): void
     {
         if (isset($this->unlinkQueue[spl_object_hash($fileEntity)]) && is_file($this->unlinkQueue[spl_object_hash($fileEntity)])) {
             unlink($this->unlinkQueue[spl_object_hash($fileEntity)]);
@@ -229,7 +229,7 @@ class FileSubscriber implements EventSubscriber
         return $path . $filename . $ext;
     }
 
-    private function checkClassConfig($entity, EntityManager $entityManager)
+    private function checkClassConfig($entity, EntityManager $entityManager): void
     {
         $class = \get_class($entity);
 

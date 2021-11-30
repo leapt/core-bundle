@@ -6,13 +6,11 @@ namespace Leapt\CoreBundle\Tests\Paginator;
 
 use Faker\Factory as FakerFactory;
 use Leapt\CoreBundle\Paginator\ArrayPaginator;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
 
 class ArrayPaginatorTest extends AbstractPaginatorTest
 {
-    /**
-     * Test the IteratorAggregate implementation.
-     */
-    public function testIteration()
+    public function testIteration(): void
     {
         $items = $this->buildItems(20);
         $eleventhItem = $items[10];
@@ -29,29 +27,14 @@ class ArrayPaginatorTest extends AbstractPaginatorTest
         $this->assertEquals($eleventhItem, $item);
     }
 
-    /**
-     * Build a populated paginator instance.
-     *
-     * @param int $limit
-     *
-     * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
-     */
-    protected function buildPaginator($limit)
+    protected function buildPaginator(int $limit): PaginatorInterface
     {
         $items = $this->buildItems($limit);
-        $paginator = new ArrayPaginator($items);
 
-        return $paginator;
+        return new ArrayPaginator($items);
     }
 
-    /**
-     * Build a simple array of items to be used in the paginator.
-     *
-     * @param int $limit
-     *
-     * @return array
-     */
-    private function buildItems($limit)
+    private function buildItems(int $limit): array
     {
         $faker = FakerFactory::create();
         $items = [];

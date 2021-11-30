@@ -13,10 +13,7 @@ class SitemapManager
      */
     private array $sitemaps = [];
 
-    /**
-     * @throws \BadMethodCallException
-     */
-    public function registerSitemap($alias, AbstractSitemap $sitemap)
+    public function registerSitemap(string $alias, AbstractSitemap $sitemap): void
     {
         $sitemap->setAlias($alias);
         $this->sitemaps[$alias] = $sitemap;
@@ -24,17 +21,12 @@ class SitemapManager
 
     /**
      * @return AbstractSitemap[]
-     *
-     * @throws \UnexpectedValueException
      */
     public function getSitemaps(): array
     {
         return $this->sitemaps;
     }
 
-    /**
-     * @throws NotFoundHttpException
-     */
     public function getSitemap(string $alias): AbstractSitemap
     {
         if (!isset($this->sitemaps[$alias])) {

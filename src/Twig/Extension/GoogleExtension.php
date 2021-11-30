@@ -23,8 +23,6 @@ class GoogleExtension extends AbstractExtension
     }
 
     /**
-     * Get all available functions.
-     *
      * @codeCoverageIgnore
      */
     public function getFunctions(): array
@@ -46,9 +44,6 @@ class GoogleExtension extends AbstractExtension
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getAccountId(): ?string
     {
         return $this->accountId;

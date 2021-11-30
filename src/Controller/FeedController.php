@@ -7,6 +7,7 @@ namespace Leapt\CoreBundle\Controller;
 use Leapt\CoreBundle\Feed\FeedManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Twig\Environment;
 
@@ -19,9 +20,6 @@ class FeedController
     ) {
     }
 
-    /**
-     * @throws \ErrorException
-     */
     public function indexAction(Request $request, string $feedName): Response
     {
         $feed = $this->feedManager->getFeed($feedName);
@@ -32,7 +30,7 @@ class FeedController
             $builtItem = $feed->buildItem($item);
             $errors = $this->validator->validate($builtItem);
             if (0 < \count($errors)) {
-                throw new \ErrorException('Invalid feed item');
+                throw new HttpException(500, 'Invalid feed item');
             }
             $builtFeedItems[] = $builtItem;
         }

@@ -11,10 +11,7 @@ use Twig\Loader\FilesystemLoader;
 
 class GoogleExtensionTest extends TestCase
 {
-    /**
-     * @var Environment
-     */
-    private $env;
+    private Environment $env;
 
     protected function setUp(): void
     {

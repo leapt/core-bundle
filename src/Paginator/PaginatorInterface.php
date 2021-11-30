@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Paginator;
 
-/**
- * Interface PaginatorInterface.
- */
 interface PaginatorInterface extends \Countable, \IteratorAggregate
 {
     /**

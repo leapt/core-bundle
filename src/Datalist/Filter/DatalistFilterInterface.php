@@ -6,14 +6,10 @@ namespace Leapt\CoreBundle\Datalist\Filter;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
 use Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface;
-use Leapt\CoreBundle\Datalist\TypeInterface;
 
 interface DatalistFilterInterface
 {
-    /**
-     * @return FilterTypeInterface
-     */
-    public function getType(): TypeInterface;
+    public function getType(): FilterTypeInterface;
 
     public function getDatalist(): DatalistInterface;
 

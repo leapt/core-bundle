@@ -9,9 +9,6 @@ use Leapt\CoreBundle\Datalist\DatalistInterface;
 use Leapt\CoreBundle\Datalist\TypeInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 
-/**
- * Interface DatalistTypeInterface.
- */
 interface DatalistTypeInterface extends TypeInterface
 {
     public function buildDatalist(DatalistBuilder $builder, array $options): void;

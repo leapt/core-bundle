@@ -15,45 +15,36 @@ use Symfony\Component\Routing\RouterInterface;
 class DatalistFactory
 {
     /**
-     * @var array
+     * @var array<DatalistType\DatalistTypeInterface>
      */
-    private $types = [];
+    private array $types = [];
 
     /**
-     * @var array
+     * @var array<FieldType\FieldTypeInterface>
      */
-    private $fieldTypes = [];
+    private array $fieldTypes = [];
 
     /**
-     * @var array
+     * @var array<FilterType\FilterTypeInterface>
      */
-    private $filterTypes = [];
+    private array $filterTypes = [];
 
     /**
-     * @var array
+     * @var array<ActionType\ActionTypeInterface>
      */
-    private $actionTypes = [];
+    private array $actionTypes = [];
 
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-
-    private $router;
-
-    public function __construct(FormFactoryInterface $formFactory, RouterInterface $router)
+    public function __construct(private FormFactoryInterface $formFactory, private RouterInterface $router)
     {
-        $this->formFactory = $formFactory;
-        $this->router = $router;
         $this->initialize();
     }
 
-    public function create(string $type = 'datalist', array $options = []): DatalistInterface
+    public function create(mixed $type = 'datalist', array $options = []): DatalistInterface
     {
         return $this->createBuilder($type, $options)->getDatalist();
     }
 
-    public function createNamed(string $name, string $type = 'datalist', array $options = []): Datalist
+    public function createNamed(string $name, mixed $type = 'datalist', array $options = []): Datalist
     {
         return $this->createNamedBuilder($name, $type, $options)->getDatalist();
     }
@@ -67,9 +58,6 @@ class DatalistFactory
         return $this->createNamedBuilder($name, $type, $options);
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function createNamedBuilder(string $name, mixed $type = 'datalist', array $options = []): DatalistBuilder
     {
         // Determine datalist type
@@ -91,9 +79,6 @@ class DatalistFactory
         return $builder;
     }
 
-    /**
-     * @return DatalistType\DatalistTypeInterface
-     */
     public function getType(string $alias): Type\DatalistTypeInterface
     {
         if (!\array_key_exists($alias, $this->types)) {
@@ -103,9 +88,6 @@ class DatalistFactory
         return $this->types[$alias];
     }
 
-    /**
-     * @param Type\DatalistTypeInterface $type
-     */
     public function registerType(DatalistType\DatalistTypeInterface $type): self
     {
         $this->types[\get_class($type)] = $type;
@@ -113,9 +95,6 @@ class DatalistFactory
         return $this;
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function getFieldType(string $alias): FieldType\FieldTypeInterface
     {
         if (!\array_key_exists($alias, $this->fieldTypes)) {
@@ -125,14 +104,11 @@ class DatalistFactory
         return $this->fieldTypes[$alias];
     }
 
-    public function registerFieldType(FieldType\FieldTypeInterface $fieldType)
+    public function registerFieldType(FieldType\FieldTypeInterface $fieldType): void
     {
         $this->fieldTypes[\get_class($fieldType)] = $fieldType;
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function getFilterType(string $alias): FilterType\FilterTypeInterface
     {
         if (!\array_key_exists($alias, $this->filterTypes)) {
@@ -142,14 +118,11 @@ class DatalistFactory
         return $this->filterTypes[$alias];
     }
 
-    public function registerFilterType(FilterType\FilterTypeInterface $filterType)
+    public function registerFilterType(FilterType\FilterTypeInterface $filterType): void
     {
         $this->filterTypes[\get_class($filterType)] = $filterType;
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function getActionType(string $alias): ActionType\ActionTypeInterface
     {
         if (!\array_key_exists($alias, $this->actionTypes)) {
@@ -164,7 +137,7 @@ class DatalistFactory
         $this->actionTypes[\get_class($actionType)] = $actionType;
     }
 
-    protected function initialize()
+    protected function initialize(): void
     {
         if (0 === \count($this->actionTypes)) {
             $actionTypes = [

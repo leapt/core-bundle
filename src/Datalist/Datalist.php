@@ -58,9 +58,6 @@ class Datalist implements DatalistInterface, Countable
         return $this->config->getType();
     }
 
-    /**
-     * @return Datalist
-     */
     public function addField(DatalistFieldInterface $field): self
     {
         $this->fields[] = $field;
@@ -91,9 +88,6 @@ class Datalist implements DatalistInterface, Countable
         return $this->sortedFields;
     }
 
-    /**
-     * @param Filter\DatalistFilterInterface $filter
-     */
     public function addFilter(DatalistFilterInterface $filter): DatalistInterface
     {
         $this->filters[$filter->getName()] = $filter;
@@ -106,25 +100,16 @@ class Datalist implements DatalistInterface, Countable
         return $this->filters;
     }
 
-    /**
-     * @param Filter\DatalistFilterInterface $filter
-     */
-    public function setSearchFilter(DatalistFilterInterface $filter)
+    public function setSearchFilter(DatalistFilterInterface $filter): void
     {
         $this->searchFilter = $filter;
     }
 
-    /**
-     * @return Filter\DatalistFilterInterface
-     */
     public function getSearchFilter(): DatalistFilterInterface
     {
         return $this->searchFilter;
     }
 
-    /**
-     * @param Action\DatalistActionInterface $action
-     */
     public function addAction(DatalistActionInterface $action): DatalistInterface
     {
         $this->actions[$action->getName()] = $action;
@@ -137,10 +122,7 @@ class Datalist implements DatalistInterface, Countable
         return $this->actions;
     }
 
-    /**
-     * @param DatasourceInterface $datasource
-     */
-    public function setDatasource($datasource): DatalistInterface
+    public function setDatasource(DatasourceInterface $datasource): DatalistInterface
     {
         $this->datasource = $datasource;
 
@@ -159,10 +141,7 @@ class Datalist implements DatalistInterface, Countable
         return $this->datasource->getPaginator();
     }
 
-    /**
-     * @param int $page
-     */
-    public function setPage($page): DatalistInterface
+    public function setPage(int $page): DatalistInterface
     {
         $this->page = $page;
 
@@ -179,19 +158,12 @@ class Datalist implements DatalistInterface, Countable
         return $this->config->getOptions();
     }
 
-    /**
-     * @param string $name
-     */
-    public function hasOption($name): bool
+    public function hasOption(string $name): bool
     {
         return $this->config->hasOption($name);
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null): mixed
+    public function getOption(string $name, mixed $default = null): mixed
     {
         return $this->config->getOption($name, $default);
     }
@@ -235,7 +207,7 @@ class Datalist implements DatalistInterface, Countable
      *
      * @param mixed $data a data array, a Request instance or an arbitrary object
      */
-    public function bind($data): DatalistInterface
+    public function bind(mixed $data): DatalistInterface
     {
         if ($data instanceof Request) {
             $data = $data->query->all();
@@ -303,12 +275,7 @@ class Datalist implements DatalistInterface, Countable
         return $this->route;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return Field\DatalistField|null
-     */
-    protected function getField($name): ?DatalistField
+    protected function getField(string $name): ?DatalistField
     {
         foreach ($this->fields as $field) {
             /** @var DatalistField $field */
@@ -323,7 +290,7 @@ class Datalist implements DatalistInterface, Countable
     /**
      * This method populates the iterator property.
      */
-    private function initialize()
+    private function initialize(): void
     {
         if ($this->initialized) {
             return;
@@ -363,7 +330,7 @@ class Datalist implements DatalistInterface, Countable
         }
 
         // Handle sort
-        if (isset($this->routeParams['sort-field']) && isset($this->routeParams['sort-direction'])) {
+        if (isset($this->routeParams['sort-field'], $this->routeParams['sort-direction'])) {
             $field = $this->getField($this->routeParams['sort-field']);
 
             if (null !== $field && true === $field->getOption('sortable')) {

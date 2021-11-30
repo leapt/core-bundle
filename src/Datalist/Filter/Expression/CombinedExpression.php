@@ -20,7 +20,7 @@ class CombinedExpression implements ExpressionInterface
         $this->expressions = \array_slice(\func_get_args(), 1);
     }
 
-    public function addExpression(ExpressionInterface $expression)
+    public function addExpression(ExpressionInterface $expression): void
     {
         $this->expressions[] = $expression;
     }

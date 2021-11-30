@@ -6,31 +6,18 @@ namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="novel")
- */
+#[ORM\Entity]
 class Novel extends Book
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="subtitle", type="string", length=255)
-     */
-    private $subtitle;
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $subtitle;
 
-    /**
-     * @param string $subtitle
-     */
-    public function setSubtitle($subtitle)
+    public function setSubtitle(string $subtitle): void
     {
         $this->subtitle = $subtitle;
     }
 
-    /**
-     * @return string
-     */
-    public function getSubtitle()
+    public function getSubtitle(): string
     {
         return $this->subtitle;
     }

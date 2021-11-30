@@ -25,7 +25,7 @@ class RecaptchaValidator extends ConstraintValidator
     ) {
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         \assert($constraint instanceof Recaptcha);
 
@@ -88,10 +88,7 @@ class RecaptchaValidator extends ConstraintValidator
         return file_get_contents($host, false, $context);
     }
 
-    /**
-     * @return resource|null
-     */
-    private function getResourceContext()
+    private function getResourceContext(): mixed
     {
         if (null === $this->httpProxy['host'] || null === $this->httpProxy['port']) {
             return null;

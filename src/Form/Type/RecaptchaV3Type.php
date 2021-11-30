@@ -11,9 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RecaptchaV3Type extends AbstractRecaptchaType
 {
-    /**
-     * RecaptchaV3Type constructor.
-     */
     public function __construct(string $publicKey, bool $enabled, private bool $hideBadge, string $apiHost = 'www.google.com')
     {
         parent::__construct($publicKey, $enabled, $apiHost);
@@ -41,9 +38,6 @@ class RecaptchaV3Type extends AbstractRecaptchaType
         return 'leapt_core_recaptcha_v3';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function addCustomVars(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [

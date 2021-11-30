@@ -16,17 +16,15 @@ class FileDataTransformer implements DataTransformerInterface
     /**
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $value
      */
-    public function transform($value): array
+    public function transform(mixed $value): array
     {
         return ['file' => $value, 'delete' => false];
     }
 
     /**
      * @param array $value
-     *
-     * @return \Symfony\Component\HttpFoundation\File\UploadedFile
      */
-    public function reverseTransform($value): CondemnedFile|UploadedFile
+    public function reverseTransform(mixed $value): CondemnedFile|UploadedFile
     {
         if (true === $value['delete']) {
             return new CondemnedFile();

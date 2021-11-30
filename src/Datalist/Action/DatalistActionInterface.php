@@ -15,16 +15,9 @@ interface DatalistActionInterface
 
     public function getOptions(): array;
 
-    /**
-     * @param string $name
-     */
-    public function hasOption($name): bool;
+    public function hasOption(string $name): bool;
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null);
+    public function getOption(string $name, mixed $default = null): mixed;
 
     public function setDatalist(DatalistInterface $datalist);
 

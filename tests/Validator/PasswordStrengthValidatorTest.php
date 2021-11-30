@@ -6,13 +6,14 @@ namespace Leapt\CoreBundle\Tests\Validator;
 
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrength;
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrengthValidator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
 final class PasswordStrengthValidatorTest extends TestCase
 {
-    private $context;
-    private $validator;
+    private ExecutionContext|MockObject|null $context;
+    private ?PasswordStrengthValidator $validator;
 
     protected function setUp(): void
     {
@@ -29,7 +30,7 @@ final class PasswordStrengthValidatorTest extends TestCase
         $this->validator = null;
     }
 
-    public function testNullIsValid()
+    public function testNullIsValid(): void
     {
         $this->context->expects($this->never())
             ->method('addViolation');
@@ -37,7 +38,7 @@ final class PasswordStrengthValidatorTest extends TestCase
         $this->validator->validate(null, new PasswordStrength());
     }
 
-    public function testEmptyStringIsValid()
+    public function testEmptyStringIsValid(): void
     {
         $this->context->expects($this->never())
             ->method('addViolation');
@@ -48,7 +49,7 @@ final class PasswordStrengthValidatorTest extends TestCase
     /**
      * @dataProvider getValidPasswords
      */
-    public function testValidPassword($password)
+    public function testValidPassword(string $password): void
     {
         $this->context->expects($this->never())
             ->method('addViolation');
@@ -56,7 +57,7 @@ final class PasswordStrengthValidatorTest extends TestCase
         $this->validator->validate($password, new PasswordStrength(['score' => 50, 'min' => 5, 'max' => 255]));
     }
 
-    public function getValidPasswords()
+    public function getValidPasswords(): iterable
     {
         return [
             ['dora1*'],
@@ -74,7 +75,7 @@ final class PasswordStrengthValidatorTest extends TestCase
     /**
      * @dataProvider getInvalidPasswords
      */
-    public function testInvalidPasswords($password)
+    public function testInvalidPasswords(string $password): void
     {
         $constraint = new PasswordStrength([
             'scoreMessage' => 'scoreMessage',
@@ -88,7 +89,7 @@ final class PasswordStrengthValidatorTest extends TestCase
         $this->validator->validate($password, $constraint);
     }
 
-    public function getInvalidPasswords()
+    public function getInvalidPasswords(): iterable
     {
         return [
             ['toto'],
@@ -97,7 +98,7 @@ final class PasswordStrengthValidatorTest extends TestCase
         ];
     }
 
-    public function testMinPasswords()
+    public function testMinPasswords(): void
     {
         $constraint = new PasswordStrength([
             'minMessage' => 'minMessage',
@@ -112,7 +113,7 @@ final class PasswordStrengthValidatorTest extends TestCase
         $this->validator->validate('abc', $constraint);
     }
 
-    public function testMaxPasswords()
+    public function testMaxPasswords(): void
     {
         $constraint = new PasswordStrength([
             'maxMessage' => 'maxMessage',

@@ -32,8 +32,6 @@ class StringUtil
 
     /**
      * Removes the accents from an UTF-8 string.
-     *
-     * @static
      */
     public static function unaccent(string $string, bool $onlyUpperCase = false): string
     {

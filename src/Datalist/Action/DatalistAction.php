@@ -25,19 +25,12 @@ class DatalistAction implements DatalistActionInterface
         return $this->config->getOptions();
     }
 
-    /**
-     * @param string $name
-     */
-    public function hasOption($name): bool
+    public function hasOption(string $name): bool
     {
         return $this->config->hasOption($name);
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null): ?string
+    public function getOption(string $name, mixed $default = null): mixed
     {
         return $this->config->getOption($name, $default);
     }

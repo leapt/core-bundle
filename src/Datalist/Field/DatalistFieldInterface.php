@@ -5,17 +5,11 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\Datalist\Field;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
-use Leapt\CoreBundle\Datalist\TypeInterface;
+use Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface;
 
-/**
- * Interface DatalistFieldInterface.
- */
 interface DatalistFieldInterface
 {
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface
-     */
-    public function getType(): TypeInterface;
+    public function getType(): FieldTypeInterface;
 
     public function getName(): string;
 

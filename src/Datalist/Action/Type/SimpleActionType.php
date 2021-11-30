@@ -28,10 +28,7 @@ class SimpleActionType extends AbstractActionType
             ->setRequired(['route']);
     }
 
-    /**
-     * @param object $item
-     */
-    public function getUrl(DatalistActionInterface $action, $item, array $options = []): string
+    public function getUrl(DatalistActionInterface $action, mixed $item, array $options = []): string
     {
         $parameters = [];
         $accessor = PropertyAccess::createPropertyAccessor();
