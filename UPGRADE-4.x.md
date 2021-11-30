@@ -7,4 +7,4 @@ Upgrade from 3.x to 4.x
 The only changes that are BC are the following:
 
 * Annotations are now PHP 8 attributes only
-* Parameter & return types have been added
+* Parameter & return types have been added, especially in Datalists types, actions, filters & Sitemaps
