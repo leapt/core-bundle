@@ -25,10 +25,7 @@ abstract class AbstractRecaptchaType extends AbstractType
         $this->recaptchaApiServer = sprintf('https://%s/recaptcha/api.js', $apiHost);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
             'leapt_core_recaptcha_enabled'  => $this->enabled,
@@ -44,29 +41,11 @@ abstract class AbstractRecaptchaType extends AbstractType
         $this->addCustomVars($view, $form, $options);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix(): string
-    {
-        return 'leapt_core_recaptcha';
-    }
-
-    /**
-     * Gets the public key.
-     *
-     * @return string The javascript source URL
-     */
     public function getPublicKey(): string
     {
         return $this->publicKey;
     }
 
-    /**
-     * Gets the API host name.
-     *
-     * @return string The hostname for API
-     */
     public function getApiHost(): string
     {
         return $this->apiHost;

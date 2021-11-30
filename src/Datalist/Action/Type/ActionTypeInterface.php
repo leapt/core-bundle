@@ -8,9 +8,6 @@ use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;
 use Leapt\CoreBundle\Datalist\TypeInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 
-/**
- * Interface ActionTypeInterface.
- */
 interface ActionTypeInterface extends TypeInterface
 {
     public function getUrl(DatalistActionInterface $action, mixed $item, array $options = []): string;

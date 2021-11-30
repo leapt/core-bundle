@@ -14,7 +14,7 @@ final class DatalistThemeNode extends Node
         parent::__construct(['datalist' => $datalist, 'resources' => $resources], [], $lineno, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler
             ->addDebugInfo($this)

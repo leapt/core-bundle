@@ -28,10 +28,7 @@ class RecaptchaV3Validator extends ConstraintValidator
         $this->secretKey = $secretKey;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$this->enabled) {
             return;

@@ -17,9 +17,6 @@ class RecaptchaType extends AbstractRecaptchaType
         parent::__construct($publicKey, $enabled, $apiHost);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -44,25 +41,16 @@ class RecaptchaType extends AbstractRecaptchaType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): string
     {
         return TextType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'leapt_core_recaptcha';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function addCustomVars(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [

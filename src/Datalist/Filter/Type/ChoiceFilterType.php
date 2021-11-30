@@ -22,7 +22,7 @@ class ChoiceFilterType extends AbstractFilterType
             ->setDefined($this->getDefinedOptions());
     }
 
-    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options)
+    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options): void
     {
         $formOptions = [
             'choices'  => $options['choices'],

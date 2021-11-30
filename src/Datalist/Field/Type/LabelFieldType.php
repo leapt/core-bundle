@@ -20,10 +20,6 @@ class LabelFieldType extends AbstractFieldType
         ;
     }
 
-    /**
-     * @throws \UnexpectedValueException
-     * @throws \Exception
-     */
     public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options): void
     {
         parent::buildViewContext($viewContext, $field, $value, $options);
@@ -43,7 +39,7 @@ class LabelFieldType extends AbstractFieldType
             throw new \Exception('mappings for the label field type must be specified as an associative array');
         }
 
-        $viewContext['attr'] = isset($mapping['attr']) ? $mapping['attr'] : [];
+        $viewContext['attr'] = $mapping['attr'] ?? [];
         $viewContext['value'] = $mapping['label'];
     }
 

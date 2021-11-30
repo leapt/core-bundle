@@ -18,9 +18,6 @@ class ComparisonExpression implements ExpressionInterface
     public const OPERATOR_IS_NULL = 'is_null';
     public const OPERATOR_IS_NOT_NULL = 'is_not_null';
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function __construct(
         private string $propertyPath,
         private string $operator,

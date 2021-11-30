@@ -45,9 +45,6 @@ class DatalistField implements DatalistFieldInterface
         return $this;
     }
 
-    /**
-     * @throws \UnexpectedValueException
-     */
     public function getData(mixed $row): mixed
     {
         $accessor = PropertyAccess::createPropertyAccessor();
@@ -88,9 +85,7 @@ class DatalistField implements DatalistFieldInterface
     }
 
     /**
-     * @return string
-     *
-     * TODO: check if not better handled through options
+     * TODO: check if not better handled through options.
      */
     private function getPropertyPath(): string
     {

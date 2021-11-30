@@ -34,9 +34,6 @@ class DatalistBuilder extends DatalistConfig
         parent::__construct($name, $type, $options);
     }
 
-    /**
-     * @return DatalistBuilder
-     */
     public function addField(string $field, string $type = null, array $options = []): self
     {
         $this->fields[$field] = [

@@ -15,18 +15,11 @@ class TextExtension extends AbstractExtension
 
     protected bool $useMultiByteString = false;
 
-    /**
-     * Core extension constructor
-     * Check if MultiByte string is available.
-     */
     public function __construct()
     {
         $this->setMultiByteString($this->isMultiByteStringAvailable());
     }
 
-    /**
-     * Get all available filters.
-     */
     public function getFilters(): array
     {
         return [

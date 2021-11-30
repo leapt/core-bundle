@@ -9,9 +9,6 @@ use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
 use Leapt\CoreBundle\Datalist\TypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * Interface FilterTypeInterface.
- */
 interface FilterTypeInterface extends TypeInterface
 {
     public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options);

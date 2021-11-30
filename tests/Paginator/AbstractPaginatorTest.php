@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Tests\Paginator;
 
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class AbstractPaginatorTest extends WebTestCase
@@ -11,7 +12,7 @@ abstract class AbstractPaginatorTest extends WebTestCase
     /**
      * Test the default value of the paginator class.
      */
-    public function testDefaults()
+    public function testDefaults(): void
     {
         $paginator = $this->buildPaginator(10);
 
@@ -19,20 +20,14 @@ abstract class AbstractPaginatorTest extends WebTestCase
         $this->assertEquals(0, $paginator->getLimitPerPage());
     }
 
-    /**
-     * Test the implementation of the countabmle interface.
-     */
-    public function testCount()
+    public function testCount(): void
     {
         $paginator = $this->buildPaginator(7);
 
-        $this->assertEquals(7, \count($paginator));
+        $this->assertCount(7, $paginator);
     }
 
-    /**
-     * Test the page count method.
-     */
-    public function testGetPageCount()
+    public function testGetPageCount(): void
     {
         $paginator = $this->buildPaginator(7);
         $paginator->setLimitPerPage(10);
@@ -43,10 +38,7 @@ abstract class AbstractPaginatorTest extends WebTestCase
         $this->assertEquals(2, $paginator->getPageCount());
     }
 
-    /**
-     * Test the getRange method.
-     */
-    public function testGetRange()
+    public function testGetRange(): void
     {
         $paginator = $this->buildPaginator(150);
         $paginator
@@ -63,17 +55,7 @@ abstract class AbstractPaginatorTest extends WebTestCase
         $this->assertEquals(range(6, 15), $paginator->getRange());
     }
 
-    /**
-     * Test the IteratorAggregate implementation.
-     */
     abstract public function testIteration();
 
-    /**
-     * Build a populated paginator instance.
-     *
-     * @param int $limit
-     *
-     * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
-     */
-    abstract protected function buildPaginator($limit);
+    abstract protected function buildPaginator(int $limit): PaginatorInterface;
 }

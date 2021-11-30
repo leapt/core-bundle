@@ -19,7 +19,7 @@ final class LocaleResolver
     }
 
     /**
-     * @return string The resolved locale key, depending on configuration
+     * @return ?string The resolved locale key, depending on configuration
      */
     public function resolve(): ?string
     {

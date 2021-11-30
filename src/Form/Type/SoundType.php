@@ -30,7 +30,7 @@ class SoundType extends AbstractType
         ;
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['provider'] = $options['provider'];
     }

@@ -46,9 +46,6 @@ final class DatalistExtension extends AbstractExtension
         return [new DatalistThemeTokenParser()];
     }
 
-    /**
-     * @throws \Exception
-     */
     public function renderDatalistWidget(Environment $env, DatalistInterface $datalist): string
     {
         $blockNames = [
@@ -64,9 +61,6 @@ final class DatalistExtension extends AbstractExtension
         return $this->renderBlock($env, $datalist, $blockNames, $viewContext->all());
     }
 
-    /**
-     * @throws \Exception
-     */
     public function renderDatalistField(Environment $env, DatalistFieldInterface $field, mixed $row): string
     {
         $blockNames = [
@@ -80,9 +74,6 @@ final class DatalistExtension extends AbstractExtension
         return $this->renderBlock($env, $field->getDatalist(), $blockNames, $viewContext->all());
     }
 
-    /**
-     * @throws \Exception
-     */
     public function renderDatalistSearch(Environment $env, DatalistInterface $datalist): string
     {
         $blockNames = [
@@ -98,9 +89,6 @@ final class DatalistExtension extends AbstractExtension
         ]);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function renderDatalistFilters(Environment $env, DatalistInterface $datalist): string
     {
         $blockNames = [
@@ -118,9 +106,6 @@ final class DatalistExtension extends AbstractExtension
         ]);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function renderDatalistFilter(Environment $env, DatalistFilterInterface $filter): string
     {
         $blockNames = [
@@ -136,9 +121,6 @@ final class DatalistExtension extends AbstractExtension
         ]);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function renderDatalistAction(Environment $env, DatalistActionInterface $action, mixed $item): string
     {
         $blockNames = [
@@ -163,10 +145,6 @@ final class DatalistExtension extends AbstractExtension
         $this->themes[$datalist] = $ressources;
     }
 
-    /**
-     * @throws \Exception
-     * @throws \Twig\Error\LoaderError
-     */
     private function renderBlock(Environment $env, DatalistInterface $datalist, array $blockNames, array $context = []): string
     {
         $datalistTemplates = $this->getTemplatesForDatalist($datalist);
@@ -188,10 +166,6 @@ final class DatalistExtension extends AbstractExtension
 
     private function getTemplatesForDatalist(DatalistInterface $datalist): array
     {
-        if (isset($this->themes[$datalist])) {
-            return $this->themes[$datalist];
-        }
-
-        return [$this->defaultTheme];
+        return $this->themes[$datalist] ?? [$this->defaultTheme];
     }
 }

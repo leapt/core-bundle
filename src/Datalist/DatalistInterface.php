@@ -18,34 +18,19 @@ interface DatalistInterface extends \IteratorAggregate
 
     public function getFields(): array;
 
-    /**
-     * @param Filter\DatalistFilterInterface $filter
-     */
     public function addFilter(DatalistFilterInterface $filter): self;
 
     public function getFilters(): array;
 
-    /**
-     * @param Filter\DatalistFilterInterface $filter
-     */
     public function setSearchFilter(DatalistFilterInterface $filter);
 
-    /**
-     * @return Filter\DatalistFilterInterface
-     */
     public function getSearchFilter(): DatalistFilterInterface;
 
-    /**
-     * @param Action\DatalistActionInterface $action
-     */
     public function addAction(DatalistActionInterface $action): self;
 
     public function getActions(): array;
 
-    /**
-     * @param DatasourceInterface $datasource
-     */
-    public function setDatasource($datasource): self;
+    public function setDatasource(DatasourceInterface $datasource): self;
 
     public function getDatasource(): DatasourceInterface;
 
@@ -53,21 +38,11 @@ interface DatalistInterface extends \IteratorAggregate
 
     public function getOptions(): array;
 
-    /**
-     * @param string $name
-     */
-    public function hasOption($name): bool;
+    public function hasOption(string $name): bool;
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null);
+    public function getOption(string $name, mixed $default = null): mixed;
 
-    /**
-     * @param int $page
-     */
-    public function setPage($page): self;
+    public function setPage(int $page): self;
 
     public function isFilterable(): bool;
 
@@ -81,10 +56,7 @@ interface DatalistInterface extends \IteratorAggregate
 
     public function getFilterForm(): FormInterface;
 
-    /**
-     * @param mixed $data
-     */
-    public function bind($data): self;
+    public function bind(mixed $data): self;
 
     public function getRoute(): string;
 

@@ -73,9 +73,6 @@ class ArrayDatasource extends AbstractDatasource
         $this->initialized = true;
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     */
     private function buildExpressionCallback(ExpressionInterface $expression): callable
     {
         // If we have a combined expression ("AND" / "OR")
@@ -90,9 +87,6 @@ class ArrayDatasource extends AbstractDatasource
         return $function;
     }
 
-    /**
-     * @throws \UnexpectedValueException
-     */
     private function buildCombinedExpressionCallback(CombinedExpression $expression): callable
     {
         $tests = [];
@@ -130,12 +124,9 @@ class ArrayDatasource extends AbstractDatasource
         return $function;
     }
 
-    /**
-     * @throws \UnexpectedValueException
-     */
     private function buildComparisonExpressionCallback(ComparisonExpression $expression): callable
     {
-        $function = function ($item) use ($expression) {
+        return function ($item) use ($expression) {
             $accessor = PropertyAccess::createPropertyAccessor();
             $value = $accessor->getValue($item, $expression->getPropertyPath());
             $comparisonValue = $expression->getValue();
@@ -156,7 +147,5 @@ class ArrayDatasource extends AbstractDatasource
                 default                                    => throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator)),
             };
         };
-
-        return $function;
     }
 }

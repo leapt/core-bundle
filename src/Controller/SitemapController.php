@@ -7,6 +7,7 @@ namespace Leapt\CoreBundle\Controller;
 use Leapt\CoreBundle\Sitemap\SitemapManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
@@ -38,14 +39,14 @@ class SitemapController
             return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         }
 
-        throw new \UnexpectedValueException('No sitemap has been defined');
+        throw new HttpException(500, 'No sitemap has been defined');
     }
 
     public function sitemapAction(string $sitemap): Response
     {
-        $sitemap = $this->sitemapManager->getSitemap($sitemap);
-        $sitemap->build($this->router);
+        $generatedSitemap = $this->sitemapManager->getSitemap($sitemap);
+        $generatedSitemap->build($this->router);
 
-        return new Response($this->twig->render('@LeaptCore/Sitemap/sitemap.xml.twig', ['sitemap' => $sitemap]));
+        return new Response($this->twig->render('@LeaptCore/Sitemap/sitemap.xml.twig', ['sitemap' => $generatedSitemap]));
     }
 }

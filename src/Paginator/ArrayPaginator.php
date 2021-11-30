@@ -10,9 +10,6 @@ class ArrayPaginator extends AbstractPaginator
     {
     }
 
-    /**
-     * Set the paginator current page.
-     */
     public function setPage(int $page): PaginatorInterface
     {
         $this->page = $page;
@@ -30,17 +27,6 @@ class ArrayPaginator extends AbstractPaginator
         return $this;
     }
 
-    /**
-     * (PHP 5 &gt;= 5.1.0)<br/>
-     * Count elements of an object.
-     *
-     * @see http://php.net/manual/en/countable.count.php
-     *
-     * @return int The custom count as an integer.
-     *             </p>
-     *             <p>
-     *             The return value is cast to an integer.
-     */
     public function count(): int
     {
         return \count($this->items);

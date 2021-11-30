@@ -57,16 +57,6 @@ class FeedItem
      * Property used to build RSS and ATOM "author" elements
      * This property should be built as an associative array, e.a :
      * array('name' => 'John Doe', 'email' => 'john@doe.com').
-     *
-     * @Assert\Collection(
-     *     fields = {
-     *         "name" = @Assert\NotBlank(),
-     *         "email" = {
-     *             @Assert\NotBlank(),
-     *             @Assert\Email()
-     *         }
-     *     }
-     * )
      */
     #[Assert\NotBlank]
     #[Assert\Type('array')]
@@ -76,12 +66,35 @@ class FeedItem
      * Check that the feed item has at least a link or a description.
      */
     #[Assert\Callback]
-    public function hasLinkOrDescription(ExecutionContextInterface $context)
+    public function hasLinkOrDescription(ExecutionContextInterface $context): void
     {
-        if (!isset($this->link) || !isset($this->description)) {
+        if (!isset($this->link, $this->description)) {
             $context->buildViolation('Every feed item should have at least a description or a link')
                 ->atPath('link')
                 ->addViolation();
+        }
+    }
+
+    public function validateAuthor(ExecutionContextInterface $context): void
+    {
+        if (0 < \count($this->author)) {
+            foreach ($this->author as $key => $author) {
+                if (!\array_key_exists('name', $author) || empty($author['name'])) {
+                    $context->buildViolation('This value should not be blank.')
+                        ->atPath('author[' . $key . ']' . '[name]')
+                        ->addViolation();
+                }
+
+                if (!\array_key_exists('email', $author) || empty($author['email'])) {
+                    $context->buildViolation('This value should not be blank.')
+                        ->atPath('author[' . $key . ']' . '[email]')
+                        ->addViolation();
+                } elseif (!filter_var($author['email'], \FILTER_VALIDATE_EMAIL)) {
+                    $context->buildViolation('This value is not a valid email address.')
+                        ->atPath('author[' . $key . ']' . '[email]')
+                        ->addViolation();
+                }
+            }
         }
     }
 }

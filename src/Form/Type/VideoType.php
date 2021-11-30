@@ -30,7 +30,7 @@ class VideoType extends AbstractType
         ;
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         if (isset($options['provider'])) {
             $view->vars['provider'] = $options['provider'];

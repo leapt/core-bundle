@@ -6,94 +6,54 @@ namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Leapt\CoreBundle\Doctrine\Mapping as LeaptORM;
+use Symfony\Component\HttpFoundation\File\File;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="user")
- */
+#[ORM\Entity]
 class User
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    #[ORM\Id, ORM\Column(type: 'integer'), ORM\GeneratedValue('AUTO')]
+    private int $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255, nullable=true)
-     */
-    private $userName;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $userName;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cv", type="string", length=255, nullable=true)
-     */
-    private $cv;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $cv;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\File\File
-     */
     #[LeaptORM\File(path: 'uploads/cvs', mappedBy: 'cv')]
-    private $cvFile;
+    private ?File $cvFile;
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $cv
-     */
-    public function setCv($cv)
+    public function setCv(?string $cv): void
     {
         $this->cv = $cv;
     }
 
-    /**
-     * @return string
-     */
-    public function getCv()
+    public function getCv(): ?string
     {
         return $this->cv;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\File\File $cvFile
-     */
-    public function setCvFile($cvFile)
+    public function setCvFile(?File $cvFile): void
     {
         $this->cvFile = $cvFile;
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\File\File
-     */
-    public function getCvFile()
+    public function getCvFile(): ?File
     {
         return $this->cvFile;
     }
 
-    /**
-     * @param string $userName
-     */
-    public function setUserName($userName)
+    public function setUserName(?string $userName): void
     {
         $this->userName = $userName;
     }
 
-    /**
-     * @return string
-     */
-    public function getUserName()
+    public function getUserName(): ?string
     {
         return $this->userName;
     }

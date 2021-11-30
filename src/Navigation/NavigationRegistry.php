@@ -21,7 +21,7 @@ class NavigationRegistry
      *
      * @param array $paths an array of URI paths
      */
-    public function setActivePaths(array $paths)
+    public function setActivePaths(array $paths): void
     {
         $this->activePaths = $paths;
     }

@@ -12,10 +12,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class NavigationExtensionTest extends TestCase
 {
-    /**
-     * @var NavigationExtension
-     */
-    private $extension;
+    private NavigationExtension $extension;
 
     protected function setUp(): void
     {

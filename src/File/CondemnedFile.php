@@ -25,7 +25,7 @@ class CondemnedFile extends UploadedFile
         return true;
     }
 
-    public function setPath(string $path)
+    public function setPath(string $path): void
     {
         $this->path = $path;
     }

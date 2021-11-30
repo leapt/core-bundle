@@ -6,93 +6,59 @@ namespace Leapt\CoreBundle\Tests\Listener\Fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Leapt\CoreBundle\Doctrine\Mapping as LeaptORM;
+use Symfony\Component\HttpFoundation\File\File;
 
-/**
- * @ORM\MappedSuperClass
- */
+#[ORM\MappedSuperclass]
 class Book
 {
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    #[ORM\Id, ORM\Column(type: 'integer'), ORM\GeneratedValue('AUTO')]
+    protected int $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255, nullable=true)
-     */
-    protected $title;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    protected ?string $title;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="attachment", type="string", length=255, nullable=true)
-     */
-    protected $attachment;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    protected ?string $attachment;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\File\File
-     */
     #[LeaptORM\File(path: 'uploads/attachments', mappedBy: 'attachment')]
-    protected $attachmentFile;
+    protected ?File $attachmentFile;
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $cv
-     */
-    public function setAttachment($cv)
+    public function setId(int $id): void
     {
-        $this->attachment = $cv;
+        $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function getAttachment()
+    public function setAttachment(?string $attachment): void
+    {
+        $this->attachment = $attachment;
+    }
+
+    public function getAttachment(): ?string
     {
         return $this->attachment;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\File\File $cvFile
-     */
-    public function setAttachmentFile($cvFile)
+    public function setAttachmentFile(?File $attachmentFile): void
     {
-        $this->attachmentFile = $cvFile;
+        $this->attachmentFile = $attachmentFile;
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\File\File
-     */
-    public function getAttachmentFile()
+    public function getAttachmentFile(): ?File
     {
         return $this->attachmentFile;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setTitle($name)
+    public function setTitle(?string $title): void
     {
-        $this->title = $name;
+        $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }

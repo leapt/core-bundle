@@ -24,7 +24,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
         ]);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['add_label'] = $options['add_label'];
     }
