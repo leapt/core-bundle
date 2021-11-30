@@ -38,9 +38,8 @@ class User
 
     /**
      * @var \Symfony\Component\HttpFoundation\File\File
-     *
-     * @LeaptORM\File(path="uploads/cvs", mappedBy="cv")
      */
+    #[LeaptORM\File(path: 'uploads/cvs', mappedBy: 'cv')]
     private $cvFile;
 
     /**

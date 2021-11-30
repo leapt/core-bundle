@@ -37,9 +37,8 @@ class Book
 
     /**
      * @var \Symfony\Component\HttpFoundation\File\File
-     *
-     * @LeaptORM\File(path="uploads/attachments", mappedBy="attachment")
      */
+    #[LeaptORM\File(path: 'uploads/attachments', mappedBy: 'attachment')]
     protected $attachmentFile;
 
     /**

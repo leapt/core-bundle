@@ -4,13 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Doctrine\Mapping;
 
-use Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
-
-/**
- * @Annotation
- * @NamedArgumentConstructor
- * @Target({"PROPERTY"})
- */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class File
 {
