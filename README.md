@@ -7,28 +7,41 @@ Leapt Core Bundle
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
 [![Code coverage](https://img.shields.io/codecov/c/github/leapt/core-bundle?style=flat-square)](https://codecov.io/gh/leapt/core-bundle/branch/4.x)
 
-The current version (4.x) of the bundle works with Symfony 5.4 & Symfony 6.0+.
+Introduction
+------------
 
-For older versions of Symfony:
+The bundle aims to help with some repetitive tasks, including (but not limited to):
 
-* Use version 3.x for Symfony between 4.4 and 5.4
-* Use version 2.x for Symfony between 3.3 and 4.4
-* Use version < 2.x for Symfony < 3.3
-
-You can check the [changelog](CHANGELOG-4.x.md) for version 4 and the [upgrade document](UPGRADE-4.x.md) when upgrading
-from 3.x bundle version.
-
-It aims to help with some repetitive tasks, including (but not limited to):
-
-* Dealing with file and image uploads
-* RSS feed generation
-* SEO-related tasks (sitemaps, etc)
-* Building searchable & filterable data lists
+- Data lists with search
+- File and image uploads
+- Form types
+- Navigation helper
+- Paginator
+- RSS feed generation
+- SEO-related tasks (sitemaps, etc)
+- Twig extensions
+- Utilities
+- Validators: PasswordStrength, Recaptcha, Slug
 
 Installation & usage
 --------------------
 
 You can check docs there: https://core-bundle.leapt.io/
+
+Versions & dependencies
+-----------------------
+
+The current version (4.x) of the bundle works with Symfony 5.4 & Symfony 6.0+.
+The project follows SemVer.
+
+You can check the [changelog](CHANGELOG-4.x.md) for version 4 and the [upgrade document](UPGRADE-4.x.md) when upgrading
+from 3.x bundle version.
+
+| ImBundle version  | Symfony version           | PHP version
+| ----------------- | ------------------------- | -----------
+| 4.x               | ^5.4 \|\| ^6.0            | ^8.0
+| 3.1+              | ^4.4 \|\| ^5.0            | ^7.4 \|\| ^8.0
+| 3.0               | ^4.4 \|\| ^5.0            | ^7.2
 
 Contributing
 ------------
