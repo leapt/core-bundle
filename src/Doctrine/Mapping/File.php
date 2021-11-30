@@ -17,7 +17,7 @@ class File
         public ?string $pathCallback = null,
         public ?string $mappedBy = null,
         public ?string $filename = null,
-        public ?string $nameCallback = null
+        public ?string $nameCallback = null,
     ) {
     }
 }

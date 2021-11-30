@@ -7,7 +7,7 @@ abstract class Config
     public function __construct(
         protected string $name,
         protected TypeInterface $type,
-        protected array $options = []
+        protected array $options = [],
     ) {
     }
 
