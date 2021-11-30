@@ -18,12 +18,12 @@ class ViewContext implements \ArrayAccess
         return $this->vars[$offset];
     }
 
-    public function offsetSet(mixed $offset, mixed $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->vars[$offset] = $value;
     }
 
-    public function offsetUnset(mixed $offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->vars[$offset]);
     }

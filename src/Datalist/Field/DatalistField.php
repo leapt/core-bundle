@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\Datalist\Field;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
-use Leapt\CoreBundle\Datalist\TypeInterface;
+use Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -72,9 +72,6 @@ class DatalistField implements DatalistFieldInterface
         return $value;
     }
 
-    /**
-     * @return mixed
-     */
     public function setDatalist(DatalistInterface $datalist): void
     {
         $this->datalist = $datalist;
@@ -85,7 +82,7 @@ class DatalistField implements DatalistFieldInterface
         return $this->datalist;
     }
 
-    public function getType(): TypeInterface
+    public function getType(): FieldTypeInterface
     {
         return $this->config->getType();
     }

@@ -27,7 +27,9 @@ class SitemapController
 
         if (1 < \count($sitemaps)) {
             return new Response($this->twig->render('@LeaptCore/Sitemap/index.xml.twig', ['sitemaps' => $sitemaps]));
-        } elseif (1 === \count($sitemaps)) {
+        }
+
+        if (1 === \count($sitemaps)) {
             $subRequest = $request->duplicate([], null, [
                 '_controller' => 'Leapt\CoreBundle\Controller\SitemapController::sitemapAction',
                 'sitemap'     => current($sitemaps)->getAlias(),
@@ -35,6 +37,7 @@ class SitemapController
 
             return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         }
+
         throw new \UnexpectedValueException('No sitemap has been defined');
     }
 

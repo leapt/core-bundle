@@ -42,9 +42,6 @@ class DatalistAction implements DatalistActionInterface
         return $this->config->getOption($name, $default);
     }
 
-    /**
-     * @return mixed
-     */
     public function setDatalist(DatalistInterface $datalist): self
     {
         $this->datalist = $datalist;

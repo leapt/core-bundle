@@ -9,10 +9,6 @@ use Twig\Node\Node;
 
 class PaginatorThemeNode extends Node
 {
-    /**
-     * @param $lineno
-     * @param null $tag
-     */
     public function __construct(Node $paginator, Node $resources, $lineno, $tag = null)
     {
         parent::__construct(['paginator' => $paginator, 'resources' => $resources], [], $lineno, $tag);

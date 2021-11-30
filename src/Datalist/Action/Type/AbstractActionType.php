@@ -21,10 +21,7 @@ abstract class AbstractActionType implements ActionTypeInterface
         ;
     }
 
-    /**
-     * @param mixed $item
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options): void
+    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, mixed $item, array $options): void
     {
         $viewContext['attr'] = $options['attr'];
 
@@ -37,6 +34,7 @@ abstract class AbstractActionType implements ActionTypeInterface
         }
         $viewContext['enabled'] = $enabled;
 
+        \assert($action->getType() instanceof ActionTypeInterface);
         $url = $action->getType()->getUrl($action, $item, $action->getOptions());
 
         $viewContext['url'] = $url;

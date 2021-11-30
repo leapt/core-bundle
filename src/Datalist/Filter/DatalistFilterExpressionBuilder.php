@@ -16,17 +16,11 @@ class DatalistFilterExpressionBuilder
         $this->expression = new CombinedExpression(CombinedExpression::OPERATOR_AND);
     }
 
-    /**
-     * @param Expression\ExpressionInterface $expression
-     */
-    public function add(ExpressionInterface $expression)
+    public function add(ExpressionInterface $expression): void
     {
         $this->expression->addExpression($expression);
     }
 
-    /**
-     * @return ExpressionInterface
-     */
     public function getExpression(): CombinedExpression
     {
         return $this->expression;

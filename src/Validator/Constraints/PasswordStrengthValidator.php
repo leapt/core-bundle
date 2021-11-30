@@ -15,11 +15,10 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class PasswordStrengthValidator extends ConstraintValidator
 {
-    /**
-     * @param string $value
-     */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
+        \assert($constraint instanceof PasswordStrength);
+
         if (null === $value || '' === $value) {
             return;
         }

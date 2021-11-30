@@ -16,7 +16,7 @@ class GoogleExtension extends AbstractExtension
 
     private string $allowLinker;
 
-    private string $tagsManagerId;
+    private ?string $tagsManagerId;
 
     public function __construct(private ?string $accountId = null, private bool $debug = false)
     {

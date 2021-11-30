@@ -9,10 +9,6 @@ use Twig\Node\Node;
 
 final class DatalistThemeNode extends Node
 {
-    /**
-     * @param $lineno
-     * @param null $tag
-     */
     public function __construct(Node $datalist, Node $resources, $lineno, $tag = null)
     {
         parent::__construct(['datalist' => $datalist, 'resources' => $resources], [], $lineno, $tag);

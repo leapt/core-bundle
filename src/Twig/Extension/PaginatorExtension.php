@@ -61,9 +61,6 @@ class PaginatorExtension extends AbstractExtension
         return $this;
     }
 
-    /**
-     * @param $ressources
-     */
     public function setTheme(PaginatorInterface $paginator, $ressources)
     {
         $this->themes[$paginator] = $ressources;

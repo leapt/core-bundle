@@ -36,8 +36,6 @@ interface PaginatorInterface extends \Countable, \IteratorAggregate
 
     /**
      * Get the maximum numbers of pagination links to display.
-     *
-     * @return PaginatorInterface
      */
     public function getRange(): array;
 
