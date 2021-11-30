@@ -71,12 +71,12 @@ abstract class AbstractDatasource implements DatasourceInterface
         return $this;
     }
 
-    public function getSortDirection(): string
+    public function getSortDirection(): ?string
     {
         return $this->sortDirection;
     }
 
-    public function getSortField(): string
+    public function getSortField(): ?string
     {
         return $this->sortField;
     }
