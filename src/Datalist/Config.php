@@ -28,15 +28,9 @@ abstract class Config
         return isset($this->options[$name]);
     }
 
-    /**
-     * @param $name
-     * @param null $default
-     *
-     * @return null
-     */
-    public function getOption($name, $default = null): ?string
+    public function getOption(string $name, mixed $default = null): mixed
     {
-        return isset($this->options[$name]) ? $this->options[$name] : $default;
+        return $this->options[$name] ?? $default;
     }
 
     public function setOption(string $name, mixed $value): self
@@ -46,9 +40,6 @@ abstract class Config
         return $this;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\TypeInterface
-     */
     public function getType(): TypeInterface
     {
         return $this->type;

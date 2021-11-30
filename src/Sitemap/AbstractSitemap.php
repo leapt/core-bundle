@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Sitemap;
 
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractSitemap
 {
@@ -40,15 +40,9 @@ abstract class AbstractSitemap
      *
      * The easiest way to implement this method is to use the addUrl method
      */
-    abstract public function build(Router $router): mixed;
+    abstract public function build(RouterInterface $router): mixed;
 
-    /**
-     * @param $loc
-     * @param \DateTime $lastMod
-     *
-     * @return AbstractSitemap
-     */
-    protected function addUrl($loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = []): self
+    protected function addUrl(string $loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = []): self
     {
         $url = [
             'loc' => $loc,

@@ -1,0 +1,37 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property Leapt\\\\CoreBundle\\\\Datalist\\\\Datalist\\:\\:\\$iterator \\(Iterator\\) does not accept Traversable\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Datalist/Datalist.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, Iterator given\\.$#"
+			count: 1
+			path: src/Datalist/Datasource/AbstractDatasource.php
+
+		-
+			message: "#^Method Leapt\\\\CoreBundle\\\\Datalist\\\\Field\\\\DatalistField\\:\\:getType\\(\\) should return Leapt\\\\CoreBundle\\\\Datalist\\\\Field\\\\Type\\\\FieldTypeInterface but returns Leapt\\\\CoreBundle\\\\Datalist\\\\TypeInterface\\.$#"
+			count: 1
+			path: src/Datalist/Field/DatalistField.php
+
+		-
+			message: "#^Method Leapt\\\\CoreBundle\\\\Datalist\\\\Filter\\\\DatalistFilter\\:\\:getType\\(\\) should return Leapt\\\\CoreBundle\\\\Datalist\\\\Filter\\\\Type\\\\FilterTypeInterface but returns Leapt\\\\CoreBundle\\\\Datalist\\\\TypeInterface\\.$#"
+			count: 1
+			path: src/Datalist/Filter/DatalistFilter.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Property Leapt\\\\CoreBundle\\\\Tests\\\\Listener\\\\Fixtures\\\\Entity\\\\User\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: tests/Listener/Fixtures/Entity/User.php
+
+		-
+			message: "#^Property Leapt\\\\CoreBundle\\\\Tests\\\\Paginator\\\\Entity\\\\Player\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: tests/Paginator/Entity/Player.php
+

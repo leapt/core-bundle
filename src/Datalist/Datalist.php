@@ -14,10 +14,8 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterExpressionBuilder;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
 use Leapt\CoreBundle\Paginator\PaginatorInterface;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Traversable;
 
 class Datalist implements DatalistInterface, Countable
 {
@@ -39,9 +37,9 @@ class Datalist implements DatalistInterface, Countable
 
     private array $filterData = [];
 
-    private Form $searchForm;
+    private FormInterface $searchForm;
 
-    private Form $filterForm;
+    private FormInterface $filterForm;
 
     private Iterator $iterator;
 
@@ -267,10 +265,7 @@ class Datalist implements DatalistInterface, Countable
         return $this;
     }
 
-    /**
-     * @return Traversable
-     */
-    public function getIterator(): Traversable|Iterator
+    public function getIterator(): Iterator
     {
         $this->initialize();
 

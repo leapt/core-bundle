@@ -32,14 +32,11 @@ abstract class AbstractDatalistType implements DatalistTypeInterface
             ]);
     }
 
-    /**
-     * @return mixed|void
-     */
     public function buildDatalist(DatalistBuilder $builder, array $options): void
     {
     }
 
-    public function buildViewContext(ViewContext $viewContext, DatalistInterface $datalist, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistInterface $datalist, array $options): void
     {
         $viewContext['datalist'] = $datalist;
         $viewContext['options'] = $options;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\Datalist\Filter;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
-use Leapt\CoreBundle\Datalist\TypeInterface;
+use Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface;
 
 class DatalistFilter implements DatalistFilterInterface
 {
@@ -35,12 +35,12 @@ class DatalistFilter implements DatalistFilterInterface
         return $this->config->getOption($name, $default);
     }
 
-    public function getType(): TypeInterface
+    public function getType(): FilterTypeInterface
     {
         return $this->config->getType();
     }
 
-    public function setDatalist(DatalistInterface $datalist)
+    public function setDatalist(DatalistInterface $datalist): void
     {
         $this->datalist = $datalist;
     }

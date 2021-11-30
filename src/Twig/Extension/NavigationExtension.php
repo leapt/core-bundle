@@ -44,10 +44,8 @@ class NavigationExtension extends AbstractExtension
 
     /**
      * Add a path to be considered as active (navigation-wise).
-     *
-     * @param array $paths an array of URI paths
      */
-    public function addActivePath($path)
+    public function addActivePath(string $path): void
     {
         $this->registry->addActivePath($path);
     }

@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\Twig\Extension;
 
 use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;
+use Leapt\CoreBundle\Datalist\Action\Type\ActionTypeInterface;
 use Leapt\CoreBundle\Datalist\DatalistInterface;
 use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
+use Leapt\CoreBundle\Datalist\Type\DatalistTypeInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Leapt\CoreBundle\Twig\TokenParser\DatalistThemeTokenParser;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -56,6 +58,7 @@ final class DatalistExtension extends AbstractExtension
         ];
 
         $viewContext = new ViewContext();
+        \assert($datalist->getType() instanceof DatalistTypeInterface);
         $datalist->getType()->buildViewContext($viewContext, $datalist, $datalist->getOptions());
 
         return $this->renderBlock($env, $datalist, $blockNames, $viewContext->all());
@@ -144,6 +147,7 @@ final class DatalistExtension extends AbstractExtension
         ];
 
         $viewContext = new ViewContext();
+        \assert($action->getType() instanceof ActionTypeInterface);
         $action->getType()->buildViewContext($viewContext, $action, $item, $action->getOptions());
 
         return $this->renderBlock(
@@ -154,10 +158,7 @@ final class DatalistExtension extends AbstractExtension
         );
     }
 
-    /**
-     * @param $ressources
-     */
-    public function setTheme(DatalistInterface $datalist, $ressources)
+    public function setTheme(DatalistInterface $datalist, mixed $ressources): void
     {
         $this->themes[$datalist] = $ressources;
     }

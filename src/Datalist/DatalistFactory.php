@@ -58,7 +58,7 @@ class DatalistFactory
         return $this->createNamedBuilder($name, $type, $options)->getDatalist();
     }
 
-    public function createBuilder(string $type = 'datalist', array $options = []): DatalistBuilder
+    public function createBuilder(mixed $type = 'datalist', array $options = []): DatalistBuilder
     {
         $name = $type instanceof DatalistType\DatalistTypeInterface
             ? $type->getName()
@@ -70,7 +70,7 @@ class DatalistFactory
     /**
      * @throws \InvalidArgumentException
      */
-    public function createNamedBuilder(string $name, string $type = 'datalist', array $options = []): DatalistBuilder
+    public function createNamedBuilder(string $name, mixed $type = 'datalist', array $options = []): DatalistBuilder
     {
         // Determine datalist type
         if (\is_string($type)) {
@@ -159,10 +159,7 @@ class DatalistFactory
         return $this->actionTypes[$alias];
     }
 
-    /**
-     * @param string $alias
-     */
-    public function registerActionType(ActionType\ActionTypeInterface $actionType)
+    public function registerActionType(ActionType\ActionTypeInterface $actionType): void
     {
         $this->actionTypes[\get_class($actionType)] = $actionType;
     }

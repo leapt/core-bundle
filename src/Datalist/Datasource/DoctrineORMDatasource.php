@@ -33,7 +33,7 @@ class DoctrineORMDatasource extends AbstractDatasource
         return $this->paginator;
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \Iterator
     {
         $this->initialize();
 
@@ -43,7 +43,7 @@ class DoctrineORMDatasource extends AbstractDatasource
     /**
      * Load the collection.
      */
-    protected function initialize()
+    protected function initialize(): void
     {
         if ($this->initialized) {
             return;

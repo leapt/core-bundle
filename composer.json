@@ -45,7 +45,7 @@
         "friendsofphp/php-cs-fixer": "^3.0.0",
         "fakerphp/faker": "^1.16",
         "google/recaptcha": "^1.2",
-        "phpstan/phpstan": "^0.12.59",
+        "phpstan/phpstan": "^1.2.0",
         "phpunit/phpunit": "^9.5.10"
     },
     "scripts": {
@@ -54,8 +54,8 @@
             "@phpstan",
             "vendor/bin/phpunit"
         ],
-        "cs:dry": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
-        "cs:fix": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --ansi",
+        "cs:dry": "php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
+        "cs:fix": "php-cs-fixer fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi"
     },
     "autoload": {

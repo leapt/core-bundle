@@ -25,6 +25,7 @@ class ArrayPaginatorTest extends AbstractPaginatorTest
             break;
         }
 
+        \assert(isset($item));
         $this->assertEquals($eleventhItem, $item);
     }
 

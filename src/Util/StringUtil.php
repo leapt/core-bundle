@@ -62,12 +62,7 @@ class StringUtil
         return strtr($string, $replacements);
     }
 
-    /**
-     * @static
-     *
-     * @param $string
-     */
-    public static function slugify($string): string
+    public static function slugify(string $string): string
     {
         $slug = self::unaccent($string);
         $slug = strtolower($slug);

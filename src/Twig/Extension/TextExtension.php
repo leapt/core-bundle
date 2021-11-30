@@ -35,10 +35,7 @@ class TextExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param $string
-     */
-    public function camelize($string): string
+    public function camelize(string $string): string
     {
         return StringUtil::camelize($string);
     }

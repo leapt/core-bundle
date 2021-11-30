@@ -26,7 +26,7 @@ class ArrayDatasource extends AbstractDatasource
         return $this->paginator;
     }
 
-    public function getIterator(): \Traversable
+    public function getIterator(): \Iterator
     {
         $this->initialize();
 

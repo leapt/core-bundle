@@ -16,6 +16,7 @@ use Leapt\CoreBundle\Doctrine\Mapping\File as FileAnnotation;
 use Leapt\CoreBundle\File\CondemnedFile;
 use Leapt\CoreBundle\Util\StringUtil;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class FileSubscriber implements EventSubscriber
@@ -116,10 +117,8 @@ class FileSubscriber implements EventSubscriber
 
     /**
      * Return all the file fields for the provided entity.
-     *
-     * @param $entity
      */
-    private function getFileFields($entity, EntityManager $em): array
+    private function getFileFields(object $entity, EntityManager $em): array
     {
         $className = \get_class($entity);
         $this->checkClassConfig($entity, $em);
@@ -144,11 +143,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    /**
-     * @param $ea
-     * @param $fileEntity
-     */
-    private function preUpload($ea, $fileEntity, array $fileConfig)
+    private function preUpload($ea, mixed $fileEntity, array $fileConfig)
     {
         $propertyValue = $fileConfig['property']->getValue($fileEntity);
         if ($propertyValue instanceof File) {
@@ -161,6 +156,7 @@ class FileSubscriber implements EventSubscriber
 
             if (null !== $fileConfig['filename']) {
                 $oldFilename = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['filename']);
+                \assert($propertyValue instanceof UploadedFile);
                 $newFilename = $propertyValue->getClientOriginalName();
 
                 $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['filename'], $newFilename);
@@ -169,10 +165,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    /**
-     * @param $fileEntity
-     */
-    private function upload(LifecycleEventArgs $ea, $fileEntity, array $fileConfig)
+    private function upload(LifecycleEventArgs $ea, object $fileEntity, array $fileConfig)
     {
         $propertyValue = $fileConfig['property']->getValue($fileEntity);
         if (!$propertyValue instanceof File) {
@@ -198,10 +191,7 @@ class FileSubscriber implements EventSubscriber
         $fileConfig['property']->setValue($fileEntity, null);
     }
 
-    /**
-     * @param $fileEntity
-     */
-    private function preRemoveUpload($fileEntity, array $fileConfig)
+    private function preRemoveUpload(object $fileEntity, array $fileConfig)
     {
         $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
 
@@ -211,10 +201,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    /**
-     * @param $fileEntity
-     */
-    private function removeUpload($fileEntity, array $fileConfig)
+    private function removeUpload(object $fileEntity, array $fileConfig)
     {
         if (isset($this->unlinkQueue[spl_object_hash($fileEntity)]) && is_file($this->unlinkQueue[spl_object_hash($fileEntity)])) {
             unlink($this->unlinkQueue[spl_object_hash($fileEntity)]);
@@ -222,10 +209,7 @@ class FileSubscriber implements EventSubscriber
         $fileConfig['property']->setValue($fileEntity, null);
     }
 
-    /**
-     * @param $fileEntity
-     */
-    private function generateFileName($fileEntity, array $fileConfig): string
+    private function generateFileName(object $fileEntity, array $fileConfig): string
     {
         $path = $fileConfig['path'];
         if (null !== $fileConfig['pathCallback']) {

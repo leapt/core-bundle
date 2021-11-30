@@ -47,11 +47,6 @@ class DatalistBuilder extends DatalistConfig
         return $this;
     }
 
-    /**
-     * @param $field
-     *
-     * @return $this
-     */
     public function removeField(mixed $field): self
     {
         if (\array_key_exists($field, $this->fields)) {
@@ -66,9 +61,6 @@ class DatalistBuilder extends DatalistConfig
         return $this->fields;
     }
 
-    /**
-     * @return DatalistBuilder
-     */
     public function addFilter(string $filter, string $type = null, array $options = []): self
     {
         $this->filters[$filter] = [
@@ -79,11 +71,6 @@ class DatalistBuilder extends DatalistConfig
         return $this;
     }
 
-    /**
-     * @param $filter
-     *
-     * @return $this
-     */
     public function removeFilter(mixed $filter): self
     {
         if (\array_key_exists($filter, $this->filters)) {
@@ -93,9 +80,6 @@ class DatalistBuilder extends DatalistConfig
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function addAction(string $action, string $type = null, array $options = []): self
     {
         $this->actions[$action] = [
@@ -106,9 +90,6 @@ class DatalistBuilder extends DatalistConfig
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function removeAction(string $action): self
     {
         if (\array_key_exists($action, $this->actions)) {
@@ -118,9 +99,6 @@ class DatalistBuilder extends DatalistConfig
         return $this;
     }
 
-    /**
-     * @return DatalistInterface
-     */
     public function getDatalist(): Datalist
     {
         $datalist = new Datalist($this->getDatalistConfig());
@@ -169,9 +147,6 @@ class DatalistBuilder extends DatalistConfig
         return $datalist;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface
-     */
     private function createField(string $fieldName, array $fieldConfig): DatalistField
     {
         $type = $this->factory->getFieldType($fieldConfig['type'] ?: 'text');
@@ -187,9 +162,6 @@ class DatalistBuilder extends DatalistConfig
         return new DatalistField($config);
     }
 
-    /**
-     * @return Filter\DatalistFilter
-     */
     private function createFilter(string $filterName, array $filterConfig): DatalistFilter
     {
         $type = $this->factory->getFilterType($filterConfig['type']);
@@ -222,8 +194,6 @@ class DatalistBuilder extends DatalistConfig
 
     private function getDatalistConfig(): self
     {
-        $config = clone $this;
-
-        return $config;
+        return clone $this;
     }
 }
