@@ -21,7 +21,7 @@ class EntityFilterType extends AbstractFilterType
             ->setDefined($this->getDefinedOptions());
     }
 
-    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options)
+    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options): void
     {
         $formOptions = [
             'class'         => $options['class'],
@@ -44,7 +44,7 @@ class EntityFilterType extends AbstractFilterType
         $builder->add($filter->getName(), EntityType::class, $formOptions);
     }
 
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options): void
     {
         $operator = true === $options['multiple'] ? ComparisonExpression::OPERATOR_IN : ComparisonExpression::OPERATOR_EQ;
         $builder->add(new ComparisonExpression($filter->getPropertyPath(), $operator, $value));

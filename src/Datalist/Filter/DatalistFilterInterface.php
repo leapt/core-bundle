@@ -23,5 +23,5 @@ interface DatalistFilterInterface
 
     public function hasOption(string $name): bool;
 
-    public function getOption(string $name, mixed $default = null): ?string;
+    public function getOption(string $name, mixed $default = null): mixed;
 }

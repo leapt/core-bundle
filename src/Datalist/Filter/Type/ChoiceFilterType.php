@@ -37,7 +37,7 @@ class ChoiceFilterType extends AbstractFilterType
         $builder->add($filter->getName(), ChoiceType::class, $formOptions);
     }
 
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options): void
     {
         $builder->add(new ComparisonExpression($filter->getPropertyPath(), ComparisonExpression::OPERATOR_EQ, $value));
     }

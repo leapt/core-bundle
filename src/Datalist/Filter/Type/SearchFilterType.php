@@ -21,14 +21,14 @@ class SearchFilterType extends AbstractFilterType
             ->setAllowedTypes('search_explode_terms', ['boolean']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options)
+    public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options): void
     {
         $builder->add($filter->getName(), SearchType::class, [
             'label' => $options['label'],
         ]);
     }
 
-    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options)
+    public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options): void
     {
         $terms = true === $options['search_explode_terms'] ? explode(' ', $value) : [$value];
         $baseExpression = new CombinedExpression(CombinedExpression::OPERATOR_AND);

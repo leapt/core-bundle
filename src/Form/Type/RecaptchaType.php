@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RecaptchaType extends AbstractRecaptchaType
 {
-    public function __construct($publicKey, $enabled, protected $ajax, protected LocaleResolver $localeResolver, $apiHost = 'www.google.com')
+    public function __construct($publicKey, $enabled, protected bool $ajax, protected LocaleResolver $localeResolver, $apiHost = 'www.google.com')
     {
         parent::__construct($publicKey, $enabled, $apiHost);
     }
