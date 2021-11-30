@@ -3,26 +3,18 @@
 namespace Leapt\CoreBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\AST\Literal;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 
-/**
- * Class BitwiseAnd.
- */
 class BitwiseAnd extends FunctionNode
 {
-    /**
-     * @var \Doctrine\ORM\Query\AST\Literal
-     */
-    private $firstValue;
+    private Literal $firstValue;
 
-    /**
-     * @var \Doctrine\ORM\Query\AST\Literal
-     */
-    private $secondValue;
+    private Literal $secondValue;
 
-    public function parse(Parser $parser)
+    public function parse(Parser $parser): void
     {
         $parser->match(Lexer::T_IDENTIFIER); // (2)
         $parser->match(Lexer::T_OPEN_PARENTHESIS); // (3)
@@ -32,10 +24,7 @@ class BitwiseAnd extends FunctionNode
         $parser->match(Lexer::T_CLOSE_PARENTHESIS); // (3)
     }
 
-    /**
-     * @return string
-     */
-    public function getSql(SqlWalker $sqlWalker)
+    public function getSql(SqlWalker $sqlWalker): string
     {
         return $this->firstValue->dispatch($sqlWalker) . ' & ' . $this->secondValue->dispatch($sqlWalker); // (7)
     }

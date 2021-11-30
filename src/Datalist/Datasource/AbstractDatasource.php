@@ -2,70 +2,34 @@
 
 namespace Leapt\CoreBundle\Datalist\Datasource;
 
+use InvalidArgumentException;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
+use Traversable;
 
-/**
- * Class AbstractDatasource.
- */
 abstract class AbstractDatasource implements DatasourceInterface
 {
-    /**
-     * @var int
-     */
-    protected $page;
+    protected int $page;
 
-    /**
-     * @var int
-     */
-    protected $limitPerPage;
+    protected int $limitPerPage;
 
-    /**
-     * @var int
-     */
-    protected $rangeLimit;
+    protected int $rangeLimit;
 
-    /**
-     * @var string
-     */
-    protected $searchQuery;
+    protected string $searchQuery;
 
-    /**
-     * @var ExpressionInterface
-     */
-    protected $filterExpression;
+    protected ExpressionInterface $filterExpression;
 
-    /**
-     * @var ExpressionInterface
-     */
-    protected $searchExpression;
+    protected ExpressionInterface $searchExpression;
 
-    /**
-     * @var \Traversable
-     */
-    protected $iterator;
+    protected Traversable $iterator;
 
-    /**
-     * @var \Leapt\CoreBundle\Paginator\PaginatorInterface
-     */
-    protected $paginator;
+    protected PaginatorInterface $paginator;
 
-    /**
-     * @var string
-     */
-    protected $sortField;
+    protected string $sortField;
 
-    /**
-     * @var string
-     */
-    protected $sortDirection;
+    protected string $sortDirection;
 
-    /**
-     * @param int $limitPerPage
-     * @param int $rangeLimit
-     *
-     * @return DatasourceInterface
-     */
-    public function paginate($limitPerPage, $rangeLimit)
+    public function paginate(int $limitPerPage, int $rangeLimit): DatasourceInterface
     {
         $this->limitPerPage = $limitPerPage;
         $this->rangeLimit = $rangeLimit;
@@ -73,64 +37,51 @@ abstract class AbstractDatasource implements DatasourceInterface
         return $this;
     }
 
-    /**
-     * @param int $page
-     *
-     * @return DatasourceInterface
-     */
-    public function setPage($page)
+    public function setPage(int $page): DatasourceInterface
     {
         $this->page = $page;
 
         return $this;
     }
 
-    public function setSearchExpression(ExpressionInterface $expression)
+    public function setSearchExpression(ExpressionInterface $expression): self
     {
         $this->searchExpression = $expression;
+
+        return $this;
     }
 
-    public function setFilterExpression(ExpressionInterface $expression)
+    public function setFilterExpression(ExpressionInterface $expression): self
     {
         $this->filterExpression = $expression;
+
+        return $this;
     }
 
     /**
-     * @param string $field
-     * @param string $direction
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function setSort($field, $direction)
+    public function setSort(string $field, string $direction)
     {
         if (!\in_array($direction, ['asc', 'desc'], true)) {
-            throw new \InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');
+            throw new InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');
         }
 
         $this->sortField = $field;
         $this->sortDirection = $direction;
     }
 
-    /**
-     * @return string
-     */
-    public function getSortDirection()
+    public function getSortDirection(): string
     {
         return $this->sortDirection;
     }
 
-    /**
-     * @return string
-     */
-    public function getSortField()
+    public function getSortField(): string
     {
         return $this->sortField;
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         $this->initialize();
 

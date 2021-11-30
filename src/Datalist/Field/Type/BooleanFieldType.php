@@ -6,12 +6,9 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class BooleanFieldType.
- */
 class BooleanFieldType extends AbstractFieldType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -25,29 +22,20 @@ class BooleanFieldType extends AbstractFieldType
         ;
     }
 
-    /**
-     * @param mixed $row
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options): void
     {
-        parent::buildViewContext($viewContext, $field, $row, $options);
+        parent::buildViewContext($viewContext, $field, $value, $options);
 
         $viewContext['true_label'] = $options['true_label'];
         $viewContext['false_label'] = $options['false_label'];
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'boolean';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'boolean';
     }

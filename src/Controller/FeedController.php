@@ -8,41 +8,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Twig\Environment;
 
-/**
- * Class FeedController.
- */
 class FeedController
 {
-    /**
-     * @var FeedManager
-     */
-    private $feedManager;
-
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
-
-    /**
-     * @var Environment
-     */
-    private $twig;
-
-    public function __construct(FeedManager $feedManager, ValidatorInterface $validator, Environment $twig)
-    {
-        $this->feedManager = $feedManager;
-        $this->validator = $validator;
-        $this->twig = $twig;
+    public function __construct(
+        private FeedManager $feedManager,
+        private ValidatorInterface $validator,
+        private Environment $twig
+    ) {
     }
 
     /**
-     * @param string $feedName
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \ErrorException
      */
-    public function indexAction(Request $request, $feedName)
+    public function indexAction(Request $request, string $feedName): Response
     {
         $feed = $this->feedManager->getFeed($feedName);
 

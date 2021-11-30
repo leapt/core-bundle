@@ -9,10 +9,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class CondemnedFile extends UploadedFile
 {
-    /**
-     * @var string
-     */
-    private $path;
+    private string $path;
 
     /**
      * Override parent constructor.
@@ -26,18 +23,12 @@ class CondemnedFile extends UploadedFile
         return true;
     }
 
-    /**
-     * @param string $path
-     */
-    public function setPath($path)
+    public function setPath(string $path)
     {
         $this->path = $path;
     }
 
-    /**
-     * @return string
-     */
-    public function getPathName()
+    public function getPathName(): string
     {
         return $this->path;
     }

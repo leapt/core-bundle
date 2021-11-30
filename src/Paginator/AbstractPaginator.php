@@ -2,50 +2,28 @@
 
 namespace Leapt\CoreBundle\Paginator;
 
-/**
- * Class AbstractPaginator.
- */
 abstract class AbstractPaginator implements PaginatorInterface
 {
-    /**
-     * @var int
-     */
-    protected $page = 1;
+    protected int $page = 1;
 
-    /**
-     * @var int
-     */
-    protected $limitPerPage = 0;
+    protected int $limitPerPage = 0;
 
-    /**
-     * @var int
-     */
-    protected $rangeLimit = 10;
+    protected int $rangeLimit = 10;
 
-    /**
-     * @return int
-     */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
 
-    /**
-     * @return int
-     */
-    public function getLimitPerPage()
+    public function getLimitPerPage(): int
     {
         return $this->limitPerPage;
     }
 
     /**
      * Set the maximum numbers of pagination links (1 2 3 4 > >>) to display.
-     *
-     * @param int $rangeLimit
-     *
-     * @return PaginatorInterface
      */
-    public function setRangeLimit($rangeLimit)
+    public function setRangeLimit(int $rangeLimit): PaginatorInterface
     {
         $this->rangeLimit = $rangeLimit;
 
@@ -55,10 +33,8 @@ abstract class AbstractPaginator implements PaginatorInterface
     /**
      * Return a range array that can be used to build pagination links
      * The returned range is centered around the current page.
-     *
-     * @return array
      */
-    public function getRange()
+    public function getRange(): array
     {
         if ($this->getPageCount() < $this->rangeLimit) { // Not enough pages to apply range limit
             $start = 1;
@@ -80,10 +56,7 @@ abstract class AbstractPaginator implements PaginatorInterface
         return range($start, $stop);
     }
 
-    /**
-     * @return int
-     */
-    public function getPageCount()
+    public function getPageCount(): int
     {
         $count = $this->count();
 
@@ -106,7 +79,7 @@ abstract class AbstractPaginator implements PaginatorInterface
     /**
      * @return int
      */
-    protected function getOffset()
+    protected function getOffset(): float|int
     {
         //Calculate offset for items based on current page number
         return ($this->page - 1) * $this->limitPerPage;

@@ -6,52 +6,26 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-/**
- * Class GoogleExtension.
- */
 class GoogleExtension extends AbstractExtension
 {
     public const INVALID_DOMAIN_NAME_EXCEPTION = 10;
 
-    /**
-     * @var string
-     */
-    private $accountId;
+    private string $domainName;
 
-    /**
-     * @var string
-     */
-    private $domainName;
+    private string $allowLinker;
 
-    /**
-     * @var string
-     */
-    private $allowLinker;
+    private string $tagsManagerId;
 
-    /**
-     * @var bool
-     */
-    private $debug;
-
-    /**
-     * @var string
-     */
-    private $tagsManagerId;
-
-    public function __construct($accountId, $debug = false)
+    public function __construct(private ?string $accountId = null, private bool $debug = false)
     {
-        $this->accountId = $accountId;
-        $this->debug = $debug;
     }
 
     /**
      * Get all available functions.
      *
-     * @return array
-     *
      * @codeCoverageIgnore
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('analytics_tracking_code', [$this, 'getAnalyticsTrackingCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
@@ -63,55 +37,46 @@ class GoogleExtension extends AbstractExtension
     /**
      * @param string $domainName Available options are "auto" or "none" or a real domain name
      */
-    public function setDomainName($domainName)
+    public function setDomainName(string $domainName): self
     {
         $this->domainName = $domainName;
+
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getAccountId()
+    public function getAccountId(): ?string
     {
         return $this->accountId;
     }
 
-    /**
-     * @return string
-     */
-    public function getDomainName()
+    public function getDomainName(): string
     {
         return $this->domainName;
     }
 
-    /**
-     * @param string $allowLinker
-     */
-    public function setAllowLinker($allowLinker)
+    public function setAllowLinker(string $allowLinker): self
     {
         $this->allowLinker = $allowLinker;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getAllowLinker()
+    public function getAllowLinker(): string
     {
         return $this->allowLinker;
     }
 
-    /**
-     * @param string $tagsManagerId
-     */
-    public function setTagsManagerId($tagsManagerId)
+    public function setTagsManagerId(string $tagsManagerId): self
     {
         $this->tagsManagerId = $tagsManagerId;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getAnalyticsTrackingCode(Environment $env)
+    public function getAnalyticsTrackingCode(Environment $env): string
     {
         if (null !== $this->accountId || 'none' === $this->domainName) {
             $template = $env->load('@LeaptCore/Google/tracking_code.html.twig');
@@ -130,7 +95,7 @@ class GoogleExtension extends AbstractExtension
     /**
      * Send eCommerce order to Google Analytics.
      *
-     * @param array|object $order
+     * @param object|array $order
      *                            Example :
      *                            array(
      *                            'id' => '1234',           // order ID - required
@@ -150,10 +115,8 @@ class GoogleExtension extends AbstractExtension
      *                            'quantity' => '1',               // quantity - required
      *                            )
      *                            )
-     *
-     * @return string
      */
-    public function getAnalyticsCommerce(Environment $env, $order)
+    public function getAnalyticsCommerce(Environment $env, object|array $order): string
     {
         if (null !== $this->accountId || 'none' === $this->domainName) {
             $template = $env->load('@LeaptCore/Google/tracking_commerce.html.twig');
@@ -164,10 +127,7 @@ class GoogleExtension extends AbstractExtension
         return '<!-- AnalyticsTrackingCode: account id is null -->';
     }
 
-    /**
-     * @return string
-     */
-    public function getTagsManagerCode(Environment $env)
+    public function getTagsManagerCode(Environment $env): string
     {
         if (null !== $this->tagsManagerId) {
             $template = $env->load('@LeaptCore/Google/tags_manager_code.html.twig');

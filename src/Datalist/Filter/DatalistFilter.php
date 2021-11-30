@@ -3,63 +3,37 @@
 namespace Leapt\CoreBundle\Datalist\Filter;
 
 use Leapt\CoreBundle\Datalist\DatalistInterface;
+use Leapt\CoreBundle\Datalist\TypeInterface;
 
 class DatalistFilter implements DatalistFilterInterface
 {
-    /**
-     * @var DatalistFilterConfig
-     */
-    private $config;
+    private DatalistInterface $datalist;
 
-    /**
-     * @var
-     */
-    private $datalist;
-
-    public function __construct(DatalistFilterConfig $config)
+    public function __construct(private DatalistFilterConfig $config)
     {
-        $this->config = $config;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->config->getName();
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->config->getOptions();
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function hasOption($name)
+    public function hasOption(string $name): bool
     {
         return $this->config->hasOption($name);
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $default
-     */
-    public function getOption($name, $default = null)
+    public function getOption(string $name, mixed $default = null): ?string
     {
         return $this->config->getOption($name, $default);
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface
-     */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->config->getType();
     }
@@ -69,18 +43,12 @@ class DatalistFilter implements DatalistFilterInterface
         $this->datalist = $datalist;
     }
 
-    /**
-     * @return DatalistInterface
-     */
-    public function getDatalist()
+    public function getDatalist(): DatalistInterface
     {
         return $this->datalist;
     }
 
-    /**
-     * @return string
-     */
-    public function getPropertyPath()
+    public function getPropertyPath(): string
     {
         $propertyPath = $this->getOption('property_path');
         if (null === $propertyPath) {

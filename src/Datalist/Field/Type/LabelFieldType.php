@@ -6,12 +6,9 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class LabelFieldType.
- */
 class LabelFieldType extends AbstractFieldType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -22,14 +19,12 @@ class LabelFieldType extends AbstractFieldType
     }
 
     /**
-     * @param $row
-     *
      * @throws \UnexpectedValueException
      * @throws \Exception
      */
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options): void
     {
-        parent::buildViewContext($viewContext, $field, $row, $options);
+        parent::buildViewContext($viewContext, $field, $value, $options);
 
         $mappings = $options['mappings'];
 
@@ -50,18 +45,12 @@ class LabelFieldType extends AbstractFieldType
         $viewContext['value'] = $mapping['label'];
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'label';
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'label';
     }

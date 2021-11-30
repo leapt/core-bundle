@@ -7,26 +7,13 @@ class CombinedExpression implements ExpressionInterface
     public const OPERATOR_AND = 'and';
     public const OPERATOR_OR = 'or';
 
-    /**
-     * @var string
-     */
-    private $operator;
+    private array $expressions;
 
-    /**
-     * @var array
-     */
-    private $expressions = [];
-
-    /**
-     * @param string $operator
-     */
-    public function __construct($operator)
+    public function __construct(private string $operator)
     {
         if (!\in_array($operator, self::getValidOperators(), true)) {
             throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));
         }
-
-        $this->operator = $operator;
 
         $this->expressions = \array_slice(\func_get_args(), 1);
     }
@@ -36,26 +23,17 @@ class CombinedExpression implements ExpressionInterface
         $this->expressions[] = $expression;
     }
 
-    /**
-     * @return array
-     */
-    public function getExpressions()
+    public function getExpressions(): array
     {
         return $this->expressions;
     }
 
-    /**
-     * @return string
-     */
-    public function getOperator()
+    public function getOperator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * @return array
-     */
-    private static function getValidOperators()
+    private static function getValidOperators(): array
     {
         return [
             self::OPERATOR_AND, self::OPERATOR_OR,

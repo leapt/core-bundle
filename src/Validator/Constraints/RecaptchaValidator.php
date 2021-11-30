@@ -13,53 +13,20 @@ class RecaptchaValidator extends ConstraintValidator
      * The reCAPTCHA server URL's.
      */
     public const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
-    /**
-     * Enable recaptcha?
-     *
-     * @var bool
-     */
-    protected $enabled;
 
     /**
      * Recaptcha Private Key.
-     *
-     * @var bool
      */
-    protected $privateKey;
+    protected bool $privateKey;
 
-    /**
-     * Request Stack.
-     *
-     * @var RequestStack
-     */
-    protected $requestStack;
-
-    /**
-     * HTTP Proxy informations.
-     *
-     * @var array
-     */
-    protected $httpProxy;
-
-    /**
-     * Enable serverside host check.
-     *
-     * @var bool
-     */
-    protected $verifyHost;
-
-    /**
-     * @param bool   $enabled
-     * @param string $privateKey
-     * @param bool   $verifyHost
-     */
-    public function __construct($enabled, $privateKey, RequestStack $requestStack, array $httpProxy, $verifyHost)
-    {
-        $this->enabled = $enabled;
+    public function __construct(
+        protected bool $enabled,
+        string $privateKey,
+        protected RequestStack $requestStack,
+        protected array $httpProxy,
+        protected bool $verifyHost
+    ) {
         $this->privateKey = $privateKey;
-        $this->requestStack = $requestStack;
-        $this->httpProxy = $httpProxy;
-        $this->verifyHost = $verifyHost;
     }
 
     /**
@@ -96,15 +63,11 @@ class RecaptchaValidator extends ConstraintValidator
     /**
      * Calls an HTTP POST function to verify if the user's guess was correct.
      *
-     * @param string $privateKey
-     * @param string $remoteip
-     * @param string $answer
-     *
-     * @throws ValidatorException When missing remote ip
-     *
      * @return bool
+     *
+     *@throws ValidatorException When missing remote ip
      */
-    private function checkAnswer($privateKey, $remoteip, $answer)
+    private function checkAnswer(string $privateKey, string $remoteip, string $answer): mixed
     {
         if (null === $remoteip || '' === $remoteip) {
             throw new ValidatorException('For security reasons, you must pass the remote ip to reCAPTCHA');
@@ -127,13 +90,9 @@ class RecaptchaValidator extends ConstraintValidator
     /**
      * Submits an HTTP POST to a reCAPTCHA server.
      *
-     * @param string $host
-     * @param string $path
-     * @param array  $data
-     *
      * @return array response
      */
-    private function httpGet($host, $path, $data)
+    private function httpGet(string $host, string $path, array $data): false|string
     {
         $host = sprintf('%s%s?%s', $host, $path, http_build_query($data));
 

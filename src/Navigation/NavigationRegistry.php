@@ -4,29 +4,14 @@ namespace Leapt\CoreBundle\Navigation;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * Class NavigationRegistry.
- */
 class NavigationRegistry
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private array $activePaths = [];
 
-    /**
-     * @var array
-     */
-    private $activePaths = [];
+    private array $breadcrumbsPaths = [];
 
-    /**
-     * @var array
-     */
-    private $breadcrumbsPaths = [];
-
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -39,41 +24,30 @@ class NavigationRegistry
         $this->activePaths = $paths;
     }
 
-    /**
-     * @param string $path
-     */
-    public function addActivePath($path)
+    public function addActivePath(string $path): self
     {
         $this->activePaths[] = $path;
+
+        return $this;
     }
 
     /**
      * Get the active paths previously set.
-     *
-     * @return array
      */
-    public function getActivePaths()
+    public function getActivePaths(): array
     {
         return $this->activePaths;
     }
 
     /**
      * Checks if the provided path is to be considered as active.
-     *
-     * @param string $path
-     *
-     * @return bool
      */
-    public function isActivePath($path)
+    public function isActivePath(string $path): bool
     {
         return \in_array($path, $this->activePaths, true) || $this->requestStack->getCurrentRequest()->getRequestUri() === $path;
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function appendBreadcrumb($path, $label)
+    public function appendBreadcrumb(string $path, string $label): void
     {
         $pair = [$path, $label];
         if (!\in_array($pair, $this->breadcrumbsPaths, true)) {
@@ -81,11 +55,7 @@ class NavigationRegistry
         }
     }
 
-    /**
-     * @param string $path
-     * @param string $label
-     */
-    public function prependBreadcrumb($path, $label)
+    public function prependBreadcrumb(string $path, string $label): void
     {
         $pair = [$path, $label];
         if (!\in_array($pair, $this->breadcrumbsPaths, true)) {
@@ -93,10 +63,7 @@ class NavigationRegistry
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getBreadcrumbs()
+    public function getBreadcrumbs(): array
     {
         return $this->breadcrumbsPaths;
     }

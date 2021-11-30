@@ -17,7 +17,7 @@ class PasswordStrengthChecker
      *
      * @return float|int The strength of the password between 0 and 100
      */
-    public function getStrength($password, $username = null)
+    public function getStrength(string $password, string $username = null): float|int
     {
         if (!empty($username)) {
             $password = str_replace($username, '', $password);

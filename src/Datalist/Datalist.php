@@ -2,109 +2,58 @@
 
 namespace Leapt\CoreBundle\Datalist;
 
+use Countable;
+use Exception;
+use Iterator;
 use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;
 use Leapt\CoreBundle\Datalist\Datasource\DatasourceInterface;
+use Leapt\CoreBundle\Datalist\Field\DatalistField;
 use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterExpressionBuilder;
 use Leapt\CoreBundle\Datalist\Filter\DatalistFilterInterface;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Traversable;
 
-/**
- * Class Datalist.
- */
-class Datalist implements DatalistInterface, \Countable
+class Datalist implements DatalistInterface, Countable
 {
-    /**
-     * @var DatalistConfig
-     */
-    private $config;
+    private DatasourceInterface $datasource;
 
-    /**
-     * @var DatasourceInterface
-     */
-    private $datasource;
+    private array $fields = [];
 
-    /**
-     * @var array
-     */
-    private $fields = [];
+    private array $sortedFields;
 
-    /**
-     * @var array
-     */
-    private $sortedFields;
+    private array $filters = [];
 
-    /**
-     * @var array
-     */
-    private $filters = [];
+    private DatalistFilterInterface $searchFilter;
 
-    /**
-     * @var DatalistFilterInterface
-     */
-    private $searchFilter;
+    private array $actions = [];
 
-    /**
-     * @var array
-     */
-    private $actions = [];
+    private int $page = 1;
 
-    /**
-     * @var int
-     */
-    private $page = 1;
+    private string $searchQuery;
 
-    /**
-     * @var string
-     */
-    private $searchQuery;
+    private array $filterData = [];
 
-    /**
-     * @var array
-     */
-    private $filterData = [];
+    private Form $searchForm;
 
-    /**
-     * @var Form
-     */
-    private $searchForm;
+    private Form $filterForm;
 
-    /**
-     * @var Form
-     */
-    private $filterForm;
+    private Iterator $iterator;
 
-    /**
-     * @var \Iterator
-     */
-    private $iterator;
+    private bool $initialized = false;
 
-    /**
-     * @var bool
-     */
-    private $initialized = false;
+    private string $route;
 
-    /**
-     * @var string
-     */
-    private $route;
+    private array $routeParams = [];
 
-    /**
-     * @var array
-     */
-    private $routeParams = [];
-
-    public function __construct(DatalistConfig $config)
+    public function __construct(private DatalistConfig $config)
     {
-        $this->config = $config;
     }
 
-    /**
-     * @return Type\DatalistTypeInterface
-     */
-    public function getType()
+    public function getType(): TypeInterface
     {
         return $this->config->getType();
     }
@@ -112,17 +61,14 @@ class Datalist implements DatalistInterface, \Countable
     /**
      * @return Datalist
      */
-    public function addField(DatalistFieldInterface $field)
+    public function addField(DatalistFieldInterface $field): self
     {
         $this->fields[] = $field;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getFields()
+    public function getFields(): array
     {
         if (!isset($this->sortedFields)) {
             $sortedFields = $this->fields;
@@ -147,20 +93,15 @@ class Datalist implements DatalistInterface, \Countable
 
     /**
      * @param Filter\DatalistFilterInterface $filter
-     *
-     * @return DatalistInterface
      */
-    public function addFilter(DatalistFilterInterface $filter)
+    public function addFilter(DatalistFilterInterface $filter): DatalistInterface
     {
         $this->filters[$filter->getName()] = $filter;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getFilters()
+    public function getFilters(): array
     {
         return $this->filters;
     }
@@ -176,55 +117,42 @@ class Datalist implements DatalistInterface, \Countable
     /**
      * @return Filter\DatalistFilterInterface
      */
-    public function getSearchFilter()
+    public function getSearchFilter(): DatalistFilterInterface
     {
         return $this->searchFilter;
     }
 
     /**
      * @param Action\DatalistActionInterface $action
-     *
-     * @return DatalistInterface
      */
-    public function addAction(DatalistActionInterface $action)
+    public function addAction(DatalistActionInterface $action): DatalistInterface
     {
         $this->actions[$action->getName()] = $action;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getActions()
+    public function getActions(): array
     {
         return $this->actions;
     }
 
     /**
      * @param DatasourceInterface $datasource
-     *
-     * @return DatalistInterface
      */
-    public function setDatasource($datasource)
+    public function setDatasource($datasource): DatalistInterface
     {
         $this->datasource = $datasource;
 
         return $this;
     }
 
-    /**
-     * @return DatasourceInterface
-     */
-    public function getDatasource()
+    public function getDatasource(): DatasourceInterface
     {
         return $this->datasource;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Paginator\PaginatorInterface
-     */
-    public function getPaginator()
+    public function getPaginator(): PaginatorInterface
     {
         $this->initialize();
 
@@ -233,38 +161,28 @@ class Datalist implements DatalistInterface, \Countable
 
     /**
      * @param int $page
-     *
-     * @return DatalistInterface
      */
-    public function setPage($page)
+    public function setPage($page): DatalistInterface
     {
         $this->page = $page;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->config->getName();
     }
 
-    /**
-     * @return array
-     */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->config->getOptions();
     }
 
     /**
      * @param string $name
-     *
-     * @return bool
      */
-    public function hasOption($name)
+    public function hasOption($name): bool
     {
         return $this->config->hasOption($name);
     }
@@ -272,62 +190,42 @@ class Datalist implements DatalistInterface, \Countable
     /**
      * @param string $name
      * @param mixed  $default
-     *
-     * @return mixed
      */
-    public function getOption($name, $default = null)
+    public function getOption($name, $default = null): mixed
     {
         return $this->config->getOption($name, $default);
     }
 
-    /**
-     * @return bool
-     */
-    public function isFilterable()
+    public function isFilterable(): bool
     {
         return 0 < \count($this->filters);
     }
 
-    /**
-     * @return bool
-     */
-    public function isSearchable()
+    public function isSearchable(): bool
     {
         return null !== $this->getOption('search');
     }
 
-    /**
-     * @return DatalistInterface
-     */
-    public function setSearchForm(FormInterface $form)
+    public function setSearchForm(FormInterface $form): DatalistInterface
     {
         $this->searchForm = $form;
 
         return $this;
     }
 
-    /**
-     * @return DatalistInterface
-     */
-    public function setFilterForm(FormInterface $form)
+    public function setFilterForm(FormInterface $form): DatalistInterface
     {
         $this->filterForm = $form;
 
         return $this;
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function getSearchForm()
+    public function getSearchForm(): FormInterface
     {
         return $this->searchForm;
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function getFilterForm()
+    public function getFilterForm(): FormInterface
     {
         return $this->filterForm;
     }
@@ -336,10 +234,8 @@ class Datalist implements DatalistInterface, \Countable
      * Bind search / filter data to the datalist.
      *
      * @param mixed $data a data array, a Request instance or an arbitrary object
-     *
-     * @return DatalistInterface
      */
-    public function bind($data)
+    public function bind($data): DatalistInterface
     {
         if ($data instanceof Request) {
             $data = $data->query->all();
@@ -370,61 +266,42 @@ class Datalist implements DatalistInterface, \Countable
     }
 
     /**
-     * @return \Traversable
+     * @return Traversable
      */
-    public function getIterator()
+    public function getIterator(): Traversable|Iterator
     {
         $this->initialize();
 
         return $this->iterator;
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         $this->initialize();
 
         return \count($this->datasource);
     }
 
-    /**
-     * @param array $routeParams
-     *
-     * @return DatalistInterface
-     */
-    public function setRouteParams($routeParams)
+    public function setRouteParams(array $routeParams): self
     {
         $this->routeParams = $routeParams;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getRouteParams()
+    public function getRouteParams(): array
     {
         return $this->routeParams;
     }
 
-    /**
-     * @param string $route
-     *
-     * @return DatalistInterface
-     */
-    public function setRoute($route)
+    public function setRoute(string $route): DatalistInterface
     {
         $this->route = $route;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getRoute()
+    public function getRoute(): string
     {
         return $this->route;
     }
@@ -434,10 +311,10 @@ class Datalist implements DatalistInterface, \Countable
      *
      * @return Field\DatalistField|null
      */
-    protected function getField($name)
+    protected function getField($name): ?DatalistField
     {
         foreach ($this->fields as $field) {
-            /** @var \Leapt\CoreBundle\Datalist\Field\DatalistField $field */
+            /** @var DatalistField $field */
             if ($field->getName() === $name) {
                 return $field;
             }
@@ -456,7 +333,7 @@ class Datalist implements DatalistInterface, \Countable
         }
 
         if (!isset($this->datasource)) {
-            throw new \Exception('A datalist must have a datasource before it can be iterated or counted');
+            throw new Exception('A datalist must have a datasource before it can be iterated or counted');
         }
 
         // Handle pagination
@@ -495,7 +372,7 @@ class Datalist implements DatalistInterface, \Countable
             if (null !== $field && true === $field->getOption('sortable')) {
                 $propertyPath = $field->getOption('sort_property_path');
                 if (empty($propertyPath)) {
-                    throw new \Exception('The "sort_property_path" option must be set on datalist field when option "sortable" is true.');
+                    throw new Exception('The "sort_property_path" option must be set on datalist field when option "sortable" is true.');
                 }
 
                 $this->datasource->setSort($propertyPath, $this->routeParams['sort-direction']);

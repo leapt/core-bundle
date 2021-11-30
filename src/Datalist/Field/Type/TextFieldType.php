@@ -6,42 +6,30 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class TextFieldType.
- */
 class TextFieldType extends AbstractFieldType
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'text';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
         $resolver->setDefined(['truncate']);
     }
 
-    /**
-     * @param mixed $row
-     */
-    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, $row, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistFieldInterface $field, mixed $value, array $options): void
     {
-        parent::buildViewContext($viewContext, $field, $row, $options);
+        parent::buildViewContext($viewContext, $field, $value, $options);
 
         if (isset($options['truncate'])) {
             $viewContext['truncate'] = $options['truncate'];
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getBlockName()
+    public function getBlockName(): string
     {
         return 'text';
     }

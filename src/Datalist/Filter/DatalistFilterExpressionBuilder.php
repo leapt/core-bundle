@@ -7,10 +7,7 @@ use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 
 class DatalistFilterExpressionBuilder
 {
-    /**
-     * @var Expression\CombinedExpression
-     */
-    private $expression;
+    private CombinedExpression $expression;
 
     public function __construct()
     {
@@ -28,7 +25,7 @@ class DatalistFilterExpressionBuilder
     /**
      * @return ExpressionInterface
      */
-    public function getExpression()
+    public function getExpression(): CombinedExpression
     {
         return $this->expression;
     }

@@ -6,12 +6,9 @@ use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class AbstractActionType.
- */
 abstract class AbstractActionType implements ActionTypeInterface
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -25,7 +22,7 @@ abstract class AbstractActionType implements ActionTypeInterface
     /**
      * @param mixed $item
      */
-    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options)
+    public function buildViewContext(ViewContext $viewContext, DatalistActionInterface $action, $item, array $options): void
     {
         $viewContext['attr'] = $options['attr'];
 

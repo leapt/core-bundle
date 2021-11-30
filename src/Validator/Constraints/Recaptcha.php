@@ -23,7 +23,7 @@ class Recaptcha extends Constraint
         $this->invalidHostMessage = $invalidHostMessage ?? $this->invalidHostMessage;
     }
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return RecaptchaValidator::class;
     }

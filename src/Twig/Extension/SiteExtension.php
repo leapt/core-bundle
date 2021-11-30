@@ -6,30 +6,15 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
-/**
- * Class SiteExtension.
- */
 class SiteExtension extends AbstractExtension
 {
-    /**
-     * @var array
-     */
-    private $titleParts = ['prepend' => [], 'append' => []];
+    private array $titleParts = ['prepend' => [], 'append' => []];
 
-    /**
-     * @var string
-     */
-    private $metaDescription;
+    private string $metaDescription;
 
-    /**
-     * @var array
-     */
-    private $metaKeywords = [];
+    private array $metaKeywords = [];
 
-    /**
-     * @return array
-     */
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('false', function ($var) {
@@ -38,10 +23,7 @@ class SiteExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('prepend_page_title', [$this, 'prependPageTitle']),
@@ -54,13 +36,7 @@ class SiteExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param string $baseTitle
-     * @param string $seperator
-     *
-     * @return string
-     */
-    public function getPageTitle($baseTitle, $seperator = ' - ')
+    public function getPageTitle(string $baseTitle, string $seperator = ' - '): string
     {
         $parts = array_merge(
             $this->titleParts['prepend'],
@@ -71,28 +47,19 @@ class SiteExtension extends AbstractExtension
         return implode($seperator, $parts);
     }
 
-    /**
-     * @param string $defaultDescription
-     *
-     * @return string
-     */
-    public function getMetaDescription($defaultDescription)
+    public function getMetaDescription(string $defaultDescription): string
     {
         return $this->metaDescription ?: $defaultDescription;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setMetaDescription($description)
+    public function setMetaDescription(string $description): self
     {
         $this->metaDescription = $description;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getMetaKeywords(array $defaultKeywords)
+    public function getMetaKeywords(array $defaultKeywords): string
     {
         $merged = array_merge($defaultKeywords, $this->metaKeywords);
         $exploded = [];
@@ -104,24 +71,24 @@ class SiteExtension extends AbstractExtension
         return implode(',', array_unique($trimmed));
     }
 
-    public function addMetaKeywords(array $keywords)
+    public function addMetaKeywords(array $keywords): self
     {
         $this->metaKeywords = array_merge($this->metaKeywords, $keywords);
+
+        return $this;
     }
 
-    /**
-     * @param string $prepend
-     */
-    public function prependPageTitle($prepend)
+    public function prependPageTitle(string $prepend): self
     {
         array_unshift($this->titleParts['prepend'], $prepend);
+
+        return $this;
     }
 
-    /**
-     * @param string $append
-     */
-    public function appendPageTitle($append)
+    public function appendPageTitle(string $append): self
     {
         $this->titleParts['append'][] = $append;
+
+        return $this;
     }
 }

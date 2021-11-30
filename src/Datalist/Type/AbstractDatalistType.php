@@ -7,12 +7,9 @@ use Leapt\CoreBundle\Datalist\DatalistInterface;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class AbstractDatalistType.
- */
 abstract class AbstractDatalistType implements DatalistTypeInterface
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -36,7 +33,7 @@ abstract class AbstractDatalistType implements DatalistTypeInterface
     /**
      * @return mixed|void
      */
-    public function buildDatalist(DatalistBuilder $builder, array $options)
+    public function buildDatalist(DatalistBuilder $builder, array $options): void
     {
     }
 

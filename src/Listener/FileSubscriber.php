@@ -16,41 +16,20 @@ use Leapt\CoreBundle\Util\StringUtil;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-/**
- * Class FileSubscriber.
- */
 class FileSubscriber implements EventSubscriber
 {
-    /**
-     * @var array
-     */
-    private $config = [];
+    private array $config = [];
 
-    /**
-     * @var array
-     */
-    private $unlinkQueue = [];
+    private array $unlinkQueue = [];
 
-    /**
-     * @var string
-     */
-    private $uploadDir;
+    private AnnotationReader $reader;
 
-    /**
-     * @var AnnotationReader
-     */
-    private $reader;
-
-    /**
-     * @param string $uploadDir
-     */
-    public function __construct($uploadDir)
+    public function __construct(private string $uploadDir)
     {
-        $this->uploadDir = $uploadDir;
         $this->reader = new AnnotationReader();
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::preFlush,
@@ -137,10 +116,8 @@ class FileSubscriber implements EventSubscriber
      * Return all the file fields for the provided entity.
      *
      * @param $entity
-     *
-     * @return array
      */
-    private function getFileFields($entity, EntityManager $em)
+    private function getFileFields($entity, EntityManager $em): array
     {
         $className = \get_class($entity);
         $this->checkClassConfig($entity, $em);
@@ -245,10 +222,8 @@ class FileSubscriber implements EventSubscriber
 
     /**
      * @param $fileEntity
-     *
-     * @return string
      */
-    private function generateFileName($fileEntity, array $fileConfig)
+    private function generateFileName($fileEntity, array $fileConfig): string
     {
         $path = $fileConfig['path'];
         if (null !== $fileConfig['pathCallback']) {

@@ -2,46 +2,36 @@
 
 namespace Leapt\CoreBundle\Datalist\Datasource;
 
+use ArrayIterator;
+use Doctrine\ORM\Query\Expr\Andx;
+use Doctrine\ORM\Query\Expr\Comparison;
+use Doctrine\ORM\Query\Expr\Func;
+use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\QueryBuilder;
+use InvalidArgumentException;
 use Leapt\CoreBundle\Datalist\Filter\Expression\CombinedExpression;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ComparisonExpression;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 use Leapt\CoreBundle\Paginator\DoctrineORMPaginator;
+use Leapt\CoreBundle\Paginator\PaginatorInterface;
+use UnexpectedValueException;
 
-/**
- * Class DoctrineORMDatasource.
- */
 class DoctrineORMDatasource extends AbstractDatasource
 {
-    /**
-     * @var \Doctrine\ORM\QueryBuilder
-     */
-    private $queryBuilder;
+    private bool $initialized = false;
 
-    /**
-     * @var bool
-     */
-    private $initialized = false;
-
-    public function __construct(QueryBuilder $queryBuilder)
+    public function __construct(private QueryBuilder $queryBuilder)
     {
-        $this->queryBuilder = $queryBuilder;
     }
 
-    /**
-     * @return \Leapt\CoreBundle\Paginator\DoctrineORMPaginator
-     */
-    public function getPaginator()
+    public function getPaginator(): PaginatorInterface
     {
         $this->initialize();
 
         return $this->paginator;
     }
 
-    /**
-     * @return \ArrayIterator
-     */
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         $this->initialize();
 
@@ -90,7 +80,7 @@ class DoctrineORMDatasource extends AbstractDatasource
             $this->paginator = $paginator;
         } else {
             $items = $this->queryBuilder->getQuery()->getResult();
-            $this->iterator = new \ArrayIterator($items);
+            $this->iterator = new ArrayIterator($items);
             $this->paginator = null;
         }
 
@@ -98,11 +88,9 @@ class DoctrineORMDatasource extends AbstractDatasource
     }
 
     /**
-     * @return \Doctrine\ORM\Query\Expr\Andx|\Doctrine\ORM\Query\Expr\Comparison|\Doctrine\ORM\Query\Expr\Orx
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function buildQueryBuilderExpression(ExpressionInterface $expression)
+    private function buildQueryBuilderExpression(ExpressionInterface $expression): Comparison
     {
         // If we have a combined expression ("AND" / "OR")
         if ($expression instanceof CombinedExpression) {
@@ -110,18 +98,16 @@ class DoctrineORMDatasource extends AbstractDatasource
         } elseif ($expression instanceof ComparisonExpression) {
             $queryBuilderExpression = $this->buildQueryBuilderComparisonExpression($expression);
         } else {
-            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', \get_class($expression)));
+            throw new InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', \get_class($expression)));
         }
 
         return $queryBuilderExpression;
     }
 
     /**
-     * @return \Doctrine\ORM\Query\Expr\Andx|\Doctrine\ORM\Query\Expr\Orx
-     *
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
-    private function buildQueryBuilderCombinedExpression(CombinedExpression $expression)
+    private function buildQueryBuilderCombinedExpression(CombinedExpression $expression): Andx|Orx
     {
         $queryBuilderSubExpressions = [];
         foreach ($expression->getExpressions() as $subExpression) {
@@ -133,7 +119,7 @@ class DoctrineORMDatasource extends AbstractDatasource
         } elseif (CombinedExpression::OPERATOR_OR === $operator) {
             $expr = $this->queryBuilder->expr()->orX();
         } else {
-            throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
+            throw new UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
         }
         $expr->addMultiple($queryBuilderSubExpressions);
 
@@ -141,11 +127,11 @@ class DoctrineORMDatasource extends AbstractDatasource
     }
 
     /**
-     * @return \Doctrine\ORM\Query\Expr\Comparison
+     * @return Comparison
      *
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
-    private function buildQueryBuilderComparisonExpression(ComparisonExpression $expression)
+    private function buildQueryBuilderComparisonExpression(ComparisonExpression $expression): Comparison|Func|string
     {
         $propertyPath = $expression->getPropertyPath();
         $placeholder = ':' . uniqid('p');
@@ -188,8 +174,7 @@ class DoctrineORMDatasource extends AbstractDatasource
                 $expr = $this->queryBuilder->expr()->isNotNull($propertyPath);
                 break;
             default:
-                throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
-                break;
+                throw new UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
         }
 
         if (!\in_array($operator, [ComparisonExpression::OPERATOR_IS_NULL, ComparisonExpression::OPERATOR_IS_NOT_NULL], true)) {

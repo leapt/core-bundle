@@ -2,29 +2,16 @@
 
 namespace Leapt\CoreBundle\Paginator;
 
-/**
- * Class ArrayPaginator.
- */
 class ArrayPaginator extends AbstractPaginator
 {
-    /**
-     * @var array
-     */
-    private $items;
-
-    public function __construct(array $items)
+    public function __construct(private array $items)
     {
-        $this->items = $items;
     }
 
     /**
      * Set the paginator current page.
-     *
-     * @param int $page
-     *
-     * @return PaginatorInterface
      */
-    public function setPage($page)
+    public function setPage(int $page): PaginatorInterface
     {
         $this->page = $page;
 
@@ -33,12 +20,8 @@ class ArrayPaginator extends AbstractPaginator
 
     /**
      * Set the maximum number of items to display on a single page.
-     *
-     * @param int $limitPerPage
-     *
-     * @return PaginatorInterface
      */
-    public function setLimitPerPage($limitPerPage)
+    public function setLimitPerPage(int $limitPerPage): PaginatorInterface
     {
         $this->limitPerPage = $limitPerPage;
 
@@ -56,15 +39,12 @@ class ArrayPaginator extends AbstractPaginator
      *             <p>
      *             The return value is cast to an integer.
      */
-    public function count()
+    public function count(): int
     {
         return \count($this->items);
     }
 
-    /**
-     * @return \LimitIterator
-     */
-    public function getIterator()
+    public function getIterator(): \LimitIterator
     {
         $innerIterator = new \ArrayIterator($this->items);
 

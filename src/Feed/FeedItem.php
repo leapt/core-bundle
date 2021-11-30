@@ -5,58 +5,41 @@ namespace Leapt\CoreBundle\Feed;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- * Class FeedItem.
- */
 class FeedItem
 {
     /**
      * Property used to generate ATOM "id" element.
-     *
-     * @Assert\NotBlank()
-     *
-     * @var string
      */
-    public $id;
+    #[Assert\NotBlank]
+    public string $id;
 
     /**
      * Property used to generate RSS and ATOM "title" elements.
-     *
-     * @Assert\NotBlank()
-     *
-     * @var string
      */
-    public $title;
+    #[Assert\NotBlank]
+    public string $title;
 
     /**
      * Property used to generate the ATOM "updated" element.
-     *
-     * @Assert\NotBlank()
-     * @Assert\Type(type="\DateTime")
-     *
-     * @var \DateTime
      */
-    public $updatedAt;
+    #[Assert\NotBlank]
+    #[Assert\Type(\DateTime::class)]
+    public \DateTime $updatedAt;
 
     /**
      * Property used to generate the RSS "pubDate" element ATOM "published" element.
-     *
-     * @Assert\NotBlank()
-     * @Assert\Type(type="\DateTime")
-     *
-     * @var \DateTime
      */
-    public $createdAt;
+    #[Assert\NotBlank]
+    #[Assert\Type(\DateTime::class)]
+    public \DateTime $createdAt;
 
     /**
      * Property used to generate the RSS "description" element as well as
      * the ATOM "content" element.
      *
      * This value must be set if the link is not set
-     *
-     * @var string
      */
-    public $description;
+    public string $description;
 
     /**
      * Property used to generate the RSS "link" element as well as the ATOM "link" element
@@ -64,20 +47,15 @@ class FeedItem
      * library does not).
      *
      * This value must be set if the description is not set
-     *
-     * @Assert\Url()
-     *
-     * @var string
      */
-    public $link;
+    #[Assert\Url]
+    public string $link;
 
     /**
      * Property used to build RSS and ATOM "author" elements
      * This property should be built as an associative array, e.a :
      * array('name' => 'John Doe', 'email' => 'john@doe.com').
      *
-     * @Assert\NotBlank()
-     * @Assert\Type(type="array")
      * @Assert\Collection(
      *     fields = {
      *         "name" = @Assert\NotBlank(),
@@ -87,16 +65,15 @@ class FeedItem
      *         }
      *     }
      * )
-     *
-     * @var array
      */
-    public $author;
+    #[Assert\NotBlank]
+    #[Assert\Type('array')]
+    public array $author;
 
     /**
      * Check that the feed item has at least a link or a description.
-     *
-     * @Assert\Callback()
      */
+    #[Assert\Callback]
     public function hasLinkOrDescription(ExecutionContextInterface $context)
     {
         if (!isset($this->link) || !isset($this->description)) {
