@@ -7,15 +7,16 @@ Leapt Core Bundle
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
 [![Code coverage](https://img.shields.io/codecov/c/github/leapt/core-bundle?style=flat-square)](https://codecov.io/gh/leapt/core-bundle/branch/4.x)
 
-The current version (3.x) of the bundle works with Symfony 4.4 & Symfony 5.
+The current version (4.x) of the bundle works with Symfony 5.4 & Symfony 6.0+.
 
 For older versions of Symfony:
 
+* Use version 3.x for Symfony between 4.4 and 5.4
 * Use version 2.x for Symfony between 3.3 and 4.4
 * Use version < 2.x for Symfony < 3.3
 
-You can check the [changelog](CHANGELOG-3.x.md) for version 3 and the [upgrade document](UPGRADE-3.x.md) when upgrading
-from 2.x bundle version.
+You can check the [changelog](CHANGELOG-4.x.md) for version 4 and the [upgrade document](UPGRADE-4.x.md) when upgrading
+from 3.x bundle version.
 
 It aims to help with some repetitive tasks, including (but not limited to):
 
