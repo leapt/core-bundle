@@ -19,7 +19,7 @@ interface DatasourceInterface extends IteratorAggregate, Countable
 
     public function setFilterExpression(ExpressionInterface $expression): mixed;
 
-    public function getPaginator(): PaginatorInterface;
+    public function getPaginator(): ?PaginatorInterface;
 
     public function setSort(string $field, string $direction): self;
 }

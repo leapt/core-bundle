@@ -40,7 +40,7 @@ abstract class AbstractSitemap
      *
      * The easiest way to implement this method is to use the addUrl method
      */
-    abstract public function build(RouterInterface $router): mixed;
+    abstract public function build(RouterInterface $router): void;
 
     protected function addUrl(string $loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = []): self
     {

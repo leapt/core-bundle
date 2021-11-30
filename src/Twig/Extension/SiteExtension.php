@@ -12,7 +12,7 @@ class SiteExtension extends AbstractExtension
 {
     private array $titleParts = ['prepend' => [], 'append' => []];
 
-    private string $metaDescription;
+    private ?string $metaDescription = null;
 
     private array $metaKeywords = [];
 

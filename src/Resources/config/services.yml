@@ -1,8 +1,4 @@
 parameters:
-    leapt_core.google_analytics.tracking_id:
-    leapt_core.google_analytics.debug:
-    leapt_core.google_analytics.domain_name:
-    leapt_core.google_analytics.allow_linker:
     leapt_core.paginator.template: ~
 
 services:

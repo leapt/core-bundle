@@ -26,7 +26,7 @@ class DoctrineORMDatasource extends AbstractDatasource
     {
     }
 
-    public function getPaginator(): PaginatorInterface
+    public function getPaginator(): ?PaginatorInterface
     {
         $this->initialize();
 
@@ -92,7 +92,7 @@ class DoctrineORMDatasource extends AbstractDatasource
     /**
      * @throws InvalidArgumentException
      */
-    private function buildQueryBuilderExpression(ExpressionInterface $expression): Comparison
+    private function buildQueryBuilderExpression(ExpressionInterface $expression): Andx|Orx|Comparison|Func|string
     {
         // If we have a combined expression ("AND" / "OR")
         if ($expression instanceof CombinedExpression) {
