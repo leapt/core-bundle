@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Datalist;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;

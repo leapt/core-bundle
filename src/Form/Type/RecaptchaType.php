@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Form\Type;
 
 use Leapt\CoreBundle\Locale\LocaleResolver;

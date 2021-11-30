@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TextExtensionMock;
@@ -104,6 +106,6 @@ class TextExtensionTest extends TestCase
 
         // Testing the condition where there is no extra space after the defined length
         $test = 'Lorem Ipsum DolorSitAmet';
-        $this->assertEquals('Lorem Ipsum' . $separator, $this->extension->safeTruncate($env, $test, 15, $separator), 'safeTruncate= Should trim after second word with separator');
+        $this->assertEquals('Lorem Ipsum' . $separator, $this->extension->safeTruncate($env, $test, 15, true, $separator), 'safeTruncate= Should trim after second word with separator');
     }
 }

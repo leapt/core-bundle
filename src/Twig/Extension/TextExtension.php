@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Twig\Extension;
 
 use Leapt\CoreBundle\Util\StringUtil;
@@ -66,7 +68,7 @@ class TextExtension extends AbstractExtension
                 return substr($string, $start, $length);
             };
             $strpos = function ($haystack, $needle, $offset = null, $encoding = null) {
-                return strpos($haystack, $needle, $offset);
+                return strpos($haystack, $needle, (int) $offset);
             };
         }
         // First, strip tags to get a exact chars count

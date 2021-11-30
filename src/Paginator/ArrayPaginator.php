@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Paginator;
 
 class ArrayPaginator extends AbstractPaginator

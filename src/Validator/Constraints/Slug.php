@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraints\Regex;

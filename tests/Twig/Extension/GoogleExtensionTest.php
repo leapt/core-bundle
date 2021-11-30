@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Twig\Extension\GoogleExtension;
