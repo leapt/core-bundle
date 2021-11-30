@@ -6,9 +6,6 @@ namespace Leapt\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class PasswordStrength extends Constraint
 {

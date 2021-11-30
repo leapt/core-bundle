@@ -1,48 +1,24 @@
 # File Uploads
 
-The `File` annotation/attribute is available to automatically handle file uploads for your entities.
+The `File` attribute is available to automatically handle file uploads for your entities.
 
 !!! example "Usage"
 
-    === "Attributes"
-        ```php
-        use Leapt\CoreBundle\Doctrine\Mapping as LeaptCore;
-        
-        class News
-        {
-            #[ORM\Column(type: 'string')]
-            private ?string $name = null;
-        
-            #[ORM\Column(type: 'string')]
-            private ?string $image = null;
+    ```php
+    use Leapt\CoreBundle\Doctrine\Mapping as LeaptCore;
     
-            #[LeaptCore\File(path: 'uploads/news', mappedBy: 'image', nameCallback: 'name')]
-            private ?UploadedFile $file = null;
-        }
-        ```
+    class News
+    {
+        #[ORM\Column(type: 'string')]
+        private ?string $name = null;
     
-    === "Annotations"
-        ```php
-        use Leapt\CoreBundle\Doctrine\Mapping as LeaptCore;
-        
-        class News
-        {
-            /**
-             * @ORM\Column(type="string")
-             */
-            private ?string $name = null;
-        
-            /**
-             * @ORM\Column(type="string")
-             */
-            private ?string $image = null;
-    
-            /**
-             * @LeaptCore\File(path="uploads/news", mappedBy="image", nameCallback="name")
-             */
-            private ?UploadedFile $file = null;
-        }
-        ```
+        #[ORM\Column(type: 'string')]
+        private ?string $image = null;
+
+        #[LeaptCore\File(path: 'uploads/news', mappedBy: 'image', nameCallback: 'name')]
+        private ?UploadedFile $file = null;
+    }
+    ```
 
 !!! info "Options"
 

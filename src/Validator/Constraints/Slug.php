@@ -7,9 +7,6 @@ namespace Leapt\CoreBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\RegexValidator;
 
-/**
- * @Annotation
- */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Slug extends Regex
 {

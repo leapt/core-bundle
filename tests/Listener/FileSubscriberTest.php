@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Tests\Listener;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
@@ -191,8 +190,6 @@ class FileSubscriberTest extends TestCase
      */
     private function buildEntityManager()
     {
-        AnnotationRegistry::registerFile(__DIR__ . '/../../src/Doctrine/Mapping/File.php');
-
         $config = Setup::createAnnotationMetadataConfiguration(
             [__DIR__ . '/Fixtures'],
             false,

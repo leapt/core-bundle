@@ -1,32 +1,17 @@
 # Validator Constraints
 
-!!! info
-
-    All validators are available as PHP 8 attributes since version 3.1.1.
-
 ## PasswordStrength
 
 The PasswordStrengthChecker is based on a snipped provided in Symfony 1.
 
 !!! example "Usage"
 
-    === "Attributes"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
-    
-        #[LeaptAssert\PasswordStrength(min: 6, max: 72, score: 80')]
-        public string $plainPassword;
-        ```
-    
-    === "Annotations"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
-    
-        /**
-         * @LeaptAssert\PasswordStrength(min=6, max=72, score=80)
-         */
-        public string $plainPassword;
-        ```
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+
+    #[LeaptAssert\PasswordStrength(min: 6, max: 72, score: 80')]
+    public string $plainPassword;
+    ```
 
 ??? info "Options"
 
@@ -46,23 +31,12 @@ This validator should be used with the [Recaptcha Type](form_types.md#recaptcha-
 
 !!! example "Usage"
 
-    === "Attributes"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
-        #[LeaptAssert\Recaptcha(message: 'Invalid captcha.')]
-        public $recaptcha;
-        ```
-    
-    === "Annotations"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
-
-        /**
-         * @LeaptAssert\Recaptcha(message="Invalid captcha.")
-         */
-        public $recaptcha;
-        ```
+    #[LeaptAssert\Recaptcha(message: 'Invalid captcha.')]
+    public $recaptcha;
+    ```
 
 ??? info "Options"
 
@@ -83,23 +57,12 @@ error message should be displayed in debug mode when validating.
 
 !!! example "Usage"
 
-    === "Attributes"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
 
-        #[LeaptAssert\RecaptchaV3(message: 'Invalid captcha.')]
-        public $recaptcha;
-        ```
-    
-    === "Annotations"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
-
-        /**
-         * @LeaptAssert\RecaptchaV3(message="Invalid captcha.")
-         */
-        public $recaptcha;
-        ```
+    #[LeaptAssert\RecaptchaV3(message: 'Invalid captcha.')]
+    public $recaptcha;
+    ```
 
 ??? info "Options"
 
@@ -116,23 +79,12 @@ Helps to validate that the provided value matches a valid slug format.
 
 !!! example "Usage"
 
-    === "Attributes"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
-    
-        #[LeaptAssert\Slug]
-        public string $slug;
-        ```
-    
-    === "Annotations"
-        ```php
-        use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
-    
-        /**
-         * @LeaptAssert\Slug()
-         */
-        public string $slug;
-        ```
+    ```php
+    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
+
+    #[LeaptAssert\Slug]
+    public string $slug;
+    ```
 
 ??? info "Options"
 

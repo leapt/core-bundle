@@ -6,10 +6,6 @@ namespace Leapt\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- * @Target("PROPERTY")
- */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class Recaptcha extends Constraint
 {

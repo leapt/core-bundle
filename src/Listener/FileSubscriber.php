@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Listener;
 
-use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Events;
-use Leapt\CoreBundle\Doctrine\Mapping\File as FileAnnotation;
+use Leapt\CoreBundle\Doctrine\Mapping\File as FileAttribute;
 use Leapt\CoreBundle\File\CondemnedFile;
 use Leapt\CoreBundle\Util\StringUtil;
 use Symfony\Component\HttpFoundation\File\File;
@@ -22,14 +20,10 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class FileSubscriber implements EventSubscriber
 {
     private array $config = [];
-
     private array $unlinkQueue = [];
-
-    private AnnotationReader $reader;
 
     public function __construct(private string $uploadDir)
     {
-        $this->reader = new AnnotationReader();
     }
 
     public function getSubscribedEvents(): array
@@ -248,29 +242,29 @@ class FileSubscriber implements EventSubscriber
                 ) {
                     continue;
                 }
-                $annotations = $this->getAnnotations($property);
-                foreach ($annotations as $annotation) {
+                $attributes = $this->getAttributes($property);
+                foreach ($attributes as $attribute) {
                     $property->setAccessible(true);
                     $field = $property->getName();
 
-                    if (null === $annotation->mappedBy) {
-                        throw AnnotationException::requiredError('mappedBy', 'LeaptCore\File', $meta->getReflectionClass()->getName(), 'another class property to map onto');
+                    if (null === $attribute->mappedBy) {
+                        throw new \InvalidArgumentException(sprintf('Parameter "mappedBy" of LeaptCore\File declared on %s expects another class property to map onto. This value should not be null.', $meta->getReflectionClass()->getName()));
                     }
-                    if (null === $annotation->path && null === $annotation->pathCallback) {
-                        throw AnnotationException::syntaxError(sprintf('Annotation @%s declared on %s expects "path" or "pathCallback". One of them should not be null.', 'LeaptCore\File', $meta->getReflectionClass()->getName()));
+                    if (null === $attribute->path && null === $attribute->pathCallback) {
+                        throw new \InvalidArgumentException(sprintf('Attribute #%s declared on %s expects "path" or "pathCallback". One of them should not be null.', 'LeaptCore\File', $meta->getReflectionClass()->getName()));
                     }
-                    if (!$meta->hasField($annotation->mappedBy)) {
-                        throw AnnotationException::syntaxError(sprintf('The entity "%s" has no field named "%s", but it is documented in the annotation @%s', $meta->getReflectionClass()->getName(), $annotation->mappedBy, 'LeaptCore\File'));
+                    if (!$meta->hasField($attribute->mappedBy)) {
+                        throw new \InvalidArgumentException(sprintf('The entity "%s" has no field named "%s", but it is documented in the attribute @%s', $meta->getReflectionClass()->getName(), $attribute->mappedBy, 'LeaptCore\File'));
                     }
 
                     $this->config[$class]['fields'][$field] = [
                         'property'     => $property,
-                        'path'         => $annotation->path,
-                        'mappedBy'     => $annotation->mappedBy,
-                        'filename'     => $annotation->filename,
+                        'path'         => $attribute->path,
+                        'mappedBy'     => $attribute->mappedBy,
+                        'filename'     => $attribute->filename,
                         'meta'         => $meta,
-                        'nameCallback' => $annotation->nameCallback,
-                        'pathCallback' => $annotation->pathCallback,
+                        'nameCallback' => $attribute->nameCallback,
+                        'pathCallback' => $attribute->pathCallback,
                     ];
                 }
             }
@@ -278,21 +272,12 @@ class FileSubscriber implements EventSubscriber
     }
 
     /**
-     * @return iterable|FileAnnotation[]
+     * @return iterable|FileAttribute[]
      */
-    private function getAnnotations(\ReflectionProperty $reflection): iterable
+    private function getAttributes(\ReflectionProperty $reflection): iterable
     {
-        if (\PHP_VERSION_ID >= 80000) {
-            foreach ($reflection->getAttributes(FileAnnotation::class) as $attribute) {
-                yield $attribute->newInstance();
-            }
-        }
-
-        $annotations = $this->reader->getPropertyAnnotations($reflection);
-        foreach ($annotations as $annotation) {
-            if ($annotation instanceof FileAnnotation) {
-                yield $annotation;
-            }
+        foreach ($reflection->getAttributes(FileAttribute::class) as $attribute) {
+            yield $attribute->newInstance();
         }
     }
 }
