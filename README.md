@@ -26,7 +26,7 @@ The bundle aims to help with some repetitive tasks, including (but not limited t
 Installation & usage
 --------------------
 
-You can check docs there: https://core-bundle.leapt.io/
+You can check docs there: https://core-bundle.leapt.dev/
 
 Versions & dependencies
 -----------------------
