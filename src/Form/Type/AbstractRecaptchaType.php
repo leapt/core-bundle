@@ -15,12 +15,7 @@ abstract class AbstractRecaptchaType extends AbstractType
      */
     protected string $recaptchaApiServer;
 
-    /**
-     * @param string $publicKey Recaptcha public key
-     * @param bool   $enabled   Recaptcha status
-     * @param string $apiHost   Api host
-     */
-    public function __construct(protected string $publicKey, protected bool $enabled, protected string $apiHost = 'www.google.com')
+    public function __construct(protected ?string $publicKey, protected bool $enabled, protected string $apiHost = 'www.google.com')
     {
         $this->recaptchaApiServer = sprintf('https://%s/recaptcha/api.js', $apiHost);
     }
@@ -41,7 +36,7 @@ abstract class AbstractRecaptchaType extends AbstractType
         $this->addCustomVars($view, $form, $options);
     }
 
-    public function getPublicKey(): string
+    public function getPublicKey(): ?string
     {
         return $this->publicKey;
     }

@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RecaptchaV3Type extends AbstractRecaptchaType
 {
-    public function __construct(string $publicKey, bool $enabled, private bool $hideBadge, string $apiHost = 'www.google.com')
+    public function __construct(?string $publicKey, bool $enabled, private bool $hideBadge, string $apiHost = 'www.google.com')
     {
         parent::__construct($publicKey, $enabled, $apiHost);
     }

@@ -1,3 +1,8 @@
+4.0.1
+-----
+
+* Fix RecaptchaType parameter types
+
 4.0.0
 -----
 
