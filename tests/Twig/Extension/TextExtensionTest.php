@@ -33,6 +33,11 @@ class TextExtensionTest extends TestCase
         $this->assertSame('safe_truncate', $filters[1]->getName());
     }
 
+    public function testCamelize(): void
+    {
+        self::assertSame('Some_Text_Is_Now_Camelized.', $this->extension->camelize('Some.text.is.now.camelized.'));
+    }
+
     public function testSafeTruncate(): void
     {
         // Test SafeTruncate without MultiByte string
