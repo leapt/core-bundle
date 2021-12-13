@@ -66,5 +66,10 @@
         "psr-4": {
             "Leapt\\CoreBundle\\Tests\\": "tests/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": false
+        }
     }
 }

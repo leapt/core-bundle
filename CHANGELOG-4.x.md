@@ -1,3 +1,8 @@
+4.0.2
+-----
+
+* Fix expression not initialized in datasource
+
 4.0.1
 -----
 
