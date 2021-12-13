@@ -18,9 +18,9 @@ abstract class AbstractDatasource implements DatasourceInterface
 
     protected string $searchQuery;
 
-    protected ExpressionInterface $filterExpression;
+    protected ?ExpressionInterface $filterExpression = null;
 
-    protected ExpressionInterface $searchExpression;
+    protected ?ExpressionInterface $searchExpression = null;
 
     protected \Iterator $iterator;
 
