@@ -34,4 +34,9 @@ class CondemnedFile extends UploadedFile
     {
         return $this->path;
     }
+
+    public function getClientOriginalName(): string
+    {
+        return '';
+    }
 }

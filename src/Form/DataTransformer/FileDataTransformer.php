@@ -24,7 +24,7 @@ class FileDataTransformer implements DataTransformerInterface
     /**
      * @param array $value
      */
-    public function reverseTransform(mixed $value): CondemnedFile|UploadedFile
+    public function reverseTransform(mixed $value): CondemnedFile|UploadedFile|null
     {
         if (true === $value['delete']) {
             return new CondemnedFile();
