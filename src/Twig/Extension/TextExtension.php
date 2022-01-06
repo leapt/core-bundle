@@ -48,7 +48,7 @@ class TextExtension extends AbstractExtension
                 return mb_substr($string, $start, $length, $encoding);
             };
             $strpos = function ($haystack, $needle, $offset = null, $encoding = null) {
-                return mb_strpos($haystack, $needle, $offset, $encoding);
+                return mb_strpos($haystack, $needle, (int) $offset, $encoding);
             };
         } else {
             $strlen = function ($string, $encoding = null) {

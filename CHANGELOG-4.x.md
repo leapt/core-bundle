@@ -1,3 +1,8 @@
+4.0.4
+-----
+
+* Fix issue with strict types & mb_strpos()
+
 4.0.3
 -----
 
