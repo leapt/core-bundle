@@ -24,7 +24,7 @@ class DateExtension extends AbstractExtension
     /**
      * Filter used to display the time ago for a specific date.
      */
-    public function timeAgo(\Datetime|string $datetime, $locale = null): string
+    public function timeAgo(\DateTime|string $datetime, $locale = null): string
     {
         $interval = $this->relativeTime($datetime);
 

@@ -27,7 +27,7 @@ class DateExtensionTest extends TestCase
     /**
      * @dataProvider timeAgoData
      */
-    public function testTimeAgo(\Datetime|string $ago, string $expected): void
+    public function testTimeAgo(\DateTime|string $ago, string $expected): void
     {
         $this->assertEquals($expected, $this->extension->timeAgo($ago, 'en'));
     }
