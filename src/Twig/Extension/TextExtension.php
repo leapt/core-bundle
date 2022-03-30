@@ -179,7 +179,7 @@ class TextExtension extends AbstractExtension
     protected function closeTags(string $html): string
     {
         preg_match_all('#<([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
-        $openedTags = $result[1]; //put all closed tags into an array
+        $openedTags = $result[1]; // put all closed tags into an array
 
         preg_match_all('#</([a-z]+)>#iU', $html, $result);
         $closedTags = $result[1];

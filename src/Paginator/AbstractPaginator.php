@@ -62,17 +62,17 @@ abstract class AbstractPaginator implements PaginatorInterface
     {
         $count = $this->count();
 
-        //If limit is set to 0 or set to number bigger then total items count
-        //display all in one page
+        // If limit is set to 0 or set to number bigger then total items count
+        // display all in one page
         if ((1 > $this->limitPerPage) || ($this->limitPerPage > $count)) {
             return 1;
         }
-        //Calculate rest numbers from dividing operation so we can add one
-        //more page for this items
+        // Calculate rest numbers from dividing operation so we can add one
+        // more page for this items
         $restItemsNum = $count % $this->limitPerPage;
 
-        //if rest items > 0 then add one more page else just divide items
-        //by limitPerPage
+        // if rest items > 0 then add one more page else just divide items
+        // by limitPerPage
         return 0 < $restItemsNum ? (int) ($count / $this->limitPerPage) + 1 : (int) (
                 $count / $this->limitPerPage
             );
