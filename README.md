@@ -37,7 +37,7 @@ The project follows SemVer.
 You can check the [changelog](CHANGELOG-4.x.md) for version 4 and the [upgrade document](UPGRADE-4.x.md) when upgrading
 from 3.x bundle version.
 
-| ImBundle version  | Symfony version           | PHP version
+| CoreBundle version | Symfony version           | PHP version
 | ----------------- | ------------------------- | -----------
 | 4.x               | ^5.4 \|\| ^6.0            | ^8.0
 | 3.1+              | ^4.4 \|\| ^5.0            | ^7.4 \|\| ^8.0
