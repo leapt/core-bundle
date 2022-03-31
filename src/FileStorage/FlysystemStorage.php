@@ -18,7 +18,7 @@ final class FlysystemStorage implements StorageInterface
 
     public function uploadFile(FileUploadConfig $fileUploadConfig, File $uploadedFile, string $path, string $filename): void
     {
-        // TODO: Implement uploadFile() method.
+        $this->getStorage($fileUploadConfig->attribute->flysystemConfig)->write($path . '/' . $filename, $uploadedFile->getContent());
     }
 
     public function removeFile(FileUploadConfig $fileUploadConfig, string $file): void
