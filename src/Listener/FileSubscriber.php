@@ -6,6 +6,7 @@ namespace Leapt\CoreBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
@@ -119,7 +120,7 @@ class FileSubscriber implements EventSubscriber
      *
      * @return array<string, FileUploadConfig>
      */
-    private function getFileFields(object $entity, EntityManager $em): array
+    private function getFileFields(object $entity, EntityManagerInterface $em): array
     {
         $className = \get_class($entity);
         $this->checkClassConfig($entity, $em);
@@ -236,7 +237,7 @@ class FileSubscriber implements EventSubscriber
         return $path . $filename . $ext;
     }
 
-    private function checkClassConfig($entity, EntityManager $entityManager): void
+    private function checkClassConfig($entity, EntityManagerInterface $entityManager): void
     {
         $class = \get_class($entity);
 
