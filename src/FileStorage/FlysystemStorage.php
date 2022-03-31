@@ -28,6 +28,6 @@ final class FlysystemStorage implements StorageInterface
 
     public function getStorage(string $name): FilesystemOperator
     {
-        return $this->storages[$name];
+        return $this->storages[$name] ?? throw new \InvalidArgumentException(sprintf('There is no Flysystem storage named "%s".', $name));
     }
 }

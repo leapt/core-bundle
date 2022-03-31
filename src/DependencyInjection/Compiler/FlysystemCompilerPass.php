@@ -6,7 +6,6 @@ namespace Leapt\CoreBundle\DependencyInjection\Compiler;
 
 use League\FlysystemBundle\FlysystemBundle;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -30,7 +29,7 @@ final class FlysystemCompilerPass implements CompilerPassInterface
                 }
             }
 
-            $definition->replaceArgument(0, ServiceLocatorTagPass::register($container, $storages));
+            $definition->replaceArgument(0, $storages);
         }
     }
 }
