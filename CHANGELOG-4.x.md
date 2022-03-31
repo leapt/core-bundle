@@ -1,3 +1,8 @@
+4.1.0
+-----
+
+* Allow file uploads using Flysystem (via league/flysystem-bundle)
+
 4.0.4
 -----
 
