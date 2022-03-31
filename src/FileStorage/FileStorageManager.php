@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\FileStorage;
 
-use Leapt\CoreBundle\Doctrine\Mapping\File;
+use Symfony\Component\HttpFoundation\File\File;
 
 final class FileStorageManager
 {
@@ -14,12 +14,21 @@ final class FileStorageManager
     ) {
     }
 
-    public function removeFile(File $fileMapping, string $file): void
+    public function uploadFile(FileUploadConfig $fileUploadConfig, File $uploadedFile, string $path, string $filename): void
     {
-        if (null !== $fileMapping->flysystemConfig) {
-            $this->flysystemStorage->removeFile($fileMapping, $file);
+        if (null !== $fileUploadConfig->attribute->flysystemConfig) {
+            $this->flysystemStorage->uploadFile($fileUploadConfig, $uploadedFile, $path, $filename);
         } else {
-            $this->filesystemStorage->removeFile($fileMapping, $file);
+            $this->filesystemStorage->uploadFile($fileUploadConfig, $uploadedFile, $path, $filename);
+        }
+    }
+
+    public function removeFile(FileUploadConfig $fileUploadConfig, string $file): void
+    {
+        if (null !== $fileUploadConfig->attribute->flysystemConfig) {
+            $this->flysystemStorage->removeFile($fileUploadConfig, $file);
+        } else {
+            $this->filesystemStorage->removeFile($fileUploadConfig, $file);
         }
     }
 }

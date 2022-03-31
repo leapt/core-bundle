@@ -12,6 +12,8 @@ use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Events;
 use Leapt\CoreBundle\Doctrine\Mapping\File as FileAttribute;
 use Leapt\CoreBundle\File\CondemnedFile;
+use Leapt\CoreBundle\FileStorage\FileStorageManager;
+use Leapt\CoreBundle\FileStorage\FileUploadConfig;
 use Leapt\CoreBundle\Util\StringUtil;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -19,10 +21,13 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class FileSubscriber implements EventSubscriber
 {
+    /**
+     * @var array<class-string, array<string, array<string, FileUploadConfig>>>
+     */
     private array $config = [];
     private array $unlinkQueue = [];
 
-    public function __construct(private string $uploadDir)
+    public function __construct(private FileStorageManager $fileStorageManager)
     {
     }
 
@@ -52,12 +57,12 @@ class FileSubscriber implements EventSubscriber
         // Finally, check all entities in identity map - if they have a file object they need to be processed
         foreach ($unitOfWork->getIdentityMap() as $entities) {
             foreach ($entities as $fileEntity) {
-                foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
-                    $propertyValue = $fileConfig['property']->getValue($fileEntity);
+                foreach ($this->getFileFields($fileEntity, $entityManager) as $fileUploadConfig) {
+                    $propertyValue = $fileUploadConfig->property->getValue($fileEntity);
                     if ($propertyValue instanceof CondemnedFile) {
-                        $this->preRemoveUpload($fileEntity, $fileConfig);
+                        $this->preRemoveUpload($fileEntity, $fileUploadConfig);
                     } else {
-                        $this->preUpload($ea, $fileEntity, $fileConfig);
+                        $this->preUpload($ea, $fileEntity, $fileUploadConfig);
                     }
                 }
             }
@@ -77,8 +82,8 @@ class FileSubscriber implements EventSubscriber
 
         // Then, let's deal with entities schedules for insertion
         foreach ($unitOfWork->getScheduledEntityInsertions() as $fileEntity) {
-            foreach ($this->getFileFields($fileEntity, $entityManager) as $fileConfig) {
-                $this->preUpload($ea, $fileEntity, $fileConfig);
+            foreach ($this->getFileFields($fileEntity, $entityManager) as $fileUploadConfig) {
+                $this->preUpload($ea, $fileEntity, $fileUploadConfig);
             }
         }
     }
@@ -111,6 +116,8 @@ class FileSubscriber implements EventSubscriber
 
     /**
      * Return all the file fields for the provided entity.
+     *
+     * @return array<string, FileUploadConfig>
      */
     private function getFileFields(object $entity, EntityManager $em): array
     {
@@ -127,95 +134,95 @@ class FileSubscriber implements EventSubscriber
     private function postSave(LifecycleEventArgs $ea): void
     {
         $fileEntity = $ea->getEntity();
-        foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileConfig) {
-            $propertyValue = $fileConfig['property']->getValue($fileEntity);
+        foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileUploadConfig) {
+            $propertyValue = $fileUploadConfig->property->getValue($fileEntity);
             if ($propertyValue instanceof CondemnedFile) {
-                $this->removeUpload($fileEntity, $fileConfig);
+                $this->removeUpload($fileEntity, $fileUploadConfig);
             } else {
-                $this->upload($ea, $fileEntity, $fileConfig);
+                $this->upload($ea, $fileEntity, $fileUploadConfig);
             }
         }
     }
 
-    private function preUpload($ea, mixed $fileEntity, array $fileConfig): void
+    private function preUpload($ea, mixed $fileEntity, FileUploadConfig $fileUploadConfig): void
     {
-        $propertyValue = $fileConfig['property']->getValue($fileEntity);
+        $propertyValue = $fileUploadConfig->property->getValue($fileEntity);
         if ($propertyValue instanceof File) {
-            $oldMappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
-            $newMappedValue = $this->generateFileName($fileEntity, $fileConfig);
-            $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['mappedBy'], $newMappedValue);
+            $oldMappedValue = $fileUploadConfig->classMetadata->getFieldValue($fileEntity, $fileUploadConfig->attribute->mappedBy);
+            $newMappedValue = $this->generateFileName($fileEntity, $fileUploadConfig);
+            $fileUploadConfig->classMetadata->setFieldValue($fileEntity, $fileUploadConfig->attribute->mappedBy, $newMappedValue);
 
             $entityManager = $ea->getEntityManager();
-            $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $fileConfig['mappedBy'], $oldMappedValue, $newMappedValue);
+            $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $fileUploadConfig->attribute->mappedBy, $oldMappedValue, $newMappedValue);
 
-            if (null !== $fileConfig['filename']) {
-                $oldFilename = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['filename']);
+            if (null !== $fileUploadConfig->attribute->filename) {
+                $oldFilename = $fileUploadConfig->classMetadata->getFieldValue($fileEntity, $fileUploadConfig->attribute->filename);
                 \assert($propertyValue instanceof UploadedFile);
                 $newFilename = $propertyValue->getClientOriginalName();
 
-                $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['filename'], $newFilename);
-                $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $fileConfig['filename'], $oldFilename, $newFilename);
+                $fileUploadConfig->classMetadata->setFieldValue($fileEntity, $fileUploadConfig->attribute->filename, $newFilename);
+                $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $fileUploadConfig->attribute->filename, $oldFilename, $newFilename);
             }
         }
     }
 
-    private function upload(LifecycleEventArgs $ea, object $fileEntity, array $fileConfig): void
+    private function upload(LifecycleEventArgs $ea, object $fileEntity, FileUploadConfig $fileUploadConfig): void
     {
-        $propertyValue = $fileConfig['property']->getValue($fileEntity);
+        $propertyValue = $fileUploadConfig->property->getValue($fileEntity);
         if (!$propertyValue instanceof File) {
             return;
         }
 
-        $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
+        $mappedValue = $fileUploadConfig->classMetadata->getFieldValue($fileEntity, $fileUploadConfig->attribute->mappedBy);
         $filename = basename($mappedValue);
         $path = \dirname($mappedValue);
 
-        $propertyValue->move($this->uploadDir . '/' . $path, $filename);
+        $this->fileStorageManager->uploadFile($fileUploadConfig, $propertyValue, $path, $filename);
 
         // Remove previous file
         $unitOfWork = $ea->getEntityManager()->getUnitOfWork();
         $changeSet = $unitOfWork->getEntityChangeSet($fileEntity);
-        if (\array_key_exists($fileConfig['mappedBy'], $changeSet)) {
-            $oldvalue = $changeSet[$fileConfig['mappedBy']][0];
-            if (null !== $oldvalue) {
-                @unlink($this->uploadDir . '/' . $oldvalue);
+        if (\array_key_exists($fileUploadConfig->attribute->mappedBy, $changeSet)) {
+            $oldValue = $changeSet[$fileUploadConfig->attribute->mappedBy][0];
+            if (null !== $oldValue) {
+                $this->fileStorageManager->removeFile($fileUploadConfig, $oldValue);
             }
         }
 
-        $fileConfig['property']->setValue($fileEntity, null);
+        $fileUploadConfig->property->setValue($fileEntity, null);
     }
 
-    private function preRemoveUpload(object $fileEntity, array $fileConfig): void
+    private function preRemoveUpload(object $fileEntity, FileUploadConfig $fileUploadConfig): void
     {
-        $mappedValue = $fileConfig['meta']->getFieldValue($fileEntity, $fileConfig['mappedBy']);
+        $mappedValue = $fileUploadConfig->classMetadata->getFieldValue($fileEntity, $fileUploadConfig->attribute->mappedBy);
 
         if (!empty($mappedValue)) {
-            $fileConfig['meta']->setFieldValue($fileEntity, $fileConfig['mappedBy'], null);
-            $this->unlinkQueue[spl_object_hash($fileEntity)] = $this->uploadDir . '/' . $mappedValue;
+            $fileUploadConfig->classMetadata->setFieldValue($fileEntity, $fileUploadConfig->attribute->mappedBy, null);
+            $this->unlinkQueue[spl_object_hash($fileEntity)][$fileUploadConfig->property->getName()] = $mappedValue;
         }
     }
 
-    private function removeUpload(object $fileEntity, array $fileConfig): void
+    private function removeUpload(object $fileEntity, FileUploadConfig $fileUploadConfig): void
     {
-        if (isset($this->unlinkQueue[spl_object_hash($fileEntity)]) && is_file($this->unlinkQueue[spl_object_hash($fileEntity)])) {
-            unlink($this->unlinkQueue[spl_object_hash($fileEntity)]);
+        if (isset($this->unlinkQueue[spl_object_hash($fileEntity)][$fileUploadConfig->property->getName()])) {
+            $this->fileStorageManager->removeFile($fileUploadConfig, $this->unlinkQueue[spl_object_hash($fileEntity)][$fileUploadConfig->property->getName()]);
         }
-        $fileConfig['property']->setValue($fileEntity, null);
+        $fileUploadConfig->property->setValue($fileEntity, null);
     }
 
-    private function generateFileName(object $fileEntity, array $fileConfig): string
+    private function generateFileName(object $fileEntity, FileUploadConfig $fileUploadConfig): string
     {
-        $path = $fileConfig['path'];
-        if (null !== $fileConfig['pathCallback']) {
+        $path = $fileUploadConfig->attribute->path;
+        if (null !== $fileUploadConfig->attribute->pathCallback) {
             $accessor = PropertyAccess::createPropertyAccessor();
-            $path = $accessor->getValue($fileEntity, $fileConfig['pathCallback']);
+            $path = $accessor->getValue($fileEntity, $fileUploadConfig->attribute->pathCallback);
         }
         $path .= '/';
-        $ext = '.' . $fileConfig['property']->getValue($fileEntity)->guessExtension();
+        $ext = '.' . $fileUploadConfig->property->getValue($fileEntity)->guessExtension();
 
-        if (null !== $fileConfig['nameCallback']) {
+        if (null !== $fileUploadConfig->attribute->nameCallback) {
             $accessor = PropertyAccess::createPropertyAccessor();
-            $filename = $accessor->getValue($fileEntity, $fileConfig['nameCallback']);
+            $filename = $accessor->getValue($fileEntity, $fileUploadConfig->attribute->nameCallback);
             $filename = StringUtil::slugify($filename);
 
             /*
@@ -257,15 +264,7 @@ class FileSubscriber implements EventSubscriber
                         throw new \InvalidArgumentException(sprintf('The entity "%s" has no field named "%s", but it is documented in the attribute @%s', $meta->getReflectionClass()->getName(), $attribute->mappedBy, 'LeaptCore\File'));
                     }
 
-                    $this->config[$class]['fields'][$field] = [
-                        'property'     => $property,
-                        'path'         => $attribute->path,
-                        'mappedBy'     => $attribute->mappedBy,
-                        'filename'     => $attribute->filename,
-                        'meta'         => $meta,
-                        'nameCallback' => $attribute->nameCallback,
-                        'pathCallback' => $attribute->pathCallback,
-                    ];
+                    $this->config[$class]['fields'][$field] = new FileUploadConfig($property, $attribute, $meta);
                 }
             }
         }

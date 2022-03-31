@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\FileStorage;
 
 use League\Flysystem\FilesystemOperator;
-use Leapt\CoreBundle\Doctrine\Mapping\File;
+use Symfony\Component\HttpFoundation\File\File;
 
 final class FlysystemStorage implements StorageInterface
 {
@@ -16,9 +16,14 @@ final class FlysystemStorage implements StorageInterface
     {
     }
 
-    public function removeFile(File $fileMapping, string $file): void
+    public function uploadFile(FileUploadConfig $fileUploadConfig, File $uploadedFile, string $path, string $filename): void
     {
-        $this->getStorage($fileMapping->flysystemConfig)->delete($file);
+        // TODO: Implement uploadFile() method.
+    }
+
+    public function removeFile(FileUploadConfig $fileUploadConfig, string $file): void
+    {
+        $this->getStorage($fileUploadConfig->attribute->flysystemConfig)->delete($file);
     }
 
     public function getStorage(string $name): FilesystemOperator
