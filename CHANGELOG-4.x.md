@@ -3,6 +3,7 @@
 
 * Allow file uploads using Flysystem (via league/flysystem-bundle)
 * Add `allow_download` option to FileType
+* Add Bootstrap 5 layout for Paginator
 
 4.0.4
 -----
