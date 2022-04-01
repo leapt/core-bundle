@@ -19,9 +19,9 @@ services:
     # Field entity event subscriber
     leapt_core.file_subscriber:
         class: Leapt\CoreBundle\Listener\FileSubscriber
-        arguments: [ "%leapt_core.upload_dir%" ]
+        arguments: [ '@leapt_core.file_storage.manager' ]
         tags:
-            - { name: doctrine.event_subscriber}
+            - { name: doctrine.event_subscriber }
 
     # Navigation
     leapt_core.navigation:
@@ -157,3 +157,15 @@ services:
     Leapt\CoreBundle\Controller\SitemapController:
         arguments: [ '@leapt_core.sitemap_manager', '@router.default', '@twig', '@http_kernel' ]
         public: true
+
+    leapt_core.file_storage.filesystem:
+        class: Leapt\CoreBundle\FileStorage\FilesystemStorage
+        arguments: [ "%leapt_core.upload_dir%" ]
+
+    leapt_core.file_storage.flysystem:
+        class: Leapt\CoreBundle\FileStorage\FlysystemStorage
+        arguments: [ [] ]
+
+    leapt_core.file_storage.manager:
+        class: Leapt\CoreBundle\FileStorage\FileStorageManager
+        arguments: [ '@leapt_core.file_storage.filesystem', '@leapt_core.file_storage.flysystem' ]

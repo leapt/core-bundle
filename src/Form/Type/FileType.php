@@ -41,7 +41,11 @@ class FileType extends AbstractType
                 'allow_delete'    => true,
                 'file_label'      => null,
                 'file_label_attr' => [],
-            ]);
+                'allow_download'  => true,
+            ])
+            ->setAllowedTypes('allow_delete', ['bool'])
+            ->setAllowedTypes('allow_download', ['bool'])
+        ;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -73,8 +77,8 @@ class FileType extends AbstractType
     {
         if (\array_key_exists('file_path', $options)) {
             $parentData = $form->getParent()->getData();
+            $fileUrl = null;
             try {
-                $fileUrl = null;
                 if (null !== $parentData) {
                     if (\is_callable($options['file_path'])) {
                         $fileUrl = \call_user_func($options['file_path'], $parentData);
@@ -84,14 +88,15 @@ class FileType extends AbstractType
                     }
                 }
             } catch (\Exception) {
-                $fileUrl = null;
             }
             // set a "file_url" variable that will be available when rendering this field
             $view->vars['file_url'] = $fileUrl;
+            $view->vars['download_use_asset_function'] = !\is_callable($options['file_path']);
         }
         $view->vars['download_label'] = $options['download_label'];
         $view->vars['delete_label'] = $options['delete_label'];
         $view->vars['allow_delete'] = $options['allow_delete'];
+        $view->vars['allow_download'] = $options['allow_download'];
     }
 
     public function setUploadDir(string $uploadDir): self

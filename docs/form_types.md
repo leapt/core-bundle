@@ -39,10 +39,11 @@
 
     | Name | Description | Default value |
     | ---- | ----------- | ------------- |
-    | file_path (required) | Property of the object that stores the file path. Used to display a download link. | |
+    | file_path (required) | Property of the object that stores the file path. Used to display a download link. Can be a string, or a callback to generate the link. The callback gets the entire object as an argument. | |
     | delete_label | Text to display next to the delete checkbox. | Delete |
     | download_label | Text to display in the download link. | Download |
     | allow_delete | Display a checkbox that allows to remove the current file. | true |
+    | allow_download | Display a link to download the file. | true |
 
 See also [File uploads](file_uploads.md).
 

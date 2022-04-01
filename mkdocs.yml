@@ -48,7 +48,8 @@ markdown_extensions:
     - pymdownx.highlight:
         extend_pygments_lang:
             - { name: php, lang: php, options: { startinline: true } }
-    - pymdownx.superfences: { }
-    - pymdownx.tabbed: { }
+    - pymdownx.superfences
+    - pymdownx.tabbed:
+          alternate_style: true
     - admonition: { }
 

@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Leapt\CoreBundle\File\CondemnedFile;
+use Leapt\CoreBundle\FileStorage\FileStorageManager;
+use Leapt\CoreBundle\FileStorage\FilesystemStorage;
+use Leapt\CoreBundle\FileStorage\FlysystemStorage;
 use Leapt\CoreBundle\Listener\FileSubscriber;
 use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\Novel;
 use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User;
@@ -36,7 +39,11 @@ class FileSubscriberTest extends TestCase
         $this->createSchema();
         $this->rootDir = sys_get_temp_dir() . '/' . uniqid('', false);
 
-        $this->subscriber = new FileSubscriber($this->rootDir);
+        $fileStorageManager = new FileStorageManager(
+            new FilesystemStorage($this->rootDir),
+            new FlysystemStorage([]),
+        );
+        $this->subscriber = new FileSubscriber($fileStorageManager);
 
         parent::setUp();
     }
