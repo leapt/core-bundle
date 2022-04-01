@@ -1,0 +1,27 @@
+{% block paginator_widget %}
+    {% if paginator.pageCount > 1 %}
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item {% if paginator.page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path(route, route_params|merge({ 'page': 1 })) }}" aria-label="{{ 'paginator.first'|trans({}, 'LeaptCoreBundle') }}">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="visually-hidden">{{ 'paginator.first'|trans({}, 'LeaptCoreBundle') }}</span>
+                    </a>
+                </li>
+                {% for i in paginator.range %}
+                    <li class="page-item {% if paginator.page == i %}active{% endif %}" {% if paginator.page == i %}aria-current="page"{% endif %}>
+                        <a href="{{ path(route, route_params|merge({'page': i})) }}" class="page-link">
+                            {{ i }}
+                        </a>
+                    </li>
+                {% endfor %}
+                <li class="page-item {% if paginator.page == paginator.pageCount %}disabled{% endif %}">
+                    <a class="page-link" href="{{ path(route, route_params|merge({ 'page': paginator.pageCount })) }}" aria-label="{{ 'paginator.last'|trans({}, 'LeaptCoreBundle') }}">
+                        <span class="visually-hidden">{{ 'paginator.last'|trans({}, 'LeaptCoreBundle') }}</span>
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock paginator_widget %}

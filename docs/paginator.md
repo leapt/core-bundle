@@ -53,11 +53,12 @@ Three pagination templates are provided by the bundle (but you can of course cre
 - `@LeaptCore/Paginator/paginator_default_layout.html.twig` (default)
 - `@LeaptCore/Paginator/paginator_bootstrap3_layout.html.twig`
 - `@LeaptCore/Paginator/paginator_bootstrap4_layout.html.twig`
+- `@LeaptCore/Paginator/paginator_bootstrap5_layout.html.twig`
 
 You can override the pagination template locally (like you would do for form themes):
 
 ```twig
-{% paginator_theme paginator '@LeaptCore/Paginator/paginator_bootstrap4_layout.html.twig' %}
+{% paginator_theme paginator '@LeaptCore/Paginator/paginator_bootstrap5_layout.html.twig' %}
 ```
 
 Or globally, in the configuration:
@@ -66,5 +67,5 @@ Or globally, in the configuration:
 # config/packages/leapt_core.yaml
 leapt_core:
     paginator:
-        template: '@LeaptCore/Paginator/paginator_bootstrap4_layout.html.twig'
+        template: '@LeaptCore/Paginator/paginator_bootstrap5_layout.html.twig'
 ```

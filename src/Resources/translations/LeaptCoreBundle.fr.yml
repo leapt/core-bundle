@@ -26,5 +26,5 @@ datalist:
         header: Actions
 
 paginator:
-    previous: Précédent
-    next: Suivant
+    first: Première page
+    last: Dernière page
