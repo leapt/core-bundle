@@ -145,7 +145,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    private function preUpload($ea, mixed $fileEntity, FileUploadConfig $fileUploadConfig): void
+    private function preUpload(PreFlushEventArgs|OnFlushEventArgs $ea, mixed $fileEntity, FileUploadConfig $fileUploadConfig): void
     {
         $propertyValue = $fileUploadConfig->property->getValue($fileEntity);
         if ($propertyValue instanceof File) {
