@@ -2,6 +2,7 @@
 -----
 
 * Allow file uploads using Flysystem (via league/flysystem-bundle)
+* Add `allow_download` option to FileType
 
 4.0.4
 -----
