@@ -129,13 +129,13 @@
     {% if value is not empty and provider is defined %}
         <br>
         {% set common_attrs = 'width="' ~ player_width ~ '" height="' ~ player_height ~ '" style="max-width: 100%;" frameborder="0" allowfullscreen' %}
-        {% if provider == 'youtube' %}
+        {% if provider == constant('Leapt\\CoreBundle\\Form\\Type\\VideoType::PROVIDER_YOUTUBE') %}
             <iframe {{ common_attrs|raw }} src="https://www.youtube.com/embed/{{ value }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-        {% elseif provider == 'tudou' %}
+        {% elseif provider == constant('Leapt\\CoreBundle\\Form\\Type\\VideoType::PROVIDER_TUDOU') %}
             <embed src="http://www.tudou.com/v/{{ value }}/&resourceId=0_05_05_99&bid=05/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" {{ common_attrs|raw }}></embed>
-        {% elseif provider == 'vimeo' %}
+        {% elseif provider == constant('Leapt\\CoreBundle\\Form\\Type\\VideoType::PROVIDER_VIMEO') %}
             <iframe {{ common_attrs|raw }} src="https://player.vimeo.com/video/{{ value }}" allow="autoplay; fullscreen; picture-in-picture"></iframe>
-        {% elseif provider == 'dailymotion' %}
+        {% elseif provider == constant('Leapt\\CoreBundle\\Form\\Type\\VideoType::PROVIDER_DAILYMOTION') %}
             <iframe {{ common_attrs|raw }} type="text/html" src="https://www.dailymotion.com/embed/video/{{ value }}"></iframe>
         {% endif %}
     {% endif %}
@@ -145,7 +145,7 @@
     {{ block('form_widget') }}
     {% if value is not empty %}
         <br>
-        {% if provider == 'soundcloud' %}
+        {% if provider == constant('Leapt\\CoreBundle\\Form\\Type\\SoundType::PROVIDER_SOUNDCLOUD') %}
             <iframe width="{{ player_width }}" height="{{ player_height }}" style="max-width: 100%;" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{ value }}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
         {% endif %}
     {% endif %}

@@ -12,6 +12,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VideoType extends AbstractType
 {
+    public const PROVIDER_YOUTUBE = 'youtube';
+    public const PROVIDER_TUDOU = 'tudou';
+    public const PROVIDER_VIMEO = 'vimeo';
+    public const PROVIDER_DAILYMOTION = 'dailymotion';
+
     public function getBlockPrefix(): string
     {
         return 'leapt_core_video';
@@ -30,7 +35,12 @@ class VideoType extends AbstractType
                 'player_height' => 315,
             ])
             ->setDefined(['provider'])
-            ->setAllowedValues('provider', ['youtube', 'tudou', 'vimeo', 'dailymotion'])
+            ->setAllowedValues('provider', [
+                self::PROVIDER_YOUTUBE,
+                self::PROVIDER_TUDOU,
+                self::PROVIDER_VIMEO,
+                self::PROVIDER_DAILYMOTION,
+            ])
             ->setAllowedTypes('player_width', ['int', 'string'])
             ->setAllowedTypes('player_height', ['int', 'string'])
         ;
