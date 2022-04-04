@@ -128,7 +128,7 @@
     {{ block('form_widget') }}
     {% if value is not empty and provider is defined %}
         <br>
-        {% set common_attrs = 'width="560" height="315" style="max-width: 100%;" frameborder="0" allowfullscreen' %}
+        {% set common_attrs = 'width="' ~ video_width ~ '" height="' ~ video_height ~ '" style="max-width: 100%;" frameborder="0" allowfullscreen' %}
         {% if provider == 'youtube' %}
             <iframe {{ common_attrs|raw }} src="https://www.youtube.com/embed/{{ value }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         {% elseif provider == 'tudou' %}
