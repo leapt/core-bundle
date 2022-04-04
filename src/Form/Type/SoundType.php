@@ -25,13 +25,21 @@ class SoundType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefaults(['provider' => null])
+            ->setDefaults([
+                'provider'      => null,
+                'player_width'  => 560,
+                'player_height' => 300,
+            ])
             ->setAllowedValues('provider', ['soundcloud'])
+            ->setAllowedTypes('player_width', ['int', 'string'])
+            ->setAllowedTypes('player_height', ['int', 'string'])
         ;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['provider'] = $options['provider'];
+        $view->vars['player_width'] = $options['player_width'];
+        $view->vars['player_height'] = $options['player_height'];
     }
 }

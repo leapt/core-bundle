@@ -4,7 +4,7 @@
 * Allow file uploads using Flysystem (via league/flysystem-bundle)
 * Add `allow_download` option to FileType
 * Add Bootstrap 5 layout for Paginator
-* VideoType: allow configuring video width & height
+* SoundType & VideoType: allow configuring player width & height
 * Improve default form layout for file/image uploads, sound & video types
 * Add Bootstrap 3, 4 & 5 form layouts
 

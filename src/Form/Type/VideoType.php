@@ -26,13 +26,13 @@ class VideoType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'video_width'  => 560,
-                'video_height' => 315,
+                'player_width'  => 560,
+                'player_height' => 315,
             ])
             ->setDefined(['provider'])
             ->setAllowedValues('provider', ['youtube', 'tudou', 'vimeo', 'dailymotion'])
-            ->setAllowedTypes('video_width', ['int', 'string'])
-            ->setAllowedTypes('video_height', ['int', 'string'])
+            ->setAllowedTypes('player_width', ['int', 'string'])
+            ->setAllowedTypes('player_height', ['int', 'string'])
         ;
     }
 
@@ -41,7 +41,7 @@ class VideoType extends AbstractType
         if (isset($options['provider'])) {
             $view->vars['provider'] = $options['provider'];
         }
-        $view->vars['video_width'] = $options['video_width'];
-        $view->vars['video_height'] = $options['video_height'];
+        $view->vars['player_width'] = $options['player_width'];
+        $view->vars['player_height'] = $options['player_height'];
     }
 }

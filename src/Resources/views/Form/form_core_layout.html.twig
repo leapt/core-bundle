@@ -128,7 +128,7 @@
     {{ block('form_widget') }}
     {% if value is not empty and provider is defined %}
         <br>
-        {% set common_attrs = 'width="' ~ video_width ~ '" height="' ~ video_height ~ '" style="max-width: 100%;" frameborder="0" allowfullscreen' %}
+        {% set common_attrs = 'width="' ~ player_width ~ '" height="' ~ player_height ~ '" style="max-width: 100%;" frameborder="0" allowfullscreen' %}
         {% if provider == 'youtube' %}
             <iframe {{ common_attrs|raw }} src="https://www.youtube.com/embed/{{ value }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         {% elseif provider == 'tudou' %}
@@ -137,6 +137,16 @@
             <iframe {{ common_attrs|raw }} src="https://player.vimeo.com/video/{{ value }}" allow="autoplay; fullscreen; picture-in-picture"></iframe>
         {% elseif provider == 'dailymotion' %}
             <iframe {{ common_attrs|raw }} type="text/html" src="https://www.dailymotion.com/embed/video/{{ value }}"></iframe>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block leapt_core_sound_widget %}
+    {{ block('form_widget') }}
+    {% if value is not empty %}
+        <br>
+        {% if provider == 'soundcloud' %}
+            <iframe width="{{ player_width }}" height="{{ player_height }}" style="max-width: 100%;" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{{ value }}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
         {% endif %}
     {% endif %}
 {% endblock %}
