@@ -1,1 +1,39 @@
 {% extends '@LeaptCore/Form/form_core_layout.html.twig' %}
+
+{% block leapt_core_file_widget %}
+    {{- form_widget(form.file) -}}
+    {{ form_errors(form.file) }}
+
+    {% if allow_download and file_url is not null %}
+        <a href="{{ download_use_asset_function ? asset(file_url) : file_url }}" class="btn btn-secondary my-2" target="_blank" rel="noopener">
+            {{ download_label is not null ? download_label|trans({}, translation_domain) : 'form.types.file.download.label'|trans({}, 'LeaptCoreBundle') }}
+        </a>
+    {% endif %}
+
+    {% if file_url is not null and allow_delete %}
+        <div class="form-check">
+            <input id="{{ form.delete.vars.id }}" name="{{ form.delete.vars.full_name }}" value="{{ form.delete.vars.value }}" type="checkbox" class="form-check-input">
+            <label for="{{ form.delete.vars.id }}" class="form-check-label">
+                {{ delete_label is not null ? delete_label|trans({}, translation_domain) : 'form.types.file.delete.label'|trans({}, 'LeaptCoreBundle') }}
+            </label>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block leapt_core_image_widget %}
+    {{- form_widget(form.file) -}}
+    {{ form_errors(form.file) }}
+
+    {% if allow_download and file_url is not null %}
+        <img src="{{ download_use_asset_function ? asset(file_url) : file_url }}" class="img-fluid my-2" alt="">
+    {% endif %}
+
+    {% if file_url is not null and allow_delete %}
+        <div class="form-check">
+            <input id="{{ form.delete.vars.id }}" name="{{ form.delete.vars.full_name }}" value="{{ form.delete.vars.value }}" type="checkbox" class="form-check-input">
+            <label for="{{ form.delete.vars.id }}" class="form-check-label">
+                {{ delete_label is not null ? delete_label|trans({}, translation_domain) : 'form.types.file.delete.label'|trans({}, 'LeaptCoreBundle') }}
+            </label>
+        </div>
+    {% endif %}
+{% endblock %}
