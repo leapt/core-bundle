@@ -1,5 +1,19 @@
 # Form Types
 
+![Example of included form types](images/form-types-demo.webp "Example of included form types")  
+*Example of included form types*
+
+## Available form layouts
+
+Since version 4.1.0 of the bundle, there are several form layouts available for the form types provided by the bundle:
+
+- `@LeaptCore/Form/form_layout.html.twig`
+- `@LeaptCore/Form/bootstrap_3_layout.html.twig`
+- `@LeaptCore/Form/bootstrap_4_layout.html.twig`
+- `@LeaptCore/Form/bootstrap_5_layout.html.twig`
+
+If you don't know how to apply a form theme to your forms, [please check Symfony docs about it](https://symfony.com/doc/current/form/form_themes.html).
+
 ## File type
 
 !!! example "Usage"
@@ -10,14 +24,12 @@
 
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {
-            $builder
-                ->add('file', FileType::class, [
-                    'label'        => 'press_radio_spot.field.file',
-                    'file_path'    => 'path', // Required, see Options
-                    'allow_delete' => true,
-                    'file_label'   => 'file_type.label',
-                ])
-            ;
+            $builder->add('file', FileType::class, [
+                'label'        => 'press_radio_spot.field.file',
+                'file_path'    => 'path', // Required, see Options
+                'allow_delete' => true,
+                'file_label'   => 'file_type.label',
+            ]);
         }
         ```
 
@@ -134,8 +146,50 @@ error message should be displayed in debug mode when validating.
 
 ## Sound type
 
-To be updated soon.
+Provides a text field where the user enters a code matching an item available on a Sound platform.
+When the value is filled when rendering the form, it will display a player.
+
+!!! example "Usage"
+    ```php
+    use Leapt\CoreBundle\Form\Type\SoundType;
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add('sound', SoundType::class, [
+            'provider' => SoundType::PROVIDER_SOUNDCLOUD,
+        ]);
+    }
+    ```
+
+??? info "Options"
+
+    | Name | Description | Default value |
+    | ---- | ----------- | ------------- |
+    | provider (required) | Which provider should be used to render the player. Values available as constants on SoundType (currently available: "soundcloud") | |
+    | player_width | Width of the player to display, can be either an int or a string. | 560 |
+    | player_height | Height of the player to display, can be either an int or a string. | 300 |
 
 ## Video type
 
-To be updated soon.
+Provides a text field where the user enters a code matching an item available on a Video platform.
+When the value is filled when rendering the form, it will display a player.
+
+!!! example "Usage"
+    ```php
+    use Leapt\CoreBundle\Form\Type\VideoType;
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add('video', VideoType::class, [
+            'provider' => VideoType::PROVIDER_YOUTUBE,
+        ]);
+    }
+    ```
+
+??? info "Options"
+
+    | Name | Description | Default value |
+    | ---- | ----------- | ------------- |
+    | provider (required) | Which provider should be used to render the player. Values available as constants on VideoType (currently available: "youtube", "tudou", "vimeo", "dailymotion") | |
+    | player_width | Width of the player to display, can be either an int or a string. | 560 |
+    | player_height | Height of the player to display, can be either an int or a string. | 300 |

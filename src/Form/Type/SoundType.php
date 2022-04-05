@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SoundType extends AbstractType
 {
+    public const PROVIDER_SOUNDCLOUD = 'soundcloud';
+
     public function getBlockPrefix(): string
     {
         return 'leapt_core_sound';
@@ -25,13 +27,21 @@ class SoundType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefaults(['provider' => null])
-            ->setAllowedValues('provider', ['soundcloud'])
+            ->setDefaults([
+                'provider'      => null,
+                'player_width'  => 560,
+                'player_height' => 300,
+            ])
+            ->setAllowedValues('provider', [self::PROVIDER_SOUNDCLOUD])
+            ->setAllowedTypes('player_width', ['int', 'string'])
+            ->setAllowedTypes('player_height', ['int', 'string'])
         ;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['provider'] = $options['provider'];
+        $view->vars['player_width'] = $options['player_width'];
+        $view->vars['player_height'] = $options['player_height'];
     }
 }

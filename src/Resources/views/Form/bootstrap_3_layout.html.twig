@@ -6,13 +6,13 @@
 
     {% if allow_download and file_url is not null %}
         <br>
-        <a href="{{ download_use_asset_function ? asset(file_url) : file_url }}" target="_blank" rel="noopener">
+        <a href="{{ download_use_asset_function ? asset(file_url) : file_url }}" class="btn btn-default" target="_blank" rel="noopener">
             {{ download_label is not null ? download_label|trans({}, translation_domain) : 'form.types.file.download.label'|trans({}, 'LeaptCoreBundle') }}
         </a>
     {% endif %}
 
     {% if file_url is not null and allow_delete %}
-        <div>
+        <div class="checkbox">
             <label>
                 <input id="{{ form.delete.vars.id }}" name="{{ form.delete.vars.full_name }}" value="{{ form.delete.vars.value }}" type="checkbox">
                 {{ delete_label is not null ? delete_label|trans({}, translation_domain) : 'form.types.file.delete.label'|trans({}, 'LeaptCoreBundle') }}
@@ -27,11 +27,11 @@
 
     {% if allow_download and file_url is not null %}
         <br>
-        <img src="{{ download_use_asset_function ? asset(file_url) : file_url }}" style="max-width: 100%;" alt="">
+        <img src="{{ download_use_asset_function ? asset(file_url) : file_url }}" class="img-responsive" alt="">
     {% endif %}
 
     {% if file_url is not null and allow_delete %}
-        <div>
+        <div class="checkbox">
             <label>
                 <input id="{{ form.delete.vars.id }}" name="{{ form.delete.vars.full_name }}" value="{{ form.delete.vars.value }}" type="checkbox">
                 {{ delete_label is not null ? delete_label|trans({}, translation_domain) : 'form.types.file.delete.label'|trans({}, 'LeaptCoreBundle') }}
