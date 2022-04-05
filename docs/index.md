@@ -13,14 +13,17 @@ The Leapt Core bundle is a bundle used to help with some repetitive tasks, inclu
 - [Utilities](utilities.md)
 - [Validators: PasswordStrength, Recaptcha, Slug](validators.md)
 
+![Example of included form types](images/form-types-demo.webp "Example of included form types")  
+*Example of included form types*
+
 If you find a bug or want to add a functionality,
 [please create an issue or a pull request on Github](https://github.com/leapt/core-bundle)!
 
 ## Installation
 
-This bundle requires PHP 7.4+.
+This bundle requires PHP 8.0+.
 
-As the bundle is compatible with Symfony 4 and Symfony Flex, the only thing you have to do
+As the bundle is compatible with Symfony 5 and Symfony Flex, the only thing you have to do
 is requiring the package with composer:
 
 ```bash

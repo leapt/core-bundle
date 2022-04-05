@@ -23,6 +23,9 @@ The bundle aims to help with some repetitive tasks, including (but not limited t
 - Utilities
 - Validators: PasswordStrength, Recaptcha, Slug
 
+![Example of included form types](docs/images/form-types-demo.webp "Example of included form types")  
+*Example of included form types*
+
 Installation & usage
 --------------------
 
