@@ -34,13 +34,13 @@ final class Sitemap extends AbstractSitemap
     public function build(RouterInterface $router): void
     {
         // Homepage
-        $this->addUrl($router->generate('app_default_index', ['_locale' => $this->locale], true));
+        $this->addUrl($router->generate('app_default_index', ['_locale' => $this->locale], RouterInterface::ABSOLUTE_URL));
 
         // Pages
         $pages = $this->em->getRepository(Page::class)->findAllPublished($this->locale);
         foreach ($pages as $page) {
             $pageSlug = $page->getTranslations()->get($this->locale)->getSlug();
-            $loc = $router->generate('app_page_view', ['slug' => $pageSlug, '_locale' => $this->locale], true);
+            $loc = $router->generate('app_page_view', ['slug' => $pageSlug, '_locale' => $this->locale], RouterInterface::ABSOLUTE_URL);
             $this->addUrl($loc, null, self::CHANGEFREQ_MONTHLY);
         }
     }
