@@ -107,6 +107,6 @@ Now, your feed will be available at:
 And using Twig:
 
 ```twig
-<link rel="alternate" type="application/rss+xml" href="{{ path('leapt_core_feed', { 'feedName': 'news', '_format': 'rss' }) }}">
-<link rel="alternate" type="application/atom+xml" href="{{ path('leapt_core_feed', { 'feedName': 'news', '_format': 'atom' }) }}">
+<link rel="alternate" type="application/rss+xml" href="{{ path('leapt_core_feed', { 'feedName': 'article', '_format': 'rss' }) }}">
+<link rel="alternate" type="application/atom+xml" href="{{ path('leapt_core_feed', { 'feedName': 'article', '_format': 'atom' }) }}">
 ```
