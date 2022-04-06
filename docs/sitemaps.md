@@ -21,7 +21,7 @@ namespace App\Sitemap;
 use App\Entity\Page;
 use Doctrine\ORM\EntityManagerInterface;
 use Leapt\CoreBundle\Sitemap\AbstractSitemap;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 
 final class Sitemap extends AbstractSitemap
 {
@@ -31,7 +31,7 @@ final class Sitemap extends AbstractSitemap
     ) {
     }
 
-    public function build(Router $router)
+    public function build(RouterInterface $router): void
     {
         // Homepage
         $this->addUrl($router->generate('app_default_index', ['_locale' => $this->locale], true));
