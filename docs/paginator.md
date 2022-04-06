@@ -6,6 +6,9 @@ It is provided in two versions: `ArrayPaginator` and `DoctrineORMPaginator`,
 available under the `Leapt\CoreBundle\Paginator` namespace. The docs will explain how to use
 the Doctrine ORM one, but it is easy to apply for the ArrayPaginator as well.
 
+![Example of Bootstrap 5 paginator](images/paginator-demo.webp "Example of Bootstrap 5 paginator")  
+*Example of Bootstrap 5 paginator*
+
 ## Usage
 
 ```php
