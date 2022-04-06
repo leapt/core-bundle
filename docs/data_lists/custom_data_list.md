@@ -51,6 +51,7 @@ use Leapt\CoreBundle\Datalist\Field\Type\DateTimeFieldType;
 use Leapt\CoreBundle\Datalist\Field\Type\TextFieldType;
 use Leapt\CoreBundle\Datalist\Filter\Type\SearchFilterType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class NewsDatalistType extends DatalistType
 {
@@ -66,7 +67,7 @@ final class NewsDatalistType extends DatalistType
         ;
     }
     
-    public function buildDatalist(DatalistBuilder $builder, array $options)
+    public function buildDatalist(DatalistBuilder $builder, array $options): void
     {
         $builder
             ->addField('title', TextFieldType::class, [

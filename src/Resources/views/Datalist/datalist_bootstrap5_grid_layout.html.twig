@@ -3,13 +3,15 @@
 
     {% if datalist.option('filters_on_top') %}
         {% if datalist.filterable or datalist.searchable %}
-            <div class="well">
-                {% if datalist.searchable %}
-                    {{ datalist_search(datalist) }}
-                {% endif %}
-                {% if datalist.filterable %}
-                    {{ datalist_filters(datalist) }}
-                {% endif %}
+            <div class="card bg-light mb-3">
+                <div class="card-body px-3 py-3">
+                    {% if datalist.searchable %}
+                        {{ datalist_search(datalist) }}
+                    {% endif %}
+                    {% if datalist.filterable %}
+                        {{ datalist_filters(datalist) }}
+                    {% endif %}
+                </div>
             </div>
         {% endif %}
         {{ block('datalist_table') }}
@@ -20,12 +22,14 @@
         {% endif %}
         {% if datalist.filterable %}
             <div class="row">
-                <div class="col-xs-12 col-md-9">
+                <div class="col-12 col-md-9">
                     {{ block('datalist_table') }}
                 </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="well well-sm">
-                        {{ datalist_filters(datalist) }}
+                <div class="col-12 col-md-3">
+                    <div class="card bg-light mb-3">
+                        <div class="card-body px-3 py-3">
+                            {{ datalist_filters(datalist) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,7 +193,7 @@
             {% form_theme form.search '@LeaptCore/Datalist/datalist_form_layout.html.twig' %}
             {{ form_widget(form.search, { 'attr': { 'placeholder': placeholder, 'class': 'form-control'} }) }}
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
+                <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
             </span>
         </div>
     </form>
@@ -204,9 +208,10 @@
         {% for filter in filters %}
             {{ datalist_filter(filter) }}{% if filters_on_top %}&nbsp;{% endif %}
         {% endfor %}
-        {{ filters_on_top ? '<br /><br />' : '' }}
-        <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
-        <a class="btn btn-default" href="{{ url }}">{{ reset|trans({}, 'LeaptCoreBundle') }}</a>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
+            <a class="btn btn-secondary" href="{{ url }}">{{ reset|trans({}, 'LeaptCoreBundle') }}</a>
+        </div>
     </form>
 {% endblock datalist_filters %}
 
@@ -227,15 +232,16 @@
 
 {# entity filter #}
 {% block simple_filter %}
-    <div class="form-group">
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
+    <div class="mb-3">
         <label for="{{ form.vars.id }}">{{ form.vars.label|trans({}, datalist.option('translation_domain')) }}</label>
-        {{ form_widget(form, { 'attr': { 'class': 'form-control' } }) }}
+        {{ form_widget(form) }}
     </div>
 {% endblock simple_filter %}
 
 {# simple action #}
 {% block simple_action %}
-    {% set attr = attr|merge({'class': (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('btn-secondary') ~ ' btn')|trim}) %}
     {% if enabled %}
         <a href="{{ url }}"{{ block('widget_attributes') }}>
             {% if icon is defined %}<i class="{{ icon }}"></i> {% endif %}
