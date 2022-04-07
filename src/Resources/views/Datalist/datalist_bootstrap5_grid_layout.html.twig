@@ -3,13 +3,15 @@
 
     {% if datalist.option('filters_on_top') %}
         {% if datalist.filterable or datalist.searchable %}
-            <div class="well">
-                {% if datalist.searchable %}
-                    {{ datalist_search(datalist) }}
-                {% endif %}
-                {% if datalist.filterable %}
-                    {{ datalist_filters(datalist) }}
-                {% endif %}
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    {% if datalist.searchable %}
+                        {{ datalist_search(datalist) }}
+                    {% endif %}
+                    {% if datalist.filterable %}
+                        {{ datalist_filters(datalist) }}
+                    {% endif %}
+                </div>
             </div>
         {% endif %}
         {{ block('datalist_table') }}
@@ -20,12 +22,14 @@
         {% endif %}
         {% if datalist.filterable %}
             <div class="row">
-                <div class="col-xs-12 col-md-9">
+                <div class="col-12 col-md-9">
                     {{ block('datalist_table') }}
                 </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="well well-sm">
-                        {{ datalist_filters(datalist) }}
+                <div class="col-12 col-md-3">
+                    <div class="card bg-light mb-3">
+                        <div class="card-body px-3 py-3">
+                            {{ datalist_filters(datalist) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,7 +47,7 @@
 {# datalist table block #}
 {% block datalist_table %}
     {% if datalist|length > 0 %}
-        <table class="table table-striped table-hover datalist">
+        <table class="table table-striped table-hover datalist align-middle">
             <thead>
                 <tr>
                     {% for field in datalist.fields %}
@@ -80,7 +84,7 @@
                         </th>
                     {% endfor %}
                     {% if datalist.actions|length > 0 %}
-                        <th class="text-right">{{ 'datalist.actions.header'|trans({}, 'LeaptCoreBundle') }}</th>
+                        <th class="text-end">{{ 'datalist.actions.header'|trans({}, 'LeaptCoreBundle') }}</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -91,7 +95,7 @@
                             {{ datalist_field(field, item) }}
                         {% endfor %}
                         {% if datalist.actions|length > 0 %}
-                            <td class="text-right">
+                            <td class="text-end">
                                 <div class="btn-group">
                                     {% for action in datalist.actions %}
                                         {{ datalist_action(action, item) }}{% if not loop.last %} {% endif %}
@@ -189,7 +193,7 @@
             {% form_theme form.search '@LeaptCore/Datalist/datalist_form_layout.html.twig' %}
             {{ form_widget(form.search, { 'attr': { 'placeholder': placeholder, 'class': 'form-control'} }) }}
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
+                <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
             </span>
         </div>
     </form>
@@ -200,13 +204,13 @@
     {% set filters_on_top = datalist.option('filters_on_top') %}
     {% set form_class = filters_on_top ? 'form-inline' : 'form-vertical' %}
     <form class="{{ form_class }}" method="get" data-admin="form-manager" novalidate>
-        {{ filters_on_top ? '<br />' : '' }}
         {% for filter in filters %}
             {{ datalist_filter(filter) }}{% if filters_on_top %}&nbsp;{% endif %}
         {% endfor %}
-        {{ filters_on_top ? '<br /><br />' : '' }}
-        <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
-        <a class="btn btn-default" href="{{ url }}">{{ reset|trans({}, 'LeaptCoreBundle') }}</a>
+        <div>
+            <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
+            <a class="btn btn-secondary" href="{{ url }}">{{ reset|trans({}, 'LeaptCoreBundle') }}</a>
+        </div>
     </form>
 {% endblock datalist_filters %}
 
@@ -227,15 +231,16 @@
 
 {# entity filter #}
 {% block simple_filter %}
-    <div class="form-group">
+    {% form_theme form 'bootstrap_5_layout.html.twig' %}
+    <div class="mb-3">
         <label for="{{ form.vars.id }}">{{ form.vars.label|trans({}, datalist.option('translation_domain')) }}</label>
-        {{ form_widget(form, { 'attr': { 'class': 'form-control' } }) }}
+        {{ form_widget(form) }}
     </div>
 {% endblock simple_filter %}
 
 {# simple action #}
 {% block simple_action %}
-    {% set attr = attr|merge({'class': (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('btn-secondary') ~ ' btn')|trim}) %}
     {% if enabled %}
         <a href="{{ url }}"{{ block('widget_attributes') }}>
             {% if icon is defined %}<i class="{{ icon }}"></i> {% endif %}

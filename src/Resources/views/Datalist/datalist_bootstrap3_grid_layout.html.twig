@@ -199,8 +199,7 @@
 {% block datalist_filters %}
     {% set filters_on_top = datalist.option('filters_on_top') %}
     {% set form_class = filters_on_top ? 'form-inline' : 'form-vertical' %}
-    <form class="{{ form_class }}" method="get" data-admin="form-manager" novalidate>
-        {{ filters_on_top ? '<br />' : '' }}
+    <form class="{{ form_class }}" method="GET" novalidate>
         {% for filter in filters %}
             {{ datalist_filter(filter) }}{% if filters_on_top %}&nbsp;{% endif %}
         {% endfor %}

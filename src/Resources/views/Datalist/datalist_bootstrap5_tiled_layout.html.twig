@@ -1,30 +1,38 @@
-{% extends '@LeaptCore/Datalist/datalist_grid_layout.html.twig' %}
+{% extends '@LeaptCore/Datalist/datalist_bootstrap5_grid_layout.html.twig' %}
 
 {# datalist grid block #}
 {% block datalist %}
     {% if datalist.option('filters_on_top') %}
         {% if datalist.filterable or datalist.searchable %}
-            <div class="well">
-                {% if datalist.searchable %}
-                    {{ datalist_search(datalist) }}
-                {% endif %}
-                {% if datalist.filterable %}
-                    {{ datalist_filters(datalist) }}
-                {% endif %}
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    {% if datalist.searchable %}
+                        {{ datalist_search(datalist) }}
+                    {% endif %}
+                    {% if datalist.filterable %}
+                        {{ datalist_filters(datalist) }}
+                    {% endif %}
+                </div>
             </div>
         {% endif %}
 
-        {{ block('datalist_table') }}
+        {{ block('datalist_tiled') }}
     {% else %}
         {% if datalist.option('search') %}
             {{ datalist_search(datalist) }}
         {% endif %}
         {% if datalist.filterable %}
             <div class="row">
-                <div class="col-xs-12 col-md-9">
+                <div class="col-12 col-md-9">
                     {{ block('datalist_tiled') }}
                 </div>
-                <div class="col-xs-12 col-md-3">{{ datalist_filters(datalist) }}</div>
+                <div class="col-12 col-md-3">
+                    <div class="card bg-light mb-3">
+                        <div class="card-body px-3 py-3">
+                            {{ datalist_filters(datalist) }}
+                        </div>
+                    </div>
+                </div>
             </div>
         {% else %}
             {{ block('datalist_tiled') }}
@@ -40,24 +48,24 @@
 {% block datalist_tiled %}
     <div class="row">
         {% for item in datalist %}
-            <div class="col-sm-6 col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    {% for field in datalist.fields|filter(v => v.type.name == 'image') %}
-                        {{ datalist_field(field, item) }}
-                    {% endfor %}
+            <div class="col-6 col-lg-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-body px-3 py-3">
+                        {% for field in datalist.fields|filter(v => v.type.name == 'image') %}
+                            {{ datalist_field(field, item) }}
+                        {% endfor %}
 
-                    <div class="caption">
                         {% for field in datalist.fields|filter(v => v.type.name != 'image') %}
                             {{ datalist_field(field, item) }}
                         {% endfor %}
 
-                        <p>
+                        <div class="mt-3">
                             {% if datalist.actions|length > 0 %}
                                 {% for action in datalist.actions %}
                                     {{ datalist_action(action, item) }}{% if not loop.last %} {% endif %}
                                 {% endfor %}
                             {% endif %}
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,7 +87,7 @@
 
 {# datetime field #}
 {% block datetime_field %}
-    <div class="pull-right label">
+    <div class="float-right label">
         {% if value is not null %}
             {{ value|date(options['format'])  }}
         {% else %}
@@ -98,7 +106,7 @@
 {# image field #}
 {% block image_field %}
     {% set src = value is not null ? asset(value) : 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCACgAQQDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7LoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAHwRGeaOBWVTIwQFjgDJxz7UAdJH4T0WSVbIeMrI3jHaqLExjLenmZxQBhajpt3pd/Lpt3HieJtpA5z6EeoIIP40AbZ8I2ViiJr/iO30+6kUN9nETSsgPTdj7poAxTpskuqf2XYSpdu0vlRvH9189CPagDd/4Qu0kuH0u28S2suqIDm18pgpYDlRIeCfwoA5mSN4ZGilQq6MVZT1BHUUANoAKACgDX0PQ7LVUaS8121sAHEYVxukYnuFHUUAQeINJ/sLV7jSvtHn+Rt/ebNucqG6ZOOvrQBPovh2TVIJr+5vIbGxgIWS4l5G7+6o/iPtQAzV9L0uyhSbTdfi1AM21lETRsvHXB7UAWdP8ADUMumpq+s6vFptrMxSAtE0jyEdSFHOPegCrrmgzaLJC32iO5trpPMt7iP7si9/oRxke9AGZQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFAGx4b0RtUujc3EnkWFoRJdXDcBFHYf7R7UAacGpQ+I/iDb35j2wyXKbFb+6g+XP1wD+NAFrXLrwjD4hu7TUtMubt3nPn3n2gqYyT0VBwQvTn0oAl8PaEmh/ERdOMnmpEjyQsepBQ4z74JH4UActo083/CQ2Vxk+abyNie5JcZoAseMkSPxRqSxgAGYt+JAJ/UmgCLw7rTaJf+c6ebazKYrmE8iSM9Rj19KAOl1a0tfAtlPJp0jyXeq7ltpGUgwW/BI5/i5A/I8UAcNQBPYf8AH9b/APXVP5igDa+IH/I3ah9Y/wD0WtAG3J/Y1n4F0e41KCW5j8yRlto5PLEshY/MzDkAAEceooAx9U0vR77QP+Ej0O3ltBDMILi2eQyBSejKx57j8/bkAk8a/JZ+H4E/1a6ZG6+mT1P6CgAvv3nw8015OWivpETP90hif1oA5egAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAkt1he4iS4kMcTOodwM7Vzycd+KAO21WbwffWUGlWPiv7FYQDPkrYysZH7u7cbj+FAHKzPbaPq0Vxo2o/bEt3SWOYxNHlhzjaeetAG7eP4L1jUDrl1qlzamVhJPZfZyzM3cK44APv+lAFO58XTS+LV8SxQ7VjcBIiefLA2kH3Iz+JoAvQzeCbLVP+Ehh1G5lKOZ4rD7OVZZOoBf7uAf5d6AOXv7yXUL2e+nx5lxI0jY6Ak5xQBoeGpdGtLx9R1iTcLRfMht9pPnyfwgkDAAPPPt15oA0YPEkOu2t9pvie52CZjcWtxsLeRL/AHcAE7SOMdqAOXPXrQBraBbaLLKZ9W1s2DQujIv2ZpfM7nlenQfnQBqeMX8N6pd3et6f4gM1xMU2232V16BVPznA6DPSgCDTdU0nUNBXw7rlzLaC3lM1rcpGZAuc5VlHOMknj/8AWAGqappFjoH/AAjmh3El2JZhPc3LxmMMR0VVPI6Dr6e9AEkeoaFruj2ena3fyWF1pwMcU4hMqyRHopA5yMf5zQBV8Ravp89pZaHo3mGysAx8yQYaWRjktjsPT60AYVABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAf/9k=' %}
-    <img src="{{ src }}" alt="{{ field.options['label']|trans({}, translation_domain) }}" style="max-width: 100%;">
+    <img src="{{ src }}" alt="{{ field.options['label']|trans({}, translation_domain) }}" class="img-fluid mb-2">
 {% endblock image_field %}
 
 {# url field #}

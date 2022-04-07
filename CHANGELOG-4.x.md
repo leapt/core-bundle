@@ -1,3 +1,8 @@
+4.2.0
+-----
+
+* Add Bootstrap 3, 4 & 5 datalist layouts
+
 4.1.0
 -----
 
