@@ -4,7 +4,7 @@
     {% if datalist.option('filters_on_top') %}
         {% if datalist.filterable or datalist.searchable %}
             <div class="card bg-light mb-3">
-                <div class="card-body px-3 py-3">
+                <div class="card-body">
                     {% if datalist.searchable %}
                         {{ datalist_search(datalist) }}
                     {% endif %}
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-        {% else  %}
+        {% else %}
             {{ block('datalist_table') }}
         {% endif %}
     {% endif %}
@@ -204,11 +204,10 @@
     {% set filters_on_top = datalist.option('filters_on_top') %}
     {% set form_class = filters_on_top ? 'form-inline' : 'form-vertical' %}
     <form class="{{ form_class }}" method="get" data-admin="form-manager" novalidate>
-        {{ filters_on_top ? '<br />' : '' }}
         {% for filter in filters %}
             {{ datalist_filter(filter) }}{% if filters_on_top %}&nbsp;{% endif %}
         {% endfor %}
-        <div class="mt-3">
+        <div>
             <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
             <a class="btn btn-secondary" href="{{ url }}">{{ reset|trans({}, 'LeaptCoreBundle') }}</a>
         </div>

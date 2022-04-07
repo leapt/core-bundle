@@ -2,24 +2,39 @@
 
 {# datalist grid block #}
 {% block datalist %}
-    {% if datalist.option('search') %}
-        {{ datalist_search(datalist) }}
-    {% endif %}
-    {% if datalist.filterable %}
-        <div class="row">
-            <div class="col-12 col-md-9">
-                {{ block('datalist_tiled') }}
+    {% if datalist.option('filters_on_top') %}
+        {% if datalist.option('search') %}
+            {{ datalist_search(datalist) }}
+        {% endif %}
+        {% if datalist.filterable %}
+            <div class="card bg-light mb-3">
+                <div class="card-body px-3 py-3">
+                    {{ datalist_filters(datalist) }}
+                </div>
             </div>
-            <div class="col-12 col-md-3">
-                <div class="card bg-light mb-3">
-                    <div class="card-body px-3 py-3">
-                        {{ datalist_filters(datalist) }}
+        {% endif %}
+
+        {{ block('datalist_tiled') }}
+    {% else %}
+        {% if datalist.option('search') %}
+            {{ datalist_search(datalist) }}
+        {% endif %}
+        {% if datalist.filterable %}
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    {{ block('datalist_tiled') }}
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="card bg-light mb-3">
+                        <div class="card-body px-3 py-3">
+                            {{ datalist_filters(datalist) }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% else  %}
-        {{ block('datalist_tiled') }}
+        {% else %}
+            {{ block('datalist_tiled') }}
+        {% endif %}
     {% endif %}
 
     {% if datalist.paginator is not null %}

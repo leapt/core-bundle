@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-        {% else  %}
+        {% else %}
             {{ block('datalist_table') }}
         {% endif %}
     {% endif %}
@@ -203,13 +203,11 @@
 {% block datalist_filters %}
     {% set filters_on_top = datalist.option('filters_on_top') %}
     {% set form_class = filters_on_top ? 'form-inline' : 'form-vertical' %}
-    <form class="{{ form_class }}" method="get" data-admin="form-manager" novalidate>
-        {{ filters_on_top ? '<br />' : '' }}
+    <form class="{{ form_class }}" method="GET" novalidate>
         {% for filter in filters %}
             {{ datalist_filter(filter) }}{% if filters_on_top %}&nbsp;{% endif %}
         {% endfor %}
-        {{ filters_on_top ? '<br /><br />' : '' }}
-        <button type="submit" class="btn btn-primary">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
+        <button type="submit" class="btn btn-primary {{ datalist.option('filters_on_top') ? 'mr-1' }}">{{ submit|trans({}, 'LeaptCoreBundle') }}</button>
         <a class="btn btn-secondary" href="{{ url }}">{{ reset|trans({}, 'LeaptCoreBundle') }}</a>
     </form>
 {% endblock datalist_filters %}
@@ -232,7 +230,7 @@
 {# entity filter #}
 {% block simple_filter %}
     <div class="form-group">
-        <label for="{{ form.vars.id }}">{{ form.vars.label|trans({}, datalist.option('translation_domain')) }}</label>
+        <label for="{{ form.vars.id }}"{{ datalist.option('filters_on_top') ? ' class="mr-1"' }}>{{ form.vars.label|trans({}, datalist.option('translation_domain')) }}</label>
         {{ form_widget(form, { 'attr': { 'class': 'form-control' } }) }}
     </div>
 {% endblock simple_filter %}
