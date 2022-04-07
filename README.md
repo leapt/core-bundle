@@ -23,8 +23,22 @@ The bundle aims to help with some repetitive tasks, including (but not limited t
 - Utilities
 - Validators: PasswordStrength, Recaptcha, Slug
 
-![Example of included form types](docs/images/form-types-demo.webp "Example of included form types")  
-*Example of included form types*
+Examples
+--------
+
+| Grid layout example | Tiled layout example |
+| --- | --- |
+| ![Example of grid datalist layout](docs/images/datalist-grid-demo.webp "Example of grid datalist layout") | ![Example of tiled datalist layout](docs/images/datalist-tiled-demo.webp "Example of tiled datalist layout") |
+
+| Paginator example | Form types example |
+| --- | --- |
+| ![Example of paginator](docs/images/paginator-demo.webp "Example of paginator") | ![Example of form types](docs/images/form-types-demo.webp "Example of form types") |
+
+Available demo
+--------------
+
+If you want to try the bundle before installing it in your own projects, you can 
+run this demo project locally: https://github.com/leapt/demo
 
 Installation & usage
 --------------------

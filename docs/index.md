@@ -24,7 +24,7 @@ If you find a bug or want to add a functionality,
 
 | Paginator example | Form types example |
 | --- | --- |
-| ![Example of paginator](images/paginator-demo.webp "Example of paginator") | ![Example of form types](images/form-types-demo.webp "Example of tiled datalist layout") |
+| ![Example of paginator](images/paginator-demo.webp "Example of paginator") | ![Example of form types](images/form-types-demo.webp "Example of form types") |
 
 ## Installation
 
