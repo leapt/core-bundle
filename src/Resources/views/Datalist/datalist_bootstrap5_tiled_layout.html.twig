@@ -48,7 +48,7 @@
 {% block datalist_tiled %}
     <div class="row">
         {% for item in datalist %}
-            <div class="col-6 col-sm-4 col-md-3">
+            <div class="col-6 col-lg-4">
                 <div class="card bg-light mb-3">
                     <div class="card-body px-3 py-3">
                         {% for field in datalist.fields|filter(v => v.type.name == 'image') %}

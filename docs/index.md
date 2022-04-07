@@ -13,11 +13,18 @@ The Leapt Core bundle is a bundle used to help with some repetitive tasks, inclu
 - [Utilities](utilities.md)
 - [Validators: PasswordStrength, Recaptcha, Slug](validators.md)
 
-![Example of included form types](images/form-types-demo.webp "Example of included form types")  
-*Example of included form types*
-
 If you find a bug or want to add a functionality,
 [please create an issue or a pull request on Github](https://github.com/leapt/core-bundle)!
+
+## Examples
+
+| Grid layout example | Tiled layout example |
+| --- | --- |
+| ![Example of grid datalist layout](images/datalist-grid-demo.webp "Example of grid datalist layout") | ![Example of tiled datalist layout](images/datalist-tiled-demo.webp "Example of tiled datalist layout") |
+
+| Paginator example | Form types example |
+| --- | --- |
+| ![Example of paginator](images/paginator-demo.webp "Example of paginator") | ![Example of form types](images/form-types-demo.webp "Example of tiled datalist layout") |
 
 ## Installation
 

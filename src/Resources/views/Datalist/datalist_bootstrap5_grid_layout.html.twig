@@ -84,7 +84,7 @@
                         </th>
                     {% endfor %}
                     {% if datalist.actions|length > 0 %}
-                        <th class="text-right">{{ 'datalist.actions.header'|trans({}, 'LeaptCoreBundle') }}</th>
+                        <th class="text-end">{{ 'datalist.actions.header'|trans({}, 'LeaptCoreBundle') }}</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -95,7 +95,7 @@
                             {{ datalist_field(field, item) }}
                         {% endfor %}
                         {% if datalist.actions|length > 0 %}
-                            <td class="text-right">
+                            <td class="text-end">
                                 <div class="btn-group">
                                     {% for action in datalist.actions %}
                                         {{ datalist_action(action, item) }}{% if not loop.last %} {% endif %}

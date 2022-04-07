@@ -7,6 +7,10 @@ The Datalist component will help you create powerful data lists and lets you:
 - Create filters to narrow the search
 - Paginate automatically (using the [Paginator](paginator.md) defined earlier)
 
+| Grid layout example | Tiled layout example |
+| --- | --- |
+| ![Example of grid datalist layout](images/datalist-grid-demo.webp "Example of grid datalist layout") | ![Example of tiled datalist layout](images/datalist-tiled-demo.webp "Example of tiled datalist layout") |
+
 ## Create your first Data list
 
 The following example creates a paginated list of News (10 per page), ordered by descending publication date.
@@ -96,11 +100,17 @@ of course create your own. Here are the templates provided by the bundle:
 
 - `@LeaptCore/Datalist/datalist_grid_layout.html.twig` (default)
 - `@LeaptCore/Datalist/datalist_tiled_layout.html.twig`
+- `@LeaptCore/Datalist/datalist_bootstrap3_grid_layout.html.twig`
+- `@LeaptCore/Datalist/datalist_bootstrap3_tiled_layout.html.twig`
+- `@LeaptCore/Datalist/datalist_bootstrap4_grid_layout.html.twig`
+- `@LeaptCore/Datalist/datalist_bootstrap4_tiled_layout.html.twig`
+- `@LeaptCore/Datalist/datalist_bootstrap5_grid_layout.html.twig`
+- `@LeaptCore/Datalist/datalist_bootstrap5_tiled_layout.html.twig`
 
 And like the Paginator component, you can override it using a Twig tag:
 
 ```twig
-{% datalist_theme datalist '@LeaptCore/Datalist/datalist_grid_layout.html.twig' %}
+{% datalist_theme datalist '@LeaptCore/Datalist/datalist_bootstrap5_grid_layout.html.twig' %}
 ```
 
 Don't hesitate to create your own to adapt it to your layout/styles.
