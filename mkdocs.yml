@@ -3,7 +3,7 @@ site_description: Documentation for leapt/core-bundle
 
 repo_name: leapt/core-bundle
 repo_url: https://github.com/leapt/core-bundle
-edit_uri: https://github.com/leapt/core-bundle/edit/master/docs/
+edit_uri: https://github.com/leapt/core-bundle/edit/4.x/docs/
 
 theme:
     name: material
