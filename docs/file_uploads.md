@@ -56,7 +56,7 @@ The `File` attribute is available to automatically handle file uploads for your 
 So there are two options to handle file uploads:
 
 * either specify the `path` or `pathCallback` option to store files locally
-* or specify the `flysystem` option, so you can store files anywhere using [Flysystem](https://flysystem.thephpleague.com/docs/).
+* or specify the `flysystemConfig` option, so you can store files anywhere using [Flysystem](https://flysystem.thephpleague.com/docs/).
 
 !!! note
 
