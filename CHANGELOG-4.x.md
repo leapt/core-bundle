@@ -1,3 +1,8 @@
+4.2.1
+-----
+
+* Move doctrine/persistence to require-dev & allow v3
+
 4.2.0
 -----
 

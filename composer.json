@@ -27,7 +27,6 @@
     "require": {
         "php": "^8.0",
         "doctrine/orm": "^2.10",
-        "doctrine/persistence": "^2.0",
         "symfony/form": "^5.4 || ^6.0",
         "symfony/framework-bundle": "^5.4 || ^6.0",
         "symfony/http-foundation": "^5.4 || ^6.0",
@@ -42,6 +41,7 @@
     "require-dev": {
         "doctrine/annotations": "^1.13",
         "doctrine/data-fixtures": "^1.0",
+        "doctrine/persistence": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^3.0.0",
         "fakerphp/faker": "^1.16",
         "google/recaptcha": "^1.2",
