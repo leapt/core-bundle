@@ -1,3 +1,8 @@
+4.3.0
+-----
+
+* Add PHP routing config
+
 4.2.1
 -----
 
