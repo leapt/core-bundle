@@ -7,4 +7,5 @@ phpunit.xml
 composer.lock
 composer.phar
 autoload.php
+/var
 /vendor

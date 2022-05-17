@@ -9,8 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\SchemaTool;
-use Doctrine\ORM\Tools\Setup;
 use Leapt\CoreBundle\File\CondemnedFile;
 use Leapt\CoreBundle\FileStorage\FileStorageManager;
 use Leapt\CoreBundle\FileStorage\FilesystemStorage;
@@ -182,7 +182,7 @@ class FileSubscriberTest extends TestCase
 
     private function buildEntityManager(): EntityManagerInterface
     {
-        $config = Setup::createConfiguration(false, sys_get_temp_dir());
+        $config = ORMSetup::createConfiguration(false, sys_get_temp_dir());
         $config->setMetadataDriverImpl(new AttributeDriver([__DIR__ . '/Fixtures']));
         $config->setAutoGenerateProxyClasses(true);
 

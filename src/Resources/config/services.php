@@ -6,7 +6,9 @@ use Leapt\CoreBundle\Controller\FeedController;
 use Leapt\CoreBundle\Controller\SitemapController;
 use Leapt\CoreBundle\Datalist\DatalistFactory;
 use Leapt\CoreBundle\Feed\FeedManager;
+use Leapt\CoreBundle\FileStorage\FileStorageManager;
 use Leapt\CoreBundle\FileStorage\FilesystemStorage;
+use Leapt\CoreBundle\FileStorage\FlysystemStorage;
 use Leapt\CoreBundle\Form\Extension\CollectionTypeExtension;
 use Leapt\CoreBundle\Form\Type\FileType;
 use Leapt\CoreBundle\Form\Type\RecaptchaType;
@@ -63,9 +65,11 @@ return static function (ContainerConfigurator $container): void {
             ->arg('$uploadDir', param('leapt_core.upload_dir'))
 
         ->set('leapt_core.file_storage.flysystem')
+            ->class(FlysystemStorage::class)
             ->arg('$storages', [])
 
         ->set('leapt_core.file_storage.manager')
+            ->class(FileStorageManager::class)
             ->arg('$filesystemStorage', service('leapt_core.file_storage.filesystem'))
             ->arg('$flysystemStorage', service('leapt_core.file_storage.flysystem'))
 
