@@ -3,6 +3,7 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="tests/bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[total]=999999"/>
+        <env name="KERNEL_CLASS" value="Leapt\CoreBundle\Tests\LeaptCoreTestingKernel" />
     </php>
 
     <testsuites>

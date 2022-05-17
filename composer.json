@@ -46,14 +46,15 @@
         "fakerphp/faker": "^1.16",
         "google/recaptcha": "^1.2",
         "league/flysystem-bundle": "^2.2",
-        "phpstan/phpstan": "^1.2.0",
+        "phpstan/phpstan": "^1.6.8",
+        "phpstan/phpstan-deprecation-rules": "^1.0.0",
         "phpunit/phpunit": "^9.5.10"
     },
     "scripts": {
         "ci": [
             "@cs:dry",
             "@phpstan",
-            "vendor/bin/phpunit"
+            "vendor/bin/phpunit --colors=auto"
         ],
         "cs:dry": "php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
         "cs:fix": "php-cs-fixer fix --ansi",

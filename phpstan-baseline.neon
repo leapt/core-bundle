@@ -26,9 +26,24 @@ parameters:
 			path: src/DependencyInjection/Configuration.php
 
 		-
+			message: "#^Method Leapt\\\\CoreBundle\\\\Tests\\\\LeaptCoreTestingKernel\\:\\:configureContainer\\(\\) is unused\\.$#"
+			count: 1
+			path: tests/LeaptCoreTestingKernel.php
+
+		-
+			message: "#^Parameter \\#1 \\$driverImpl of method Doctrine\\\\ORM\\\\Configuration\\:\\:setMetadataDriverImpl\\(\\) expects Doctrine\\\\Persistence\\\\Mapping\\\\Driver\\\\MappingDriver, Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver given\\.$#"
+			count: 1
+			path: tests/Listener/FileSubscriberTest.php
+
+		-
 			message: "#^Property Leapt\\\\CoreBundle\\\\Tests\\\\Listener\\\\Fixtures\\\\Entity\\\\User\\:\\:\\$id is never written, only read\\.$#"
 			count: 1
 			path: tests/Listener/Fixtures/Entity/User.php
+
+		-
+			message: "#^Parameter \\#1 \\$driverImpl of method Doctrine\\\\ORM\\\\Configuration\\:\\:setMetadataDriverImpl\\(\\) expects Doctrine\\\\Persistence\\\\Mapping\\\\Driver\\\\MappingDriver, Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver given\\.$#"
+			count: 1
+			path: tests/Paginator/DoctrineORMPaginatorTest.php
 
 		-
 			message: "#^Property Leapt\\\\CoreBundle\\\\Tests\\\\Paginator\\\\Entity\\\\Player\\:\\:\\$id is never written, only read\\.$#"

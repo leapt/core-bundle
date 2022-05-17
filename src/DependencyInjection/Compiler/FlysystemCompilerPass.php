@@ -29,7 +29,7 @@ final class FlysystemCompilerPass implements CompilerPassInterface
                 }
             }
 
-            $definition->replaceArgument(0, $storages);
+            $definition->replaceArgument('$storages', $storages);
         }
     }
 }
