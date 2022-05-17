@@ -53,7 +53,7 @@
         "ci": [
             "@cs:dry",
             "@phpstan",
-            "vendor/bin/phpunit"
+            "vendor/bin/phpunit --colors=auto"
         ],
         "cs:dry": "php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
         "cs:fix": "php-cs-fixer fix --ansi",
