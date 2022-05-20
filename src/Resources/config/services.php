@@ -57,6 +57,7 @@ return static function (ContainerConfigurator $container): void {
         // File entity event subscriber
         ->set('leapt_core.file_subscriber')
             ->class(FileSubscriber::class)
+            ->arg('$fileStorageManager', service('leapt_core.file_storage.manager'))
             ->tag('doctrine.event_subscriber')
 
         // File storages
