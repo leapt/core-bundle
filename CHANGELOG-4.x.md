@@ -1,3 +1,8 @@
+4.3.1
+-----
+
+* Improve & fix exported files in .gitattributes
+
 4.3.0
 -----
 
