@@ -18,6 +18,37 @@ force another locale as parameter.
 
 Get either a Gravatar URL or complete image tag for a specified email address.
 
+```twig
+{{ 'contact@email.com'|gravatar }} {# will output an image HTML tag with the Gravatar related to the given email address #}
+```
+
+## QrCode extension
+
+!!! info
+
+    The QrCode extension was introduced in 4.4.
+
+### `get_qr_code_from_string` function
+
+Retrieve a QR code base64 string from a given string to be able to render it.
+
+It requires you to have the `endroid/qr-code` package installed in your application. If it is not installed, a clear
+error message should be displayed when using the function.
+
+!!! example "Usage"
+
+    ```twig
+    <img src="{{ get_qr_code_from_string('My text to include in the QR code') }}" alt="QR code">
+    ```
+
+??? info "Arguments"
+
+    | Name | Description | Required | Default value |
+    | ---- | ----------- | -------- | ------------- |
+    | qrCodeContent | Text to encode in the QR code. | Yes | N/A |
+    | size | Image size. | No | 200 |
+    | margin | The margin to apply in the image. | No | 0 |
+
 ## Text extension
 
 ### `camelize` filter
