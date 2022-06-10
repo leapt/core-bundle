@@ -42,6 +42,7 @@
         "doctrine/annotations": "^1.13",
         "doctrine/data-fixtures": "^1.0",
         "doctrine/persistence": "^2.0 || ^3.0",
+        "endroid/qr-code": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.0.0",
         "fakerphp/faker": "^1.16",
         "google/recaptcha": "^1.2",

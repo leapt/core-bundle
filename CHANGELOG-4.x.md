@@ -1,7 +1,8 @@
-4.3.1
+4.4.0
 -----
 
 * Improve & fix exported files in .gitattributes
+* Add `get_qr_code_from_string()` Twig function
 
 4.3.0
 -----
