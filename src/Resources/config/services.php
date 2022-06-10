@@ -25,6 +25,7 @@ use Leapt\CoreBundle\Twig\Extension\GoogleExtension;
 use Leapt\CoreBundle\Twig\Extension\GravatarExtension;
 use Leapt\CoreBundle\Twig\Extension\NavigationExtension;
 use Leapt\CoreBundle\Twig\Extension\PaginatorExtension;
+use Leapt\CoreBundle\Twig\Extension\QrCodeExtension;
 use Leapt\CoreBundle\Twig\Extension\SiteExtension;
 use Leapt\CoreBundle\Twig\Extension\TextExtension;
 use Leapt\CoreBundle\Validator\Constraints\RecaptchaV3Validator;
@@ -162,6 +163,9 @@ return static function (ContainerConfigurator $container): void {
             ->class(PaginatorExtension::class)
             ->arg('$template', param('leapt_core.paginator.template'))
             ->arg('$requestStack', service('request_stack'))
+            ->tag('twig.extension')
+
+        ->set(QrCodeExtension::class)
             ->tag('twig.extension')
 
         ->set('leapt_core.twig_site')
