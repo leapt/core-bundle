@@ -21,7 +21,9 @@ jobs:
         symfony-version:
           - '5.4.*'
           - '6.0.*'
-          - '6.1.*'
+        include:
+          - php-version: '8.1'
+            symfony-version: '6.1.*'
 
     steps:
       - name: Checkout code
