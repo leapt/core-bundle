@@ -21,6 +21,7 @@ jobs:
         symfony-version:
           - '5.4.*'
           - '6.0.*'
+          - '6.1.*'
 
     steps:
       - name: Checkout code
@@ -37,10 +38,6 @@ jobs:
 
       - name: Install Symfony Flex
         run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
-
-      - name: Remove not compatible vendors
-        run: composer remove --no-update --dev friendsofphp/php-cs-fixer
-        if: matrix.symfony-version != '5.4.*'
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
