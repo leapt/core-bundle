@@ -30,7 +30,7 @@ The `File` attribute is available to automatically handle file uploads for your 
             $builder
                 ->add('file', FileType::class, [
                     'label'        => 'press_radio_spot.field.file',
-                    'file_path'    => 'path', // Required, see Options
+                    'file_path'    => 'image', // Required, see Options
                     'allow_delete' => true,
                     'file_label'   => 'file_type.label',
                 ])
@@ -87,7 +87,7 @@ So there are two options to handle file uploads:
         $builder
             ->add('file', FileType::class, [
                 'label'        => 'press_radio_spot.field.file',
-                'file_path'    => 'path', // Required, see Options
+                'file_path'    => 'image', // Required, see Options
                 'allow_delete' => true,
                 'file_label'   => 'file_type.label',
             ])
