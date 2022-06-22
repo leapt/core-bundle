@@ -42,6 +42,7 @@ class FileType extends AbstractType
                 'file_label'      => null,
                 'file_label_attr' => [],
                 'allow_download'  => true,
+                'required' => false,
             ])
             ->setAllowedTypes('allow_delete', ['bool'])
             ->setAllowedTypes('allow_download', ['bool'])
@@ -59,7 +60,9 @@ class FileType extends AbstractType
                 'error_bubbling' => true,
                 'label_attr'     => $options['file_label_attr'],
             ])
-            ->add('delete', CheckboxType::class, ['error_bubbling' => true])
+            ->add('delete', CheckboxType::class, ['error_bubbling' => true,
+                                                 'required' => $options['required']
+                                                 ])
             ->addViewTransformer(new FileDataTransformer())
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($filePath, $uploadDir) {
                 // We need to store the path to the file to delete in the Condemned file instance
