@@ -1,17 +1,3 @@
-{% block collection_widget %}
-    {% apply spaceless %}
-        {% if prototype is defined %}
-            {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
-        {% endif %}
-        <div class="form-collection" data-core="form-collection">
-            {{ block('form_widget') }}
-            {% if allow_add %}
-                <a href="#" data-core="form-collection-add">{{ add_label|trans({}, translation_domain) }}</a>
-            {% endif %}
-        </div>
-    {% endapply %}
-{% endblock collection_widget %}
-
 {% block leapt_core_recaptcha_widget %}
 {% apply spaceless %}
     {% if form.vars.leapt_core_recaptcha_enabled %}

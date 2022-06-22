@@ -1,3 +1,8 @@
+4.4.1
+-----
+
+* Remove code that should have been long time ago
+
 4.4.0
 -----
 
