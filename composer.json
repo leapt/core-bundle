@@ -73,7 +73,8 @@
     },
     "config": {
         "allow-plugins": {
-            "composer/package-versions-deprecated": false
+            "composer/package-versions-deprecated": false,
+            "symfony/flex": true
         }
     }
 }
