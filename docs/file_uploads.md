@@ -73,7 +73,7 @@ So there are two options to handle file uploads:
         #[ORM\Column(type: 'string')]
         private ?string $image = null;
 
-        #[LeaptCore\File(path: 'uploads/news', mappedBy: 'image', flysystemConfig: 'local')]
+        #[LeaptCore\File(mappedBy: 'image', flysystemConfig: 'local')]
         private ?UploadedFile $file = null;
     }
     ```
