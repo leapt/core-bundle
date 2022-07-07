@@ -39,7 +39,9 @@ jobs:
           extensions: pdo_sqlite
 
       - name: Install Symfony Flex
-        run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
+        run: |
+          composer config --global --no-plugins allow-plugins.symfony/flex true
+          composer global require --no-progress --no-scripts --no-plugins symfony/flex
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
