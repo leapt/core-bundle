@@ -57,11 +57,6 @@ return static function (ContainerConfigurator $container): void {
             ->arg('$formFactory', service('form.factory'))
             ->arg('$router', service('router'))
 
-        // EasyAdmin field configurators
-        ->set(FileConfigurator::class)
-            ->arg('$assetExtension', service('twig.extension.assets'))
-            ->tag('ea.field_configurator')
-
         // File entity event subscriber
         ->set('leapt_core.file_subscriber')
             ->class(FileSubscriber::class)

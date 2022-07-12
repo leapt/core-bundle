@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\DependencyInjection;
 
+use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldConfiguratorInterface;
 use Leapt\CoreBundle\Datalist\Action\Type\ActionTypeInterface;
 use Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface;
 use Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface;
@@ -22,6 +23,10 @@ class LeaptCoreExtension extends Extension
 
         $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.php');
+
+        if (interface_exists(FieldConfiguratorInterface::class)) {
+            $loader->load('services_easyadmin.php');
+        }
 
         // Handle upload dir config
         $container->setParameter('leapt_core.upload_dir', $config['upload_dir']);

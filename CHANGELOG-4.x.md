@@ -1,3 +1,8 @@
+4.5.2
+-----
+
+* Fix services loading when EA is not installed
+
 4.5.1
 -----
 
