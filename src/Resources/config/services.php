@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Leapt\CoreBundle\Controller\FeedController;
 use Leapt\CoreBundle\Controller\SitemapController;
 use Leapt\CoreBundle\Datalist\DatalistFactory;
-use Leapt\CoreBundle\EasyAdmin\Field\Configurator\FileConfigurator;
 use Leapt\CoreBundle\Feed\FeedManager;
 use Leapt\CoreBundle\FileStorage\FileStorageManager;
 use Leapt\CoreBundle\FileStorage\FilesystemStorage;
