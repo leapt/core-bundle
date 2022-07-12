@@ -1,3 +1,8 @@
+4.5.1
+-----
+
+* FileConfigurator: Fix calling getAssetUrl() on null $fileUrl
+
 4.5.0
 -----
 

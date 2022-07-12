@@ -41,7 +41,7 @@ final class FileConfigurator implements FieldConfiguratorInterface
             } else {
                 $accessor = PropertyAccess::createPropertyAccessor();
                 $fileUrl = $accessor->getValue($entityDto->getInstance(), $filePath);
-                $formattedValue = $this->assetExtension->getAssetUrl($fileUrl);
+                $formattedValue = null !== $fileUrl ? $this->assetExtension->getAssetUrl($fileUrl) : null;
             }
         } catch (\Exception) {
         }
