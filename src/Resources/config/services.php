@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Leapt\CoreBundle\Controller\FeedController;
 use Leapt\CoreBundle\Controller\SitemapController;
 use Leapt\CoreBundle\Datalist\DatalistFactory;
+use Leapt\CoreBundle\EasyAdmin\Field\Configurator\FileConfigurator;
 use Leapt\CoreBundle\Feed\FeedManager;
 use Leapt\CoreBundle\FileStorage\FileStorageManager;
 use Leapt\CoreBundle\FileStorage\FilesystemStorage;
@@ -31,6 +32,7 @@ use Leapt\CoreBundle\Twig\Extension\TextExtension;
 use Leapt\CoreBundle\Validator\Constraints\RecaptchaV3Validator;
 use Leapt\CoreBundle\Validator\Constraints\RecaptchaValidator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
@@ -54,6 +56,11 @@ return static function (ContainerConfigurator $container): void {
         ->set(DatalistFactory::class)
             ->arg('$formFactory', service('form.factory'))
             ->arg('$router', service('router'))
+
+        // EasyAdmin field configurators
+        ->set(FileConfigurator::class)
+            ->arg('$assetExtension', service('twig.extension.assets'))
+            ->tag('ea.field_configurator')
 
         // File entity event subscriber
         ->set('leapt_core.file_subscriber')

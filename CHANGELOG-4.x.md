@@ -1,3 +1,8 @@
+4.5.0
+-----
+
+* Add FileField & ImageField for EasyAdmin bundle
+
 4.4.1
 -----
 

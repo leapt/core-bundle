@@ -57,12 +57,20 @@ If you don't know how to apply a form theme to your forms, [please check Symfony
     | allow_delete | Display a checkbox that allows to remove the current file. | true |
     | allow_download | Display a link to download the file. | true |
 
+!!! info
+
+    Added in v4.5.0: a FileField is available to use with EasyAdmin bundle. Requires EasyAdmin bundle v4.3.3+.
+
 See also [File uploads](file_uploads.md).
 
 ## Image type
 
 To be updated soon.
 See also [File uploads](file_uploads.md).
+
+!!! info
+
+    Added in v4.5.0: an ImageField is available to use with EasyAdmin bundle. Requires EasyAdmin bundle v4.3.3+.
 
 ## Recaptcha type
 

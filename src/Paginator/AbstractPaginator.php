@@ -74,8 +74,8 @@ abstract class AbstractPaginator implements PaginatorInterface
         // if rest items > 0 then add one more page else just divide items
         // by limitPerPage
         return 0 < $restItemsNum ? (int) ($count / $this->limitPerPage) + 1 : (int) (
-                $count / $this->limitPerPage
-            );
+            $count / $this->limitPerPage
+        );
     }
 
     protected function getOffset(): int
