@@ -46,7 +46,7 @@ class FileSubscriber implements EventSubscriber
 
     public function preFlush(PreFlushEventArgs $ea): void
     {
-        $entityManager = $ea->getEntityManager();
+        $entityManager = $ea->getObjectManager();
 
         // Hit fix, see http://doctrine-project.org/jira/browse/DDC-2276
         // @todo: wait for real fix
@@ -72,7 +72,7 @@ class FileSubscriber implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $ea): void
     {
-        $entityManager = $ea->getEntityManager();
+        $entityManager = $ea->getObjectManager();
 
         // Hit fix, see http://doctrine-project.org/jira/browse/DDC-2276
         // @todo: wait for real fix
@@ -101,16 +101,16 @@ class FileSubscriber implements EventSubscriber
 
     public function preRemove(LifecycleEventArgs $ea): void
     {
-        $entity = $ea->getEntity();
-        foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $fileConfig) {
+        $entity = $ea->getObject();
+        foreach ($this->getFileFields($entity, $ea->getObjectManager()) as $fileConfig) {
             $this->preRemoveUpload($entity, $fileConfig);
         }
     }
 
     public function postRemove(LifecycleEventArgs $ea): void
     {
-        $entity = $ea->getEntity();
-        foreach ($this->getFileFields($entity, $ea->getEntityManager()) as $fileConfig) {
+        $entity = $ea->getObject();
+        foreach ($this->getFileFields($entity, $ea->getObjectManager()) as $fileConfig) {
             $this->removeUpload($entity, $fileConfig);
         }
     }
@@ -134,8 +134,8 @@ class FileSubscriber implements EventSubscriber
 
     private function postSave(LifecycleEventArgs $ea): void
     {
-        $fileEntity = $ea->getEntity();
-        foreach ($this->getFileFields($fileEntity, $ea->getEntityManager()) as $fileUploadConfig) {
+        $fileEntity = $ea->getObject();
+        foreach ($this->getFileFields($fileEntity, $ea->getObjectManager()) as $fileUploadConfig) {
             $propertyValue = $fileUploadConfig->property->getValue($fileEntity);
             if ($propertyValue instanceof CondemnedFile) {
                 $this->removeUpload($fileEntity, $fileUploadConfig);
@@ -153,7 +153,7 @@ class FileSubscriber implements EventSubscriber
             $newMappedValue = $this->generateFileName($fileEntity, $fileUploadConfig);
             $fileUploadConfig->classMetadata->setFieldValue($fileEntity, $fileUploadConfig->attribute->mappedBy, $newMappedValue);
 
-            $entityManager = $ea->getEntityManager();
+            $entityManager = $ea->getObjectManager();
             $entityManager->getUnitOfWork()->propertyChanged($fileEntity, $fileUploadConfig->attribute->mappedBy, $oldMappedValue, $newMappedValue);
 
             if (null !== $fileUploadConfig->attribute->filename) {
@@ -181,7 +181,7 @@ class FileSubscriber implements EventSubscriber
         $this->fileStorageManager->uploadFile($fileUploadConfig, $propertyValue, $path, $filename);
 
         // Remove previous file
-        $unitOfWork = $ea->getEntityManager()->getUnitOfWork();
+        $unitOfWork = $ea->getObjectManager()->getUnitOfWork();
         $changeSet = $unitOfWork->getEntityChangeSet($fileEntity);
         if (\array_key_exists($fileUploadConfig->attribute->mappedBy, $changeSet)) {
             $oldValue = $changeSet[$fileUploadConfig->attribute->mappedBy][0];

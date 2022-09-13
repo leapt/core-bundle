@@ -27,6 +27,7 @@ final class GravatarExtension extends AbstractExtension
      * @param bool   $img        True to return a complete IMG tag, False for just the URL
      *
      * @return string containing either just a URL or a complete image tag
+     *
      * @source http://gravatar.com/site/implement/images/php/
      */
     public function gravatar(string $email, int $size = 35, array $attributes = ['class' => 'gravatar'], string $imageSet = 'mm', string $rating = 'g', bool $img = true): string
