@@ -27,7 +27,7 @@ class DateExtensionTest extends TestCase
     /**
      * @dataProvider timeAgoData
      */
-    public function testTimeAgo(\DateTime|string $ago, string $expected): void
+    public function testTimeAgo(\DateTime|\DateTimeImmutable|string $ago, string $expected): void
     {
         $this->assertEquals($expected, $this->extension->timeAgo($ago, 'en'));
     }
@@ -43,6 +43,16 @@ class DateExtensionTest extends TestCase
         yield [new \DateTime('-2 hours'), 'timeago.hoursago|%hours%=2|%count%=2'];
         yield [new \DateTime('-2 days'), 'timeago.daysago|%days%=2|%count%=2'];
         yield [new \DateTime('-2 months'), 'timeago.monthsago|%months%=2|%count%=2'];
+
+        $twoYears = new \DateTimeImmutable('-2 years');
+
+        // Check with DateTimeImmutable
+        yield [$twoYears, 'timeago.yearsago|%years%=2|%count%=2'];
+        yield [new \DateTimeImmutable('now'), 'timeago.justnow'];
+        yield [new \DateTimeImmutable('-2 minutes'), 'timeago.minutesago|%minutes%=2|%count%=2'];
+        yield [new \DateTimeImmutable('-2 hours'), 'timeago.hoursago|%hours%=2|%count%=2'];
+        yield [new \DateTimeImmutable('-2 days'), 'timeago.daysago|%days%=2|%count%=2'];
+        yield [new \DateTimeImmutable('-2 months'), 'timeago.monthsago|%months%=2|%count%=2'];
 
         // Check with string
         yield [$twoYears->format('Y-m-d H:i:s'), 'timeago.yearsago|%years%=2|%count%=2'];

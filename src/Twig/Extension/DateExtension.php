@@ -24,7 +24,7 @@ class DateExtension extends AbstractExtension
     /**
      * Filter used to display the time ago for a specific date.
      */
-    public function timeAgo(\DateTime|string $datetime, $locale = null): string
+    public function timeAgo(\DateTime|\DateTimeImmutable|string $datetime, $locale = null): string
     {
         $interval = $this->relativeTime($datetime);
 
@@ -53,7 +53,7 @@ class DateExtension extends AbstractExtension
     /**
      * Helper used to get a date interval between a date and now.
      */
-    private function relativeTime(\DateTime|string $datetime): \DateInterval
+    private function relativeTime(\DateTime|\DateTimeImmutable|string $datetime): \DateInterval
     {
         if (\is_string($datetime)) {
             $datetime = new \DateTime($datetime);
