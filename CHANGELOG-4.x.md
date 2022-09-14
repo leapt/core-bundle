@@ -1,3 +1,11 @@
+4.6.0 (unreleased)
+------------------
+
+* Fix docs about datalist filters
+* Fix Coding standards & Static analysis workflows
+* Run CI against PHP 8.2
+* Twig time_ago filter now supports DateTimeImmutable objects
+
 4.5.2
 -----
 
