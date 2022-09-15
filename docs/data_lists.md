@@ -135,6 +135,7 @@ Here are the Filter Types provided by the bundle. Feel free to check the classes
 
 You can also create your own.
 
+- [BooleanFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/BooleanFilterType.php)
 - [ChoiceFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/ChoiceFilterType.php)
 - [EntityFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/EntityFilterType.php)
 - [SearchFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/SearchFilterType.php)
