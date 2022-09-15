@@ -9,7 +9,9 @@ use Leapt\CoreBundle\Datalist\Datasource\ArrayDatasource;
 use Leapt\CoreBundle\Datalist\Filter\Type\BooleanFilterType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -24,7 +26,11 @@ final class BooleanFilterTypeTest extends TestCase
         $booleanFilterType = new BooleanFilterType();
         $request = new Request([$property => $value]);
 
-        $datalistFactory = new DatalistFactory($this->createMock(FormFactoryInterface::class), $this->createMock(RouterInterface::class));
+        $formBuilder = $this->createMock(FormBuilderInterface::class);
+        $formBuilder->method('getForm')->willReturn($this->createMock(FormInterface::class));
+        $formFactory = $this->createMock(FormFactoryInterface::class);
+        $formFactory->method('createNamedBuilder')->willReturn($formBuilder);
+        $datalistFactory = new DatalistFactory($formFactory, $this->createMock(RouterInterface::class));
         $datalistFactory->registerFilterType($booleanFilterType);
         $datalist = $datalistFactory->createBuilder(DatalistType::class)
             ->addFilter($property, BooleanFilterType::class)
