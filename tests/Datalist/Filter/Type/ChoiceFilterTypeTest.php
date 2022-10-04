@@ -6,7 +6,6 @@ namespace Leapt\CoreBundle\Tests\Datalist\Filter\Type;
 
 use Leapt\CoreBundle\Datalist\DatalistFactory;
 use Leapt\CoreBundle\Datalist\Datasource\ArrayDatasource;
-use Leapt\CoreBundle\Datalist\Filter\Type\BooleanFilterType;
 use Leapt\CoreBundle\Datalist\Filter\Type\ChoiceFilterType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use PHPUnit\Framework\TestCase;
