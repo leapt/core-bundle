@@ -6,7 +6,7 @@
 * Run CI against PHP 8.2
 * Twig time_ago filter now supports DateTimeImmutable objects
 * Add boolean filter type for datalists
-* Add tests for search filter type
+* Add tests for choice & search filter type
 
 4.5.2
 -----
