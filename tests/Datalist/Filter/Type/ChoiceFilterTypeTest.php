@@ -20,7 +20,7 @@ final class ChoiceFilterTypeTest extends TestCase
     /**
      * @dataProvider filterCasesProvider
      */
-    public function testFilter(?string $searchValue, array $expectedResult): void
+    public function testFilter(string|array|null $searchValue, bool $multiple, array $expectedResult): void
     {
         $datasource = new ArrayDatasource($this->getItems());
         $choiceFilterType = new ChoiceFilterType();
@@ -34,7 +34,8 @@ final class ChoiceFilterTypeTest extends TestCase
         $datalistFactory->registerFilterType($choiceFilterType);
         $datalist = $datalistFactory->createBuilder(DatalistType::class)
             ->addFilter('category', ChoiceFilterType::class, [
-                'choices' => ['Movie', 'TV Shows'],
+                'choices'  => ['Movie', 'TV Shows', 'Books'],
+                'multiple' => $multiple,
             ])
             ->getDatalist();
         $datalist->setDatasource($datasource);
@@ -45,9 +46,10 @@ final class ChoiceFilterTypeTest extends TestCase
 
     public function filterCasesProvider(): iterable
     {
-        yield 'empty_value' => ['', [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies'], ['title' => 'The Good Doctor', 'category' => 'TV Shows']]];
-        yield 'null_value' => [null, [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies'], ['title' => 'The Good Doctor', 'category' => 'TV Shows']]];
-        yield 'valid_value' => ['Movies', [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies']]];
+        yield 'empty_value' => ['', false, [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies'], ['title' => 'The Good Doctor', 'category' => 'TV Shows'], ['title' => 'Pawn of Prophecy', 'category' => 'Books']]];
+        yield 'null_value' => [null, false, [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies'], ['title' => 'The Good Doctor', 'category' => 'TV Shows'], ['title' => 'Pawn of Prophecy', 'category' => 'Books']]];
+        yield 'valid_value' => ['Movies', false, [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies']]];
+        yield 'multiple' => [['TV Shows', 'Books'], true, [['title' => 'The Good Doctor', 'category' => 'TV Shows'], ['title' => 'Pawn of Prophecy', 'category' => 'Books']]];
     }
 
     private function getItems(): array
@@ -64,6 +66,10 @@ final class ChoiceFilterTypeTest extends TestCase
             [
                 'title'    => 'The Good Doctor',
                 'category' => 'TV Shows',
+            ],
+            [
+                'title'    => 'Pawn of Prophecy',
+                'category' => 'Books',
             ],
         ];
     }

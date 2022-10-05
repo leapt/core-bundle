@@ -18,8 +18,10 @@ class ChoiceFilterType extends AbstractFilterType
         parent::configureOptions($resolver);
 
         $resolver
+            ->setDefaults(['multiple' => false])
             ->setRequired(['choices'])
-            ->setDefined($this->getDefinedOptions());
+            ->setDefined($this->getDefinedOptions())
+            ->setAllowedTypes('multiple', ['bool']);
     }
 
     public function buildForm(FormBuilderInterface $builder, DatalistFilterInterface $filter, array $options): void
@@ -28,6 +30,7 @@ class ChoiceFilterType extends AbstractFilterType
             'choices'  => $options['choices'],
             'label'    => $options['label'],
             'required' => false,
+            'multiple' => $options['multiple'],
         ];
 
         foreach ($this->getDefinedOptions() as $option) {
@@ -41,7 +44,8 @@ class ChoiceFilterType extends AbstractFilterType
 
     public function buildExpression(DatalistFilterExpressionBuilder $builder, DatalistFilterInterface $filter, mixed $value, array $options): void
     {
-        $builder->add(new ComparisonExpression($filter->getPropertyPath(), ComparisonExpression::OPERATOR_EQ, $value));
+        $operator = true === $options['multiple'] ? ComparisonExpression::OPERATOR_IN : ComparisonExpression::OPERATOR_EQ;
+        $builder->add(new ComparisonExpression($filter->getPropertyPath(), $operator, $value));
     }
 
     public function getName(): string
