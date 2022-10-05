@@ -7,6 +7,7 @@
 * Twig time_ago filter now supports DateTimeImmutable objects
 * Add boolean filter type for datalists
 * Add tests for choice & search filter type
+* Add a multiple option for ChoiceFilterType
 
 4.5.2
 -----

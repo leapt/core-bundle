@@ -34,7 +34,7 @@ final class ChoiceFilterTypeTest extends TestCase
         $datalistFactory->registerFilterType($choiceFilterType);
         $datalist = $datalistFactory->createBuilder(DatalistType::class)
             ->addFilter('category', ChoiceFilterType::class, [
-                'choices'  => ['Movie', 'TV Shows'],
+                'choices'  => ['Movie', 'TV Shows', 'Books'],
                 'multiple' => $multiple,
             ])
             ->getDatalist();
