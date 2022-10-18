@@ -81,17 +81,17 @@ class FeedItem
             foreach ($this->author as $key => $author) {
                 if (!\array_key_exists('name', $author) || empty($author['name'])) {
                     $context->buildViolation('This value should not be blank.')
-                        ->atPath('author[' . $key . ']' . '[name]')
+                        ->atPath('author[' . $key . '][name]')
                         ->addViolation();
                 }
 
                 if (!\array_key_exists('email', $author) || empty($author['email'])) {
                     $context->buildViolation('This value should not be blank.')
-                        ->atPath('author[' . $key . ']' . '[email]')
+                        ->atPath('author[' . $key . '][email]')
                         ->addViolation();
                 } elseif (!filter_var($author['email'], \FILTER_VALIDATE_EMAIL)) {
                     $context->buildViolation('This value is not a valid email address.')
-                        ->atPath('author[' . $key . ']' . '[email]')
+                        ->atPath('author[' . $key . '][email]')
                         ->addViolation();
                 }
             }
