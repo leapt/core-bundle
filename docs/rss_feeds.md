@@ -89,7 +89,7 @@ final class ArticleFeed implements FeedInterface
 
 ## Register the service
 
-Finally all you need is to populate your `services.yaml` file with one or more Feed services like this:
+Finally, all you need is to populate your `services.yaml` file with one or more Feed services like this:
 
 ```yaml
 services:

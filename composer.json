@@ -50,7 +50,8 @@
         "league/flysystem-bundle": "^2.2",
         "phpstan/phpstan": "^1.6.8",
         "phpstan/phpstan-deprecation-rules": "^1.0.0",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "symfony/browser-kit": "^5.4 || ^6.0"
     },
     "scripts": {
         "ci": [
@@ -70,11 +71,6 @@
     "autoload-dev": {
         "psr-4": {
             "Leapt\\CoreBundle\\Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "composer/package-versions-deprecated": false
         }
     }
 }

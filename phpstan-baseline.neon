@@ -31,6 +31,11 @@ parameters:
 			path: tests/LeaptCoreTestingKernel.php
 
 		-
+			message: "#^Method Leapt\\\\CoreBundle\\\\Tests\\\\LeaptCoreTestingKernel\\:\\:configureRoutes\\(\\) is unused\\.$#"
+			count: 1
+			path: tests/LeaptCoreTestingKernel.php
+
+		-
 			message: "#^Property Leapt\\\\CoreBundle\\\\Tests\\\\Listener\\\\Fixtures\\\\Entity\\\\User\\:\\:\\$id is never written, only read\\.$#"
 			count: 1
 			path: tests/Listener/Fixtures/Entity/User.php
