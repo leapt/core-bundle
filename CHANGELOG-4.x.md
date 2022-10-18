@@ -8,6 +8,7 @@
 * Add boolean filter type for datalists
 * Add tests for choice & search filter type
 * Add a multiple option for ChoiceFilterType
+* Add tests for feeds
 
 4.5.2
 -----
