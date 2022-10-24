@@ -19,9 +19,9 @@ use Symfony\Component\Routing\RouterInterface;
 final class EnumFilterTypeTest extends TestCase
 {
     /**
-     * @dataProvider filterCasesProvider
-     *
      * @requires PHP >= 8.1
+     *
+     * @dataProvider filterCasesProvider
      */
     public function testFilter(\BackedEnum|string|array|null $searchValue, bool $multiple, array $expectedResult): void
     {
