@@ -8,6 +8,7 @@
 * Add boolean filter type for datalists
 * Add tests for choice & search filter type
 * Add a multiple option for ChoiceFilterType
+* Add EnumFilterType
 * Add tests for feeds
 * Add tests for sitemaps
 * Add tests and docs for SiteExtension
