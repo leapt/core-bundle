@@ -1,5 +1,5 @@
-4.6.0 (unreleased)
-------------------
+4.6.0
+-----
 
 * Fix docs about datalist filters
 * Fix Coding standards & Static analysis workflows
