@@ -19,7 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
 final class EnumFilterTypeTest extends TestCase
 {
     /**
-     * @requires PHP >= 8.1
+     * @requires PHP 8.1
      *
      * @dataProvider filterCasesProvider
      */
@@ -47,9 +47,6 @@ final class EnumFilterTypeTest extends TestCase
         self::assertSame($expectedResult, array_values(iterator_to_array($datalist->getIterator())));
     }
 
-    /**
-     * @requires PHP >= 8.1
-     */
     public function filterCasesProvider(): iterable
     {
         yield 'empty_value' => ['', false, [['title' => 'The Hobbit', 'category' => Category::Movies], ['title' => 'Black Panther', 'category' => Category::Movies], ['title' => 'The Good Doctor', 'category' => Category::TVShows], ['title' => 'Pawn of Prophecy', 'category' => Category::Books]]];
