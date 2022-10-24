@@ -10,6 +10,7 @@
 * Add a multiple option for ChoiceFilterType
 * Add tests for feeds
 * Add tests for sitemaps
+* Add tests and docs for SiteExtension
 
 4.5.2
 -----
