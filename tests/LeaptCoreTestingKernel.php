@@ -6,6 +6,8 @@ namespace Leapt\CoreBundle\Tests;
 
 use Leapt\CoreBundle\LeaptCoreBundle;
 use Leapt\CoreBundle\Tests\Feed\NewsFeed;
+use Leapt\CoreBundle\Tests\Sitemap\FirstSitemap;
+use Leapt\CoreBundle\Tests\Sitemap\SecondSitemap;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -36,11 +38,16 @@ final class LeaptCoreTestingKernel extends Kernel
         $container->services()->set('logger', NullLogger::class);
         $container->services()->set(NewsFeed::class)
             ->tag('leapt_core.feed', ['alias' => 'news']);
+        $container->services()->set(FirstSitemap::class)
+            ->tag('leapt_core.sitemap', ['alias' => 'first']);
+        $container->services()->set(SecondSitemap::class)
+            ->tag('leapt_core.sitemap', ['alias' => 'second']);
     }
 
     private function configureRoutes(RoutingConfigurator $routes): void
     {
         $routes->import(__DIR__ . '/../src/Resources/config/routing_feed.php')
             ->prefix('/feed');
+        $routes->import(__DIR__ . '/../src/Resources/config/routing_sitemap.php');
     }
 }

@@ -9,6 +9,7 @@
 * Add tests for choice & search filter type
 * Add a multiple option for ChoiceFilterType
 * Add tests for feeds
+* Add tests for sitemaps
 
 4.5.2
 -----
