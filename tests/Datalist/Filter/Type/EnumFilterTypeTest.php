@@ -16,11 +16,12 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
+/**
+ * @requires PHP 8.1
+ */
 final class EnumFilterTypeTest extends TestCase
 {
     /**
-     * @requires PHP 8.1
-     *
      * @dataProvider filterCasesProvider
      */
     public function testFilter(\BackedEnum|string|array|null $searchValue, bool $multiple, array $expectedResult): void
