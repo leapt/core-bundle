@@ -49,6 +49,78 @@ error message should be displayed when using the function.
     | size | Image size. | No | 200 |
     | margin | The margin to apply in the image. | No | 0 |
 
+## Site extension
+
+### Page title helper
+
+There are three functions available that help build a page title:
+
+* `prepend_page_title('text to prepend')`
+* `append_page_title('text to append')`
+* `page_title('Base title', separator = ' - ')`
+
+!!! example "Usage"
+
+    ```twig
+    {% do prepend_page_title('Demo') %}
+    {% do append_page_title('Dashboard') %}
+    {% do append_page_title('Home') %}
+
+    <head>
+        {# Would render "Demo - ACME Website - Dashboard - Home" #}
+        <title>{{ page_title('ACME Website') }}</title>
+    </head>
+    ```
+
+### Meta description helper
+
+There are two functions available to generate the meta description:
+
+* `set_meta_description('text')`
+* `meta_description('default description')`
+
+!!! example "Usage"
+
+    ```twig
+    {% do set_meta_description('Basic description') %}
+
+    <head>
+        {# Would render "Basic description" as it's defined before, "Default description" is `set_meta_description` was not called earlier #}
+        <meta name="description" content="{{ meta_description('Default description') }}">
+    </head>
+    ```
+
+### Meta keywords helper
+
+There are two functions available helping you build meta keywords:
+
+* `add_meta_keywords(['array', 'of', 'keywords'])`
+* `meta_keywords(['default', 'keywords'])`
+
+It will trim & display unique keywords only.
+
+!!! example "Usage"
+
+    ```twig
+    {% do add_meta_keywords(['some', 'keywords']) %}
+    {% do add_meta_keywords(['other', 'keywords']) %}
+
+    <head>
+        {# Would render "default,keywords,some,other" #}
+        <meta name="keywords" content="{{ meta_keywords(['default', 'keywords']) }}">
+    </head>
+    ```
+
+### `false` test
+
+A simple test to assert if a variable is `false`.
+
+!!! example "Usage"
+
+    ```twig
+    {% if myVar is false %}
+    ```
+
 ## Text extension
 
 ### `camelize` filter
@@ -82,6 +154,5 @@ More filters & functions exist but are not documented yet. You can find them in 
 
 * [FacebookExtension](https://github.com/leapt/core-bundle/tree/4.x/src/Twig/Extension/FacebookExtension.php)
 * [GoogleExtension](https://github.com/leapt/core-bundle/tree/4.x/src/Twig/Extension/GoogleExtension.php)
-* [SiteExtension](https://github.com/leapt/core-bundle/tree/4.x/src/Twig/Extension/SiteExtension.php)
 
 PRs welcome :)
