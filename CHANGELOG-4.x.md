@@ -1,3 +1,8 @@
+4.6.1
+-----
+
+* Fix deprecations coming from Slug constraint
+
 4.6.0
 -----
 
