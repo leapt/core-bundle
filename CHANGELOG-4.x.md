@@ -1,3 +1,8 @@
+4.6.2
+-----
+
+* Make new datalist filters available by default
+
 4.6.1
 -----
 

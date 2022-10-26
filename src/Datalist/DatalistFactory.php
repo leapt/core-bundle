@@ -165,8 +165,10 @@ class DatalistFactory
 
         if (0 === \count($this->filterTypes)) {
             $filterTypes = [
+                new FilterType\BooleanFilterType(),
                 new FilterType\ChoiceFilterType(),
                 new FilterType\EntityFilterType(),
+                new FilterType\EnumFilterType(),
                 new FilterType\SearchFilterType(),
             ];
             foreach ($filterTypes as $filterType) {
