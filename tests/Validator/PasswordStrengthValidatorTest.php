@@ -6,44 +6,22 @@ namespace Leapt\CoreBundle\Tests\Validator;
 
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrength;
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrengthValidator;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Context\ExecutionContext;
+use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-final class PasswordStrengthValidatorTest extends TestCase
+final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
 {
-    private ExecutionContext|MockObject|null $context;
-    private ?PasswordStrengthValidator $validator;
-
-    protected function setUp(): void
-    {
-        $this->context = $this->getMockBuilder(ExecutionContext::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->validator = new PasswordStrengthValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     public function testNullIsValid(): void
     {
-        $this->context->expects($this->never())
-            ->method('addViolation');
-
         $this->validator->validate(null, new PasswordStrength());
+
+        $this->assertNoViolation();
     }
 
     public function testEmptyStringIsValid(): void
     {
-        $this->context->expects($this->never())
-            ->method('addViolation');
-
         $this->validator->validate('', new PasswordStrength());
+
+        $this->assertNoViolation();
     }
 
     /**
@@ -51,10 +29,8 @@ final class PasswordStrengthValidatorTest extends TestCase
      */
     public function testValidPassword(string $password): void
     {
-        $this->context->expects($this->never())
-            ->method('addViolation');
-
         $this->validator->validate($password, new PasswordStrength(['score' => 50, 'min' => 5, 'max' => 255]));
+        $this->assertNoViolation();
     }
 
     public function getValidPasswords(): iterable
@@ -82,11 +58,10 @@ final class PasswordStrengthValidatorTest extends TestCase
             'score'        => 50,
         ]);
 
-        $this->context->expects($this->once())
-            ->method('addViolation')
-            ->with('scoreMessage');
-
         $this->validator->validate($password, $constraint);
+
+        $this->buildViolation('scoreMessage')
+            ->assertRaised();
     }
 
     public function getInvalidPasswords(): iterable
@@ -105,12 +80,11 @@ final class PasswordStrengthValidatorTest extends TestCase
             'score'      => 50,
             'min'        => 5,
         ]);
-
-        $this->context->expects($this->once())
-            ->method('addViolation')
-            ->with('minMessage');
-
         $this->validator->validate('abc', $constraint);
+
+        $this->buildViolation('minMessage')
+            ->setParameter('{{ limit }}', '5')
+            ->assertRaised();
     }
 
     public function testMaxPasswords(): void
@@ -120,11 +94,15 @@ final class PasswordStrengthValidatorTest extends TestCase
             'score'      => 50,
             'max'        => 5,
         ]);
-
-        $this->context->expects($this->once())
-            ->method('addViolation')
-            ->with('maxMessage');
-
         $this->validator->validate('abcdefgh', $constraint);
+
+        $this->buildViolation('maxMessage')
+            ->setParameter('{{ limit }}', '5')
+            ->assertRaised();
+    }
+
+    protected function createValidator(): PasswordStrengthValidator
+    {
+        return new PasswordStrengthValidator();
     }
 }
