@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Datalist\Datasource;
 
-use InvalidArgumentException;
 use Leapt\CoreBundle\Datalist\Filter\Expression\ExpressionInterface;
 use Leapt\CoreBundle\Paginator\PaginatorInterface;
 
@@ -62,7 +61,7 @@ abstract class AbstractDatasource implements DatasourceInterface
     public function setSort(string $field, string $direction): self
     {
         if (!\in_array($direction, ['asc', 'desc'], true)) {
-            throw new InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');
+            throw new \InvalidArgumentException('Datasource->setSort(): Argument "direction" must be "asc" or "desc".');
         }
 
         $this->sortField = $field;

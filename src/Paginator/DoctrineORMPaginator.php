@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Paginator;
 
-use ArrayIterator;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -40,7 +39,7 @@ class DoctrineORMPaginator extends AbstractPaginator
         return $this->doctrinePaginator->count();
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
         return $this->doctrinePaginator->getIterator();
     }

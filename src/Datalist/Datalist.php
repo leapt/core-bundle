@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Datalist;
 
-use Countable;
-use Exception;
 use Iterator;
 use Leapt\CoreBundle\Datalist\Action\DatalistActionInterface;
 use Leapt\CoreBundle\Datalist\Datasource\DatasourceInterface;
@@ -17,7 +15,7 @@ use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class Datalist implements DatalistInterface, Countable
+class Datalist implements DatalistInterface, \Countable
 {
     private DatasourceInterface $datasource;
 
@@ -41,7 +39,7 @@ class Datalist implements DatalistInterface, Countable
 
     private FormInterface $filterForm;
 
-    private Iterator $iterator;
+    private \Iterator $iterator;
 
     private bool $initialized = false;
 
@@ -237,7 +235,7 @@ class Datalist implements DatalistInterface, Countable
         return $this;
     }
 
-    public function getIterator(): Iterator
+    public function getIterator(): \Iterator
     {
         $this->initialize();
 
@@ -297,7 +295,7 @@ class Datalist implements DatalistInterface, Countable
         }
 
         if (!isset($this->datasource)) {
-            throw new Exception('A datalist must have a datasource before it can be iterated or counted');
+            throw new \Exception('A datalist must have a datasource before it can be iterated or counted');
         }
 
         // Handle pagination
@@ -336,7 +334,7 @@ class Datalist implements DatalistInterface, Countable
             if (null !== $field && true === $field->getOption('sortable')) {
                 $propertyPath = $field->getOption('sort_property_path');
                 if (empty($propertyPath)) {
-                    throw new Exception('The "sort_property_path" option must be set on datalist field when option "sortable" is true.');
+                    throw new \Exception('The "sort_property_path" option must be set on datalist field when option "sortable" is true.');
                 }
 
                 $this->datasource->setSort($propertyPath, $this->routeParams['sort-direction']);
