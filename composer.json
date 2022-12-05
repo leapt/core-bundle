@@ -51,7 +51,8 @@
         "phpstan/phpstan": "^1.6.8",
         "phpstan/phpstan-deprecation-rules": "^1.0.0",
         "phpunit/phpunit": "^9.5.10",
-        "symfony/browser-kit": "^5.4 || ^6.0"
+        "symfony/browser-kit": "^5.4 || ^6.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.3"
     },
     "scripts": {
         "ci": [
