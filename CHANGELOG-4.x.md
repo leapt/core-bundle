@@ -1,3 +1,8 @@
+4.7.0
+-----
+
+* Refactor Dependency Injection extension
+
 4.6.2
 -----
 
