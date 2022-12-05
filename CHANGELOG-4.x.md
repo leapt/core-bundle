@@ -2,6 +2,7 @@
 -----
 
 * Refactor Dependency Injection extension
+* Run CI against Symfony 6.2
 
 4.6.2
 -----
