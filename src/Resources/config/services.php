@@ -10,6 +10,7 @@ use Leapt\CoreBundle\FileStorage\FileStorageManager;
 use Leapt\CoreBundle\FileStorage\FilesystemStorage;
 use Leapt\CoreBundle\FileStorage\FlysystemStorage;
 use Leapt\CoreBundle\Form\Extension\CollectionTypeExtension;
+use Leapt\CoreBundle\Form\Extension\HoneypotExtension;
 use Leapt\CoreBundle\Form\Type\FileType;
 use Leapt\CoreBundle\Form\Type\RecaptchaType;
 use Leapt\CoreBundle\Form\Type\RecaptchaV3Type;
@@ -100,6 +101,13 @@ return static function (ContainerConfigurator $container): void {
         // Form type extensions
         ->set('leapt_core.collection_type_extension')
             ->class(CollectionTypeExtension::class)
+            ->tag('form.type_extension')
+
+        ->set(HoneypotExtension::class)
+            ->arg('$translator', service('translator'))
+            ->arg('$enableGlobally', param('leapt_core.honeypot.enable_globally'))
+            ->arg('$inputName', param('leapt_core.honeypot.input_name'))
+            ->arg('$cssClass', param('leapt_core.honeypot.css_class'))
             ->tag('form.type_extension')
 
         // Navigation

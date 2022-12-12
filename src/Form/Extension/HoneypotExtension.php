@@ -18,8 +18,8 @@ final class HoneypotExtension extends AbstractTypeExtension
 {
     public function __construct(
         private TranslatorInterface $translator,
-        private bool $enabledGlobally,
-        private string $fieldName,
+        private bool $enableGlobally,
+        private string $inputName,
         private string $cssClass,
     ) {
     }
@@ -30,7 +30,7 @@ final class HoneypotExtension extends AbstractTypeExtension
             return;
         }
 
-        $builder->addEventSubscriber(new HoneypotListener($this->translator, $options['honeypot_field_name']));
+        $builder->addEventSubscriber(new HoneypotListener($this->translator, $options['honeypot_input_name']));
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
@@ -39,29 +39,29 @@ final class HoneypotExtension extends AbstractTypeExtension
             return;
         }
 
-        if ($form->has($options['honeypot_field_name'])) {
-            throw new \RuntimeException(sprintf('Honeypot field "%s" is already used.', $options['honeypot_field_name']));
+        if ($form->has($options['honeypot_input_name'])) {
+            throw new \RuntimeException(sprintf('Honeypot field "%s" is already used.', $options['honeypot_input_name']));
         }
 
         $formOptions = $this->createViewOptions($options);
 
         $formView = $form->getConfig()->getFormFactory()
-            ->createNamed($options['honeypot_field_name'], TextType::class, null, $formOptions)
+            ->createNamed($options['honeypot_input_name'], TextType::class, null, $formOptions)
             ->createView($view);
 
-        $view->children[$options['honeypot_field_name']] = $formView;
+        $view->children[$options['honeypot_input_name']] = $formView;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
-                'honeypot_enabled'    => $this->enabledGlobally,
-                'honeypot_field_name' => $this->fieldName,
+                'honeypot_enabled'    => $this->enableGlobally,
+                'honeypot_input_name' => $this->inputName,
                 'honeypot_css_class'  => $this->cssClass,
             ])
             ->setAllowedTypes('honeypot_enabled', 'bool')
-            ->setAllowedTypes('honeypot_field_name', 'string')
+            ->setAllowedTypes('honeypot_input_name', 'string')
             ->setAllowedTypes('honeypot_css_class', 'string')
         ;
     }

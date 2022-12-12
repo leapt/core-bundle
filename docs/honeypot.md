@@ -18,14 +18,14 @@ There are three options available to set in your configuration:
 leapt_core:
     honeypot:
         enabled_globally: false
-        field_name: repeat_email
+        input_name: repeat_email
         css_class: d-none
 ```
 
 | Name             | Type   | Default value | Description                                                          |
 |------------------|--------|---------------|----------------------------------------------------------------------|
 | enabled_globally | bool   | false         | Enable the honeypot globally for all forms.                          |
-| field_name       | string | repeat_email  | The field name that will be used on render.                          |
+| input_name       | string | repeat_email  | The field name that will be used on render.                          |
 | css_class        | string | d-none        | The CSS class that will be used to hide the input for regular users. |
 
 
@@ -38,7 +38,7 @@ Default values are the ones taken from your configuration.
 | Name                | Type   | Description                                                          |
 |---------------------|--------|----------------------------------------------------------------------|
 | honeypot_enabled    | bool   | Enable the honeypot globally for all forms.                          |
-| honeypot_field_name | string | The field name that will be used on render.                          |
+| honeypot_input_name | string | The field name that will be used on render.                          |
 | honeypot_css_class  | string | The CSS class that will be used to hide the input for regular users. |
 
 !!! example "Usage"
@@ -50,7 +50,7 @@ Default values are the ones taken from your configuration.
         {
             $resolver->setDefaults([
                 'honeypot_enabled'    => true,
-                'honeypot_field_name' => 'please_repeat_email',
+                'honeypot_input_name' => 'please_repeat_email',
                 'honeypot_css_class'  => 'hide',
             ]);
         }
