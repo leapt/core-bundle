@@ -4,6 +4,7 @@
 * Refactor bundle Configuration
 * Refactor Dependency Injection extension
 * Run CI against Symfony 6.2
+* Add Honeypot form extension
 
 4.6.2
 -----

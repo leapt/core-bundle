@@ -25,6 +25,9 @@ datalist:
     actions:
         header: Actions
 
+honeypot:
+    should_not_be_filled: Vous avez rempli un champ qui ne devrait pas être rempli.
+
 paginator:
     first: Première page
     last: Dernière page

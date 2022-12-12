@@ -18,6 +18,7 @@ class Configuration implements ConfigurationInterface
 
         $this->addFacebookSection($rootNode);
         $this->addGoogleSection($rootNode);
+        $this->addHoneypotSection($rootNode);
         $this->addPaginatorSection($rootNode);
         $this->addRecaptchaSection($rootNode);
         $this->addUploadsSection($rootNode);
@@ -56,6 +57,22 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('id')->defaultNull()->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addHoneypotSection(ArrayNodeDefinition $node): void
+    {
+        $node
+            ->children()
+                ->arrayNode('honeypot')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enable_globally')->defaultFalse()->end()
+                        ->scalarNode('input_name')->defaultValue('repeat_email')->end()
+                        ->scalarNode('css_class')->defaultValue('d-none')->end()
                     ->end()
                 ->end()
             ->end()
