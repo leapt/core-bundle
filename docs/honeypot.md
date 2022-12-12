@@ -56,3 +56,20 @@ Default values are the ones taken from your configuration.
         }
     }
     ```
+
+!!! warning
+
+    Related form errors bubble up to the main form, so if you want to display the related errors, don't forget to do it:
+
+    ```twig
+    {{ form_start(form) }}
+        {% if form.vars.errors|length > 0 %}
+            <div class="alert alert-danger mt-3">
+                {% for error in form.vars.errors %}
+                    {{ error.message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        ...
+    {{ form_end(form) }}
+    ```
