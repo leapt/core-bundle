@@ -30,6 +30,7 @@ nav:
     - index.md
     - form_types.md
     - file_uploads.md
+    - honeypot.md
     - paginator.md
     - data_lists.md
     - rss_feeds.md

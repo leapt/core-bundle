@@ -28,6 +28,7 @@ class LeaptCoreExtension extends Extension
         $this->configureEasyAdmin($loader);
         $this->configureFacebook($container, $config);
         $this->configureGoogle($container, $config);
+        $this->configureHoneypot($container, $config);
         $this->configurePaginator($container, $config);
         $this->configureRecaptcha($container, $config);
         $this->configureUploads($container, $config);
@@ -72,6 +73,15 @@ class LeaptCoreExtension extends Extension
         if (isset($config['google_tags_manager'])) {
             foreach (['id'] as $option) {
                 $container->setParameter('leapt_core.google_tags_manager.' . $option, $config['google_tags_manager'][$option]);
+            }
+        }
+    }
+
+    private function configureHoneypot(ContainerBuilder $container, array $config): void
+    {
+        if (isset($config['honeypot'])) {
+            foreach (['enable_globally', 'input_name', 'css_class'] as $option) {
+                $container->setParameter('leapt_core.honeypot.' . $option, $config['honeypot'][$option]);
             }
         }
     }

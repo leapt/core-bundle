@@ -15,6 +15,10 @@ leapt_core:
         app_id: null
     paginator:
         template: '@LeaptCore/Paginator/paginator_default_layout.html.twig'
+    honeypot:
+        enabled_globally: false
+        field_name: repeat_email
+        css_class: d-none
     recaptcha:
         public_key:  'your_public_key'
         private_key: 'your_private_key'

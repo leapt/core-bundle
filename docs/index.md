@@ -5,6 +5,7 @@ The Leapt Core bundle is a bundle used to help with some repetitive tasks, inclu
 - [Data lists with search](data_lists.md)
 - [File and image uploads](file_uploads.md)
 - [Form types](form_types.md)
+- [Honeypot for forms](honeypot.md)
 - [Navigation helper](navigation_helper.md)
 - [Paginator](paginator.md)
 - [RSS feed generation](rss_feeds.md)
