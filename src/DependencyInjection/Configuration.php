@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -13,10 +14,35 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('leapt_core');
         $rootNode = $treeBuilder->getRootNode();
+        \assert($rootNode instanceof ArrayNodeDefinition);
 
+        $this->addFacebookSection($rootNode);
+        $this->addGoogleSection($rootNode);
+        $this->addPaginatorSection($rootNode);
+        $this->addRecaptchaSection($rootNode);
+        $this->addUploadsSection($rootNode);
+
+        return $treeBuilder;
+    }
+
+    private function addFacebookSection(ArrayNodeDefinition $rootNode): void
+    {
         $rootNode
             ->children()
-                ->scalarNode('upload_dir')->defaultValue('%kernel.project_dir%/public')->end()
+                ->arrayNode('facebook')
+                ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('app_id')->defaultNull()->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addGoogleSection(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
                 ->arrayNode('google_analytics')
                 ->addDefaultsIfNotSet()
                     ->children()
@@ -32,18 +58,28 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('id')->defaultNull()->end()
                     ->end()
                 ->end()
-                ->arrayNode('facebook')
-                ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('app_id')->defaultNull()->end()
-                    ->end()
-                ->end()
+            ->end()
+        ;
+    }
+
+    private function addPaginatorSection(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
                 ->arrayNode('paginator')
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('template')->defaultValue('@LeaptCore/Paginator/paginator_default_layout.html.twig')->end()
                     ->end()
                 ->end()
+            ->end()
+        ;
+    }
+
+    private function addRecaptchaSection(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
                 ->arrayNode('recaptcha')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -67,8 +103,16 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+            ->end()
         ;
+    }
 
-        return $treeBuilder;
+    private function addUploadsSection(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->scalarNode('upload_dir')->defaultValue('%kernel.project_dir%/public')->end()
+            ->end()
+        ;
     }
 }

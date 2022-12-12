@@ -1,6 +1,7 @@
 4.7.0
 -----
 
+* Refactor bundle Configuration
 * Refactor Dependency Injection extension
 * Run CI against Symfony 6.2
 
