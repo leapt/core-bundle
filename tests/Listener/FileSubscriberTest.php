@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Tests\Listener;
 
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -91,7 +95,7 @@ class FileSubscriberTest extends TestCase
         $cvPath = 'uploads/cvs/' . uniqid('', false) . '.txt';
         $user->setCv($cvPath);
 
-        $eventArgs = new LifecycleEventArgs($user, $this->em);
+        $eventArgs = new PostPersistEventArgs($user, $this->em);
         $this->subscriber->postPersist($eventArgs);
 
         $this->assertNull($user->getCvFile());
@@ -104,7 +108,7 @@ class FileSubscriberTest extends TestCase
         $attachmentPath = 'uploads/attachments/' . uniqid('', false) . '.txt';
         $novel->setAttachment($attachmentPath);
 
-        $eventArgs = new LifecycleEventArgs($novel, $this->em);
+        $eventArgs = new PostPersistEventArgs($novel, $this->em);
         $this->subscriber->postPersist($eventArgs);
 
         $this->assertNull($novel->getAttachmentFile());
@@ -117,7 +121,7 @@ class FileSubscriberTest extends TestCase
         $cvPath = 'uploads/cvs/' . uniqid('', false) . '.txt';
         $user->setCv($cvPath);
 
-        $eventArgs = new LifecycleEventArgs($user, $this->em);
+        $eventArgs = new PostUpdateEventArgs($user, $this->em);
         $this->subscriber->postUpdate($eventArgs);
 
         $this->assertNull($user->getCvFile());
@@ -136,7 +140,7 @@ class FileSubscriberTest extends TestCase
 
         $this->assertFileExists($this->rootDir . '/' . $oldCvPath);
 
-        $eventArgs = new LifecycleEventArgs($user, $this->em);
+        $eventArgs = new PostUpdateEventArgs($user, $this->em);
         $this->subscriber->postUpdate($eventArgs);
 
         $this->assertNull($user->getCvFile());
@@ -155,7 +159,7 @@ class FileSubscriberTest extends TestCase
         $user->setCvFile(new CondemnedFile());
 
         $preFlushEventArgs = new PreFlushEventArgs($this->em);
-        $eventArgs = new LifecycleEventArgs($user, $this->em);
+        $eventArgs = new PostUpdateEventArgs($user, $this->em);
         $this->subscriber->preFlush($preFlushEventArgs);
         $this->subscriber->postUpdate($eventArgs);
 
@@ -172,10 +176,11 @@ class FileSubscriberTest extends TestCase
 
         $this->assertFileExists($this->rootDir . '/' . $cvPath);
 
-        $eventArgs = new LifecycleEventArgs($user, $this->em);
+        $preRemoveEventArgs = new PreRemoveEventArgs($user, $this->em);
+        $postRemoveEventArgs = new PostRemoveEventArgs($user, $this->em);
 
-        $this->subscriber->preRemove($eventArgs);
-        $this->subscriber->postRemove($eventArgs);
+        $this->subscriber->preRemove($preRemoveEventArgs);
+        $this->subscriber->postRemove($postRemoveEventArgs);
 
         $this->assertFileDoesNotExist($this->rootDir . '/' . $cvPath);
     }
@@ -191,7 +196,7 @@ class FileSubscriberTest extends TestCase
             'memory' => true,
         ];
 
-        return EntityManager::create($params, $config);
+        return new EntityManager(DriverManager::getConnection($params), $config);
     }
 
     private function createSchema(): void
