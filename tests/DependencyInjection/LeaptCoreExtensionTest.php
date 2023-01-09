@@ -39,7 +39,7 @@ final class LeaptCoreExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('leapt_core.google_tags_manager.id', null);
 
         $this->load([
-            'google_analytics' => [
+            'google_analytics'    => [
                 'tracking_id'  => 123,
                 'domain_name'  => 'localhost',
                 'allow_linker' => true,

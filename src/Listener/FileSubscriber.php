@@ -7,9 +7,12 @@ namespace Leapt\CoreBundle\Listener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Events;
 use Leapt\CoreBundle\Doctrine\Mapping\File as FileAttribute;
 use Leapt\CoreBundle\File\CondemnedFile;
@@ -89,17 +92,17 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    public function postPersist(LifecycleEventArgs $ea): void
+    public function postPersist(PostPersistEventArgs $ea): void
     {
         $this->postSave($ea);
     }
 
-    public function postUpdate(LifecycleEventArgs $ea): void
+    public function postUpdate(PostUpdateEventArgs $ea): void
     {
         $this->postSave($ea);
     }
 
-    public function preRemove(LifecycleEventArgs $ea): void
+    public function preRemove(PreRemoveEventArgs $ea): void
     {
         $entity = $ea->getObject();
         foreach ($this->getFileFields($entity, $ea->getObjectManager()) as $fileConfig) {
@@ -107,7 +110,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    public function postRemove(LifecycleEventArgs $ea): void
+    public function postRemove(PostRemoveEventArgs $ea): void
     {
         $entity = $ea->getObject();
         foreach ($this->getFileFields($entity, $ea->getObjectManager()) as $fileConfig) {
@@ -132,7 +135,7 @@ class FileSubscriber implements EventSubscriber
         return [];
     }
 
-    private function postSave(LifecycleEventArgs $ea): void
+    private function postSave(PostPersistEventArgs|PostUpdateEventArgs $ea): void
     {
         $fileEntity = $ea->getObject();
         foreach ($this->getFileFields($fileEntity, $ea->getObjectManager()) as $fileUploadConfig) {
@@ -167,7 +170,7 @@ class FileSubscriber implements EventSubscriber
         }
     }
 
-    private function upload(LifecycleEventArgs $ea, object $fileEntity, FileUploadConfig $fileUploadConfig): void
+    private function upload(PostPersistEventArgs|PostUpdateEventArgs $ea, object $fileEntity, FileUploadConfig $fileUploadConfig): void
     {
         $propertyValue = $fileUploadConfig->property->getValue($fileEntity);
         if (!$propertyValue instanceof File) {

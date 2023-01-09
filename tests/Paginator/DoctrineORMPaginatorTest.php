@@ -8,6 +8,7 @@ use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
@@ -28,7 +29,7 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
             'memory'   => true,
         ];
 
-        $config = ORMSetup::createAnnotationMetadataConfiguration([static::getEntityPath()], false);
+        $config = ORMSetup::createAttributeMetadataConfiguration([static::getEntityPath()], true);
         $config->setMetadataDriverImpl(new AttributeDriver([static::getEntityPath()]));
 
         $proxiesIdentifier = uniqid('Proxies', true);
@@ -36,7 +37,7 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
         $config->setProxyNamespace('MyProject\Proxies\\' . $proxiesIdentifier);
         $config->setAutoGenerateProxyClasses(true);
 
-        $em = EntityManager::create($dbParams, $config);
+        $em = new EntityManager(DriverManager::getConnection($dbParams), $config);
 
         $tool = new \Doctrine\ORM\Tools\SchemaTool($em);
 
