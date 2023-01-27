@@ -139,6 +139,7 @@ You can also create your own.
 - [ChoiceFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/ChoiceFilterType.php)
 - [EntityFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/EntityFilterType.php)
 - [EnumFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/EnumFilterType.php)
+- [IsNullFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/IsNullFilterType.php)
 - [SearchFilterType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Filter/Type/SearchFilterType.php)
 
 ## Available Action types
