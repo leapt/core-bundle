@@ -2,6 +2,7 @@
 -----
 
 * Add is null filter type for datalists
+* Datalist forms: disable CSRF protection
 
 4.7.0
 -----
