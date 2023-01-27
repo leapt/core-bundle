@@ -1,3 +1,8 @@
+4.8.0
+-----
+
+* Add is null filter type for datalists
+
 4.7.0
 -----
 
