@@ -109,7 +109,9 @@ class DatalistBuilder extends DatalistConfig
 
         // Add search form
         if (null !== $this->getOption('search')) {
-            $searchFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, []);
+            $searchFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, [
+                'csrf_protection' => false,
+            ]);
             $searchFilter = $this->createFilter('search', [
                 'type'    => SearchFilterType::class,
                 'options' => [
@@ -125,7 +127,9 @@ class DatalistBuilder extends DatalistConfig
         }
 
         // Add filters and filter form
-        $filterFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, []);
+        $filterFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, [
+            'csrf_protection' => false,
+        ]);
         foreach ($this->filters as $filterName => $filterConfig) {
             $filter = $this->createFilter($filterName, $filterConfig);
             $filter->setDatalist($datalist);
