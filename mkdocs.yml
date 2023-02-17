@@ -13,8 +13,18 @@ theme:
         - navigation.top
         - toc.integrate
     palette:
-        scheme: slate
-        primary: green
+        -   scheme: default
+            primary: green
+            media: "(prefers-color-scheme: light)"
+            toggle:
+                icon: material/weather-night
+                name: Switch to dark mode
+        -   scheme: slate
+            primary: green
+            media: "(prefers-color-scheme: dark)"
+            toggle:
+                icon: material/weather-sunny
+                name: Switch to light mode
 
 extra:
     social:
