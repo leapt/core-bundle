@@ -11,9 +11,13 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldConfig;
 use Leapt\CoreBundle\Datalist\Field\Type\LabelFieldType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use Leapt\CoreBundle\Datalist\ViewContext;
+use Leapt\CoreBundle\Tests\Datalist\Field\Type\Enum\Status;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class LabelFieldTypeTest extends WebTestCase
+/**
+ * @requires PHP 8.1
+ */
+final class LabelFieldTypeEnumTest extends WebTestCase
 {
     /**
      * @dataProvider buildViewContextProvider
@@ -33,23 +37,14 @@ final class LabelFieldTypeTest extends WebTestCase
     public function buildViewContextProvider(): iterable
     {
         $mappings = [
-            'Draft'    => [
+            Status::Draft->value     => [
                 'label'      => 'Essai',
             ],
-            'Published' => [
+            Status::Published->value => [
                 'label' => 'Publier',
             ],
         ];
-        $mappingsBoolean = [
-            0 => [
-                'label'      => 'Essai',
-            ],
-            1 => [
-                'label' => 'Publier',
-            ],
-        ];
-        yield 'regulat_text' => ['Essai', ['status' => 'Draft'], ['mappings' => $mappings]];
-        yield 'regulat_text2' => ['Publier', ['status' => 'Published'], ['mappings' => $mappings]];
-        yield 'boolean'      => ['Publier', ['status' => true], ['mappings' => $mappingsBoolean]];
+        yield 'enum'         => ['Publier', ['status' => Status::Published], ['mappings' => $mappings]];
+        yield 'enum2' => ['Essai', ['status' => Status::Draft], ['mappings' => $mappings]];
     }
 }
