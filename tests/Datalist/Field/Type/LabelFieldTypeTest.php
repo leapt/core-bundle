@@ -32,24 +32,25 @@ final class LabelFieldTypeTest extends WebTestCase
 
     public function buildViewContextProvider(): iterable
     {
-        $mappings = [
-            'Draft'    => [
-                'label'      => 'Essai',
+        $stringMappings = [
+            'Draft' => [
+                'label' => 'Draft status',
             ],
             'Published' => [
-                'label' => 'Publier',
+                'label' => 'Published status',
             ],
         ];
-        $mappingsBoolean = [
+        $booleanMappings = [
             0 => [
-                'label'      => 'Essai',
+                'label' => 'Falsy',
             ],
             1 => [
-                'label' => 'Publier',
+                'label' => 'Truthy',
             ],
         ];
-        yield 'regulat_text' => ['Essai', ['status' => 'Draft'], ['mappings' => $mappings]];
-        yield 'regulat_text2' => ['Publier', ['status' => 'Published'], ['mappings' => $mappings]];
-        yield 'boolean'      => ['Publier', ['status' => true], ['mappings' => $mappingsBoolean]];
+        yield 'regular_text' => ['Draft status', ['status' => 'Draft'], ['mappings' => $stringMappings]];
+        yield 'regular_text2' => ['Published status', ['status' => 'Published'], ['mappings' => $stringMappings]];
+        yield 'boolean_true' => ['Truthy', ['status' => true], ['mappings' => $booleanMappings]];
+        yield 'boolean_false' => ['Falsy', ['status' => false], ['mappings' => $booleanMappings]];
     }
 }
