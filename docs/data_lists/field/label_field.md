@@ -41,4 +41,4 @@ As shown before, you can either use use string, BackedEnum or boolean type as en
     * `mappings` : Array that is used to maps the value of the field with the showed value (must be string), the attr is an option of the mappings where you can define class attributes for example.
 
 
-[Go back to Data lists documentation](../data_lists.md)
+[Go back to Data lists documentation](../../data_lists.md)
