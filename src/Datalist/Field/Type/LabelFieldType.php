@@ -31,7 +31,7 @@ class LabelFieldType extends AbstractFieldType
             $viewContext['value'] = (int) $viewContext['value'];
         }
         if (is_a($viewContext['value'], 'BackedEnum')) {
-            $viewContext['value'] = $viewContext['value']->name;
+            $viewContext['value'] = $viewContext['value']->value;
         }
         if (!\array_key_exists($viewContext['value'], $mappings)) {
             throw new \UnexpectedValueException(sprintf('No mapping for value %s', $viewContext['value']));
