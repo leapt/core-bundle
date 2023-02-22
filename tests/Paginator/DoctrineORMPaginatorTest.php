@@ -51,7 +51,16 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
 
     public function testIteration(): void
     {
-        $this->assertTrue(true);
+        $paginator = $this->buildPaginator(20);
+        $paginator->setLimitPerPage(10);
+        $paginator->setPage(2);
+
+        foreach ($paginator as $item) {
+            break;
+        }
+
+        \assert(isset($item));
+        $this->assertSame(11, $item->getId());
     }
 
     protected function buildPaginator(int $limit): PaginatorInterface
