@@ -32,7 +32,8 @@
         ])
         ->getDatalist();
 ```
-As shown before, you can either use use string, BackedEnum or boolean type as entry.
+
+As shown above, you can either use scalars or BackedEnums.
 
 !!! info "Options"
 
