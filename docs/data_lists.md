@@ -125,7 +125,7 @@ You can also create your own.
 - [DateTimeFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/DateTimeFieldType.php)
 - [HeadingFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/HeadingFieldType.php)
 - [ImageFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/ImageFieldType.php)
-- [LabelFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/LabelFieldType.php)
+- [LabelFieldType](data_lists/field/label_field.md)
 - [TextFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/TextFieldType.php)
 - [UrlFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/UrlFieldType.php)
 
