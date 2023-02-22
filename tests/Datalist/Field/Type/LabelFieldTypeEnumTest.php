@@ -37,14 +37,14 @@ final class LabelFieldTypeEnumTest extends WebTestCase
     public function buildViewContextProvider(): iterable
     {
         $mappings = [
-            Status::Draft->value     => [
-                'label'      => 'Essai',
+            Status::Draft->value => [
+                'label' => 'Draft status',
             ],
             Status::Published->value => [
-                'label' => 'Publier',
+                'label' => 'Published status',
             ],
         ];
-        yield 'enum'         => ['Publier', ['status' => Status::Published], ['mappings' => $mappings]];
-        yield 'enum2' => ['Essai', ['status' => Status::Draft], ['mappings' => $mappings]];
+        yield 'enum_published' => ['Published status', ['status' => Status::Published], ['mappings' => $mappings]];
+        yield 'enum_draft' => ['Draft status', ['status' => Status::Draft], ['mappings' => $mappings]];
     }
 }
