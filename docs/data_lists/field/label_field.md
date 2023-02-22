@@ -38,7 +38,7 @@ As shown before, you can either use use string, BackedEnum or boolean type as en
 
     Mandatory options:
     
-    * `mappings` : Array that is used to maps the value of the field with the showed value (must be string), the attr is an option of the mappings where you can define class attributes for example.
+    * `mappings`: Array that is used to map the value of the field with the displayed value (must be string). The `attr` key is an option of the mappings where you can define e.g. the HTML class attribute.
 
 
 [Go back to Data lists documentation](../../data_lists.md)
