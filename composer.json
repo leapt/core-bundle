@@ -60,8 +60,8 @@
             "@phpstan",
             "@phpunit"
         ],
-        "cs:dry": "vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
-        "cs:fix": "vendor/bin/php-cs-fixer fix --ansi",
+        "cs:dry": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --diff --dry-run --no-interaction --ansi",
+        "cs:fix": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi",
         "phpunit": "vendor/bin/phpunit --colors=auto"
     },

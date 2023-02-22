@@ -9,12 +9,12 @@ on:
 jobs:
   php-cs-fixer:
     name: PHP CS Fixer (PHP ${{ matrix.php-version }})
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
         php-version:
-          - '8.1'
+          - '8.2'
 
     steps:
       - name: Checkout code
