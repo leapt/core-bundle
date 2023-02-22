@@ -24,7 +24,6 @@ final class RecaptchaV3TypeTest extends TestCase
     {
         $view = new FormView();
 
-        /** @var FormInterface $form */
         $form = $this->createMock(FormInterface::class);
 
         $this->assertArrayNotHasKey('leapt_core_recaptcha_enabled', $view->vars);

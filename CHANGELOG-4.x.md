@@ -1,3 +1,8 @@
+4.9.0
+-----
+
+* Datalists - LabelFieldType: handle enums & add docs
+
 4.8.0
 -----
 
