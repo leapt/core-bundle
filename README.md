@@ -70,8 +70,12 @@ Note there are a few helpers to maintain code quality, that you can run using th
 
 ```bash
 composer cs:dry # Code style check
+composer cs:fix # Fix code style
 composer phpstan # Static analysis
-vendor/bin/phpunit # Run tests
+composer phpunit # Run tests
+
+# Or run all cs:dry, phpstan & phpunit scripts using the following:
+composer ci
 ```
 
 Docs are built using mkdocs. To launch the docs server locally, run `make docs-start` & open http://127.0.0.1:8000/.
