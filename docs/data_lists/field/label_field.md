@@ -1,7 +1,7 @@
 # Label field
 # Label field
 !!! example "Usage"
-
+# Label field
     ```php
     $builder
         // Example with strings
