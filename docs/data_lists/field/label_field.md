@@ -1,36 +1,41 @@
 
 
-??? usage "Usage"
-```php
-        $builder->addField('visibility',LabelFieldType::class, [ //Example with a simple text
-                'label' => 'Visibility',
-                'mappings'=> [
-                     'everyone' => [
-                        'label' => 'Everyone',
-                        'attr' => ['class' => 'badge badge-succes']
-                    ],
-                    'author' => [
-                        'label' => 'Author and Admin',
-                        'attr' => ['class' => 'badge badge-warning']
-                    ],
-                    'admin' => [
-                        'label' => 'Admin',
-                        'attr' => ['class' => 'badge badge-danger']
-                    ],
-                 ],
-        ])
-            ->addField('status',LabelFieldType::class, [ //Example with an Enum
-                'label' => 'Statut',
-                'mappings'=> [
-                    Status::Draft->value => [
-                        'label' => 'Draft publication',
-                        'attr' => ['class' => 'badge badge-warning']                    ],
-                    Status::Published->value => [
-                        'label' => 'Published',
-                        'attr' => ['class' => 'badge badge-succes']                     ],
+!!! example "Usage"
+
+    ```php
+    $builder
+        // Example with strings
+        ->addField('visibility', LabelFieldType::class, [
+            'mappings' => [
+                 'everyone' => [
+                    'label' => 'Everyone',
+                    'attr' => ['class' => 'badge bg-success']
                 ],
+                'author' => [
+                    'label' => 'Author',
+                    'attr' => ['class' => 'badge bg-warning']
+                ],
+                'admin' => [
+                    'label' => 'Admin',
+                    'attr' => ['class' => 'badge bg-danger']
+                ],
+             ],
+        ])
+        // Example with BackedEnum
+        ->addField('status', LabelFieldType::class, [
+            'mappings' => [
+                Status::Draft->value => [
+                    'label' => 'Draft publication',
+                    'attr' => ['class' => 'badge bg-warning'],
+                ],
+                Status::Published->value => [
+                    'label' => 'Published',
+                    'attr' => ['class' => 'badge bg-success'],
+                ],
+            ],
         ])
         ->getDatalist();
+    ```
 ```
 
 As shown above, you can either use scalars or BackedEnums.
