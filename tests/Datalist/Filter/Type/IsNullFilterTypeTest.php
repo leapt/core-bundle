@@ -41,7 +41,7 @@ final class IsNullFilterTypeTest extends TestCase
         self::assertSame($expectedResult, array_values(iterator_to_array($datalist->getIterator())));
     }
 
-    public function filterCasesProvider(): iterable
+    public static function filterCasesProvider(): iterable
     {
         yield 'empty_value' => [null, [['name' => 'Test 1', 'description' => 'My first test'], ['name' => 'Test 2', 'description' => null]]];
         yield 'is_null' => ['1', [['name' => 'Test 2', 'description' => null]]];

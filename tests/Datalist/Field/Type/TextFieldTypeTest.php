@@ -30,7 +30,7 @@ final class TextFieldTypeTest extends TestCase
         self::assertSame($expectedValue, $viewContext['value']);
     }
 
-    public function buildViewContextProvider(): iterable
+    public static function buildViewContextProvider(): iterable
     {
         yield 'regular_text' => ['test', ['name' => 'test']];
         yield 'callback' => ['Here is the weight: 123', ['weight' => 123], ['callback' => fn (array $item): string => 'Here is the weight: ' . $item['weight']]];

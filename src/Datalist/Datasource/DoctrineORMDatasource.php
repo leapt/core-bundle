@@ -91,7 +91,7 @@ class DoctrineORMDatasource extends AbstractDatasource
         } elseif ($expression instanceof ComparisonExpression) {
             $queryBuilderExpression = $this->buildQueryBuilderComparisonExpression($expression);
         } else {
-            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', \get_class($expression)));
+            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', $expression::class));
         }
 
         return $queryBuilderExpression;

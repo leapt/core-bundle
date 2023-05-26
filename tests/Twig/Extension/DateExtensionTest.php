@@ -32,7 +32,7 @@ class DateExtensionTest extends TestCase
         $this->assertEquals($expected, $this->extension->timeAgo($ago, 'en'));
     }
 
-    public function timeAgoData(): iterable
+    public static function timeAgoData(): iterable
     {
         $twoYears = new \DateTime('-2 years');
 

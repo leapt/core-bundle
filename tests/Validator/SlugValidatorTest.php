@@ -33,12 +33,10 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    public function getValidSlugs(): iterable
+    public static function getValidSlugs(): iterable
     {
-        return [
-            ['dora1'],
-            ['ca-fait-le-cafe'],
-        ];
+        yield ['dora1'];
+        yield ['ca-fait-le-cafe'];
     }
 
     /**
@@ -56,13 +54,11 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    public function getInvalidSlugs(): iterable
+    public static function getInvalidSlugs(): iterable
     {
-        return [
-            ['accent-in-café'],
-            ['some space'],
-            ['Test-with-uppercase'],
-        ];
+        yield ['accent-in-café'];
+        yield ['some space'];
+        yield ['Test-with-uppercase'];
     }
 
     protected function createValidator(): RegexValidator

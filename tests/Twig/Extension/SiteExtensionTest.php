@@ -24,7 +24,7 @@ final class SiteExtensionTest extends TestCase
         self::assertSame($expectedResult, $this->siteExtension->getTests()[0]->getCallable()($testData));
     }
 
-    public function provideFalseTestCases(): iterable
+    public static function provideFalseTestCases(): iterable
     {
         yield ['test', false];
         yield ['', false];
