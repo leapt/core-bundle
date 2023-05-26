@@ -1,7 +1,7 @@
-# Label field
-# Label field
-!!! example "Usage"
-# Label field
+# Data lists: Label field
+
+!!! example "Example"
+
     ```php
     $builder
         // Example with strings
@@ -9,15 +9,15 @@
             'mappings' => [
                  'everyone' => [
                     'label' => 'Everyone',
-                    'attr' => ['class' => 'badge bg-success']
+                    'attr' => ['class' => 'badge bg-success'],
                 ],
                 'author' => [
                     'label' => 'Author',
-                    'attr' => ['class' => 'badge bg-warning']
+                    'attr' => ['class' => 'badge bg-warning'],
                 ],
                 'admin' => [
                     'label' => 'Admin',
-                    'attr' => ['class' => 'badge bg-danger']
+                    'attr' => ['class' => 'badge bg-danger'],
                 ],
              ],
         ])
@@ -36,7 +36,6 @@
         ])
         ->getDatalist();
     ```
-```
 
 As shown above, you can either use scalars or BackedEnums.
 
