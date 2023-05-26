@@ -81,7 +81,7 @@ class ArrayDatasource extends AbstractDatasource
         } elseif ($expression instanceof ComparisonExpression) {
             $function = $this->buildComparisonExpressionCallback($expression);
         } else {
-            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', \get_class($expression)));
+            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', $expression::class));
         }
 
         return $function;

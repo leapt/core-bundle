@@ -90,7 +90,7 @@ class DatalistFactory
 
     public function registerType(DatalistType\DatalistTypeInterface $type): self
     {
-        $this->types[\get_class($type)] = $type;
+        $this->types[$type::class] = $type;
 
         return $this;
     }
@@ -106,7 +106,7 @@ class DatalistFactory
 
     public function registerFieldType(FieldType\FieldTypeInterface $fieldType): void
     {
-        $this->fieldTypes[\get_class($fieldType)] = $fieldType;
+        $this->fieldTypes[$fieldType::class] = $fieldType;
     }
 
     public function getFilterType(string $alias): FilterType\FilterTypeInterface
@@ -120,7 +120,7 @@ class DatalistFactory
 
     public function registerFilterType(FilterType\FilterTypeInterface $filterType): void
     {
-        $this->filterTypes[\get_class($filterType)] = $filterType;
+        $this->filterTypes[$filterType::class] = $filterType;
     }
 
     public function getActionType(string $alias): ActionType\ActionTypeInterface
@@ -134,7 +134,7 @@ class DatalistFactory
 
     public function registerActionType(ActionType\ActionTypeInterface $actionType): void
     {
-        $this->actionTypes[\get_class($actionType)] = $actionType;
+        $this->actionTypes[$actionType::class] = $actionType;
     }
 
     protected function initialize(): void
@@ -144,7 +144,7 @@ class DatalistFactory
                 new ActionType\SimpleActionType($this->router),
             ];
             foreach ($actionTypes as $actionType) {
-                $this->actionTypes[\get_class($actionType)] = $actionType;
+                $this->actionTypes[$actionType::class] = $actionType;
             }
         }
 
@@ -159,7 +159,7 @@ class DatalistFactory
                 new FieldType\UrlFieldType(),
             ];
             foreach ($fieldTypes as $fieldType) {
-                $this->fieldTypes[\get_class($fieldType)] = $fieldType;
+                $this->fieldTypes[$fieldType::class] = $fieldType;
             }
         }
 
@@ -172,7 +172,7 @@ class DatalistFactory
                 new FilterType\SearchFilterType(),
             ];
             foreach ($filterTypes as $filterType) {
-                $this->filterTypes[\get_class($filterType)] = $filterType;
+                $this->filterTypes[$filterType::class] = $filterType;
             }
         }
 
@@ -181,7 +181,7 @@ class DatalistFactory
                 new DatalistType\DatalistType(),
             ];
             foreach ($datalistTypes as $datalistType) {
-                $this->types[\get_class($datalistType)] = $datalistType;
+                $this->types[$datalistType::class] = $datalistType;
             }
         }
     }

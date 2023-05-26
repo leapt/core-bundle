@@ -112,7 +112,7 @@ class FileSubscriber implements EventSubscriber
      */
     private function getFileFields(object $entity, EntityManagerInterface $em): array
     {
-        $className = \get_class($entity);
+        $className = $entity::class;
         $this->checkClassConfig($entity, $em);
 
         if (\array_key_exists($className, $this->config)) {
@@ -229,14 +229,14 @@ class FileSubscriber implements EventSubscriber
 
     private function checkClassConfig($entity, EntityManagerInterface $entityManager): void
     {
-        $class = \get_class($entity);
+        $class = $entity::class;
 
         if (!\array_key_exists($class, $this->config)) {
             $meta = $entityManager->getClassMetaData($class);
             foreach ($meta->getReflectionClass()->getProperties() as $property) {
-                if ($meta->isMappedSuperclass && !$property->isPrivate() ||
-                    $meta->isInheritedField($property->name) ||
-                    isset($meta->associationMappings[$property->name]['inherited'])
+                if ($meta->isMappedSuperclass && !$property->isPrivate()
+                    || $meta->isInheritedField($property->name)
+                    || isset($meta->associationMappings[$property->name]['inherited'])
                 ) {
                     continue;
                 }
