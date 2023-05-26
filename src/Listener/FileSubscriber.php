@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\Listener;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostPersistEventArgs;
@@ -50,12 +49,6 @@ class FileSubscriber implements EventSubscriber
     public function preFlush(PreFlushEventArgs $ea): void
     {
         $entityManager = $ea->getObjectManager();
-
-        // Hit fix, see http://doctrine-project.org/jira/browse/DDC-2276
-        // @todo: wait for real fix
-        if (!$entityManager instanceof EntityManager) {
-            return;
-        }
         $unitOfWork = $entityManager->getUnitOfWork();
 
         // Finally, check all entities in identity map - if they have a file object they need to be processed
@@ -76,12 +69,6 @@ class FileSubscriber implements EventSubscriber
     public function onFlush(OnFlushEventArgs $ea): void
     {
         $entityManager = $ea->getObjectManager();
-
-        // Hit fix, see http://doctrine-project.org/jira/browse/DDC-2276
-        // @todo: wait for real fix
-        if (!$entityManager instanceof EntityManager) {
-            return;
-        }
         $unitOfWork = $entityManager->getUnitOfWork();
 
         // Then, let's deal with entities schedules for insertion
