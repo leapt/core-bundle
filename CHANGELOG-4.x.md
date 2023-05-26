@@ -1,3 +1,8 @@
+4.9.1
+-----
+
+* Fix datalist forms when security-csrf is not installed
+
 4.9.0
 -----
 
