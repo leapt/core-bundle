@@ -2,6 +2,7 @@
 -----
 
 * Datalists - LabelFieldType: handle enums & add docs
+* FileSubscriber: remove useless checks
 
 4.8.0
 -----
