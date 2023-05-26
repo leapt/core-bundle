@@ -15,6 +15,7 @@ use Leapt\CoreBundle\Datalist\Type\DatalistTypeInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class DatalistBuilder extends DatalistConfig
 {
@@ -107,11 +108,14 @@ class DatalistBuilder extends DatalistConfig
             $datalist->addField($field);
         }
 
+        $formOptions = [];
+        if (interface_exists(CsrfTokenManagerInterface::class)) {
+            $formOptions['csrf_protection'] = false;
+        }
+
         // Add search form
         if (null !== $this->getOption('search')) {
-            $searchFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, [
-                'csrf_protection' => false,
-            ]);
+            $searchFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, $formOptions);
             $searchFilter = $this->createFilter('search', [
                 'type'    => SearchFilterType::class,
                 'options' => [
@@ -127,9 +131,7 @@ class DatalistBuilder extends DatalistConfig
         }
 
         // Add filters and filter form
-        $filterFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, [
-            'csrf_protection' => false,
-        ]);
+        $filterFormBuilder = $this->formFactory->createNamedBuilder('', FormType::class, null, $formOptions);
         foreach ($this->filters as $filterName => $filterConfig) {
             $filter = $this->createFilter($filterName, $filterConfig);
             $filter->setDatalist($datalist);
