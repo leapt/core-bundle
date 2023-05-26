@@ -44,7 +44,7 @@ final class ChoiceFilterTypeTest extends TestCase
         self::assertSame($expectedResult, array_values(iterator_to_array($datalist->getIterator())));
     }
 
-    public function filterCasesProvider(): iterable
+    public static function filterCasesProvider(): iterable
     {
         yield 'empty_value' => ['', false, [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies'], ['title' => 'The Good Doctor', 'category' => 'TV Shows'], ['title' => 'Pawn of Prophecy', 'category' => 'Books']]];
         yield 'null_value' => [null, false, [['title' => 'The Hobbit', 'category' => 'Movies'], ['title' => 'Black Panther', 'category' => 'Movies'], ['title' => 'The Good Doctor', 'category' => 'TV Shows'], ['title' => 'Pawn of Prophecy', 'category' => 'Books']]];

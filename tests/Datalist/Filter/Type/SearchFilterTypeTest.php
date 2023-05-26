@@ -43,7 +43,7 @@ final class SearchFilterTypeTest extends TestCase
         self::assertSame($expectedResult, array_values(iterator_to_array($datalist->getIterator())));
     }
 
-    public function filterCasesProvider(): iterable
+    public static function filterCasesProvider(): iterable
     {
         yield 'one_field_as_string' => ['[title]', 'The', [['title' => 'The Hobbit', 'tags' => 'Movie'], ['title' => 'The Good Doctor', 'tags' => 'Show']]];
         yield 'one_field_as_array' => [['[title]'], 'The', [['title' => 'The Hobbit', 'tags' => 'Movie'], ['title' => 'The Good Doctor', 'tags' => 'Show']]];

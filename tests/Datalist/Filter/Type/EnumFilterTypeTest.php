@@ -48,7 +48,7 @@ final class EnumFilterTypeTest extends TestCase
         self::assertSame($expectedResult, array_values(iterator_to_array($datalist->getIterator())));
     }
 
-    public function filterCasesProvider(): iterable
+    public static function filterCasesProvider(): iterable
     {
         yield 'empty_value' => ['', false, [['title' => 'The Hobbit', 'category' => Category::Movies], ['title' => 'Black Panther', 'category' => Category::Movies], ['title' => 'The Good Doctor', 'category' => Category::TVShows], ['title' => 'Pawn of Prophecy', 'category' => Category::Books]]];
         yield 'null_value' => [null, false, [['title' => 'The Hobbit', 'category' => Category::Movies], ['title' => 'Black Panther', 'category' => Category::Movies], ['title' => 'The Good Doctor', 'category' => Category::TVShows], ['title' => 'Pawn of Prophecy', 'category' => Category::Books]]];

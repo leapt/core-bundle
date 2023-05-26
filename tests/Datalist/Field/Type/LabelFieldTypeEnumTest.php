@@ -34,7 +34,7 @@ final class LabelFieldTypeEnumTest extends WebTestCase
         self::assertSame($expectedValue, $viewContext['value']);
     }
 
-    public function buildViewContextProvider(): iterable
+    public static function buildViewContextProvider(): iterable
     {
         $mappings = [
             Status::Draft->value => [

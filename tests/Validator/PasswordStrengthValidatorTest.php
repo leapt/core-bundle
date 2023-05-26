@@ -33,19 +33,17 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    public function getValidPasswords(): iterable
+    public static function getValidPasswords(): iterable
     {
-        return [
-            ['dora1*'],
-            ['dora12*'],
-            ['Dora12*'],
-            ['E=mc^2'],
-            ['Doraa12*'],
-            ['Dor+a12*'],
-            ['DorH+a12*5'],
-            ['DorH+a12*5'],
-            ['My password is f*cking awesome'],
-        ];
+        yield ['dora1*'];
+        yield ['dora12*'];
+        yield ['Dora12*'];
+        yield ['E=mc^2'];
+        yield ['Doraa12*'];
+        yield ['Dor+a12*'];
+        yield ['DorH+a12*5'];
+        yield ['DorH+a12*5'];
+        yield ['My password is f*cking awesome'];
     }
 
     /**
@@ -64,13 +62,11 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
-    public function getInvalidPasswords(): iterable
+    public static function getInvalidPasswords(): iterable
     {
-        return [
-            ['toto'],
-            ['dora'],
-            ['Dora'],
-        ];
+        yield ['toto'];
+        yield ['dora'];
+        yield ['Dora'];
     }
 
     public function testMinPasswords(): void

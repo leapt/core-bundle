@@ -41,7 +41,7 @@ final class BooleanFilterTypeTest extends TestCase
         self::assertSame($expectedResult, array_values(iterator_to_array($datalist->getIterator())));
     }
 
-    public function filterCasesProvider(): iterable
+    public static function filterCasesProvider(): iterable
     {
         yield 'boolean_true' => ['active', true, [['name' => 'Test 1', 'active' => true, 'used' => '1'], ['name' => 'Test 3', 'active' => true, 'used' => '0']]];
         yield 'boolean_false' => ['active', false, [['name' => 'Test 2', 'active' => false, 'used' => '1']]];
