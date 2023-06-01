@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\Events;
 use Leapt\CoreBundle\Controller\FeedController;
 use Leapt\CoreBundle\Controller\SitemapController;
 use Leapt\CoreBundle\Datalist\DatalistFactory;
@@ -61,7 +62,12 @@ return static function (ContainerConfigurator $container): void {
         ->set('leapt_core.file_subscriber')
             ->class(FileSubscriber::class)
             ->arg('$fileStorageManager', service('leapt_core.file_storage.manager'))
-            ->tag('doctrine.event_subscriber')
+            ->tag('doctrine.event_listener', ['event' => Events::preFlush])
+            ->tag('doctrine.event_listener', ['event' => Events::onFlush])
+            ->tag('doctrine.event_listener', ['event' => Events::postPersist])
+            ->tag('doctrine.event_listener', ['event' => Events::postUpdate])
+            ->tag('doctrine.event_listener', ['event' => Events::preRemove])
+            ->tag('doctrine.event_listener', ['event' => Events::postRemove])
 
         // File storages
         ->set('leapt_core.file_storage.filesystem')

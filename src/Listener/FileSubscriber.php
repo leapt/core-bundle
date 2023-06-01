@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Listener;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostPersistEventArgs;
@@ -12,7 +11,6 @@ use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
-use Doctrine\ORM\Events;
 use Leapt\CoreBundle\Doctrine\Mapping\File as FileAttribute;
 use Leapt\CoreBundle\File\CondemnedFile;
 use Leapt\CoreBundle\FileStorage\FileStorageManager;
@@ -22,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-class FileSubscriber implements EventSubscriber
+class FileSubscriber
 {
     /**
      * @var array<class-string, array<string, array<string, FileUploadConfig>>>
@@ -32,18 +30,6 @@ class FileSubscriber implements EventSubscriber
 
     public function __construct(private FileStorageManager $fileStorageManager)
     {
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return [
-            Events::preFlush,
-            Events::onFlush,
-            Events::postPersist,
-            Events::postUpdate,
-            Events::preRemove,
-            Events::postRemove,
-        ];
     }
 
     public function preFlush(PreFlushEventArgs $ea): void
