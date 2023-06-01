@@ -2,6 +2,7 @@
 -----
 
 * Test bundle against Symfony 6.3
+* Fix deprecations for Symfony 6.3
 
 4.9.1
 -----
