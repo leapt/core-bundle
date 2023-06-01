@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Tests\Validator;
 
+use Composer\InstalledVersions;
 use Leapt\CoreBundle\Validator\Constraints\Slug;
 use Symfony\Component\Validator\Constraints\RegexValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
@@ -44,15 +45,21 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
      */
     public function testInvalidSlugs(string $slug): void
     {
+        $validatorVersion = InstalledVersions::getVersion('symfony/validator');
+
         $constraint = new Slug();
 
         $this->validator->validate($slug, $constraint);
 
-        $this->buildViolation('A slug can only contain lowercase letters, numbers and hyphens.')
+        $assertion = $this->buildViolation('A slug can only contain lowercase letters, numbers and hyphens.')
             ->setCode('de1e3db3-5ed4-4941-aae4-59f3667cc3a3')
-            ->setParameter('{{ value }}', '"' . $slug . '"')
-            ->setParameter('{{ pattern }}', $constraint->pattern)
-            ->assertRaised();
+            ->setParameter('{{ value }}', '"' . $slug . '"');
+
+        if (version_compare($validatorVersion, '6.3.0', '>=')) {
+            $assertion->setParameter('{{ pattern }}', $constraint->pattern);
+        }
+
+        $assertion->assertRaised();
     }
 
     public static function getInvalidSlugs(): iterable
