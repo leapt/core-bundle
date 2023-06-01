@@ -51,6 +51,7 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
         $this->buildViolation('A slug can only contain lowercase letters, numbers and hyphens.')
             ->setCode('de1e3db3-5ed4-4941-aae4-59f3667cc3a3')
             ->setParameter('{{ value }}', '"' . $slug . '"')
+            ->setParameter('{{ pattern }}', $constraint->pattern)
             ->assertRaised();
     }
 
