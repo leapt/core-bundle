@@ -1,3 +1,8 @@
+4.9.3
+-----
+
+* Fix Boolean fields display with Bootstrap 4 & 5 layouts
+
 4.9.2
 -----
 

@@ -152,14 +152,14 @@
 
 {# label field #}
 {% block boolean_field %}
-    {% set label_class = value == true ? 'label-success' : 'label-danger' %}
-    {% set label = ("label " ~ label_class)|trim %}
+    {% set label_class = value == true ? 'badge-success' : 'badge-danger' %}
+    {% set label = ("badge " ~ label_class)|trim %}
     {%
         set text = value == true ?
         true_label|trans({}, translation_domain)|default('Yes') :
         false_label|trans({}, translation_domain)|default('No')
     %}
-    <td><span class="label {{ label }}">{{ text }}</span></td>
+    <td><span class="{{ label }}">{{ text }}</span></td>
 {% endblock boolean_field %}
 
 {# heading field #}
