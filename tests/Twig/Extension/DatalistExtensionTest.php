@@ -23,7 +23,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -40,11 +39,14 @@ final class DatalistExtensionTest extends TestCase
         $loader->addPath(__DIR__ . '/../../../src/Resources/views', 'LeaptCore');
         $this->env = new Environment($loader);
 
+        $router = $this->createMock(RouterInterface::class);
+        $router->method('generate')->willReturn('');
+
         $requestStack = $this->createMock(RequestStack::class);
         $this->extension = new DatalistExtension($requestStack);
         $this->env->addExtension($this->extension);
         $this->env->addExtension(new PaginatorExtension('', $requestStack));
-        $this->env->addExtension(new RoutingExtension($this->createMock(UrlGeneratorInterface::class)));
+        $this->env->addExtension(new RoutingExtension($router));
         $this->env->addExtension(new TranslationExtension());
         $this->env->addExtension(new TextExtension());
         $this->env->addExtension(new AssetExtension(new Packages()));
@@ -57,7 +59,7 @@ final class DatalistExtensionTest extends TestCase
 
         $this->datalistFactory = new DatalistFactory(
             $formFactory,
-            $this->createMock(RouterInterface::class),
+            $router,
         );
     }
 
