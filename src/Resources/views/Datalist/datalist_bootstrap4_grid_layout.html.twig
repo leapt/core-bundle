@@ -96,7 +96,7 @@
                         {% endfor %}
                         {% if datalist.actions|length > 0 %}
                             <td class="text-right">
-                                <div class="btn-group">
+                                <div class="{{ options.actions_container_class }}">
                                     {% for action in datalist.actions %}
                                         {{ datalist_action(action, item) }}{% if not loop.last %} {% endif %}
                                     {% endfor %}
