@@ -1,3 +1,8 @@
+4.10.0
+------
+
+* Allow configuring the datalist actions container class
+
 4.9.3
 -----
 
