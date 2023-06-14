@@ -13,29 +13,33 @@ use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use Leapt\CoreBundle\Twig\Extension\DatalistExtension;
 use Leapt\CoreBundle\Twig\Extension\PaginatorExtension;
 use Leapt\CoreBundle\Twig\Extension\TextExtension;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Extension\AssetExtension;
 use Symfony\Bridge\Twig\Extension\FormExtension;
 use Symfony\Bridge\Twig\Extension\RoutingExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-final class DatalistExtensionTest extends KernelTestCase
+final class DatalistExtensionTest extends TestCase
 {
     private Environment $env;
     private DatalistExtension $extension;
+    private DatalistFactory $datalistFactory;
 
     protected function setUp(): void
     {
         $loader = new FilesystemLoader();
         $loader->addPath(__DIR__ . '/../../../src/Resources/views', 'LeaptCore');
         $this->env = new Environment($loader);
+
         $requestStack = $this->createMock(RequestStack::class);
         $this->extension = new DatalistExtension($requestStack);
         $this->env->addExtension($this->extension);
@@ -45,6 +49,16 @@ final class DatalistExtensionTest extends KernelTestCase
         $this->env->addExtension(new TextExtension());
         $this->env->addExtension(new AssetExtension(new Packages()));
         $this->env->addExtension(new FormExtension());
+
+        $formBuilder = $this->createMock(FormBuilderInterface::class);
+        $formBuilder->method('getForm')->willReturn($this->createMock(FormInterface::class));
+        $formFactory = $this->createMock(FormFactoryInterface::class);
+        $formFactory->method('createNamedBuilder')->willReturn($formBuilder);
+
+        $this->datalistFactory = new DatalistFactory(
+            $formFactory,
+            $this->createMock(RouterInterface::class),
+        );
     }
 
     public function testDefaultActionsContainerClass(): void
@@ -63,12 +77,7 @@ final class DatalistExtensionTest extends KernelTestCase
 
     private function getDatalist(array $options = []): Datalist
     {
-        $datalistFactory = new DatalistFactory(
-            $this->createMock(FormFactoryInterface::class),
-            $this->createMock(RouterInterface::class),
-        );
-
-        $datalist = $datalistFactory->createBuilder(DatalistType::class, $options)
+        $datalist = $this->datalistFactory->createBuilder(DatalistType::class, $options)
             ->addField('title', TextFieldType::class)
             ->addAction('update', SimpleActionType::class, ['route' => 'test'])
             ->getDatalist();
