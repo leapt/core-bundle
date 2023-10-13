@@ -56,10 +56,13 @@ If you don't know how to apply a form theme to your forms, [please check Symfony
     | download_label | Text to display in the download link. | Download |
     | allow_delete | Display a checkbox that allows to remove the current file. | true |
     | allow_download | Display a link to download the file. | true |
+    | file_type_class | The underlying type that will be used to upload the file. | `Symfony\Component\Form\Extension\Core\Type\FileType` |
+    | file_attr | Attributes to pass to the FileType. | `[]` |
 
 !!! info
 
-    Added in v4.5.0: a FileField is available to use with EasyAdmin bundle. Requires EasyAdmin bundle v4.3.3+.
+    * Added in v4.5.0: a FileField is available to use with EasyAdmin bundle. Requires EasyAdmin bundle v4.3.3+.
+    * Added in v4.11.0: `file_type_class` and `file_attr` options.
 
 See also [File uploads](file_uploads.md).
 
