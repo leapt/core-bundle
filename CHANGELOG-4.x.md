@@ -1,3 +1,8 @@
+4.11.0
+------
+
+* FileType: allow setting `file_type_class` and `file_attr`
+
 4.10.0
 ------
 

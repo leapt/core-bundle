@@ -42,6 +42,8 @@ class FileType extends AbstractType
                 'file_label'      => null,
                 'file_label_attr' => [],
                 'allow_download'  => true,
+                'file_type_class' => BaseFileType::class,
+                'file_attr'       => [],
             ])
             ->setAllowedTypes('allow_delete', ['bool'])
             ->setAllowedTypes('allow_download', ['bool'])
@@ -54,10 +56,11 @@ class FileType extends AbstractType
         $uploadDir = $this->uploadDir;
 
         $builder
-            ->add('file', BaseFileType::class, [
+            ->add('file', $options['file_type_class'], [
                 'label'          => $options['file_label'],
                 'error_bubbling' => true,
                 'label_attr'     => $options['file_label_attr'],
+                'attr'           => $options['file_attr'],
             ])
             ->add('delete', CheckboxType::class, ['error_bubbling' => true])
             ->addViewTransformer(new FileDataTransformer())
