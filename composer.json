@@ -23,6 +23,7 @@
             "homepage": "https://www.snowcap.be"
         }
     ],
+    "minimum-stability": "beta",
     "require": {
         "php": "^8.0",
         "doctrine/orm": "^2.10",
