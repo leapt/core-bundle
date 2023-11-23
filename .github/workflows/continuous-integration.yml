@@ -2,9 +2,9 @@ name: Continuous Integration
 
 on:
   pull_request:
-    branches: ['4.x', '3.x']
+    branches: ['5.x', '4.x', '3.x']
   push:
-    branches: ['4.x', '3.x']
+    branches: ['5.x', '4.x', '3.x']
 
 jobs:
   phpunit:
