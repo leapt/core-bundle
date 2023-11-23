@@ -7,7 +7,7 @@ namespace Leapt\CoreBundle\Tests\Paginator;
 use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-abstract class AbstractPaginatorTest extends WebTestCase
+abstract class AbstractPaginatorTestCase extends WebTestCase
 {
     /**
      * Test the default value of the paginator class.
