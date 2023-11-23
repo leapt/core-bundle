@@ -18,7 +18,7 @@ use Leapt\CoreBundle\Paginator\PaginatorInterface;
 use Leapt\CoreBundle\Tests\Paginator\Entity\Player;
 use Leapt\CoreBundle\Tests\Paginator\Fixtures\LoadPlayerData;
 
-class DoctrineORMPaginatorTest extends AbstractPaginatorTest
+class DoctrineORMPaginatorTest extends AbstractPaginatorTestCase
 {
     protected static EntityManagerInterface $em;
 
@@ -55,12 +55,19 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTest
         $paginator->setLimitPerPage(10);
         $paginator->setPage(2);
 
+        $expectedItem = static::$em->getRepository(Player::class)
+            ->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->setFirstResult(10)
+            ->setMaxResults(1)
+            ->getQuery()->getSingleResult();
+
         foreach ($paginator as $item) {
             break;
         }
 
         \assert(isset($item));
-        $this->assertSame(11, $item->getId());
+        $this->assertSame($expectedItem, $item);
     }
 
     protected function buildPaginator(int $limit): PaginatorInterface

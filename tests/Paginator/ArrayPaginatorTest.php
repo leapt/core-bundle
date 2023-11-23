@@ -8,7 +8,7 @@ use Faker\Factory as FakerFactory;
 use Leapt\CoreBundle\Paginator\ArrayPaginator;
 use Leapt\CoreBundle\Paginator\PaginatorInterface;
 
-class ArrayPaginatorTest extends AbstractPaginatorTest
+class ArrayPaginatorTest extends AbstractPaginatorTestCase
 {
     public function testIteration(): void
     {
