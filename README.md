@@ -48,17 +48,18 @@ You can check docs there: https://core-bundle.leapt.dev/
 Versions & dependencies
 -----------------------
 
-The current version (4.x) of the bundle works with Symfony 5.4 & Symfony 6.0+.
+The current version (5.x) of the bundle works with Symfony 6.4 & Symfony 7.0+.
 The project follows SemVer.
 
-You can check the [changelog](CHANGELOG-4.x.md) for version 4 and the [upgrade document](UPGRADE-4.x.md) when upgrading
-from 3.x bundle version.
+You can check the [changelog](CHANGELOG-5.x.md) for version 4 and the [upgrade document](UPGRADE-5.x.md) when upgrading
+from 4.x bundle version.
 
-| CoreBundle version | Symfony version           | PHP version
-| ------------------ | ------------------------- | -----------
-| 4.x                | ^5.4 \|\| ^6.0            | ^8.0
-| 3.1+               | ^4.4 \|\| ^5.0            | ^7.4 \|\| ^8.0
-| 3.0                | ^4.4 \|\| ^5.0            | ^7.2
+| CoreBundle version | Symfony version | PHP version    |
+|--------------------|-----------------|----------------|
+| 5.x                | ^6.4 \|\| ^7.0  | ^8.2           |
+| 4.x                | ^5.4 \|\| ^6.0  | ^8.0           |
+| 3.1+               | ^4.4 \|\| ^5.0  | ^7.4 \|\| ^8.0 |
+| 3.0                | ^4.4 \|\| ^5.0  | ^7.2           |
 
 Contributing
 ------------
