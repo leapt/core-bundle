@@ -42,7 +42,7 @@
         "doctrine/data-fixtures": "^1.6",
         "doctrine/persistence": "^3.2",
         "easycorp/easyadmin-bundle": "^4.8.5",
-        "endroid/qr-code": "^4.8",
+        "endroid/qr-code": "^4.8 || ^5.0",
         "friendsofphp/php-cs-fixer": "^3.39",
         "fakerphp/faker": "^1.23",
         "google/recaptcha": "^1.3",
