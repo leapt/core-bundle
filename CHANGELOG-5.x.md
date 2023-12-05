@@ -6,3 +6,4 @@
 * Drop support for Symfony 5.4 & Symfony < 6.4
 * Upgrade dev dependencies
 * Add support for endroid/qr-code v5
+* Removed YAML routing files, import PHP routing files instead
