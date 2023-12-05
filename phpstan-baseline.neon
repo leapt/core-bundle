@@ -21,16 +21,6 @@ parameters:
 			path: src/Datalist/Filter/DatalistFilter.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:end\\(\\)\\.$#"
-			count: 3
-			path: src/DependencyInjection/Configuration.php
-
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\:\\:scalarNode\\(\\)\\.$#"
-			count: 3
-			path: src/DependencyInjection/Configuration.php
-
-		-
 			message: "#^Method Leapt\\\\CoreBundle\\\\Paginator\\\\DoctrineORMPaginator\\:\\:getIterator\\(\\) should return ArrayIterator but returns Traversable\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Paginator/DoctrineORMPaginator.php

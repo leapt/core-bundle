@@ -36,7 +36,7 @@ final class DatalistExtensionTest extends TestCase
     protected function setUp(): void
     {
         $loader = new FilesystemLoader();
-        $loader->addPath(__DIR__ . '/../../../src/Resources/views', 'LeaptCore');
+        $loader->addPath(__DIR__ . '/../../../templates', 'LeaptCore');
         $this->env = new Environment($loader);
 
         $router = $this->createMock(RouterInterface::class);
