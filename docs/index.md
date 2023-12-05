@@ -29,9 +29,9 @@ If you find a bug or want to add a functionality,
 
 ## Installation
 
-This bundle requires PHP 8.0+.
+This bundle requires PHP 8.2+.
 
-As the bundle is compatible with Symfony 5 and Symfony Flex, the only thing you have to do
+As the bundle is compatible with Symfony 6.4/7.0+ and Symfony Flex, the only thing you have to do
 is requiring the package with composer:
 
 ```bash
