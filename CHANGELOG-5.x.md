@@ -7,3 +7,4 @@
 * Upgrade dev dependencies
 * Add support for endroid/qr-code v5
 * Removed YAML routing files, import PHP routing files instead
+* Following the services rewritten to PHP, all services are now defined using class FQCN instead of named services
