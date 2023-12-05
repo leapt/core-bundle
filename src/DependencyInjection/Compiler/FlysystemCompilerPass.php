@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\DependencyInjection\Compiler;
 
 use League\FlysystemBundle\FlysystemBundle;
+use Leapt\CoreBundle\FileStorage\FlysystemStorage;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -13,12 +14,12 @@ final class FlysystemCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (false === $container->hasDefinition('leapt_core.file_storage.flysystem')) {
+        if (false === $container->hasDefinition(FlysystemStorage::class)) {
             return;
         }
 
         if (class_exists(FlysystemBundle::class)) {
-            $definition = $container->getDefinition('leapt_core.file_storage.flysystem');
+            $definition = $container->getDefinition(FlysystemStorage::class);
             $storages = [];
 
             foreach ($container->findTaggedServiceIds('flysystem.storage') as $serviceId => $tags) {

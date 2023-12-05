@@ -41,13 +41,13 @@ return static function (ContainerConfigurator $container): void {
     $container->services()
         // Controllers
         ->set(FeedController::class)
-            ->arg('$feedManager', service('leapt_core.feed_manager'))
+            ->arg('$feedManager', service(FeedManager::class))
             ->arg('$validator', service('validator'))
             ->arg('$twig', service('twig'))
             ->public()
 
         ->set(SitemapController::class)
-            ->arg('$sitemapManager', service('leapt_core.sitemap_manager'))
+            ->arg('$sitemapManager', service(SitemapManager::class))
             ->arg('$router', service('router'))
             ->arg('$twig', service('twig'))
             ->arg('$httpKernel', service('http_kernel'))
@@ -59,9 +59,8 @@ return static function (ContainerConfigurator $container): void {
             ->arg('$router', service('router'))
 
         // File entity event subscriber
-        ->set('leapt_core.file_subscriber')
-            ->class(FileSubscriber::class)
-            ->arg('$fileStorageManager', service('leapt_core.file_storage.manager'))
+        ->set(FileSubscriber::class)
+            ->arg('$fileStorageManager', service(FileStorageManager::class))
             ->tag('doctrine.event_listener', ['event' => Events::preFlush])
             ->tag('doctrine.event_listener', ['event' => Events::onFlush])
             ->tag('doctrine.event_listener', ['event' => Events::postPersist])
@@ -70,22 +69,18 @@ return static function (ContainerConfigurator $container): void {
             ->tag('doctrine.event_listener', ['event' => Events::postRemove])
 
         // File storages
-        ->set('leapt_core.file_storage.filesystem')
-            ->class(FilesystemStorage::class)
+        ->set(FilesystemStorage::class)
             ->arg('$uploadDir', param('leapt_core.upload_dir'))
 
-        ->set('leapt_core.file_storage.flysystem')
-            ->class(FlysystemStorage::class)
+        ->set(FlysystemStorage::class)
             ->arg('$storages', [])
 
-        ->set('leapt_core.file_storage.manager')
-            ->class(FileStorageManager::class)
-            ->arg('$filesystemStorage', service('leapt_core.file_storage.filesystem'))
-            ->arg('$flysystemStorage', service('leapt_core.file_storage.flysystem'))
+        ->set(FileStorageManager::class)
+            ->arg('$filesystemStorage', service(FilesystemStorage::class))
+            ->arg('$flysystemStorage', service(FlysystemStorage::class))
 
         // Form types
-        ->set('leapt_core.file_type')
-            ->class(FileType::class)
+        ->set(FileType::class)
             ->tag('form.type')
             ->call('setUploadDir', [param('leapt_core.upload_dir')])
 
@@ -105,8 +100,7 @@ return static function (ContainerConfigurator $container): void {
             ->tag('form.type')
 
         // Form type extensions
-        ->set('leapt_core.collection_type_extension')
-            ->class(CollectionTypeExtension::class)
+        ->set(CollectionTypeExtension::class)
             ->tag('form.type_extension')
 
         ->set(HoneypotExtension::class)
@@ -117,8 +111,7 @@ return static function (ContainerConfigurator $container): void {
             ->tag('form.type_extension')
 
         // Navigation
-        ->set('leapt_core.navigation')
-            ->class(NavigationRegistry::class)
+        ->set(NavigationRegistry::class)
             ->arg('$requestStack', service('request_stack'))
 
         // Recaptcha
@@ -128,17 +121,14 @@ return static function (ContainerConfigurator $container): void {
             ->arg('$requestStack', service('request_stack'))
 
         // RSS feeds
-        ->set('leapt_core.feed_manager')
-            ->class(FeedManager::class)
+        ->set(FeedManager::class)
             ->public()
 
-        ->set('leapt_core.request_listener')
-            ->class(RequestListener::class)
+        ->set(RequestListener::class)
             ->tag('kernel.event_listener', ['event' => 'kernel.request', 'method' => 'onKernelRequest'])
 
         // Sitemap
-        ->set('leapt_core.sitemap_manager')
-            ->class(SitemapManager::class)
+        ->set(SitemapManager::class)
             ->public()
 
         // Twig extensions
@@ -146,18 +136,15 @@ return static function (ContainerConfigurator $container): void {
             ->arg('$requestStack', service('request_stack'))
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_date')
-            ->class(DateExtension::class)
+        ->set(DateExtension::class)
             ->arg('$translator', service('translator'))
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_facebook')
-            ->class(FacebookExtension::class)
+        ->set(FacebookExtension::class)
             ->arg('$appId', param('leapt_core.facebook.app_id'))
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_google')
-            ->class(GoogleExtension::class)
+        ->set(GoogleExtension::class)
             ->arg('$accountId', param('leapt_core.google_analytics.tracking_id'))
             ->arg('$debug', param('leapt_core.google_analytics.debug'))
             ->call('setDomainName', [param('leapt_core.google_analytics.domain_name')])
@@ -165,17 +152,14 @@ return static function (ContainerConfigurator $container): void {
             ->call('setTagsManagerId', [param('leapt_core.google_tags_manager.id')])
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_gravatar')
-            ->class(GravatarExtension::class)
+        ->set(GravatarExtension::class)
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_navigation')
-            ->class(NavigationExtension::class)
-            ->arg('$registry', service('leapt_core.navigation'))
+        ->set(NavigationExtension::class)
+            ->arg('$registry', service(NavigationRegistry::class))
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_paginator')
-            ->class(PaginatorExtension::class)
+        ->set(PaginatorExtension::class)
             ->arg('$template', param('leapt_core.paginator.template'))
             ->arg('$requestStack', service('request_stack'))
             ->tag('twig.extension')
@@ -183,12 +167,10 @@ return static function (ContainerConfigurator $container): void {
         ->set(QrCodeExtension::class)
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_site')
-            ->class(SiteExtension::class)
+        ->set(SiteExtension::class)
             ->tag('twig.extension')
 
-        ->set('leapt_core.twig_text')
-            ->class(TextExtension::class)
+        ->set(TextExtension::class)
             ->tag('twig.extension')
 
         // Validators
