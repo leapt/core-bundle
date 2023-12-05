@@ -2,10 +2,10 @@ Leapt Core Bundle
 =================
 
 [![Package version](https://img.shields.io/packagist/v/leapt/core-bundle.svg?style=flat-square)](https://packagist.org/packages/leapt/core-bundle)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/leapt/core-bundle/continuous-integration.yml?branch=4.x&style=flat-square)](https://github.com/leapt/core-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
-[![PHP Version](https://img.shields.io/packagist/php-v/leapt/core-bundle.svg?branch=4.x&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=4.x)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/leapt/core-bundle/continuous-integration.yml?branch=5.x&style=flat-square)](https://github.com/leapt/core-bundle/actions?query=workflow%3A%22Continuous+Integration%22)
+[![PHP Version](https://img.shields.io/packagist/php-v/leapt/core-bundle.svg?branch=5.x&style=flat-square)](https://travis-ci.org/leapt/core-bundle?branch=5.x)
 [![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
-[![Code coverage](https://img.shields.io/codecov/c/github/leapt/core-bundle?style=flat-square)](https://codecov.io/gh/leapt/core-bundle/branch/4.x)
+[![Code coverage](https://img.shields.io/codecov/c/github/leapt/core-bundle?style=flat-square)](https://codecov.io/gh/leapt/core-bundle/branch/5.x)
 
 Introduction
 ------------
@@ -51,7 +51,7 @@ Versions & dependencies
 The current version (5.x) of the bundle works with Symfony 6.4 & Symfony 7.0+.
 The project follows SemVer.
 
-You can check the [changelog](CHANGELOG-5.x.md) for version 4 and the [upgrade document](UPGRADE-5.x.md) when upgrading
+You can check the [changelog](CHANGELOG-5.x.md) for version 5 and the [upgrade document](UPGRADE-5.x.md) when upgrading
 from 4.x bundle version.
 
 | CoreBundle version | Symfony version | PHP version    |
