@@ -46,8 +46,8 @@ final class LeaptCoreTestingKernel extends Kernel
 
     private function configureRoutes(RoutingConfigurator $routes): void
     {
-        $routes->import(__DIR__ . '/../src/Resources/config/routing_feed.php')
+        $routes->import(__DIR__ . '/../config/routing_feed.php')
             ->prefix('/feed');
-        $routes->import(__DIR__ . '/../src/Resources/config/routing_sitemap.php');
+        $routes->import(__DIR__ . '/../config/routing_sitemap.php');
     }
 }
