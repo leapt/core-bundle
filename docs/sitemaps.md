@@ -6,7 +6,7 @@ Create/update the `config/routes/leapt_core.yaml` file, add the following:
 
 ```yaml
 leapt_core_sitemap:
-    resource: '@LeaptCoreBundle/Resources/config/routing_sitemap.php'
+    resource: '@LeaptCoreBundle/config/routing_sitemap.php'
 ```
 
 ## Create the service

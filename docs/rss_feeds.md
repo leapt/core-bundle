@@ -8,7 +8,7 @@ Create/update the `config/routes/leapt_core.yaml` file, add the following:
 
 ```yaml
 leapt_core_feed:
-    resource: '@LeaptCoreBundle/Resources/config/routing_feed.php'
+    resource: '@LeaptCoreBundle/config/routing_feed.php'
     prefix: /feed
 ```
 
