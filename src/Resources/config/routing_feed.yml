@@ -1,5 +1,0 @@
-leapt_core_feed:
-    path: /{feedName}.{_format}
-    defaults: { _controller: Leapt\CoreBundle\Controller\FeedController::indexAction, _format: rss }
-    requirements:
-        _format: rss|atom
