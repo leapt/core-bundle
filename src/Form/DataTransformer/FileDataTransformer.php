@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class FileDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $value
+     * @param UploadedFile $value
      */
     public function transform(mixed $value): array
     {

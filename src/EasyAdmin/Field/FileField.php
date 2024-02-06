@@ -16,7 +16,7 @@ final class FileField implements FieldInterface
     public const OPTION_ALLOW_DOWNLOAD = 'allowDownload';
     public const OPTION_FILE_PATH = 'filePath';
 
-    public static function new(string $propertyName, string $label = null): self
+    public static function new(string $propertyName, ?string $label = null): self
     {
         return (new self())
             ->setProperty($propertyName)

@@ -79,7 +79,7 @@ class DatalistFactory
         return $builder;
     }
 
-    public function getType(string $alias): Type\DatalistTypeInterface
+    public function getType(string $alias): DatalistType\DatalistTypeInterface
     {
         if (!\array_key_exists($alias, $this->types)) {
             throw new \InvalidArgumentException(sprintf('Unknown type "%s"', $alias));
