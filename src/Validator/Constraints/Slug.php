@@ -13,10 +13,10 @@ class Slug extends Regex
     public function __construct(
         string|array|null $pattern = '/^([a-z0-9-]+)$/',
         string $message = 'A slug can only contain lowercase letters, numbers and hyphens.',
-        string $htmlPattern = null,
-        bool $match = null,
-        callable $normalizer = null,
-        array $groups = null,
+        ?string $htmlPattern = null,
+        ?bool $match = null,
+        ?callable $normalizer = null,
+        ?array $groups = null,
         mixed $payload = null,
         array $options = [],
     ) {

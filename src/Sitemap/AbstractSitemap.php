@@ -42,7 +42,7 @@ abstract class AbstractSitemap
      */
     abstract public function build(RouterInterface $router): void;
 
-    protected function addUrl(string $loc, \DateTime $lastMod = null, string $changeFreq = null, mixed $priority = null, array $images = []): self
+    protected function addUrl(string $loc, ?\DateTime $lastMod = null, ?string $changeFreq = null, mixed $priority = null, array $images = []): self
     {
         $url = [
             'loc' => $loc,

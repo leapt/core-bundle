@@ -13,7 +13,7 @@ class Recaptcha extends Constraint
 
     public string $invalidHostMessage = 'The captcha was not resolved on the right domain.';
 
-    public function __construct(array $options = null, string $message = null, string $invalidHostMessage = null, array $groups = null, $payload = null)
+    public function __construct(?array $options = null, ?string $message = null, ?string $invalidHostMessage = null, ?array $groups = null, $payload = null)
     {
         parent::__construct($options ?? [], $groups, $payload);
 

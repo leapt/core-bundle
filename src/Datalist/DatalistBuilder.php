@@ -35,7 +35,7 @@ class DatalistBuilder extends DatalistConfig
         parent::__construct($name, $type, $options);
     }
 
-    public function addField(string $field, string $type = null, array $options = []): self
+    public function addField(string $field, ?string $type = null, array $options = []): self
     {
         $this->fields[$field] = [
             'type'    => $type,
@@ -59,7 +59,7 @@ class DatalistBuilder extends DatalistConfig
         return $this->fields;
     }
 
-    public function addFilter(string $filter, string $type = null, array $options = []): self
+    public function addFilter(string $filter, ?string $type = null, array $options = []): self
     {
         $this->filters[$filter] = [
             'type'    => $type,
@@ -78,7 +78,7 @@ class DatalistBuilder extends DatalistConfig
         return $this;
     }
 
-    public function addAction(string $action, string $type = null, array $options = []): self
+    public function addAction(string $action, ?string $type = null, array $options = []): self
     {
         $this->actions[$action] = [
             'type'    => $type,
