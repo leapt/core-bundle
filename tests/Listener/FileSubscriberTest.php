@@ -187,7 +187,7 @@ class FileSubscriberTest extends TestCase
 
     private function buildEntityManager(): EntityManagerInterface
     {
-        $config = ORMSetup::createConfiguration(false, sys_get_temp_dir());
+        $config = ORMSetup::createConfiguration(true, sys_get_temp_dir());
         $config->setMetadataDriverImpl(new AttributeDriver([__DIR__ . '/Fixtures']));
         $config->setAutoGenerateProxyClasses(true);
 
