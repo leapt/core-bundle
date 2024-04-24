@@ -41,11 +41,11 @@ jobs:
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: matrix.php-version == '8.2' && matrix.symfony-version == '6.4.*'

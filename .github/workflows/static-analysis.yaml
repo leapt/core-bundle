@@ -1,4 +1,4 @@
-name: Coding Standards
+name: Static Analysis
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ on:
     branches: ['5.x', '4.x', '3.x']
 
 jobs:
-  php-cs-fixer:
-    name: PHP CS Fixer (PHP ${{ matrix.php-version }})
+  phpstan:
+    name: PHPStan (PHP ${{ matrix.php-version }})
     runs-on: ubuntu-22.04
 
     strategy:
@@ -28,9 +28,7 @@ jobs:
           tools: cs2pr
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
 
-      - name: Run PHP CS Fixer
-        run: 'vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr'
-        env:
-          PHP_CS_FIXER_IGNORE_ENV: 1
+      - name: Run PHPStan
+        run: 'vendor/bin/phpstan analyse --error-format=checkstyle | cs2pr'
