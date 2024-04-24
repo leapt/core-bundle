@@ -1,3 +1,8 @@
+5.1.1
+-----
+
+* Mark paginator_theme & datalist_theme nodes as `#[YieldReady]`
+
 5.1.0
 -----
 

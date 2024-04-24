@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Twig\Node;
 
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Node;
 
+#[YieldReady]
 class PaginatorThemeNode extends Node
 {
     public function __construct(Node $paginator, Node $resources, $lineno, $tag = null)
