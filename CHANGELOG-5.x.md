@@ -1,3 +1,8 @@
+5.1.2
+-----
+
+* Fix Slug constraint by not allowing dashes everywhere
+
 5.1.1
 -----
 

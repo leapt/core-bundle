@@ -38,6 +38,8 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
     {
         yield ['dora1'];
         yield ['ca-fait-le-cafe'];
+        yield ['123'];
+        yield ['valid-123-slug'];
     }
 
     /**
@@ -64,9 +66,14 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
 
     public static function getInvalidSlugs(): iterable
     {
-        yield ['accent-in-café'];
-        yield ['some space'];
-        yield ['Test-with-uppercase'];
+        yield 'accents' => ['accent-in-café'];
+        yield 'spaces' => ['some space'];
+        yield 'uppercase' => ['Test-with-uppercase'];
+        yield 'leading dash' => ['-hey'];
+        yield 'ending dash' => ['hey-'];
+        yield 'underscore' => ['invalid_slug'];
+        yield 'multiple hyphens' => ['invalid--slug'];
+        yield 'dot' => ['invalid.slug'];
     }
 
     protected function createValidator(): RegexValidator
