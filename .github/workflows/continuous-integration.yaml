@@ -18,9 +18,11 @@ jobs:
         php-version:
           - '8.2'
           - '8.3'
+          - '8.4'
         symfony-version:
           - '6.4.*'
           - '7.0.*'
+          - '7.1.*'
 
     steps:
       - name: Checkout code

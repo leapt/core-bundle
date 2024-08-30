@@ -2,6 +2,7 @@
 -----
 
 * RecaptchaV3 - Don't catch exception
+* Test against PHP 8.4 & Symfony 7.1
 
 5.2.0
 -----
