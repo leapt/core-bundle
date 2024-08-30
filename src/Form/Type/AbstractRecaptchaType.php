@@ -17,7 +17,7 @@ abstract class AbstractRecaptchaType extends AbstractType
 
     public function __construct(protected ?string $publicKey, protected bool $enabled, protected string $apiHost = 'www.google.com')
     {
-        $this->recaptchaApiServer = sprintf('https://%s/recaptcha/api.js', $apiHost);
+        $this->recaptchaApiServer = \sprintf('https://%s/recaptcha/api.js', $apiHost);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

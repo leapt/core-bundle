@@ -161,7 +161,7 @@ final class DatalistExtension extends AbstractExtension
             } while (false !== ($template = $template->getParent($context)));
         }
 
-        throw new \Exception(sprintf('No block found (tried to find %s)', implode(',', $blockNames)));
+        throw new \Exception(\sprintf('No block found (tried to find %s)', implode(',', $blockNames)));
     }
 
     private function getTemplatesForDatalist(DatalistInterface $datalist): array

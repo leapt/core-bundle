@@ -32,7 +32,7 @@ final class GravatarExtension extends AbstractExtension
      */
     public function gravatar(string $email, int $size = 35, array $attributes = ['class' => 'gravatar'], string $imageSet = 'mm', string $rating = 'g', bool $img = true): string
     {
-        $url = sprintf(
+        $url = \sprintf(
             'https://www.gravatar.com/avatar/%s?s=%d&d=%s&r=%s',
             md5(strtolower(trim($email))),
             $size,

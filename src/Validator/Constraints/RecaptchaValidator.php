@@ -81,7 +81,7 @@ class RecaptchaValidator extends ConstraintValidator
      */
     private function httpGet(string $host, string $path, array $data): false|string
     {
-        $host = sprintf('%s%s?%s', $host, $path, http_build_query($data));
+        $host = \sprintf('%s%s?%s', $host, $path, http_build_query($data));
 
         $context = $this->getResourceContext();
 
@@ -98,12 +98,12 @@ class RecaptchaValidator extends ConstraintValidator
         foreach (['http', 'https'] as $protocol) {
             $options[$protocol] = [
                 'method'          => 'GET',
-                'proxy'           => sprintf('tcp://%s:%s', $this->httpProxy['host'], $this->httpProxy['port']),
+                'proxy'           => \sprintf('tcp://%s:%s', $this->httpProxy['host'], $this->httpProxy['port']),
                 'request_fulluri' => true,
             ];
 
             if (null !== $this->httpProxy['auth']) {
-                $options[$protocol]['header'] = sprintf('Proxy-Authorization: Basic %s', base64_encode($this->httpProxy['auth']));
+                $options[$protocol]['header'] = \sprintf('Proxy-Authorization: Basic %s', base64_encode($this->httpProxy['auth']));
             }
         }
 

@@ -40,7 +40,7 @@ final class HoneypotExtension extends AbstractTypeExtension
         }
 
         if ($form->has($options['honeypot_input_name'])) {
-            throw new \RuntimeException(sprintf('Honeypot field "%s" is already used.', $options['honeypot_input_name']));
+            throw new \RuntimeException(\sprintf('Honeypot field "%s" is already used.', $options['honeypot_input_name']));
         }
 
         $formOptions = $this->createViewOptions($options);

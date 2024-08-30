@@ -232,13 +232,13 @@ class FileSubscriber
                     $field = $property->getName();
 
                     if (null === $attribute->mappedBy) {
-                        throw new \InvalidArgumentException(sprintf('Parameter "mappedBy" of LeaptCore\File declared on %s expects another class property to map onto. This value should not be null.', $meta->getReflectionClass()->getName()));
+                        throw new \InvalidArgumentException(\sprintf('Parameter "mappedBy" of LeaptCore\File declared on %s expects another class property to map onto. This value should not be null.', $meta->getReflectionClass()->getName()));
                     }
                     if (null === $attribute->path && null === $attribute->pathCallback && null === $attribute->flysystemConfig) {
-                        throw new \InvalidArgumentException(sprintf('Attribute #%s declared on %s expects "path", "pathCallback" or "flysystemConfig". One of them should not be null.', 'LeaptCore\File', $meta->getReflectionClass()->getName()));
+                        throw new \InvalidArgumentException(\sprintf('Attribute #%s declared on %s expects "path", "pathCallback" or "flysystemConfig". One of them should not be null.', 'LeaptCore\File', $meta->getReflectionClass()->getName()));
                     }
                     if (!$meta->hasField($attribute->mappedBy)) {
-                        throw new \InvalidArgumentException(sprintf('The entity "%s" has no field named "%s", but it is documented in the attribute @%s', $meta->getReflectionClass()->getName(), $attribute->mappedBy, 'LeaptCore\File'));
+                        throw new \InvalidArgumentException(\sprintf('The entity "%s" has no field named "%s", but it is documented in the attribute @%s', $meta->getReflectionClass()->getName(), $attribute->mappedBy, 'LeaptCore\File'));
                     }
 
                     $this->config[$class]['fields'][$field] = new FileUploadConfig($property, $attribute, $meta);

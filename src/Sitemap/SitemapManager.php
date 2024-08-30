@@ -30,7 +30,7 @@ class SitemapManager
     public function getSitemap(string $alias): AbstractSitemap
     {
         if (!isset($this->sitemaps[$alias])) {
-            throw new NotFoundHttpException(sprintf('There is no sitemap with alias "%s"', $alias));
+            throw new NotFoundHttpException(\sprintf('There is no sitemap with alias "%s"', $alias));
         }
 
         return $this->sitemaps[$alias];

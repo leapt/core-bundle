@@ -82,7 +82,7 @@ class DatalistFactory
     public function getType(string $alias): DatalistType\DatalistTypeInterface
     {
         if (!\array_key_exists($alias, $this->types)) {
-            throw new \InvalidArgumentException(sprintf('Unknown type "%s"', $alias));
+            throw new \InvalidArgumentException(\sprintf('Unknown type "%s"', $alias));
         }
 
         return $this->types[$alias];
@@ -98,7 +98,7 @@ class DatalistFactory
     public function getFieldType(string $alias): FieldType\FieldTypeInterface
     {
         if (!\array_key_exists($alias, $this->fieldTypes)) {
-            throw new \InvalidArgumentException(sprintf('Unknown field type "%s"', $alias));
+            throw new \InvalidArgumentException(\sprintf('Unknown field type "%s"', $alias));
         }
 
         return $this->fieldTypes[$alias];
@@ -112,7 +112,7 @@ class DatalistFactory
     public function getFilterType(string $alias): FilterType\FilterTypeInterface
     {
         if (!\array_key_exists($alias, $this->filterTypes)) {
-            throw new \InvalidArgumentException(sprintf('Unknown filter type "%s"', $alias));
+            throw new \InvalidArgumentException(\sprintf('Unknown filter type "%s"', $alias));
         }
 
         return $this->filterTypes[$alias];
@@ -126,7 +126,7 @@ class DatalistFactory
     public function getActionType(string $alias): ActionType\ActionTypeInterface
     {
         if (!\array_key_exists($alias, $this->actionTypes)) {
-            throw new \InvalidArgumentException(sprintf('Unknown action type "%s"', $alias));
+            throw new \InvalidArgumentException(\sprintf('Unknown action type "%s"', $alias));
         }
 
         return $this->actionTypes[$alias];

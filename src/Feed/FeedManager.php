@@ -16,7 +16,7 @@ class FeedManager
     public function getFeed(string $feedName): FeedInterface
     {
         if (!isset($this->feeds[$feedName])) {
-            throw new \InvalidArgumentException(sprintf('Unknown feed "%s"', $feedName));
+            throw new \InvalidArgumentException(\sprintf('Unknown feed "%s"', $feedName));
         }
 
         return $this->feeds[$feedName];

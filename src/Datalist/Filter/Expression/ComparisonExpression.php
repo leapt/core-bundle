@@ -24,7 +24,7 @@ class ComparisonExpression implements ExpressionInterface
         private mixed $value,
     ) {
         if (!\in_array($operator, self::getValidOperators(), true)) {
-            throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));
+            throw new \InvalidArgumentException(\sprintf('Unknown operator "%s"', $operator));
         }
     }
 

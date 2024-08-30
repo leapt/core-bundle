@@ -34,7 +34,7 @@ class RecaptchaV3Validator extends ConstraintValidator
         }
 
         if (!class_exists(ReCaptcha::class)) {
-            throw new \Exception(sprintf('The "google/recaptcha" package is required to use "%s". Try running "composer require google/recaptcha".', static::class));
+            throw new \Exception(\sprintf('The "google/recaptcha" package is required to use "%s". Try running "composer require google/recaptcha".', static::class));
         }
 
         if (!$constraint instanceof RecaptchaV3) {

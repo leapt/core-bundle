@@ -33,13 +33,13 @@ class GoogleExtensionTest extends TestCase
 
         // Testing if all parameters are available in the template with domain name set to "none"
         $code = $extension->getAnalyticsTrackingCode($this->env);
-        $this->assertStringContainsString($extension->getAccountId(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAccountId()));
-        $this->assertStringContainsString($extension->getDomainName(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getDomainName()));
-        $this->assertStringContainsString($extension->getAllowLinker(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAllowLinker()));
+        $this->assertStringContainsString($extension->getAccountId(), $code, \sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAccountId()));
+        $this->assertStringContainsString($extension->getDomainName(), $code, \sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getDomainName()));
+        $this->assertStringContainsString($extension->getAllowLinker(), $code, \sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAllowLinker()));
 
         // Testing if domain name parameter is not available in the template with domain name set to "auto"
         $extension->setDomainName('auto');
-        $this->assertStringNotContainsString(sprintf("_gaq.push(['_setDomainName', '{{ %s }}']);", 'auto'), $extension->getAnalyticsTrackingCode($this->env), 'getAnalyticsTrackingCode: Should not contain auto argument');
+        $this->assertStringNotContainsString(\sprintf("_gaq.push(['_setDomainName', '{{ %s }}']);", 'auto'), $extension->getAnalyticsTrackingCode($this->env), 'getAnalyticsTrackingCode: Should not contain auto argument');
 
         // Testing without account id
         $extension = new GoogleExtension(null);
@@ -48,8 +48,8 @@ class GoogleExtensionTest extends TestCase
 
         // Testing if all parameters except account id are available in the template when no account id is set
         $code = $extension->getAnalyticsTrackingCode($this->env);
-        $this->assertStringContainsString($extension->getDomainName(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getDomainName()));
-        $this->assertStringContainsString($extension->getAllowLinker(), $code, sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAllowLinker()));
+        $this->assertStringContainsString($extension->getDomainName(), $code, \sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getDomainName()));
+        $this->assertStringContainsString($extension->getAllowLinker(), $code, \sprintf('getAnalyticsTrackingCode: Should contain "%s"', $extension->getAllowLinker()));
 
         // Testing that a comment is set instead of tracking code when no account id is set and the domain name is set to "auto"
         $extension->setDomainName('auto');

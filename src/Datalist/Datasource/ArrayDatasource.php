@@ -81,7 +81,7 @@ class ArrayDatasource extends AbstractDatasource
         } elseif ($expression instanceof ComparisonExpression) {
             $function = $this->buildComparisonExpressionCallback($expression);
         } else {
-            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', $expression::class));
+            throw new \InvalidArgumentException(\sprintf('Cannot handle expression of class "%s"', $expression::class));
         }
 
         return $function;
@@ -118,7 +118,7 @@ class ArrayDatasource extends AbstractDatasource
                 return false;
             };
         } else {
-            throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
+            throw new \UnexpectedValueException(\sprintf('Unknown operator "%s"', $operator));
         }
 
         return $function;
@@ -144,7 +144,7 @@ class ArrayDatasource extends AbstractDatasource
                 ComparisonExpression::OPERATOR_NIN         => !\in_array($value, $comparisonValue, true),
                 ComparisonExpression::OPERATOR_IS_NULL     => null === $value,
                 ComparisonExpression::OPERATOR_IS_NOT_NULL => null !== $value,
-                default                                    => throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator)),
+                default                                    => throw new \UnexpectedValueException(\sprintf('Unknown operator "%s"', $operator)),
             };
         };
     }

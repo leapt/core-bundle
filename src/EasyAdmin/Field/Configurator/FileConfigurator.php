@@ -27,7 +27,7 @@ final class FileConfigurator implements FieldConfiguratorInterface
     public function configure(FieldDto $field, EntityDto $entityDto, AdminContext $context): void
     {
         if (null === $filePath = $field->getCustomOption(ImageField::OPTION_FILE_PATH)) {
-            throw new \RuntimeException(sprintf('The "%s" field must define the filePath using the "setFilePath()" method.', $field->getProperty()));
+            throw new \RuntimeException(\sprintf('The "%s" field must define the filePath using the "setFilePath()" method.', $field->getProperty()));
         }
 
         $field->setFormTypeOption('file_path', $filePath);

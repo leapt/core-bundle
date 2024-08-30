@@ -91,7 +91,7 @@ class DoctrineORMDatasource extends AbstractDatasource
         } elseif ($expression instanceof ComparisonExpression) {
             $queryBuilderExpression = $this->buildQueryBuilderComparisonExpression($expression);
         } else {
-            throw new \InvalidArgumentException(sprintf('Cannot handle expression of class "%s"', $expression::class));
+            throw new \InvalidArgumentException(\sprintf('Cannot handle expression of class "%s"', $expression::class));
         }
 
         return $queryBuilderExpression;
@@ -109,7 +109,7 @@ class DoctrineORMDatasource extends AbstractDatasource
         } elseif (CombinedExpression::OPERATOR_OR === $operator) {
             $expr = $this->queryBuilder->expr()->orX();
         } else {
-            throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
+            throw new \UnexpectedValueException(\sprintf('Unknown operator "%s"', $operator));
         }
         $expr->addMultiple($queryBuilderSubExpressions);
 
@@ -159,7 +159,7 @@ class DoctrineORMDatasource extends AbstractDatasource
                 $expr = $this->queryBuilder->expr()->isNotNull($propertyPath);
                 break;
             default:
-                throw new \UnexpectedValueException(sprintf('Unknown operator "%s"', $operator));
+                throw new \UnexpectedValueException(\sprintf('Unknown operator "%s"', $operator));
         }
 
         if (!\in_array($operator, [ComparisonExpression::OPERATOR_IS_NULL, ComparisonExpression::OPERATOR_IS_NOT_NULL], true)) {

@@ -55,7 +55,7 @@ class DatalistField implements DatalistFieldInterface
             if (\is_object($row) && !$this->getDatalist()->hasOption('data_class')) {
                 $message = 'Missing "data_class" option';
             } else {
-                $message = sprintf('unknown property "%s"', $propertyPath);
+                $message = \sprintf('unknown property "%s"', $propertyPath);
             }
             throw new \UnexpectedValueException($message);
         } catch (UnexpectedTypeException $e) {

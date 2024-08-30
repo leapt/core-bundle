@@ -34,7 +34,7 @@ class LabelFieldType extends AbstractFieldType
             $viewContext['value'] = $viewContext['value']->value;
         }
         if (!\array_key_exists($viewContext['value'], $mappings)) {
-            throw new \UnexpectedValueException(sprintf('No mapping for value %s', $viewContext['value']));
+            throw new \UnexpectedValueException(\sprintf('No mapping for value %s', $viewContext['value']));
         }
 
         $mapping = $mappings[$viewContext['value']];

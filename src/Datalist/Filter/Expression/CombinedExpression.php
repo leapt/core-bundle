@@ -14,7 +14,7 @@ class CombinedExpression implements ExpressionInterface
     public function __construct(private string $operator)
     {
         if (!\in_array($operator, self::getValidOperators(), true)) {
-            throw new \InvalidArgumentException(sprintf('Unknown operator "%s"', $operator));
+            throw new \InvalidArgumentException(\sprintf('Unknown operator "%s"', $operator));
         }
 
         $this->expressions = \array_slice(\func_get_args(), 1);
