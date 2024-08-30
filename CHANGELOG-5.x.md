@@ -1,3 +1,13 @@
+5.2.1
+-----
+
+* RecaptchaV3 - Don't catch exception
+
+5.2.0
+-----
+
+* Add error codes and score to RecaptchaV3 constraint
+
 5.1.2
 -----
 
