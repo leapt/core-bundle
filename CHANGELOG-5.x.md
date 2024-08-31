@@ -1,3 +1,8 @@
+5.3.1
+-----
+
+* Drop usage of spaceless filter in Twig templates to fix Twig 3.12 deprecation
+
 5.3.0
 -----
 
