@@ -1,8 +1,9 @@
-5.2.1
+5.3.0
 -----
 
 * RecaptchaV3 - Don't catch exception
 * Test against PHP 8.4 & Symfony 7.1 + 7.2
+* Deprecate the PasswordStrength constraint
 
 5.2.0
 -----

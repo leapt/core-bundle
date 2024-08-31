@@ -20,6 +20,7 @@ class PasswordStrength extends Constraint
         ?array $options = null, ?int $min = null, ?string $minMessage = null, ?int $max = null, ?string $maxMessage = null,
         ?int $score = null, ?string $scoreMessage = null, ?array $groups = null, $payload = null,
     ) {
+        trigger_deprecation('leapt/core-bundle', '5.3.0', 'The PasswordStrength constraint will be removed in leapt/core-bundle v6. You can replace it using e.g. Symfony\'s PasswordStrength constraint instead.');
         parent::__construct($options ?? [], $groups, $payload);
 
         $this->min = $min ?? $this->min;
