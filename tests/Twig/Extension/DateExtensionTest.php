@@ -42,7 +42,7 @@ class DateExtensionTest extends TestCase
         yield [new \DateTime('-2 minutes'), 'timeago.minutesago|%minutes%=2|%count%=2'];
         yield [new \DateTime('-2 hours'), 'timeago.hoursago|%hours%=2|%count%=2'];
         yield [new \DateTime('-2 days'), 'timeago.daysago|%days%=2|%count%=2'];
-        yield [new \DateTime('-2 months'), 'timeago.monthsago|%months%=2|%count%=2'];
+        yield [new \DateTime('-2 months -3 days'), 'timeago.monthsago|%months%=2|%count%=2'];
 
         $twoYears = new \DateTimeImmutable('-2 years');
 
@@ -52,7 +52,7 @@ class DateExtensionTest extends TestCase
         yield [new \DateTimeImmutable('-2 minutes'), 'timeago.minutesago|%minutes%=2|%count%=2'];
         yield [new \DateTimeImmutable('-2 hours'), 'timeago.hoursago|%hours%=2|%count%=2'];
         yield [new \DateTimeImmutable('-2 days'), 'timeago.daysago|%days%=2|%count%=2'];
-        yield [new \DateTimeImmutable('-2 months'), 'timeago.monthsago|%months%=2|%count%=2'];
+        yield [new \DateTimeImmutable('-2 months -3 days'), 'timeago.monthsago|%months%=2|%count%=2'];
 
         // Check with string
         yield [$twoYears->format('Y-m-d H:i:s'), 'timeago.yearsago|%years%=2|%count%=2'];
