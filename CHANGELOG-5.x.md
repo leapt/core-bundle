@@ -1,3 +1,8 @@
+5.3.2
+-----
+
+* Drop passing tag to Node constructor to fix Twig 3.12 deprecation
+
 5.3.1
 -----
 

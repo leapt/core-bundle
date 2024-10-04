@@ -11,9 +11,9 @@ use Twig\Node\Node;
 #[YieldReady]
 final class DatalistThemeNode extends Node
 {
-    public function __construct(Node $datalist, Node $resources, $lineno, $tag = null)
+    public function __construct(Node $datalist, Node $resources, int $lineno)
     {
-        parent::__construct(['datalist' => $datalist, 'resources' => $resources], [], $lineno, $tag);
+        parent::__construct(['datalist' => $datalist, 'resources' => $resources], [], $lineno);
     }
 
     public function compile(Compiler $compiler): void

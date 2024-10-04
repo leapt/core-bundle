@@ -30,7 +30,7 @@ class PaginatorThemeTokenParser extends AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new PaginatorThemeNode($paginator, $resources, $lineno, $this->getTag());
+        return new PaginatorThemeNode($paginator, $resources, $lineno);
     }
 
     public function getTag(): string

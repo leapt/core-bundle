@@ -30,7 +30,7 @@ final class DatalistThemeTokenParser extends AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new DatalistThemeNode($datalist, $resources, $lineno, $this->getTag());
+        return new DatalistThemeNode($datalist, $resources, $lineno);
     }
 
     public function getTag(): string

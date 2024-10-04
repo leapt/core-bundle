@@ -11,9 +11,9 @@ use Twig\Node\Node;
 #[YieldReady]
 class PaginatorThemeNode extends Node
 {
-    public function __construct(Node $paginator, Node $resources, $lineno, $tag = null)
+    public function __construct(Node $paginator, Node $resources, int $lineno)
     {
-        parent::__construct(['paginator' => $paginator, 'resources' => $resources], [], $lineno, $tag);
+        parent::__construct(['paginator' => $paginator, 'resources' => $resources], [], $lineno);
     }
 
     public function compile(Compiler $compiler): void
