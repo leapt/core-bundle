@@ -1,3 +1,8 @@
+5.4.1
+-----
+
+* Fix QR code generation with endroid/qr-code v4 & v5
+
 5.4.0
 -----
 

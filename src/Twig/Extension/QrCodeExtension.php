@@ -41,7 +41,7 @@ final class QrCodeExtension extends AbstractExtension
             $roundBlockSizeMode = new RoundBlockSizeModeMargin();
         }
 
-        if (method_exists(Builder::class, 'createBuilder')) {
+        if (method_exists(Builder::class, 'create')) {
             // v4 & v5
             $result = Builder::create()
                 ->writer(new PngWriter())
