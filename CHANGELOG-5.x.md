@@ -1,3 +1,8 @@
+5.4.0
+-----
+
+* QR code generation: Add compatibility with endroid/qr-code v6
+
 5.3.2
 -----
 

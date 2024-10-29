@@ -41,16 +41,33 @@ final class QrCodeExtension extends AbstractExtension
             $roundBlockSizeMode = new RoundBlockSizeModeMargin();
         }
 
-        $result = Builder::create()
-            ->writer(new PngWriter())
-            ->writerOptions([])
-            ->data($qrCodeContent)
-            ->encoding(new Encoding('UTF-8'))
-            ->errorCorrectionLevel($errorCorrectionLevel)
-            ->size($size)
-            ->margin($margin)
-            ->roundBlockSizeMode($roundBlockSizeMode)
-            ->build();
+        if (method_exists(Builder::class, 'createBuilder')) {
+            // v4 & v5
+            $result = Builder::create()
+                ->writer(new PngWriter())
+                ->writerOptions([])
+                ->data($qrCodeContent)
+                ->encoding(new Encoding('UTF-8'))
+                ->errorCorrectionLevel($errorCorrectionLevel)
+                ->size($size)
+                ->margin($margin)
+                ->roundBlockSizeMode($roundBlockSizeMode)
+                ->build();
+        } else {
+            // v6
+            $builder = new Builder(
+                writer: new PngWriter(),
+                writerOptions: [],
+                data: $qrCodeContent,
+                encoding: new Encoding('UTF-8'),
+                errorCorrectionLevel: $errorCorrectionLevel,
+                size: $size,
+                margin: $margin,
+                roundBlockSizeMode: $roundBlockSizeMode,
+            );
+
+            $result = $builder->build();
+        }
 
         return $result->getDataUri();
     }
