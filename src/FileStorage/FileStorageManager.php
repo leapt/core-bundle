@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\FileStorage;
 
+use Leapt\CoreBundle\Event\UploadedFileEvent;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class FileStorageManager
 {
     public function __construct(
         private FilesystemStorage $filesystemStorage,
         private FlysystemStorage $flysystemStorage,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -21,6 +24,8 @@ final class FileStorageManager
         } else {
             $this->filesystemStorage->uploadFile($fileUploadConfig, $uploadedFile, $path, $filename);
         }
+
+        $this->eventDispatcher->dispatch(new UploadedFileEvent(new \SplFileInfo($path . \DIRECTORY_SEPARATOR . $filename), $fileUploadConfig));
     }
 
     public function removeFile(FileUploadConfig $fileUploadConfig, string $file): void

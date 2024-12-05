@@ -37,6 +37,8 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+
 return static function (ContainerConfigurator $container): void {
     $container->services()
         // Controllers
@@ -78,6 +80,7 @@ return static function (ContainerConfigurator $container): void {
         ->set(FileStorageManager::class)
             ->arg('$filesystemStorage', service(FilesystemStorage::class))
             ->arg('$flysystemStorage', service(FlysystemStorage::class))
+            ->arg('$eventDispatcher', service(EventDispatcherInterface::class))
 
         // Form types
         ->set(FileType::class)

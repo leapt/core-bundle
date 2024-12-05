@@ -28,6 +28,7 @@
         "php": "^8.2",
         "doctrine/orm": "^2.10 || ^3.0",
         "symfony/deprecation-contracts": "^3.5",
+        "symfony/event-dispatcher": "^6.4 || ^7.0",
         "symfony/form": "^6.4 || ^7.0",
         "symfony/framework-bundle": "^6.4 || ^7.0",
         "symfony/http-foundation": "^6.4 || ^7.0",

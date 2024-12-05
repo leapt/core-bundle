@@ -25,6 +25,7 @@ use Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FileSubscriberTest extends TestCase
 {
@@ -46,6 +47,7 @@ class FileSubscriberTest extends TestCase
         $fileStorageManager = new FileStorageManager(
             new FilesystemStorage($this->rootDir),
             new FlysystemStorage([]),
+            $this->createMock(EventDispatcherInterface::class),
         );
         $this->subscriber = new FileSubscriber($fileStorageManager);
 
