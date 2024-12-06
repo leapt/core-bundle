@@ -58,6 +58,9 @@ So there are two options to handle file uploads:
 * either specify the `path` or `pathCallback` option to store files locally
 * or specify the `flysystemConfig` option, so you can store files anywhere using [Flysystem](https://flysystem.thephpleague.com/docs/).
 
+When a file is uploaded, a `Leapt\CoreBundle\Event\UploadedFileEvent` event is dispatched so you can do whatever
+you want with the uploaded file.
+
 !!! note
 
     To retrieve configured Flysystem storages, the bundle checks for any storage configured using [league/flysystem-bundle](https://github.com/thephpleague/flysystem-bundle).

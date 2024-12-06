@@ -1,3 +1,8 @@
+5.5.0
+-----
+
+* Dispatch UploadedFileEvent when a file is uploaded
+
 5.4.1
 -----
 
