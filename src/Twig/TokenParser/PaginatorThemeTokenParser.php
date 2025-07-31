@@ -16,15 +16,30 @@ class PaginatorThemeTokenParser extends AbstractTokenParser
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
-        $paginator = $this->parser->getExpressionParser()->parseExpression();
+        if (method_exists($this->parser, 'parseExpression')) {
+            // Since Twig 3.21
+            $paginator = $this->parser->parseExpression();
+        } else {
+            $paginator = $this->parser->getExpressionParser()->parseExpression();
+        }
 
         if ($this->parser->getStream()->test(Token::NAME_TYPE, 'with')) {
             $this->parser->getStream()->next();
-            $resources = $this->parser->getExpressionParser()->parseExpression();
+            if (method_exists($this->parser, 'parseExpression')) {
+                // Since Twig 3.21
+                $resources = $this->parser->parseExpression();
+            } else {
+                $resources = $this->parser->getExpressionParser()->parseExpression();
+            }
         } else {
             $resources = new ArrayExpression([], $stream->getCurrent()->getLine());
             do {
-                $resources->addElement($this->parser->getExpressionParser()->parseExpression());
+                if (method_exists($this->parser, 'parseExpression')) {
+                    // Since Twig 3.21
+                    $resources->addElement($this->parser->parseExpression());
+                } else {
+                    $resources->addElement($this->parser->getExpressionParser()->parseExpression());
+                }
             } while (!$stream->test(Token::BLOCK_END_TYPE));
         }
 
