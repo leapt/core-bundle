@@ -9,7 +9,7 @@ on:
 jobs:
   phpunit:
     name: PHPUnit (PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }})
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
 
@@ -21,8 +21,8 @@ jobs:
           - '8.4'
         symfony-version:
           - '6.4.*'
-          - '7.1.*'
-          - '7.2.x-dev'
+          - '7.3.*'
+          - '7.4.x-dev'
 
     steps:
       - name: Checkout code
@@ -49,5 +49,5 @@ jobs:
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         if: matrix.php-version == '8.2' && matrix.symfony-version == '6.4.*'
