@@ -31,6 +31,32 @@ parameters:
 			path: src/Twig/Extension/QrCodeExtension.php
 
 		-
+			message: """
+				#^Call to deprecated method getExpressionParser\\(\\) of class Twig\\\\Parser\\:
+				since Twig 3\\.21$#
+			"""
+			count: 3
+			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Twig\\\\Parser and 'parseExpression' will always evaluate to true\\.$#"
+			count: 3
+			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
+
+		-
+			message: """
+				#^Call to deprecated method getExpressionParser\\(\\) of class Twig\\\\Parser\\:
+				since Twig 3\\.21$#
+			"""
+			count: 3
+			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Twig\\\\Parser and 'parseExpression' will always evaluate to true\\.$#"
+			count: 3
+			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
+
+		-
 			message: "#^Method Leapt\\\\CoreBundle\\\\Tests\\\\LeaptCoreTestingKernel\\:\\:configureContainer\\(\\) is unused\\.$#"
 			count: 1
 			path: tests/LeaptCoreTestingKernel.php
