@@ -6,9 +6,7 @@ namespace Leapt\CoreBundle\Paginator;
 
 class ArrayPaginator extends AbstractPaginator
 {
-    public function __construct(private array $items)
-    {
-    }
+    public function __construct(private array $items) {}
 
     public function setPage(int $page): PaginatorInterface
     {

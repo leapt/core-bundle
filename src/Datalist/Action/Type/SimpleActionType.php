@@ -12,9 +12,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class SimpleActionType extends AbstractActionType
 {
-    public function __construct(protected RouterInterface $router)
-    {
-    }
+    public function __construct(protected RouterInterface $router) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

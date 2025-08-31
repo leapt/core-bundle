@@ -11,9 +11,7 @@ class DatalistAction implements DatalistActionInterface
 {
     private DatalistInterface $datalist;
 
-    public function __construct(private DatalistActionConfig $config)
-    {
-    }
+    public function __construct(private DatalistActionConfig $config) {}
 
     public function getName(): string
     {

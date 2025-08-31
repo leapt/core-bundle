@@ -14,6 +14,5 @@ class File
         public ?string $filename = null,
         public ?string $nameCallback = null,
         public ?string $flysystemConfig = null,
-    ) {
-    }
+    ) {}
 }

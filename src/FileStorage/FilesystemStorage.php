@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 final class FilesystemStorage implements StorageInterface
 {
-    public function __construct(private string $uploadDir)
-    {
-    }
+    public function __construct(private string $uploadDir) {}
 
     public function uploadFile(FileUploadConfig $fileUploadConfig, File $uploadedFile, string $path, string $filename): void
     {

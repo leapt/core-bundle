@@ -7,8 +7,8 @@ on:
     branches: ['5.x', '4.x', '3.x']
 
 jobs:
-  php-cs-fixer:
-    name: PHP CS Fixer (PHP ${{ matrix.php-version }})
+  easy-coding-standard:
+    name: Easy Coding Standard (PHP ${{ matrix.php-version }})
     runs-on: ubuntu-24.04
 
     strategy:
@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -30,7 +30,5 @@ jobs:
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
 
-      - name: Run PHP CS Fixer
-        run: 'vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr'
-        env:
-          PHP_CS_FIXER_IGNORE_ENV: 1
+      - name: Run Easy Coding Standard
+        run: 'vendor/bin/ecs --output-format=checkstyle | cs2pr'

@@ -17,8 +17,7 @@ class FeedController
         private FeedManager $feedManager,
         private ValidatorInterface $validator,
         private Environment $twig,
-    ) {
-    }
+    ) {}
 
     public function indexAction(Request $request, string $feedName): Response
     {

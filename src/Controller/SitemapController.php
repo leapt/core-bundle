@@ -19,8 +19,7 @@ class SitemapController
         private RouterInterface $router,
         private Environment $twig,
         private HttpKernelInterface $httpKernel,
-    ) {
-    }
+    ) {}
 
     public function defaultAction(Request $request): Response
     {

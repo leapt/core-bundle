@@ -28,9 +28,7 @@ class FileSubscriber
     private array $config = [];
     private array $unlinkQueue = [];
 
-    public function __construct(private FileStorageManager $fileStorageManager)
-    {
-    }
+    public function __construct(private FileStorageManager $fileStorageManager) {}
 
     public function preFlush(PreFlushEventArgs $ea): void
     {

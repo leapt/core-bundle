@@ -15,9 +15,7 @@ class ArrayDatasource extends AbstractDatasource
 {
     private bool $initialized = false;
 
-    public function __construct(private array $items = [])
-    {
-    }
+    public function __construct(private array $items = []) {}
 
     public function getPaginator(): ?PaginatorInterface
     {

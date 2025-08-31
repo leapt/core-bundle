@@ -69,9 +69,15 @@ class StringUtil
         $slug = preg_replace('/\W/', ' ', $slug);
 
         // More stripping. Replace spaces with dashes
-        $slug = strtolower(preg_replace('/[^A-Z^a-z^0-9^\/]+/', '-',
-            preg_replace('/([a-z\d])([A-Z])/', '\1_\2',
-                preg_replace('/([A-Z]+)([A-Z][a-z])/', '\1_\2',
+        $slug = strtolower(preg_replace(
+            '/[^A-Z^a-z^0-9^\/]+/',
+            '-',
+            preg_replace(
+                '/([a-z\d])([A-Z])/',
+                '\1_\2',
+                preg_replace(
+                    '/([A-Z]+)([A-Z][a-z])/',
+                    '\1_\2',
                     preg_replace('/::/', '/', $slug),
                 ),
             ),

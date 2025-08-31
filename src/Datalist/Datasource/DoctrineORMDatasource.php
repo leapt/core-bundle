@@ -19,9 +19,7 @@ class DoctrineORMDatasource extends AbstractDatasource
 {
     private bool $initialized = false;
 
-    public function __construct(private QueryBuilder $queryBuilder)
-    {
-    }
+    public function __construct(private QueryBuilder $queryBuilder) {}
 
     public function getPaginator(): ?PaginatorInterface
     {

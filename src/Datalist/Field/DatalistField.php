@@ -14,9 +14,7 @@ class DatalistField implements DatalistFieldInterface
 {
     private DatalistInterface $datalist;
 
-    public function __construct(private DatalistFieldConfig $config)
-    {
-    }
+    public function __construct(private DatalistFieldConfig $config) {}
 
     public function getName(): string
     {

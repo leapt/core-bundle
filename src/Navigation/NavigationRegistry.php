@@ -12,9 +12,7 @@ class NavigationRegistry
 
     private array $breadcrumbsPaths = [];
 
-    public function __construct(private RequestStack $requestStack)
-    {
-    }
+    public function __construct(private RequestStack $requestStack) {}
 
     /**
      * Set the paths to be considered as active (navigation-wise).

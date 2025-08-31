@@ -15,8 +15,7 @@ final class LocaleResolver
         private string $defaultLocale,
         private bool $useLocaleFromRequest,
         private RequestStack $requestStack,
-    ) {
-    }
+    ) {}
 
     /**
      * @return string The resolved locale key, depending on configuration

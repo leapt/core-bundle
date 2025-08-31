@@ -15,8 +15,7 @@ final class HoneypotListener implements EventSubscriberInterface
     public function __construct(
         private TranslatorInterface $translator,
         private string $fieldName,
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

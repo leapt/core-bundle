@@ -6,6 +6,7 @@ namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TranslatorMock;
 use Leapt\CoreBundle\Twig\Extension\DateExtension;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DateExtensionTest extends TestCase
@@ -24,9 +25,7 @@ class DateExtensionTest extends TestCase
         $this->assertSame('time_ago', $filters[0]->getName());
     }
 
-    /**
-     * @dataProvider timeAgoData
-     */
+    #[DataProvider('timeAgoData')]
     public function testTimeAgo(\DateTime|\DateTimeImmutable|string $ago, string $expected): void
     {
         $this->assertEquals($expected, $this->extension->timeAgo($ago, 'en'));

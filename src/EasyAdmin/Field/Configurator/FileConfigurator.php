@@ -15,9 +15,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class FileConfigurator implements FieldConfiguratorInterface
 {
-    public function __construct(private AssetExtension $assetExtension)
-    {
-    }
+    public function __construct(private AssetExtension $assetExtension) {}
 
     public function supports(FieldDto $field, EntityDto $entityDto): bool
     {

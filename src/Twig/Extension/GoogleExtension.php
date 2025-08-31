@@ -18,9 +18,7 @@ class GoogleExtension extends AbstractExtension
 
     private ?string $tagsManagerId;
 
-    public function __construct(private ?string $accountId = null, private bool $debug = false)
-    {
-    }
+    public function __construct(private ?string $accountId = null, private bool $debug = false) {}
 
     /**
      * @codeCoverageIgnore

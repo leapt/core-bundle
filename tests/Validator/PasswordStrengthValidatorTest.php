@@ -6,6 +6,7 @@ namespace Leapt\CoreBundle\Tests\Validator;
 
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrength;
 use Leapt\CoreBundle\Validator\Constraints\PasswordStrengthValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
@@ -24,9 +25,7 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getValidPasswords
-     */
+    #[DataProvider('getValidPasswords')]
     public function testValidPassword(string $password): void
     {
         $this->validator->validate($password, new PasswordStrength(['score' => 50, 'min' => 5, 'max' => 255]));
@@ -46,9 +45,7 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
         yield ['My password is f*cking awesome'];
     }
 
-    /**
-     * @dataProvider getInvalidPasswords
-     */
+    #[DataProvider('getInvalidPasswords')]
     public function testInvalidPasswords(string $password): void
     {
         $constraint = new PasswordStrength([
