@@ -10,6 +10,7 @@ jobs:
   phpunit:
     name: PHPUnit (PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }})
     runs-on: ubuntu-24.04
+    continue-on-error: ${{ matrix.continue-on-error || false }}
     env:
       SYMFONY_REQUIRE: ${{ matrix.symfony-version }}
 
@@ -27,8 +28,10 @@ jobs:
         include:
           - php-version: '8.4'
             symfony-version: '8.0.*@dev'
+            continue-on-error: true
           - php-version: '8.5'
             symfony-version: '8.0.*@dev'
+            continue-on-error: true
 
     steps:
       - name: Checkout code
