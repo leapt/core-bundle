@@ -12,9 +12,7 @@ final class FlysystemStorage implements StorageInterface
     /**
      * @param array<FilesystemOperator> $storages
      */
-    public function __construct(private array $storages)
-    {
-    }
+    public function __construct(private array $storages) {}
 
     public function uploadFile(FileUploadConfig $fileUploadConfig, File $uploadedFile, string $path, string $filename): void
     {

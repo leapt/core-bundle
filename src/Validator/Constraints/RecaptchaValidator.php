@@ -22,8 +22,7 @@ class RecaptchaValidator extends ConstraintValidator
         protected RequestStack $requestStack,
         protected array $httpProxy,
         protected bool $verifyHost,
-    ) {
-    }
+    ) {}
 
     public function validate(mixed $value, Constraint $constraint): void
     {

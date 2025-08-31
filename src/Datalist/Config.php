@@ -10,8 +10,7 @@ abstract class Config
         protected string $name,
         protected TypeInterface $type,
         protected array $options = [],
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

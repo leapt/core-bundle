@@ -8,6 +8,7 @@ use Leapt\CoreBundle\Datalist\DatalistFactory;
 use Leapt\CoreBundle\Datalist\Datasource\ArrayDatasource;
 use Leapt\CoreBundle\Datalist\Filter\Type\IsNullFilterType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -17,9 +18,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class IsNullFilterTypeTest extends TestCase
 {
-    /**
-     * @dataProvider filterCasesProvider
-     */
+    #[DataProvider('filterCasesProvider')]
     public function testFilter(?string $value, array $expectedResult): void
     {
         $datasource = new ArrayDatasource($this->getItems());

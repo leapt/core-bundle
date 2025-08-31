@@ -11,13 +11,12 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldConfig;
 use Leapt\CoreBundle\Datalist\Field\Type\TextFieldType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use Leapt\CoreBundle\Datalist\ViewContext;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class TextFieldTypeTest extends TestCase
 {
-    /**
-     * @dataProvider buildViewContextProvider
-     */
+    #[DataProvider('buildViewContextProvider')]
     public function testBuildViewContext(string $expectedValue, array $item, array $options = []): void
     {
         $fieldType = new TextFieldType();
@@ -33,6 +32,6 @@ final class TextFieldTypeTest extends TestCase
     public static function buildViewContextProvider(): iterable
     {
         yield 'regular_text' => ['test', ['name' => 'test']];
-        yield 'callback' => ['Here is the weight: 123', ['weight' => 123], ['callback' => fn (array $item): string => 'Here is the weight: ' . $item['weight']]];
+        yield 'callback' => ['Here is the weight: 123', ['weight' => 123], ['callback' => fn(array $item): string => 'Here is the weight: ' . $item['weight']]];
     }
 }

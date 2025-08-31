@@ -14,8 +14,7 @@ final class FileStorageManager
         private FilesystemStorage $filesystemStorage,
         private FlysystemStorage $flysystemStorage,
         private EventDispatcherInterface $eventDispatcher,
-    ) {
-    }
+    ) {}
 
     public function uploadFile(FileUploadConfig $fileUploadConfig, File $uploadedFile, string $path, string $filename): void
     {

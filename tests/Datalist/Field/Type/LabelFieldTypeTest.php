@@ -11,13 +11,12 @@ use Leapt\CoreBundle\Datalist\Field\DatalistFieldConfig;
 use Leapt\CoreBundle\Datalist\Field\Type\LabelFieldType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use Leapt\CoreBundle\Datalist\ViewContext;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class LabelFieldTypeTest extends WebTestCase
 {
-    /**
-     * @dataProvider buildViewContextProvider
-     */
+    #[DataProvider('buildViewContextProvider')]
     public function testBuildViewContext(string $expectedValue, array $item, array $options = []): void
     {
         $fieldType = new LabelFieldType();

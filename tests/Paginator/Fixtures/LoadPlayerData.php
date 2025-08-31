@@ -11,9 +11,7 @@ use Leapt\CoreBundle\Tests\Paginator\Entity\Player;
 
 class LoadPlayerData extends AbstractFixture
 {
-    public function __construct(private int $limit)
-    {
-    }
+    public function __construct(private int $limit) {}
 
     public function load(ObjectManager $manager): void
     {

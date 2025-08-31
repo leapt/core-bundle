@@ -47,9 +47,7 @@ class Datalist implements DatalistInterface, \Countable
 
     private array $routeParams = [];
 
-    public function __construct(private DatalistConfig $config)
-    {
-    }
+    public function __construct(private DatalistConfig $config) {}
 
     public function getType(): TypeInterface
     {

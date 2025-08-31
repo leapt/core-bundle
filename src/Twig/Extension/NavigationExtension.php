@@ -10,9 +10,7 @@ use Twig\TwigFunction;
 
 class NavigationExtension extends AbstractExtension
 {
-    public function __construct(private NavigationRegistry $registry)
-    {
-    }
+    public function __construct(private NavigationRegistry $registry) {}
 
     /**
      * @codeCoverageIgnore

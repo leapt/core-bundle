@@ -9,6 +9,7 @@ use Leapt\CoreBundle\Datalist\Datasource\ArrayDatasource;
 use Leapt\CoreBundle\Datalist\Filter\Type\EnumFilterType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use Leapt\CoreBundle\Tests\Datalist\Filter\Type\Enums\Category;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -16,14 +17,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * @requires PHP 8.1
- */
 final class EnumFilterTypeTest extends TestCase
 {
-    /**
-     * @dataProvider filterCasesProvider
-     */
+    #[DataProvider('filterCasesProvider')]
     public function testFilter(\BackedEnum|string|array|null $searchValue, bool $multiple, array $expectedResult): void
     {
         $datasource = new ArrayDatasource($this->getItems());

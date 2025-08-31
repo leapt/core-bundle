@@ -11,9 +11,7 @@ class DatalistFilter implements DatalistFilterInterface
 {
     private DatalistInterface $datalist;
 
-    public function __construct(private DatalistFilterConfig $config)
-    {
-    }
+    public function __construct(private DatalistFilterConfig $config) {}
 
     public function getName(): string
     {

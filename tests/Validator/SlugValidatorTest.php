@@ -6,6 +6,7 @@ namespace Leapt\CoreBundle\Tests\Validator;
 
 use Composer\InstalledVersions;
 use Leapt\CoreBundle\Validator\Constraints\Slug;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\RegexValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
@@ -25,9 +26,7 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @dataProvider getValidSlugs
-     */
+    #[DataProvider('getValidSlugs')]
     public function testValidSlug(string $slug): void
     {
         $this->validator->validate($slug, new Slug());
@@ -42,9 +41,7 @@ final class SlugValidatorTest extends ConstraintValidatorTestCase
         yield ['valid-123-slug'];
     }
 
-    /**
-     * @dataProvider getInvalidSlugs
-     */
+    #[DataProvider('getInvalidSlugs')]
     public function testInvalidSlugs(string $slug): void
     {
         $validatorVersion = InstalledVersions::getVersion('symfony/validator');

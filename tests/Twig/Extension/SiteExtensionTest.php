@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Leapt\CoreBundle\Tests\Twig\Extension;
 
 use Leapt\CoreBundle\Twig\Extension\SiteExtension;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class SiteExtensionTest extends TestCase
@@ -16,9 +17,7 @@ final class SiteExtensionTest extends TestCase
         $this->siteExtension = new SiteExtension();
     }
 
-    /**
-     * @dataProvider provideFalseTestCases
-     */
+    #[DataProvider('provideFalseTestCases')]
     public function testFalseTest(mixed $testData, bool $expectedResult): void
     {
         self::assertSame($expectedResult, $this->siteExtension->getTests()[0]->getCallable()($testData));

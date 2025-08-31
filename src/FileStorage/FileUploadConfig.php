@@ -13,6 +13,5 @@ final class FileUploadConfig
         public \ReflectionProperty $property,
         public File $attribute,
         public ClassMetadata $classMetadata,
-    ) {
-    }
+    ) {}
 }

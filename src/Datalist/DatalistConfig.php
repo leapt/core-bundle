@@ -4,6 +4,4 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Datalist;
 
-class DatalistConfig extends Config
-{
-}
+class DatalistConfig extends Config {}

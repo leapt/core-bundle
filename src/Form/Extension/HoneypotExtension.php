@@ -21,8 +21,7 @@ final class HoneypotExtension extends AbstractTypeExtension
         private bool $enableGlobally,
         private string $inputName,
         private string $cssClass,
-    ) {
-    }
+    ) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

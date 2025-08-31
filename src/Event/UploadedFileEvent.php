@@ -12,6 +12,5 @@ final class UploadedFileEvent extends Event
     public function __construct(
         public \SplFileInfo $splFileInfo,
         public FileUploadConfig $fileUploadConfig,
-    ) {
-    }
+    ) {}
 }
