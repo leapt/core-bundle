@@ -23,7 +23,12 @@ jobs:
         symfony-version:
           - '6.4.*'
           - '7.3.*'
-          - '7.4.x-dev'
+          - '7.4.*@dev'
+        include:
+          - php-version: '8.4'
+            symfony-version: '8.0.*@dev'
+          - php-version: '8.5'
+            symfony-version: '8.0.*@dev'
 
     steps:
       - name: Checkout code
@@ -37,11 +42,11 @@ jobs:
           coverage: pcov
           php-version: ${{ matrix.php-version }}
           extensions: pdo_sqlite
+          tools: flex
 
-      - name: Install Symfony Flex
-        run: |
-          composer config --global --no-plugins allow-plugins.symfony/flex true
-          composer global require --no-progress --no-scripts --no-plugins symfony/flex
+      - name: Configure Composer minimum-stability for dev versions
+        if: contains(matrix.symfony-version, 'dev')
+        run: composer config minimum-stability dev
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
