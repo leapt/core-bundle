@@ -31,7 +31,7 @@ If you find a bug or want to add a functionality,
 
 This bundle requires PHP 8.2+.
 
-As the bundle is compatible with Symfony 6.4/7.0+ and Symfony Flex, the only thing you have to do
+As the bundle is compatible with Symfony 6.4/7.0+/8.0+ and Symfony Flex, the only thing you have to do
 is requiring the package with composer:
 
 ```bash

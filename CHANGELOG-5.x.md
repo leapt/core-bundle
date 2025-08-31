@@ -2,6 +2,7 @@
 -----
 
 * Test against PHP 8.5
+* Allow Symfony 8
 
 5.5.1
 -----
