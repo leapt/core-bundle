@@ -35,7 +35,11 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTestCase
         $proxiesIdentifier = uniqid('Proxies', true);
         $config->setProxyDir(sys_get_temp_dir() . '/' . $proxiesIdentifier);
         $config->setProxyNamespace('MyProject\Proxies\\' . $proxiesIdentifier);
-        $config->setAutoGenerateProxyClasses(true);
+        if (\PHP_VERSION_ID < 80400) {
+            $config->setAutoGenerateProxyClasses(true);
+        } else {
+            $config->enableNativeLazyObjects(true);
+        }
 
         $em = new EntityManager(DriverManager::getConnection($dbParams), $config);
 

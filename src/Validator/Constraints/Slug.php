@@ -18,9 +18,14 @@ class Slug extends Regex
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ) {
-        parent::__construct($pattern, $message, $htmlPattern, $match, $normalizer, $groups, $payload, $options);
+        if (null !== $options) {
+            trigger_deprecation('leapt/core-bundle', '5.6.1', 'Passing an array of options to configure the "%s" constraint is deprecated, use named arguments instead.', static::class);
+            parent::__construct($pattern, $message, $htmlPattern, $match, $normalizer, $groups, $payload, $options);
+        } else {
+            parent::__construct($pattern, $message, $htmlPattern, $match, $normalizer, $groups, $payload);
+        }
     }
 
     public function getRequiredOptions(): array

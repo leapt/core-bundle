@@ -226,7 +226,6 @@ class FileSubscriber
                 }
                 $attributes = $this->getAttributes($property);
                 foreach ($attributes as $attribute) {
-                    $property->setAccessible(true);
                     $field = $property->getName();
 
                     if (null === $attribute->mappedBy) {

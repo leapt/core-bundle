@@ -28,7 +28,7 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
     #[DataProvider('getValidPasswords')]
     public function testValidPassword(string $password): void
     {
-        $this->validator->validate($password, new PasswordStrength(['score' => 50, 'min' => 5, 'max' => 255]));
+        $this->validator->validate($password, new PasswordStrength(min: 5, max: 255, score: 50));
         $this->assertNoViolation();
     }
 
@@ -48,10 +48,7 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
     #[DataProvider('getInvalidPasswords')]
     public function testInvalidPasswords(string $password): void
     {
-        $constraint = new PasswordStrength([
-            'scoreMessage' => 'scoreMessage',
-            'score'        => 50,
-        ]);
+        $constraint = new PasswordStrength(score: 50, scoreMessage: 'scoreMessage');
 
         $this->validator->validate($password, $constraint);
 
@@ -68,11 +65,11 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
 
     public function testMinPasswords(): void
     {
-        $constraint = new PasswordStrength([
-            'minMessage' => 'minMessage',
-            'score'      => 50,
-            'min'        => 5,
-        ]);
+        $constraint = new PasswordStrength(
+            min: 5,
+            minMessage: 'minMessage',
+            score: 50,
+        );
         $this->validator->validate('abc', $constraint);
 
         $this->buildViolation('minMessage')
@@ -82,11 +79,11 @@ final class PasswordStrengthValidatorTest extends ConstraintValidatorTestCase
 
     public function testMaxPasswords(): void
     {
-        $constraint = new PasswordStrength([
-            'maxMessage' => 'maxMessage',
-            'score'      => 50,
-            'max'        => 5,
-        ]);
+        $constraint = new PasswordStrength(
+            max: 5,
+            maxMessage: 'maxMessage',
+            score: 50,
+        );
         $this->validator->validate('abcdefgh', $constraint);
 
         $this->buildViolation('maxMessage')

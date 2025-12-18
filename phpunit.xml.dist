@@ -3,8 +3,7 @@
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     bootstrap="tests/bootstrap.php"
-    displayDetailsOnTestsThatTriggerDeprecations="true"
-    displayDetailsOnPhpunitDeprecations="true"
+    displayDetailsOnAllIssues="true"
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
 >
     <php>

@@ -36,7 +36,7 @@ class RecaptchaValidator extends ConstraintValidator
         // define variable for recaptcha check answer
         $mainRequest = $this->requestStack->getMainRequest();
         $remoteIp = $mainRequest->getClientIp();
-        $answer = $mainRequest->get('g-recaptcha-response');
+        $answer = $mainRequest->request->get('g-recaptcha-response');
 
         // Verify user response with Google
         $response = $this->checkAnswer($this->privateKey, $remoteIp, $answer);
