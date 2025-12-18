@@ -23,15 +23,12 @@ jobs:
           - '8.5'
         symfony-version:
           - '6.4.*'
-          - '7.3.*'
-          - '7.4.*@dev'
+          - '7.4.*'
         include:
           - php-version: '8.4'
-            symfony-version: '8.0.*@dev'
-            continue-on-error: true
+            symfony-version: '8.0.*'
           - php-version: '8.5'
-            symfony-version: '8.0.*@dev'
-            continue-on-error: true
+            symfony-version: '8.0.*'
 
     steps:
       - name: Checkout code

@@ -50,4 +50,9 @@ final class LeaptCoreTestingKernel extends Kernel
             ->prefix('/feed');
         $routes->import(__DIR__ . '/../config/routing_sitemap.php');
     }
+
+    private function getConfigDir(): string
+    {
+        return __DIR__ . '/../var/config';
+    }
 }

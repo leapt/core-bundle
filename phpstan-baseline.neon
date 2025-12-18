@@ -1,157 +1,175 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Property Leapt\\CoreBundle\\Datalist\\Datalist\:\:\$iterator \(Iterator\) does not accept Traversable\<mixed, mixed\>\.$#'
+			rawMessage: 'Property Leapt\CoreBundle\Datalist\Datalist::$initialized (bool) is never assigned true so the property type can be changed to false.'
+			identifier: property.tooWideBool
+			count: 1
+			path: src/Datalist/Datalist.php
+
+		-
+			rawMessage: 'Property Leapt\CoreBundle\Datalist\Datalist::$iterator (Iterator) does not accept Traversable<mixed, mixed>.'
 			identifier: assign.propertyType
 			count: 1
 			path: src/Datalist/Datalist.php
 
 		-
-			message: '#^Parameter \#1 \$value of function count expects array\|Countable, Iterator given\.$#'
+			rawMessage: 'Parameter #1 $value of function count expects array|Countable, Iterator given.'
 			identifier: argument.type
 			count: 1
 			path: src/Datalist/Datasource/AbstractDatasource.php
 
 		-
-			message: '#^Method Leapt\\CoreBundle\\Datalist\\Field\\DatalistField\:\:getType\(\) should return Leapt\\CoreBundle\\Datalist\\Field\\Type\\FieldTypeInterface but returns Leapt\\CoreBundle\\Datalist\\TypeInterface\.$#'
+			rawMessage: 'Method Leapt\CoreBundle\Datalist\Field\DatalistField::getType() should return Leapt\CoreBundle\Datalist\Field\Type\FieldTypeInterface but returns Leapt\CoreBundle\Datalist\TypeInterface.'
 			identifier: return.type
 			count: 1
 			path: src/Datalist/Field/DatalistField.php
 
 		-
-			message: '#^Method Leapt\\CoreBundle\\Datalist\\Filter\\DatalistFilter\:\:getType\(\) should return Leapt\\CoreBundle\\Datalist\\Filter\\Type\\FilterTypeInterface but returns Leapt\\CoreBundle\\Datalist\\TypeInterface\.$#'
+			rawMessage: 'Method Leapt\CoreBundle\Datalist\Filter\DatalistFilter::getType() should return Leapt\CoreBundle\Datalist\Filter\Type\FilterTypeInterface but returns Leapt\CoreBundle\Datalist\TypeInterface.'
 			identifier: return.type
 			count: 1
 			path: src/Datalist/Filter/DatalistFilter.php
 
 		-
-			message: '#^Method Leapt\\CoreBundle\\Paginator\\DoctrineORMPaginator\:\:getIterator\(\) should return ArrayIterator but returns Traversable\<\(int\|string\), mixed\>\.$#'
+			rawMessage: 'Method Leapt\CoreBundle\Paginator\DoctrineORMPaginator::getIterator() should return ArrayIterator but returns Traversable<(int|string), mixed>.'
 			identifier: return.type
 			count: 1
 			path: src/Paginator/DoctrineORMPaginator.php
 
 		-
-			message: '#^Call to method getParent\(\) of internal class Twig\\Template from outside its root namespace Twig\.$#'
+			rawMessage: 'Call to method getParent() of internal class Twig\Template from outside its root namespace Twig.'
 			identifier: method.internalClass
 			count: 1
 			path: src/Twig/Extension/DatalistExtension.php
 
 		-
-			message: '#^Call to method hasBlock\(\) of internal class Twig\\Template from outside its root namespace Twig\.$#'
+			rawMessage: 'Call to method hasBlock() of internal class Twig\Template from outside its root namespace Twig.'
 			identifier: method.internalClass
 			count: 1
 			path: src/Twig/Extension/DatalistExtension.php
 
 		-
-			message: '#^Call to method renderBlock\(\) of internal class Twig\\Template from outside its root namespace Twig\.$#'
+			rawMessage: 'Call to method renderBlock() of internal class Twig\Template from outside its root namespace Twig.'
 			identifier: method.internalClass
 			count: 1
 			path: src/Twig/Extension/DatalistExtension.php
 
 		-
-			message: '#^Instanceof references internal class Twig\\Template\.$#'
+			rawMessage: Instanceof references internal class Twig\Template.
 			identifier: instanceof.internalClass
 			count: 1
 			path: src/Twig/Extension/DatalistExtension.php
 
 		-
-			message: '#^Call to method getParent\(\) of internal class Twig\\Template from outside its root namespace Twig\.$#'
+			rawMessage: 'Call to method getParent() of internal class Twig\Template from outside its root namespace Twig.'
 			identifier: method.internalClass
 			count: 1
 			path: src/Twig/Extension/PaginatorExtension.php
 
 		-
-			message: '#^Call to method hasBlock\(\) of internal class Twig\\Template from outside its root namespace Twig\.$#'
+			rawMessage: 'Call to method hasBlock() of internal class Twig\Template from outside its root namespace Twig.'
 			identifier: method.internalClass
 			count: 1
 			path: src/Twig/Extension/PaginatorExtension.php
 
 		-
-			message: '#^Call to method renderBlock\(\) of internal class Twig\\Template from outside its root namespace Twig\.$#'
+			rawMessage: 'Call to method renderBlock() of internal class Twig\Template from outside its root namespace Twig.'
 			identifier: method.internalClass
 			count: 1
 			path: src/Twig/Extension/PaginatorExtension.php
 
 		-
-			message: '#^Instanceof references internal class Twig\\Template\.$#'
+			rawMessage: Instanceof references internal class Twig\Template.
 			identifier: instanceof.internalClass
 			count: 1
 			path: src/Twig/Extension/PaginatorExtension.php
 
 		-
-			message: '#^Call to function method_exists\(\) with ''Endroid\\\\QrCode\\\\Builder\\\\Builder'' and ''create'' will always evaluate to false\.$#'
+			rawMessage: 'Call to function method_exists() with ''Endroid\\QrCode\\Builder\\Builder'' and ''create'' will always evaluate to false.'
 			identifier: function.impossibleType
 			count: 1
 			path: src/Twig/Extension/QrCodeExtension.php
 
 		-
-			message: '''
-				#^Call to deprecated method getExpressionParser\(\) of class Twig\\Parser\:
-				since Twig 3\.21$#
+			rawMessage: '''
+				Call to deprecated method getExpressionParser() of class Twig\Parser:
+				since Twig 3.21
 			'''
 			identifier: method.deprecated
 			count: 3
 			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
 
 		-
-			message: '#^Call to function method_exists\(\) with Twig\\Parser and ''parseExpression'' will always evaluate to true\.$#'
+			rawMessage: 'Call to function method_exists() with Twig\Parser and ''parseExpression'' will always evaluate to true.'
 			identifier: function.alreadyNarrowedType
 			count: 3
 			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
 
 		-
-			message: '''
-				#^Call to method parseExpression\(\) of deprecated class Twig\\ExpressionParser\:
-				since Twig 3\.21$#
+			rawMessage: '''
+				Call to method parseExpression() of deprecated class Twig\ExpressionParser:
+				since Twig 3.21
 			'''
 			identifier: method.deprecatedClass
 			count: 3
 			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
 
 		-
-			message: '''
-				#^Call to deprecated method getExpressionParser\(\) of class Twig\\Parser\:
-				since Twig 3\.21$#
+			rawMessage: '''
+				Call to deprecated method getExpressionParser() of class Twig\Parser:
+				since Twig 3.21
 			'''
 			identifier: method.deprecated
 			count: 3
 			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
 
 		-
-			message: '#^Call to function method_exists\(\) with Twig\\Parser and ''parseExpression'' will always evaluate to true\.$#'
+			rawMessage: 'Call to function method_exists() with Twig\Parser and ''parseExpression'' will always evaluate to true.'
 			identifier: function.alreadyNarrowedType
 			count: 3
 			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
 
 		-
-			message: '''
-				#^Call to method parseExpression\(\) of deprecated class Twig\\ExpressionParser\:
-				since Twig 3\.21$#
+			rawMessage: '''
+				Call to method parseExpression() of deprecated class Twig\ExpressionParser:
+				since Twig 3.21
 			'''
 			identifier: method.deprecatedClass
 			count: 3
 			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
 
 		-
-			message: '#^Method Leapt\\CoreBundle\\Tests\\LeaptCoreTestingKernel\:\:configureContainer\(\) is unused\.$#'
+			rawMessage: 'Method Symfony\Component\Validator\Constraints\Regex::__construct() invoked with 8 parameters, 1-7 required.'
+			identifier: arguments.count
+			count: 1
+			path: src/Validator/Constraints/Slug.php
+
+		-
+			rawMessage: 'Method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::configureContainer() is unused.'
 			identifier: method.unused
 			count: 1
 			path: tests/LeaptCoreTestingKernel.php
 
 		-
-			message: '#^Method Leapt\\CoreBundle\\Tests\\LeaptCoreTestingKernel\:\:configureRoutes\(\) is unused\.$#'
+			rawMessage: 'Method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::configureRoutes() is unused.'
 			identifier: method.unused
 			count: 1
 			path: tests/LeaptCoreTestingKernel.php
 
 		-
-			message: '#^Property Leapt\\CoreBundle\\Tests\\Listener\\Fixtures\\Entity\\User\:\:\$id is never written, only read\.$#'
+			rawMessage: 'Method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::getConfigDir() is unused.'
+			identifier: method.unused
+			count: 1
+			path: tests/LeaptCoreTestingKernel.php
+
+		-
+			rawMessage: 'Property Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User::$id is never written, only read.'
 			identifier: property.onlyRead
 			count: 1
 			path: tests/Listener/Fixtures/Entity/User.php
 
 		-
-			message: '#^Property Leapt\\CoreBundle\\Tests\\Paginator\\Entity\\Player\:\:\$id is never written, only read\.$#'
+			rawMessage: 'Property Leapt\CoreBundle\Tests\Paginator\Entity\Player::$id is never written, only read.'
 			identifier: property.onlyRead
 			count: 1
 			path: tests/Paginator/Entity/Player.php
