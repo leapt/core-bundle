@@ -47,7 +47,7 @@ class FileSubscriberTest extends TestCase
         $fileStorageManager = new FileStorageManager(
             new FilesystemStorage($this->rootDir),
             new FlysystemStorage([]),
-            $this->createMock(EventDispatcherInterface::class),
+            $this->createStub(EventDispatcherInterface::class),
         );
         $this->subscriber = new FileSubscriber($fileStorageManager);
 
@@ -191,11 +191,7 @@ class FileSubscriberTest extends TestCase
     {
         $config = ORMSetup::createConfiguration(true, sys_get_temp_dir());
         $config->setMetadataDriverImpl(new AttributeDriver([__DIR__ . '/Fixtures']));
-        if (\PHP_VERSION_ID < 80400) {
-            $config->setAutoGenerateProxyClasses(true);
-        } else {
-            $config->enableNativeLazyObjects(true);
-        }
+        $config->enableNativeLazyObjects(true);
 
         $params = [
             'driver' => 'pdo_sqlite',

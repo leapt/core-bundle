@@ -39,10 +39,10 @@ final class DatalistExtensionTest extends TestCase
         $loader->addPath(__DIR__ . '/../../../templates', 'LeaptCore');
         $this->env = new Environment($loader);
 
-        $router = $this->createMock(RouterInterface::class);
+        $router = $this->createStub(RouterInterface::class);
         $router->method('generate')->willReturn('');
 
-        $requestStack = $this->createMock(RequestStack::class);
+        $requestStack = $this->createStub(RequestStack::class);
         $this->extension = new DatalistExtension($requestStack);
         $this->env->addExtension($this->extension);
         $this->env->addExtension(new PaginatorExtension('', $requestStack));
@@ -52,9 +52,9 @@ final class DatalistExtensionTest extends TestCase
         $this->env->addExtension(new AssetExtension(new Packages()));
         $this->env->addExtension(new FormExtension());
 
-        $formBuilder = $this->createMock(FormBuilderInterface::class);
-        $formBuilder->method('getForm')->willReturn($this->createMock(FormInterface::class));
-        $formFactory = $this->createMock(FormFactoryInterface::class);
+        $formBuilder = $this->createStub(FormBuilderInterface::class);
+        $formBuilder->method('getForm')->willReturn($this->createStub(FormInterface::class));
+        $formFactory = $this->createStub(FormFactoryInterface::class);
         $formFactory->method('createNamedBuilder')->willReturn($formBuilder);
 
         $this->datalistFactory = new DatalistFactory(

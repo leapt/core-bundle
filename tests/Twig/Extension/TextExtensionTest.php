@@ -82,7 +82,7 @@ class TextExtensionTest extends TestCase
         $env = $this->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $env->expects($this->any())->method('getCharset')->willReturn('utf8');
+        $env->expects($this->atLeastOnce())->method('getCharset')->willReturn('utf8');
 
         // Simple text
         $test = 'Lorem ipsum dolor sit amet';

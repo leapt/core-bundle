@@ -25,11 +25,11 @@ final class ChoiceFilterTypeTest extends TestCase
         $choiceFilterType = new ChoiceFilterType();
         $request = new Request(['category' => $searchValue]);
 
-        $formBuilder = $this->createMock(FormBuilderInterface::class);
-        $formBuilder->method('getForm')->willReturn($this->createMock(FormInterface::class));
-        $formFactory = $this->createMock(FormFactoryInterface::class);
+        $formBuilder = $this->createStub(FormBuilderInterface::class);
+        $formBuilder->method('getForm')->willReturn($this->createStub(FormInterface::class));
+        $formFactory = $this->createStub(FormFactoryInterface::class);
         $formFactory->method('createNamedBuilder')->willReturn($formBuilder);
-        $datalistFactory = new DatalistFactory($formFactory, $this->createMock(RouterInterface::class));
+        $datalistFactory = new DatalistFactory($formFactory, $this->createStub(RouterInterface::class));
         $datalistFactory->registerFilterType($choiceFilterType);
         $datalist = $datalistFactory->createBuilder(DatalistType::class)
             ->addFilter('category', ChoiceFilterType::class, [

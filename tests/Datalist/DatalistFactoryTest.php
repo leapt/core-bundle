@@ -18,8 +18,8 @@ final class DatalistFactoryTest extends TestCase
 {
     public function testInitialize(): void
     {
-        $formFactory = $this->createMock(FormFactoryInterface::class);
-        $router = $this->createMock(RouterInterface::class);
+        $formFactory = $this->createStub(FormFactoryInterface::class);
+        $router = $this->createStub(RouterInterface::class);
         $datalistFactory = new DatalistFactory($formFactory, $router);
 
         self::assertInstanceOf(BooleanFilterType::class, $datalistFactory->getFilterType(BooleanFilterType::class));

@@ -25,11 +25,11 @@ final class SearchFilterTypeTest extends TestCase
         $searchFilterType = new SearchFilterType();
         $request = new Request(['data' => $searchValue]);
 
-        $formBuilder = $this->createMock(FormBuilderInterface::class);
-        $formBuilder->method('getForm')->willReturn($this->createMock(FormInterface::class));
-        $formFactory = $this->createMock(FormFactoryInterface::class);
+        $formBuilder = $this->createStub(FormBuilderInterface::class);
+        $formBuilder->method('getForm')->willReturn($this->createStub(FormInterface::class));
+        $formFactory = $this->createStub(FormFactoryInterface::class);
         $formFactory->method('createNamedBuilder')->willReturn($formBuilder);
-        $datalistFactory = new DatalistFactory($formFactory, $this->createMock(RouterInterface::class));
+        $datalistFactory = new DatalistFactory($formFactory, $this->createStub(RouterInterface::class));
         $datalistFactory->registerFilterType($searchFilterType);
         $datalist = $datalistFactory->createBuilder(DatalistType::class)
             ->addFilter('data', SearchFilterType::class, [

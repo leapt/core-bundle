@@ -50,7 +50,7 @@ class FeedItem
      *
      * This value must be set if the description is not set
      */
-    #[Assert\Url]
+    #[Assert\Url(requireTld: false)]
     public string $link;
 
     /**

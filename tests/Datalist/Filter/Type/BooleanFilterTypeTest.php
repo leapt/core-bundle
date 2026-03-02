@@ -25,11 +25,11 @@ final class BooleanFilterTypeTest extends TestCase
         $booleanFilterType = new BooleanFilterType();
         $request = new Request([$property => $value]);
 
-        $formBuilder = $this->createMock(FormBuilderInterface::class);
-        $formBuilder->method('getForm')->willReturn($this->createMock(FormInterface::class));
-        $formFactory = $this->createMock(FormFactoryInterface::class);
+        $formBuilder = $this->createStub(FormBuilderInterface::class);
+        $formBuilder->method('getForm')->willReturn($this->createStub(FormInterface::class));
+        $formFactory = $this->createStub(FormFactoryInterface::class);
         $formFactory->method('createNamedBuilder')->willReturn($formBuilder);
-        $datalistFactory = new DatalistFactory($formFactory, $this->createMock(RouterInterface::class));
+        $datalistFactory = new DatalistFactory($formFactory, $this->createStub(RouterInterface::class));
         $datalistFactory->registerFilterType($booleanFilterType);
         $datalist = $datalistFactory->createBuilder(DatalistType::class)
             ->addFilter($property, BooleanFilterType::class)

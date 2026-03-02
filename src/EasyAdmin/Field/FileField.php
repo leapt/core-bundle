@@ -7,6 +7,7 @@ namespace Leapt\CoreBundle\EasyAdmin\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use Leapt\CoreBundle\Form\Type\FileType;
+use Symfony\Contracts\Translation\TranslatableInterface;
 
 final class FileField implements FieldInterface
 {
@@ -16,9 +17,9 @@ final class FileField implements FieldInterface
     public const OPTION_ALLOW_DOWNLOAD = 'allowDownload';
     public const OPTION_FILE_PATH = 'filePath';
 
-    public static function new(string $propertyName, ?string $label = null): self
+    public static function new(string $propertyName, TranslatableInterface|string|bool|null $label = null): self
     {
-        return (new self())
+        return new self()
             ->setProperty($propertyName)
             ->setLabel($label)
             ->setTemplateName('crud/field/text')

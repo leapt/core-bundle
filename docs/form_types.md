@@ -61,6 +61,7 @@ If you don't know how to apply a form theme to your forms, [please check Symfony
 
 !!! info
 
+    * Changed in v6.0.0: the FileField requires EasyAdmin bundle v5.0.0+.
     * Added in v4.5.0: a FileField is available to use with EasyAdmin bundle. Requires EasyAdmin bundle v4.3.3+.
     * Added in v4.11.0: `file_type_class` and `file_attr` options.
 
@@ -73,7 +74,8 @@ See also [File uploads](file_uploads.md).
 
 !!! info
 
-    Added in v4.5.0: an ImageField is available to use with EasyAdmin bundle. Requires EasyAdmin bundle v4.3.3+.
+    * Changed in v6.0.0: the ImageField requires EasyAdmin bundle v5.0.0+.
+    * Added in v4.5.0: an ImageField is available to use with EasyAdmin bundle. Requires EasyAdmin bundle v4.3.3+.
 
 ## Recaptcha type
 

@@ -12,10 +12,10 @@ The Leapt Core bundle is a bundle used to help with some repetitive tasks, inclu
 - [SEO-related tasks (sitemaps, etc)](sitemaps.md)
 - [Twig extensions](twig_extensions.md)
 - [Utilities](utilities.md)
-- [Validators: PasswordStrength, Recaptcha, Slug](validators.md)
+- [Validators: Recaptcha, Slug](validators.md)
 
 If you find a bug or want to add a functionality,
-[please create an issue or a pull request on Github](https://github.com/leapt/core-bundle)!
+[please create an issue or a pull request on GitHub](https://github.com/leapt/core-bundle)!
 
 ## Examples
 
@@ -29,9 +29,9 @@ If you find a bug or want to add a functionality,
 
 ## Installation
 
-This bundle requires PHP 8.2+.
+This bundle requires PHP 8.4+.
 
-As the bundle is compatible with Symfony 6.4/7.0+/8.0+ and Symfony Flex, the only thing you have to do
+As the bundle is compatible with Symfony 7.4/8.0+ and Symfony Flex, the only thing you have to do
 is requiring the package with composer:
 
 ```bash
