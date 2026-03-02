@@ -85,12 +85,6 @@ parameters:
 			path: src/Twig/Extension/PaginatorExtension.php
 
 		-
-			rawMessage: 'Call to function method_exists() with ''Endroid\\QrCode\\Builder\\Builder'' and ''create'' will always evaluate to false.'
-			identifier: function.impossibleType
-			count: 1
-			path: src/Twig/Extension/QrCodeExtension.php
-
-		-
 			rawMessage: '''
 				Call to deprecated method getExpressionParser() of class Twig\Parser:
 				since Twig 3.21
@@ -137,12 +131,6 @@ parameters:
 			identifier: method.deprecatedClass
 			count: 3
 			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
-
-		-
-			rawMessage: 'Method Symfony\Component\Validator\Constraints\Regex::__construct() invoked with 8 parameters, 1-7 required.'
-			identifier: arguments.count
-			count: 1
-			path: src/Validator/Constraints/Slug.php
 
 		-
 			rawMessage: 'Method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::configureContainer() is unused.'

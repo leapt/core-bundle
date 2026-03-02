@@ -24,7 +24,7 @@ final class RecaptchaV3TypeTest extends TestCase
     {
         $view = new FormView();
 
-        $form = $this->createMock(FormInterface::class);
+        $form = $this->createStub(FormInterface::class);
 
         $this->assertArrayNotHasKey('leapt_core_recaptcha_enabled', $view->vars);
         $this->assertArrayNotHasKey('leapt_core_recaptcha_hide_badge', $view->vars);

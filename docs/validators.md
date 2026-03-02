@@ -1,29 +1,5 @@
 # Validator Constraints
 
-## PasswordStrength
-
-The PasswordStrengthChecker is based on a snipped provided in Symfony 1.
-
-!!! example "Usage"
-
-    ```php
-    use Leapt\CoreBundle\Validator\Constraints as LeaptAssert;
-
-    #[LeaptAssert\PasswordStrength(min: 6, max: 72, score: 80')]
-    public string $plainPassword;
-    ```
-
-??? info "Options"
-
-    | Name | Description | Default value |
-    | ---- | ----------- | ------------- |
-    | min | Minimum length for the password. | null |
-    | max | Maximum length for the password. | null |
-    | score | Required strength to pass validation, between 0 and 100. | 50 |
-    | minMessage | Message shown if the password is too short. | This password is too short. It should have {{ limit }} characters or more. |
-    | maxMessage | Message shown if the password is too long. | This password is too long. It should have {{ limit }} characters or less. |
-    | scoreMessage | Message shown if the password is not strong enough. | This password is not strong enough. |
-
 ## Recaptcha
 
 This validator should be used with the [Recaptcha Type](form_types.md#recaptcha-type), and is based on the

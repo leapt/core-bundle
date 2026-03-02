@@ -19,7 +19,7 @@ final class RecaptchaTypeTest extends TestCase
 
     protected function setUp(): void
     {
-        $requestStack = $this->createMock(RequestStack::class);
+        $requestStack = $this->createStub(RequestStack::class);
         $localeResolver = new LocaleResolver('de', false, $requestStack);
         $this->type = new RecaptchaType('key', true, true, $localeResolver, 'www.google.com');
     }
@@ -28,7 +28,7 @@ final class RecaptchaTypeTest extends TestCase
     {
         $view = new FormView();
 
-        $form = $this->createMock(FormInterface::class);
+        $form = $this->createStub(FormInterface::class);
 
         $this->assertArrayNotHasKey('leapt_core_recaptcha_enabled', $view->vars);
         $this->assertArrayNotHasKey('leapt_core_recaptcha_ajax', $view->vars);

@@ -7,9 +7,7 @@ namespace Leapt\CoreBundle\Twig\Extension;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
-use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\RoundBlockSizeMode;
-use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -29,45 +27,21 @@ final class QrCodeExtension extends AbstractExtension
             throw new \Exception('The "endroid/qr-code" package is required to use the "get_qr_code_from_string" Twig function. Try running "composer require endroid/qr-code".');
         }
 
-        if (class_exists(ErrorCorrectionLevel::class)) {
-            // endroid/qr-code v5 handles enums
-            $errorCorrectionLevel = ErrorCorrectionLevel::High;
-            $roundBlockSizeMode = RoundBlockSizeMode::Margin;
-        } else {
-            // while v4 handles classes
-            \assert(class_exists(ErrorCorrectionLevelHigh::class));
-            $errorCorrectionLevel = new ErrorCorrectionLevelHigh();
-            \assert(class_exists(RoundBlockSizeModeMargin::class));
-            $roundBlockSizeMode = new RoundBlockSizeModeMargin();
-        }
+        $errorCorrectionLevel = ErrorCorrectionLevel::High;
+        $roundBlockSizeMode = RoundBlockSizeMode::Margin;
 
-        if (method_exists(Builder::class, 'create')) {
-            // v4 & v5
-            $result = Builder::create()
-                ->writer(new PngWriter())
-                ->writerOptions([])
-                ->data($qrCodeContent)
-                ->encoding(new Encoding('UTF-8'))
-                ->errorCorrectionLevel($errorCorrectionLevel)
-                ->size($size)
-                ->margin($margin)
-                ->roundBlockSizeMode($roundBlockSizeMode)
-                ->build();
-        } else {
-            // v6
-            $builder = new Builder(
-                writer: new PngWriter(),
-                writerOptions: [],
-                data: $qrCodeContent,
-                encoding: new Encoding('UTF-8'),
-                errorCorrectionLevel: $errorCorrectionLevel,
-                size: $size,
-                margin: $margin,
-                roundBlockSizeMode: $roundBlockSizeMode,
-            );
+        $builder = new Builder(
+            writer: new PngWriter(),
+            writerOptions: [],
+            data: $qrCodeContent,
+            encoding: new Encoding('UTF-8'),
+            errorCorrectionLevel: $errorCorrectionLevel,
+            size: $size,
+            margin: $margin,
+            roundBlockSizeMode: $roundBlockSizeMode,
+        );
 
-            $result = $builder->build();
-        }
+        $result = $builder->build();
 
         return $result->getDataUri();
     }
