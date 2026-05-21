@@ -19,7 +19,7 @@ class SiteExtension extends AbstractExtension
     public function getTests(): array
     {
         return [
-            new TwigTest('false', function ($var) {
+            new TwigTest('false', static function ($var) {
                 return false === $var;
             }),
         ];

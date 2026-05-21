@@ -41,7 +41,7 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTestCase
 
         $tool = new \Doctrine\ORM\Tools\SchemaTool($em);
 
-        $classes = array_map(function ($className) use ($em) {
+        $classes = array_map(static function ($className) use ($em) {
             return $em->getClassMetadata($className);
         }, static::getEntityClasses());
         $tool->createSchema($classes);

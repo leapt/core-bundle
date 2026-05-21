@@ -25,7 +25,7 @@ abstract class AbstractSitemap
         return $this->urls;
     }
 
-    public function setAlias(string $alias)
+    public function setAlias(string $alias): void
     {
         $this->alias = $alias;
     }

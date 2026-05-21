@@ -94,7 +94,7 @@ class ArrayDatasource extends AbstractDatasource
         $operator = $expression->getOperator();
         // If we have a "AND" expression, return a function testing that all sub-expressions succeed
         if (CombinedExpression::OPERATOR_AND === $operator) {
-            $function = function ($item) use ($tests) {
+            $function = static function ($item) use ($tests) {
                 foreach ($tests as $test) {
                     if (!\call_user_func($test, $item)) {
                         return false;
@@ -106,7 +106,7 @@ class ArrayDatasource extends AbstractDatasource
         }
         // If we have a "OR" expression, return a function testing that at least one sub-expression succeeds
         elseif (CombinedExpression::OPERATOR_OR === $operator) {
-            $function = function ($item) use ($tests) {
+            $function = static function ($item) use ($tests) {
                 foreach ($tests as $test) {
                     if (\call_user_func($test, $item)) {
                         return true;
@@ -124,7 +124,7 @@ class ArrayDatasource extends AbstractDatasource
 
     private function buildComparisonExpressionCallback(ComparisonExpression $expression): callable
     {
-        return function ($item) use ($expression) {
+        return static function ($item) use ($expression) {
             $accessor = PropertyAccess::createPropertyAccessor();
             $value = $accessor->getValue($item, $expression->getPropertyPath());
             $comparisonValue = $expression->getValue();

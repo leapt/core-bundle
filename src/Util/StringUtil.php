@@ -15,7 +15,9 @@ class StringUtil
      */
     public static function camelize(string $id): string
     {
-        return preg_replace_callback('/(^|_|\.)+(.)/', function ($match) { return ('.' === $match[1] ? '_' : '') . strtoupper($match[2]); }, $id);
+        return preg_replace_callback('/(^|_|\.)+(.)/', static function ($match) {
+            return ('.' === $match[1] ? '_' : '') . strtoupper($match[2]);
+        }, $id);
     }
 
     /**
