@@ -10,7 +10,7 @@ class ViewContext implements \ArrayAccess
 
     public function offsetExists(mixed $offset): bool
     {
-        return isset($this->vars);
+        return \array_key_exists($offset, $this->vars);
     }
 
     public function offsetGet(mixed $offset): mixed

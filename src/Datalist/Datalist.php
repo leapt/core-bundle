@@ -66,7 +66,7 @@ class Datalist implements DatalistInterface, \Countable
         if (!isset($this->sortedFields)) {
             $sortedFields = $this->fields;
             $i = 1;
-            array_walk($sortedFields, function (DatalistFieldInterface $field) use (&$i) {
+            array_walk($sortedFields, static function (DatalistFieldInterface $field) use (&$i) {
                 if (null === $field->getOption('order')) {
                     $field->setOption('order', $i);
                 }
@@ -74,7 +74,7 @@ class Datalist implements DatalistInterface, \Countable
             });
             usort(
                 $sortedFields,
-                function (DatalistFieldInterface $field1, DatalistFieldInterface $field2) {
+                static function (DatalistFieldInterface $field1, DatalistFieldInterface $field2) {
                     return $field1->getOption('order', 0) >= $field2->getOption('order', 0) ? 1 : -1;
                 },
             );

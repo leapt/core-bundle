@@ -64,7 +64,7 @@ class FileType extends AbstractType
             ])
             ->add('delete', CheckboxType::class, ['error_bubbling' => true])
             ->addViewTransformer(new FileDataTransformer())
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($filePath, $uploadDir) {
+            ->addEventListener(FormEvents::POST_SUBMIT, static function (FormEvent $event) use ($filePath, $uploadDir) {
                 // We need to store the path to the file to delete in the Condemned file instance
                 $data = $event->getData();
                 if ($data['file'] instanceof CondemnedFile) {

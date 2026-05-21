@@ -41,23 +41,23 @@ class TextExtension extends AbstractExtension
         $charset = $env->getCharset();
 
         if ($this->isMultiByteStringAvailable() && $this->getMultiByteString()) {
-            $strlen = function ($string, $encoding = null) {
+            $strlen = static function ($string, $encoding = null) {
                 return mb_strlen($string, $encoding);
             };
-            $substr = function ($string, $start, $length = null, $encoding = null) {
+            $substr = static function ($string, $start, $length = null, $encoding = null) {
                 return mb_substr($string, $start, $length, $encoding);
             };
-            $strpos = function ($haystack, $needle, $offset = null, $encoding = null) {
+            $strpos = static function ($haystack, $needle, $offset = null, $encoding = null) {
                 return mb_strpos($haystack, $needle, (int) $offset, $encoding);
             };
         } else {
-            $strlen = function ($string, $encoding = null) {
+            $strlen = static function ($string, $encoding = null) {
                 return \strlen($string);
             };
-            $substr = function ($string, $start, $length = null, $encoding = null) {
+            $substr = static function ($string, $start, $length = null, $encoding = null) {
                 return substr($string, $start, $length);
             };
-            $strpos = function ($haystack, $needle, $offset = null, $encoding = null) {
+            $strpos = static function ($haystack, $needle, $offset = null, $encoding = null) {
                 return strpos($haystack, $needle, (int) $offset);
             };
         }
@@ -77,7 +77,7 @@ class TextExtension extends AbstractExtension
                 // Replace spaces in html tags by pipes to easily split the string by spaces available in the text
                 $pipedValue = preg_replace_callback(
                     '#<([^>]*)( )([^<]*)>#',
-                    function ($matches) {
+                    static function ($matches) {
                         return str_replace(' ', '|', $matches[0]);
                     },
                     $value,
@@ -130,7 +130,7 @@ class TextExtension extends AbstractExtension
             // Replace back pipes in html tags to spaces
             $value = preg_replace_callback(
                 '#<([^>]*)(|)([^<]*)>#',
-                function ($matches) {
+                static function ($matches) {
                     return str_replace('|', ' ', $matches[0]);
                 },
                 $pipedValue,
