@@ -157,6 +157,15 @@ parameters:
 			path: tests/LeaptCoreTestingKernel.php
 
 		-
+			rawMessage: '''
+				Return type of method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::registerBundles() has typehint with deprecated interface Symfony\Component\HttpKernel\Bundle\BundleInterface:
+				since Symfony 8.1, use Symfony\Component\DependencyInjection\Kernel\BundleInterface instead
+			'''
+			identifier: return.deprecatedInterface
+			count: 1
+			path: tests/LeaptCoreTestingKernel.php
+
+		-
 			rawMessage: 'Property Leapt\CoreBundle\Tests\Listener\Fixtures\Entity\User::$id is never written, only read.'
 			identifier: property.onlyRead
 			count: 1
@@ -167,3 +176,12 @@ parameters:
 			identifier: property.onlyRead
 			count: 1
 			path: tests/Paginator/Entity/Player.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method validate() of interface Symfony\Component\Validator\ConstraintValidatorInterface:
+				since Symfony 8.1, use "validateInContext()" instead
+			'''
+			identifier: method.deprecated
+			count: 4
+			path: tests/Validator/SlugValidatorTest.php
