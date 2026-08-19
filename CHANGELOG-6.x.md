@@ -1,3 +1,8 @@
+6.0.1
+-----
+
+* Fix typo in French translation
+
 6.0.0
 -----
 

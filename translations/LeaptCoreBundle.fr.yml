@@ -1,5 +1,5 @@
 timeago:
-    justnow: A l'instant
+    justnow: À l'instant
     minutesago: "Il y a %minutes% minute|Il y a %minutes% minutes"
     hoursago: "Il y a %hours% heure|Il y a %hours% heures"
     daysago: "Il y a %days% jour|Il y a %days% jours"
