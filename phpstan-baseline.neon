@@ -31,12 +31,6 @@ parameters:
 			path: src/Datalist/Filter/DatalistFilter.php
 
 		-
-			rawMessage: Access to constant on internal class League\FlysystemBundle\FlysystemBundle.
-			identifier: classConstant.internalClass
-			count: 1
-			path: src/DependencyInjection/Compiler/FlysystemCompilerPass.php
-
-		-
 			rawMessage: 'Method Leapt\CoreBundle\Paginator\DoctrineORMPaginator::getIterator() should return ArrayIterator but returns Traversable<(int|string), mixed>.'
 			identifier: return.type
 			count: 1
