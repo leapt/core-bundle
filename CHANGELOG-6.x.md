@@ -2,6 +2,7 @@
 -----
 
 * Fix typo in French translation
+* Test against Symfony 8.2
 
 6.0.0
 -----
