@@ -17,6 +17,7 @@ use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Symfony\Component\Messenger\Worker;
 
 class LeaptCoreBundle extends AbstractBundle
 {
@@ -44,6 +45,7 @@ class LeaptCoreBundle extends AbstractBundle
         $this->configureFacebook($builder, $config);
         $this->configureGoogle($builder, $config);
         $this->configureHoneypot($builder, $config);
+        $this->configureMessenger($container);
         $this->configurePaginator($builder, $config);
         $this->configureRecaptcha($builder, $config);
         $this->configureUploads($builder, $config);
@@ -98,6 +100,13 @@ class LeaptCoreBundle extends AbstractBundle
             foreach (['enable_globally', 'input_name', 'css_class'] as $option) {
                 $builder->setParameter('leapt_core.honeypot.' . $option, $config['honeypot'][$option]);
             }
+        }
+    }
+
+    private function configureMessenger(ContainerConfigurator $container): void
+    {
+        if (class_exists(Worker::class)) {
+            $container->import('../config/services_messenger.php');
         }
     }
 

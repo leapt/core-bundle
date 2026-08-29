@@ -147,6 +147,7 @@ Parameters:
 ## More extensions
 
 * [Data lists](data_lists.md)
+* [Messenger worker status](messenger.md)
 * [Navigation helper](navigation_helper.md)
 * [Paginator](paginator.md)
 
