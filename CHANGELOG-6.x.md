@@ -1,3 +1,9 @@
+6.1.0
+-----
+
+* Added a Messenger helper, Twig extension & worker heartbeat listener to check whether a `messenger:consume` worker
+  is currently running for a given transport (requires `symfony/messenger`)
+
 6.0.1
 -----
 

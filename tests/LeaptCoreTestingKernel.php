@@ -33,7 +33,8 @@ final class LeaptCoreTestingKernel extends Kernel
     {
         $container->extension('framework', [
             'secret' => 'S3CRET',
-            'test'   => true,
+            'test' => true,
+            'messenger' => ['enabled' => true],
         ]);
         $container->services()->set('logger', NullLogger::class);
         $container->services()->set(NewsFeed::class)

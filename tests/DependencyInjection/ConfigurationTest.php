@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Tests\DependencyInjection;
 
+use Leapt\CoreBundle\Twig\Extension\MessengerExtension;
 use Leapt\CoreBundle\Twig\Extension\QrCodeExtension;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -18,5 +19,6 @@ final class ConfigurationTest extends KernelTestCase
             self::getContainer()->getParameter('leapt_core.paginator.template'),
         );
         self::assertInstanceOf(QrCodeExtension::class, self::getContainer()->get(QrCodeExtension::class));
+        self::assertInstanceOf(MessengerExtension::class, self::getContainer()->get(MessengerExtension::class));
     }
 }
