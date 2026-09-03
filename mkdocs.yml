@@ -43,7 +43,12 @@ nav:
     - honeypot.md
     - messenger.md
     - paginator.md
-    - data_lists.md
+    - Data lists:
+        - Overview: data_lists.md
+        - Custom data list: data_lists/custom_data_list.md
+        - Fields:
+            - Label field: data_lists/field/label_field.md
+            - Common options: data_lists/field/common_options.md
     - rss_feeds.md
     - sitemaps.md
     - navigation_helper.md

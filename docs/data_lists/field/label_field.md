@@ -41,9 +41,15 @@ As shown above, you can either use scalars or BackedEnums.
 
 !!! info "Options"
 
-    Mandatory options:
-    
-    * `mappings`: Array that is used to map the value of the field with the displayed value (must be string). The `attr` key is an option of the mappings where you can define e.g. the HTML class attribute.
+    | Option | Default | Description |
+    | --- | --- | --- |
+    | `mappings` | required | Array that maps the value of the field with the displayed value (must be a string). Each entry may define an `attr` key, e.g. to set the HTML `class` attribute. |
 
+    This field type also supports the [common field options](common_options.md).
+
+## Block name
+
+The block rendered for this field type is `label_field`. Override it in your own Datalist theme if you need to
+customize the markup.
 
 [Go back to Data lists documentation](../../data_lists.md)
