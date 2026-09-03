@@ -72,6 +72,7 @@
     {#<h4>{{ field.options['label']|trans({}, translation_domain) }}</h4>#}
     <p>
         {% if value is not null %}
+            {% if truncate is defined %}{% set value = value|safe_truncate(truncate) %}{% endif %}
             {% if options.escape %}{{ value }}{% else %}{{ value|raw }}{% endif %}
         {% else %}
             <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>

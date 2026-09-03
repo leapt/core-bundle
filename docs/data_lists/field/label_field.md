@@ -1,6 +1,8 @@
 # Data lists: Label field
 
-!!! example "Example"
+## Example
+
+!!! example ""
 
     ```php
     $builder
@@ -39,7 +41,9 @@
 
 As shown above, you can either use scalars or BackedEnums.
 
-!!! info "Options"
+## Options
+
+!!! info ""
 
     | Option | Default | Description |
     | --- | --- | --- |

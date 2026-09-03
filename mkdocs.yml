@@ -47,8 +47,15 @@ nav:
         - Overview: data_lists.md
         - Custom data list: data_lists/custom_data_list.md
         - Fields:
+            - Boolean field: data_lists/field/boolean_field.md
+            - DateTime field: data_lists/field/datetime_field.md
+            - Heading field: data_lists/field/heading_field.md
+            - Image field: data_lists/field/image_field.md
             - Label field: data_lists/field/label_field.md
+            - Text field: data_lists/field/text_field.md
+            - Url field: data_lists/field/url_field.md
             - Common options: data_lists/field/common_options.md
+            - Custom field type: data_lists/field/custom_field_type.md
     - rss_feeds.md
     - sitemaps.md
     - navigation_helper.md
