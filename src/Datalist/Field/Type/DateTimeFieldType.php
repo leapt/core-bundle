@@ -14,7 +14,10 @@ class DateTimeFieldType extends AbstractFieldType
 
         $resolver->setDefaults([
             'format' => 'd/m/Y',
+            'time_ago' => false,
         ]);
+
+        $resolver->setAllowedTypes('time_ago', 'bool');
     }
 
     public function getName(): string

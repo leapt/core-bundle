@@ -1,3 +1,8 @@
+6.2.0
+-----
+
+* Added a `time_ago` option to `DateTimeFieldType` to display the date using the `time_ago` Twig filter
+
 6.1.0
 -----
 
