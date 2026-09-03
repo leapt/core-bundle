@@ -10,7 +10,9 @@ use Leapt\CoreBundle\Datalist\DatalistFactory;
 use Leapt\CoreBundle\Datalist\Datasource\ArrayDatasource;
 use Leapt\CoreBundle\Datalist\Field\Type\TextFieldType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
+use Leapt\CoreBundle\Tests\Twig\Extension\Mocks\TranslatorMock;
 use Leapt\CoreBundle\Twig\Extension\DatalistExtension;
+use Leapt\CoreBundle\Twig\Extension\DateExtension;
 use Leapt\CoreBundle\Twig\Extension\PaginatorExtension;
 use Leapt\CoreBundle\Twig\Extension\TextExtension;
 use PHPUnit\Framework\TestCase;
@@ -51,6 +53,7 @@ final class DatalistExtensionTest extends TestCase
         $this->env->addExtension(new TextExtension());
         $this->env->addExtension(new AssetExtension(new Packages()));
         $this->env->addExtension(new FormExtension());
+        $this->env->addExtension(new DateExtension(new TranslatorMock()));
 
         $formBuilder = $this->createStub(FormBuilderInterface::class);
         $formBuilder->method('getForm')->willReturn($this->createStub(FormInterface::class));

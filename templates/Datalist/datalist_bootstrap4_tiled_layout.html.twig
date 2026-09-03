@@ -87,7 +87,7 @@
 {% block datetime_field %}
     <div class="pull-right label">
         {% if value is not null %}
-            {{ value|date(options['format'])  }}
+            {% if options['time_ago'] %}{{ value|time_ago }}{% else %}{{ value|date(options['format']) }}{% endif %}
         {% else %}
             <span class="empty-value">{{ 'datalist.empty_value'|trans({}, 'LeaptCoreBundle') }}</span>
         {% endif %}
