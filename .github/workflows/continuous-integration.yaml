@@ -3,8 +3,18 @@ name: Continuous Integration
 on:
   pull_request:
     branches: ["*.x"]
+    paths:
+      - '**.php'
+      - 'phpunit.xml.dist'
+      - 'composer.json'
+      - '.github/workflows/continuous-integration.yaml'
   push:
     branches: ["*.x"]
+    paths:
+      - '**.php'
+      - 'phpunit.xml.dist'
+      - 'composer.json'
+      - '.github/workflows/continuous-integration.yaml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

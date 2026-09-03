@@ -3,8 +3,20 @@ name: Static Analysis
 on:
   pull_request:
     branches: ["*.x"]
+    paths:
+      - '**.php'
+      - 'phpstan.neon.dist'
+      - 'phpstan-baseline.neon'
+      - 'composer.json'
+      - '.github/workflows/static-analysis.yaml'
   push:
     branches: ["*.x"]
+    paths:
+      - '**.php'
+      - 'phpstan.neon.dist'
+      - 'phpstan-baseline.neon'
+      - 'composer.json'
+      - '.github/workflows/static-analysis.yaml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

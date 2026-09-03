@@ -3,6 +3,11 @@ name: Build docs
 on:
   push:
     branches: ['6.x']
+    tags: ['v*']
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/build-docs.yaml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

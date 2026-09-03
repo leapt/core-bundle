@@ -3,8 +3,18 @@ name: Coding Standards
 on:
   pull_request:
     branches: ["*.x"]
+    paths:
+      - '**.php'
+      - 'ecs.php'
+      - 'composer.json'
+      - '.github/workflows/coding-standards.yaml'
   push:
     branches: ["*.x"]
+    paths:
+      - '**.php'
+      - 'ecs.php'
+      - 'composer.json'
+      - '.github/workflows/coding-standards.yaml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
