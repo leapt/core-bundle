@@ -81,7 +81,8 @@ composer phpunit # Run tests
 composer ci
 ```
 
-Docs are built using mkdocs. To launch the docs server locally, run `make docs-start` & open http://127.0.0.1:8000/.
+Docs are built using mkdocs. To launch the docs server locally, run `make docs-start` & open the URL printed
+in the console (defaults to http://127.0.0.1:8000/, falling back to the next available port if it's already in use).
 
 History
 -------
