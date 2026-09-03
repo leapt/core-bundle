@@ -119,15 +119,15 @@ Don't hesitate to create your own to adapt it to your layout/styles.
 
 Here are the Field Types provided by the bundle. Feel free to check the classes to know the available options.
 
-You can also create your own.
+You can also [create your own](data_lists/field/custom_field_type.md).
 
-- [BooleanFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/BooleanFieldType.php)
-- [DateTimeFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/DateTimeFieldType.php)
-- [HeadingFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/HeadingFieldType.php)
-- [ImageFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/ImageFieldType.php)
+- [BooleanFieldType](data_lists/field/boolean_field.md)
+- [DateTimeFieldType](data_lists/field/datetime_field.md)
+- [HeadingFieldType](data_lists/field/heading_field.md)
+- [ImageFieldType](data_lists/field/image_field.md)
 - [LabelFieldType](data_lists/field/label_field.md)
-- [TextFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/TextFieldType.php)
-- [UrlFieldType](https://github.com/leapt/core-bundle/blob/4.x/src/Datalist/Field/Type/UrlFieldType.php)
+- [TextFieldType](data_lists/field/text_field.md)
+- [UrlFieldType](data_lists/field/url_field.md)
 
 ## Available Filter types
 

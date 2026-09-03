@@ -2,7 +2,9 @@
 
 Every field type shares the following options, on top of the ones documented on its own page.
 
-!!! info "Options"
+## Options
+
+!!! info ""
 
     | Option | Default | Description |
     | --- | --- | --- |

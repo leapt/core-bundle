@@ -2,6 +2,7 @@
 -----
 
 * Added a `time_ago` option to `DateTimeFieldType` to display the date using the `time_ago` Twig filter
+* Fixed the `truncate` option being ignored by `TextFieldType` (and `HeadingFieldType`) in the tiled Datalist themes
 
 6.1.0
 -----
