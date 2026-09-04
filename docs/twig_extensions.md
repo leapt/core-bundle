@@ -144,6 +144,30 @@ Parameters:
 {# will output "Lorem <strong class="super" style="display: none;">ipsum...</strong>" #}
 ```
 
+### `ucfirst` filter
+
+!!! info "New in 6.2"
+
+    The `ucfirst` filter is available since version 6.2.
+
+Multibyte safe equivalent of PHP's native `ucfirst` function.
+
+```twig
+{{ 'école'|ucfirst }} {# will output "École" #}
+```
+
+### `lcfirst` filter
+
+!!! info "New in 6.2"
+
+    The `lcfirst` filter is available since version 6.2.
+
+Multibyte safe equivalent of PHP's native `lcfirst` function.
+
+```twig
+{{ 'École'|lcfirst }} {# will output "école" #}
+```
+
 ## More extensions
 
 * [Data lists](data_lists.md)

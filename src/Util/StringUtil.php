@@ -7,6 +7,22 @@ namespace Leapt\CoreBundle\Util;
 class StringUtil
 {
     /**
+     * Uppercases the first character of a UTF-8 string, leaving the rest untouched.
+     */
+    public static function ucfirst(string $string): string
+    {
+        return preg_replace_callback('/\b./u', static fn(array $m): string => mb_strtoupper($m[0], 'UTF-8'), $string, 1);
+    }
+
+    /**
+     * Lowercases the first character of a UTF-8 string, leaving the rest untouched.
+     */
+    public static function lcfirst(string $string): string
+    {
+        return preg_replace_callback('/\b./u', static fn(array $m): string => mb_strtolower($m[0], 'UTF-8'), $string, 1);
+    }
+
+    /**
      * Camelizes a string.
      *
      * @param string $id A string to camelize
