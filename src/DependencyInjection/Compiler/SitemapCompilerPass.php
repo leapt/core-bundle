@@ -17,8 +17,14 @@ class SitemapCompilerPass implements CompilerPassInterface
             return;
         }
         $definition = $container->getDefinition(SitemapManager::class);
-        foreach ($container->findTaggedServiceIds('leapt_core.sitemap') as $serviceId => $tag) {
-            $alias = $tag[0]['alias'] ?? $serviceId;
+        foreach ($container->findTaggedServiceIds('leapt_core.sitemap') as $serviceId => $tags) {
+            $alias = $serviceId;
+            foreach ($tags as $tag) {
+                if (isset($tag['alias'])) {
+                    $alias = $tag['alias'];
+                    break;
+                }
+            }
             $definition->addMethodCall('registerSitemap', [$alias, new Reference($serviceId)]);
         }
     }

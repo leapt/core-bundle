@@ -49,7 +49,9 @@ final class Sitemap extends AbstractSitemap
 
 ## Register the service
 
-Finally all you need is to populate your `services.yaml` file with one or more Sitemap services like this:
+Any service extending `AbstractSitemap` is automatically registered as a sitemap, provided it is autoconfigured (which is the default for services declared under `App\` in a standard Symfony project). So if a single sitemap covering all locales is enough for your needs, there is nothing more to do: your `App\Sitemap\Sitemap` class will be picked up automatically, using its service id as its alias.
+
+If you need several sitemaps instead (e.g. one per locale, like in the example above, which takes the locale as a constructor argument), you still have to declare them explicitly in your `services.yaml` file, with a tag giving each one an alias:
 
 ```yaml
 services:
@@ -68,7 +70,7 @@ services:
 
 Now, your main sitemap is available at `http://yourhost/sitemap.xml`.
 
-If you defined several with aliases then the main sitemap will list all of them, and according the example you would get:
+If you defined several with aliases then the main sitemap will list all of them, and according to the example you would get:
 
 - sitemap.xml
 - sitemap_fr.xml

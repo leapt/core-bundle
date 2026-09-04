@@ -13,6 +13,7 @@ use Leapt\CoreBundle\DependencyInjection\Compiler\DatalistCompilerPass;
 use Leapt\CoreBundle\DependencyInjection\Compiler\FeedCompilerPass;
 use Leapt\CoreBundle\DependencyInjection\Compiler\FlysystemCompilerPass;
 use Leapt\CoreBundle\DependencyInjection\Compiler\SitemapCompilerPass;
+use Leapt\CoreBundle\Sitemap\AbstractSitemap;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -48,6 +49,7 @@ class LeaptCoreBundle extends AbstractBundle
         $this->configureMessenger($container);
         $this->configurePaginator($builder, $config);
         $this->configureRecaptcha($builder, $config);
+        $this->configureSitemap($builder);
         $this->configureUploads($builder, $config);
     }
 
@@ -127,6 +129,13 @@ class LeaptCoreBundle extends AbstractBundle
                 $builder->setParameter('leapt_core.recaptcha.' . $key, $value);
             }
         }
+    }
+
+    private function configureSitemap(ContainerBuilder $builder): void
+    {
+        // Auto-register sitemaps
+        $builder->registerForAutoconfiguration(AbstractSitemap::class)
+            ->addTag('leapt_core.sitemap');
     }
 
     private function configureUploads(ContainerBuilder $builder, array $config): void
