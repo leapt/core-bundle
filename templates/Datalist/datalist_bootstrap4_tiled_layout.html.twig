@@ -98,7 +98,7 @@
 {# label field #}
 {% block label_field %}
     {% set attr = attr|default({'class': 'label'}) %}
-    <span{{ block('widget_attributes') }}>{{ value|trans({}, translation_domain) }}</span>
+    <span{{ block('widget_attributes') }}>{{ options.choice_translation_domain is same as(false) ? value : value|trans({}, options.choice_translation_domain ?? translation_domain) }}</span>
 {% endblock label_field %}
 
 

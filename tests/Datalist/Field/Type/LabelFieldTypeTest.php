@@ -12,9 +12,11 @@ use Leapt\CoreBundle\Datalist\Field\Type\LabelFieldType;
 use Leapt\CoreBundle\Datalist\Type\DatalistType;
 use Leapt\CoreBundle\Datalist\ViewContext;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class LabelFieldTypeTest extends WebTestCase
+final class LabelFieldTypeTest extends AbstractDatalistFieldTypeTestCase
 {
     #[DataProvider('buildViewContextProvider')]
     public function testBuildViewContext(string $expectedValue, array $item, array $options = []): void
@@ -51,5 +53,82 @@ final class LabelFieldTypeTest extends WebTestCase
         yield 'regular_text2' => ['Published status', ['status' => 'Published'], ['mappings' => $stringMappings]];
         yield 'boolean_true' => ['Truthy', ['status' => true], ['mappings' => $booleanMappings]];
         yield 'boolean_false' => ['Falsy', ['status' => false], ['mappings' => $booleanMappings]];
+    }
+
+    public function testChoiceTranslationDomainDefaultsToNull(): void
+    {
+        $fieldType = new LabelFieldType();
+        $resolver = new OptionsResolver();
+        $fieldType->configureOptions($resolver);
+
+        $options = $resolver->resolve(['mappings' => []]);
+
+        self::assertNull($options['choice_translation_domain']);
+    }
+
+    #[DataProvider('provideValidChoiceTranslationDomainValues')]
+    public function testChoiceTranslationDomainAcceptsValidTypes(mixed $value): void
+    {
+        $fieldType = new LabelFieldType();
+        $resolver = new OptionsResolver();
+        $fieldType->configureOptions($resolver);
+
+        $options = $resolver->resolve(['mappings' => [], 'choice_translation_domain' => $value]);
+
+        self::assertSame($value, $options['choice_translation_domain']);
+    }
+
+    public static function provideValidChoiceTranslationDomainValues(): iterable
+    {
+        yield 'null' => [null];
+        yield 'false' => [false];
+        yield 'true' => [true];
+        yield 'string' => ['custom_domain'];
+    }
+
+    public function testChoiceTranslationDomainRejectsInvalidType(): void
+    {
+        $fieldType = new LabelFieldType();
+        $resolver = new OptionsResolver();
+        $fieldType->configureOptions($resolver);
+
+        $this->expectException(InvalidOptionsException::class);
+
+        $resolver->resolve(['mappings' => [], 'choice_translation_domain' => 42]);
+    }
+
+    public function testRendersWithDatalistTranslationDomainByDefault(): void
+    {
+        $result = $this->renderLabelField(['mappings' => ['draft' => ['label' => 'Draft status']]]);
+        self::assertStringContainsString('Draft status[messages]', $result);
+    }
+
+    public function testRendersUntranslatedWhenChoiceTranslationDomainIsFalse(): void
+    {
+        $result = $this->renderLabelField([
+            'mappings' => ['draft' => ['label' => 'Draft status']],
+            'choice_translation_domain' => false,
+        ]);
+        self::assertStringContainsString('Draft status', $result);
+        self::assertStringNotContainsString('Draft status[', $result);
+    }
+
+    public function testRendersWithCustomTranslationDomainWhenSet(): void
+    {
+        $result = $this->renderLabelField([
+            'mappings' => ['draft' => ['label' => 'Draft status']],
+            'choice_translation_domain' => 'custom_domain',
+        ]);
+        self::assertStringContainsString('Draft status[custom_domain]', $result);
+    }
+
+    private function renderLabelField(array $options): string
+    {
+        $translator = $this->createStub(TranslatorInterface::class);
+        $translator->method('trans')->willReturnCallback(
+            static fn(string $id, array $parameters = [], ?string $domain = null): string => \sprintf('%s[%s]', $id, $domain ?? 'null'),
+        );
+
+        return $this->renderDatalistField('status', LabelFieldType::class, $options, ['status' => 'draft'], $translator);
     }
 }
