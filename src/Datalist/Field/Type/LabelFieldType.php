@@ -17,6 +17,8 @@ class LabelFieldType extends AbstractFieldType
         $resolver
             ->setRequired(['mappings'])
             ->setAllowedTypes('mappings', 'array')
+            ->setDefault('choice_translation_domain', null)
+            ->setAllowedTypes('choice_translation_domain', ['null', 'bool', 'string'])
         ;
     }
 

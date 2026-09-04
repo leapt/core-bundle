@@ -5,6 +5,8 @@
 * Fixed the `truncate` option being ignored by `TextFieldType` (and `HeadingFieldType`) in the tiled Datalist themes
 * Added `StringUtil::ucfirst()` / `StringUtil::lcfirst()` (multi-byte safe) and the corresponding `ucfirst` / `lcfirst`
   Twig filters
+* Added a `choice_translation_domain` option to `LabelFieldType`, mirroring Symfony's `ChoiceType` option of the same
+  name, to disable or override the translation domain used for mapped labels
 
 6.1.0
 -----
