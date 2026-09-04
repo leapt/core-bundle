@@ -25,12 +25,24 @@ class TextExtension extends AbstractExtension
         return [
             new TwigFilter('camelize', [$this, 'camelize'], ['is_safe' => ['html']]),
             new TwigFilter('safe_truncate', [$this, 'safeTruncate'], ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFilter('ucfirst', [$this, 'ucfirst']),
+            new TwigFilter('lcfirst', [$this, 'lcfirst']),
         ];
     }
 
     public function camelize(string $string): string
     {
         return StringUtil::camelize($string);
+    }
+
+    public function ucfirst(string $string): string
+    {
+        return StringUtil::ucfirst($string);
+    }
+
+    public function lcfirst(string $string): string
+    {
+        return StringUtil::lcfirst($string);
     }
 
     /**

@@ -31,11 +31,23 @@ class TextExtensionTest extends TestCase
         $filters = $this->extension->getFilters();
         $this->assertSame('camelize', $filters[0]->getName());
         $this->assertSame('safe_truncate', $filters[1]->getName());
+        $this->assertSame('ucfirst', $filters[2]->getName());
+        $this->assertSame('lcfirst', $filters[3]->getName());
     }
 
     public function testCamelize(): void
     {
         self::assertSame('Some_Text_Is_Now_Camelized.', $this->extension->camelize('Some.text.is.now.camelized.'));
+    }
+
+    public function testUcfirst(): void
+    {
+        self::assertSame('École', $this->extension->ucfirst('école'));
+    }
+
+    public function testLcfirst(): void
+    {
+        self::assertSame('école', $this->extension->lcfirst('École'));
     }
 
     public function testSafeTruncate(): void

@@ -3,6 +3,8 @@
 
 * Added a `time_ago` option to `DateTimeFieldType` to display the date using the `time_ago` Twig filter
 * Fixed the `truncate` option being ignored by `TextFieldType` (and `HeadingFieldType`) in the tiled Datalist themes
+* Added `StringUtil::ucfirst()` / `StringUtil::lcfirst()` (multi-byte safe) and the corresponding `ucfirst` / `lcfirst`
+  Twig filters
 
 6.1.0
 -----
