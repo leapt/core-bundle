@@ -19,7 +19,21 @@ class DoctrineORMDatasource extends AbstractDatasource
 {
     private bool $initialized = false;
 
+    private bool $fetchJoinCollection = true;
+
     public function __construct(private QueryBuilder $queryBuilder) {}
+
+    /**
+     * Set whether the query joins a to-many association, so pagination knows it needs to fetch the join
+     * collection separately. Defaults to true; pass false to avoid an unnecessary extra query when the query
+     * does not join any to-many association.
+     */
+    public function setFetchJoinCollection(bool $fetchJoinCollection): self
+    {
+        $this->fetchJoinCollection = $fetchJoinCollection;
+
+        return $this;
+    }
 
     public function getPaginator(): ?PaginatorInterface
     {
@@ -65,7 +79,7 @@ class DoctrineORMDatasource extends AbstractDatasource
 
         // Handle pagination
         if (isset($this->limitPerPage)) {
-            $paginator = new DoctrineORMPaginator($this->queryBuilder->getQuery());
+            $paginator = new DoctrineORMPaginator($this->queryBuilder->getQuery(), $this->fetchJoinCollection);
             $paginator
                 ->setLimitPerPage($this->limitPerPage)
                 ->setRangeLimit($this->rangeLimit)
