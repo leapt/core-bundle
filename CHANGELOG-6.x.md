@@ -1,3 +1,13 @@
+6.3.0
+-----
+
+* `DoctrineORMPaginator` now uses `Doctrine\ORM\Tools\Pagination\OffsetPaginator` internally instead of the deprecated
+  `Doctrine\ORM\Tools\Pagination\Paginator` (will be removed in `doctrine/orm` 4.0) when available, and gained a
+  `$fetchJoinCollection` constructor argument; it transparently falls back to the deprecated class on older
+  `doctrine/orm` versions, so the required version is unchanged
+* Added a `setFetchJoinCollection()` method to `DoctrineORMDatasource`, to control the same option on the
+  `DoctrineORMPaginator` it creates for pagination
+
 6.2.0
 -----
 

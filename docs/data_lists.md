@@ -85,6 +85,12 @@ It will display a search filter, two fields (title and publicationDate), and a l
 ???+ tip "Tip"
     You can also lighten your controller by [creating a custom Datalist class](data_lists/custom_data_list.md).
 
+???+ tip "Tip"
+    By default, `DoctrineORMDatasource` assumes the query may join a `to-many` association and fetches the
+    join collection separately when paginating (see [Fetching a collection](paginator.md#fetching-a-collection)).
+    If your query does not join any `to-many` association, call `$datasource->setFetchJoinCollection(false)`
+    before passing it to the Datalist, to avoid an unnecessary extra query.
+
 ## Render the Data list
 
 ```twig

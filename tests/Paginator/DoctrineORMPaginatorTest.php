@@ -70,6 +70,39 @@ class DoctrineORMPaginatorTest extends AbstractPaginatorTestCase
         $this->assertSame($expectedItem, $item);
     }
 
+    public function testIterationWithoutLimitPerPageDisplaysEverythingOnOnePage(): void
+    {
+        $this->loadFixture(new LoadPlayerData(7));
+        $dql = <<<DQL
+            SELECT p FROM Leapt\CoreBundle\Tests\Paginator\Entity\Player p
+DQL;
+        $paginator = new DoctrineORMPaginator(static::$em->createQuery($dql));
+
+        $this->assertSame(1, $paginator->getPageCount());
+        $this->assertCount(7, iterator_to_array($paginator));
+    }
+
+    public function testSettingPageBeforeLimitPerPageStillComputesTheRightOffset(): void
+    {
+        $paginator = $this->buildPaginator(7);
+        $paginator->setPage(2);
+        $paginator->setLimitPerPage(3);
+
+        $expectedItem = static::$em->getRepository(Player::class)
+            ->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->setFirstResult(3)
+            ->setMaxResults(1)
+            ->getQuery()->getSingleResult();
+
+        foreach ($paginator as $item) {
+            break;
+        }
+
+        \assert(isset($item));
+        $this->assertSame($expectedItem, $item);
+    }
+
     protected function buildPaginator(int $limit): PaginatorInterface
     {
         $this->loadFixture(new LoadPlayerData($limit));

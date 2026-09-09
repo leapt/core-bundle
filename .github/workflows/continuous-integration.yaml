@@ -25,7 +25,7 @@ permissions:
 
 jobs:
   phpunit:
-    name: PHPUnit (PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }})
+    name: PHPUnit (PHP ${{ matrix.php-version }} - Symfony ${{ matrix.symfony-version }}${{ matrix.dependency-versions == 'lowest' && ' - lowest deps' || '' }})
     runs-on: ubuntu-24.04
     continue-on-error: ${{ matrix.continue-on-error || false }}
     env:
@@ -39,10 +39,16 @@ jobs:
         symfony-version:
           - '7.4.*'
           - '8.1.*'
+        dependency-versions:
+          - highest
         include:
           - php-version: '8.5'
             symfony-version: '8.2.*@dev'
+            dependency-versions: highest
             continue-on-error: true
+          - php-version: '8.4'
+            symfony-version: '7.4.*'
+            dependency-versions: lowest
 
     steps:
       - name: Checkout code
@@ -65,10 +71,12 @@ jobs:
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+        with:
+          dependency-versions: ${{ matrix.dependency-versions }}
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
-        if: matrix.php-version == '8.4' && matrix.symfony-version == '7.4.*'
+        if: matrix.php-version == '8.4' && matrix.symfony-version == '7.4.*' && matrix.dependency-versions == 'highest'

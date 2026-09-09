@@ -72,3 +72,21 @@ leapt_core:
     paginator:
         template: '@LeaptCore/Paginator/paginator_bootstrap5_layout.html.twig'
 ```
+
+## Fetching a collection
+
+If your query joins a `to-many` association (and therefore returns duplicate root
+entities), `DoctrineORMPaginator` needs to fetch the join collection separately. This is
+controlled by the second constructor argument, which defaults to `true` (matching the
+previous behaviour of the bundle).
+
+Pass `false` if your query does not join any `to-many` association, to avoid an
+unnecessary extra query:
+
+```php
+$paginator = new DoctrineORMPaginator($queryBuilder->getQuery(), fetchJoinCollection: false);
+```
+
+Internally, `DoctrineORMPaginator` uses `Doctrine\ORM\Tools\Pagination\OffsetPaginator`
+on `doctrine/orm` 3.7+, and transparently falls back to the deprecated `Paginator` class
+on older versions, so it works with any supported `doctrine/orm` version.
