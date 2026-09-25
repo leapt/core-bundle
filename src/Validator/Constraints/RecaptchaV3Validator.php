@@ -13,19 +13,12 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RecaptchaV3Validator extends ConstraintValidator
 {
-    private string $secretKey;
-
-    /**
-     * ContainsRecaptchaValidator constructor.
-     */
     public function __construct(
         private bool $enabled,
-        ?string $secretKey,
+        private ?string $secretKey,
         private float $scoreThreshold,
         private RequestStack $requestStack,
-    ) {
-        $this->secretKey = $secretKey;
-    }
+    ) {}
 
     public function validate(mixed $value, Constraint $constraint): void
     {
@@ -41,6 +34,10 @@ class RecaptchaV3Validator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, RecaptchaV3::class);
         }
 
+        if (null === $this->secretKey || '' === $this->secretKey) {
+            throw new \LogicException('The "leapt_core.recaptcha.private_key" option must be set to use reCAPTCHA validation.');
+        }
+
         if (null === $value) {
             $value = '';
         }
@@ -49,7 +46,7 @@ class RecaptchaV3Validator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        $response = $this->verifyToken($value);
+        $response = $this->verifyToken($this->secretKey, $value);
         if ($response->isSuccess()) {
             return;
         }
@@ -61,10 +58,10 @@ class RecaptchaV3Validator extends ConstraintValidator
             ->addViolation();
     }
 
-    private function verifyToken(string $token): Response
+    private function verifyToken(string $secretKey, string $token): Response
     {
         $remoteIp = $this->requestStack->getCurrentRequest()?->getClientIp();
-        $recaptcha = new ReCaptcha($this->secretKey);
+        $recaptcha = new ReCaptcha($secretKey);
 
         return $recaptcha
             ->setScoreThreshold($this->scoreThreshold)

@@ -1,3 +1,11 @@
+6.4.0
+-----
+
+* Added support for `google/recaptcha` 2.x
+* Fixed `RecaptchaV3Validator` throwing a `TypeError` when instantiated without a `private_key`, even with reCAPTCHA
+  disabled; both reCAPTCHA validators now throw an explicit `LogicException` when reCAPTCHA is enabled without a
+  `private_key`
+
 6.3.0
 -----
 
