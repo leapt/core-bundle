@@ -33,6 +33,10 @@ class RecaptchaValidator extends ConstraintValidator
             return;
         }
 
+        if (null === $this->privateKey || '' === $this->privateKey) {
+            throw new \LogicException('The "leapt_core.recaptcha.private_key" option must be set to use reCAPTCHA validation.');
+        }
+
         // define variable for recaptcha check answer
         $mainRequest = $this->requestStack->getMainRequest();
         $remoteIp = $mainRequest->getClientIp();

@@ -32,26 +32,6 @@ parameters:
 
 		-
 			rawMessage: '''
-				Property $legacyPaginator references deprecated class Doctrine\ORM\Tools\Pagination\Paginator in its type:
-				This class is no longer needed by the ORM and will be removed in 4.0.
-				            Use {@see OffsetPaginator} instead.
-			'''
-			identifier: property.deprecatedClass
-			count: 1
-			path: src/Paginator/DoctrineORMPaginator.php
-
-		-
-			rawMessage: '''
-				Instantiation of deprecated class Doctrine\ORM\Tools\Pagination\Paginator:
-				This class is no longer needed by the ORM and will be removed in 4.0.
-				            Use {@see OffsetPaginator} instead.
-			'''
-			identifier: new.deprecatedClass
-			count: 1
-			path: src/Paginator/DoctrineORMPaginator.php
-
-		-
-			rawMessage: '''
 				Call to method __construct() of deprecated class Doctrine\ORM\Tools\Pagination\Paginator:
 				This class is no longer needed by the ORM and will be removed in 4.0.
 				            Use {@see OffsetPaginator} instead.
@@ -77,6 +57,26 @@ parameters:
 				            Use {@see OffsetPaginator} instead.
 			'''
 			identifier: method.deprecatedClass
+			count: 1
+			path: src/Paginator/DoctrineORMPaginator.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Doctrine\ORM\Tools\Pagination\Paginator:
+				This class is no longer needed by the ORM and will be removed in 4.0.
+				            Use {@see OffsetPaginator} instead.
+			'''
+			identifier: new.deprecatedClass
+			count: 1
+			path: src/Paginator/DoctrineORMPaginator.php
+
+		-
+			rawMessage: '''
+				Property $legacyPaginator references deprecated class Doctrine\ORM\Tools\Pagination\Paginator in its type:
+				This class is no longer needed by the ORM and will be removed in 4.0.
+				            Use {@see OffsetPaginator} instead.
+			'''
+			identifier: property.deprecatedClass
 			count: 1
 			path: src/Paginator/DoctrineORMPaginator.php
 
@@ -214,6 +214,60 @@ parameters:
 			identifier: property.onlyRead
 			count: 1
 			path: tests/Paginator/Entity/Player.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method initialize() of class Symfony\Component\Validator\ConstraintValidator:
+				since Symfony 8.1, use "validateInContext()" instead
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: tests/Validator/RecaptchaV3ValidatorTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method validate() of class Leapt\CoreBundle\Validator\Constraints\RecaptchaV3Validator:
+				since Symfony 8.1, use "validateInContext()" instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: tests/Validator/RecaptchaV3ValidatorTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method validate() of interface Symfony\Component\Validator\ConstraintValidatorInterface:
+				since Symfony 8.1, use "validateInContext()" instead
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: tests/Validator/RecaptchaV3ValidatorTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method initialize() of class Symfony\Component\Validator\ConstraintValidator:
+				since Symfony 8.1, use "validateInContext()" instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: tests/Validator/RecaptchaValidatorTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method validate() of class Leapt\CoreBundle\Validator\Constraints\RecaptchaValidator:
+				since Symfony 8.1, use "validateInContext()" instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: tests/Validator/RecaptchaValidatorTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method validate() of interface Symfony\Component\Validator\ConstraintValidatorInterface:
+				since Symfony 8.1, use "validateInContext()" instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: tests/Validator/RecaptchaValidatorTest.php
 
 		-
 			rawMessage: '''
