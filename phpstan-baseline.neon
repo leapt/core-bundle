@@ -177,24 +177,6 @@ parameters:
 			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
 
 		-
-			rawMessage: 'Method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::configureContainer() is unused.'
-			identifier: method.unused
-			count: 1
-			path: tests/LeaptCoreTestingKernel.php
-
-		-
-			rawMessage: 'Method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::configureRoutes() is unused.'
-			identifier: method.unused
-			count: 1
-			path: tests/LeaptCoreTestingKernel.php
-
-		-
-			rawMessage: 'Method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::getConfigDir() is unused.'
-			identifier: method.unused
-			count: 1
-			path: tests/LeaptCoreTestingKernel.php
-
-		-
 			rawMessage: '''
 				Return type of method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::registerBundles() has typehint with deprecated interface Symfony\Component\HttpKernel\Bundle\BundleInterface:
 				since Symfony 8.1, use Symfony\Component\DependencyInjection\Kernel\BundleInterface instead

@@ -29,7 +29,7 @@ final class LeaptCoreTestingKernel extends Kernel
         yield new LeaptCoreBundle();
     }
 
-    private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    private function configureContainer(ContainerConfigurator $container): void
     {
         $container->extension('framework', [
             'secret' => 'S3CRET',
