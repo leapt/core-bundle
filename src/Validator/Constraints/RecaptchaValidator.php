@@ -14,7 +14,12 @@ class RecaptchaValidator extends ConstraintValidator
     /**
      * The reCAPTCHA server URL's.
      */
-    public const RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
+    public const string RECAPTCHA_VERIFY_SERVER = 'https://www.google.com';
+
+    /**
+     * Timeout (in seconds) of the request sent to the reCAPTCHA server.
+     */
+    private const int TIMEOUT = 10;
 
     public function __construct(
         protected bool $enabled,
@@ -45,11 +50,11 @@ class RecaptchaValidator extends ConstraintValidator
         // Verify user response with Google
         $response = $this->checkAnswer($this->privateKey, $remoteIp, $answer);
 
-        if (false === $response || true !== $response['success']) {
+        if (null === $response || true !== ($response['success'] ?? null)) {
             $this->context->addViolation($constraint->message);
         }
         // Perform server side hostname check
-        elseif ($this->verifyHost && $mainRequest->getHost() !== $response['hostname']) {
+        elseif ($this->verifyHost && $mainRequest->getHost() !== ($response['hostname'] ?? null)) {
             $this->context->addViolation($constraint->invalidHostMessage);
         }
     }
@@ -58,8 +63,10 @@ class RecaptchaValidator extends ConstraintValidator
      * Calls an HTTP POST function to verify if the user's guess was correct.
      *
      * @throws ValidatorException When missing remote ip
+     *
+     * @return array<string, mixed>|null The decoded response, or null if the answer is empty or the reCAPTCHA server could not be reached
      */
-    private function checkAnswer(string $privateKey, ?string $remoteIp, ?string $answer): mixed
+    private function checkAnswer(string $privateKey, ?string $remoteIp, ?string $answer): ?array
     {
         if (null === $remoteIp || '' === $remoteIp) {
             throw new ValidatorException('For security reasons, you must pass the remote ip to reCAPTCHA');
@@ -67,49 +74,57 @@ class RecaptchaValidator extends ConstraintValidator
 
         // discard spam submissions
         if (null === $answer || '' === $answer) {
-            return false;
+            return null;
         }
 
-        $response = $this->httpGet(self::RECAPTCHA_VERIFY_SERVER, '/recaptcha/api/siteverify', [
+        $response = $this->httpPost(self::RECAPTCHA_VERIFY_SERVER . '/recaptcha/api/siteverify', [
             'secret'   => $privateKey,
             'remoteip' => $remoteIp,
             'response' => $answer,
         ]);
 
-        return json_decode($response, true);
+        if (false === $response) {
+            return null;
+        }
+
+        $response = json_decode($response, true);
+
+        return \is_array($response) ? $response : null;
     }
 
     /**
      * Submits an HTTP POST to a reCAPTCHA server.
+     *
+     * @return false|string The response body, or false if the request failed
      */
-    private function httpGet(string $host, string $path, array $data): false|string
+    protected function httpPost(string $url, array $data): false|string
     {
-        $host = \sprintf('%s%s?%s', $host, $path, http_build_query($data));
-
-        $context = $this->getResourceContext();
-
-        return file_get_contents($host, false, $context);
+        // Silenced so that network failures are reported as a validation violation instead of a PHP warning
+        return @file_get_contents($url, false, $this->getResourceContext($data));
     }
 
-    private function getResourceContext(): mixed
+    /**
+     * @return resource
+     */
+    private function getResourceContext(array $data)
     {
-        if (null === $this->httpProxy['host'] || null === $this->httpProxy['port']) {
-            return null;
-        }
+        // The "http" options are also used for HTTPS requests
+        $options = [
+            'method'  => 'POST',
+            'header'  => ['Content-Type: application/x-www-form-urlencoded'],
+            'content' => http_build_query($data),
+            'timeout' => self::TIMEOUT,
+        ];
 
-        $options = [];
-        foreach (['http', 'https'] as $protocol) {
-            $options[$protocol] = [
-                'method'          => 'GET',
-                'proxy'           => \sprintf('tcp://%s:%s', $this->httpProxy['host'], $this->httpProxy['port']),
-                'request_fulluri' => true,
-            ];
+        if (null !== $this->httpProxy['host'] && null !== $this->httpProxy['port']) {
+            $options['proxy'] = \sprintf('tcp://%s:%s', $this->httpProxy['host'], $this->httpProxy['port']);
+            $options['request_fulluri'] = true;
 
             if (null !== $this->httpProxy['auth']) {
-                $options[$protocol]['header'] = \sprintf('Proxy-Authorization: Basic %s', base64_encode($this->httpProxy['auth']));
+                $options['header'][] = \sprintf('Proxy-Authorization: Basic %s', base64_encode($this->httpProxy['auth']));
             }
         }
 
-        return stream_context_create($options);
+        return stream_context_create(['http' => $options]);
     }
 }

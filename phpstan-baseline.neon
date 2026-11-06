@@ -254,7 +254,7 @@ parameters:
 				since Symfony 8.1, use "validateInContext()" instead
 			'''
 			identifier: method.deprecated
-			count: 1
+			count: 2
 			path: tests/Validator/RecaptchaValidatorTest.php
 
 		-
@@ -263,7 +263,7 @@ parameters:
 				since Symfony 8.1, use "validateInContext()" instead
 			'''
 			identifier: method.deprecated
-			count: 1
+			count: 2
 			path: tests/Validator/RecaptchaValidatorTest.php
 
 		-
