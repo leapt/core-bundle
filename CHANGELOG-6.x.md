@@ -1,3 +1,15 @@
+6.5.0
+-----
+
+* Deprecated the Google Analytics integration (`analytics_tracking_code` & `analytics_tracking_commerce` Twig
+  functions, `leapt_core.google_analytics` configuration), as Universal Analytics (`ga.js`) has been shut down by
+  Google; it will be removed in 7.0
+* Deprecated the Google Tag Manager integration (`tags_manager_code` Twig function, `leapt_core.google_tags_manager`
+  configuration); it will be removed in 7.0, add the official Google Tag Manager snippet to your templates instead
+* Deprecated the `GoogleExtension` class
+* Deprecated the Facebook SDK integration (`facebook_sdk_code` Twig function, `FacebookExtension` class,
+  `leapt_core.facebook` configuration), as it relies on an outdated SDK version; it will be removed in 7.0
+
 6.4.0
 -----
 

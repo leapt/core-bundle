@@ -9,6 +9,7 @@ return static function (DefinitionConfigurator $definition): void {
         ->children()
             // Facebook
             ->arrayNode('facebook')
+            ->setDeprecated('leapt/core-bundle', '6.5', 'The "%node%" option at path "%path%" is deprecated and will be removed in 7.0, as the Facebook SDK integration relies on an outdated SDK version.')
             ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('app_id')->defaultNull()->end()
@@ -17,6 +18,7 @@ return static function (DefinitionConfigurator $definition): void {
 
             // Google Analytics
             ->arrayNode('google_analytics')
+            ->setDeprecated('leapt/core-bundle', '6.5', 'The "%node%" option at path "%path%" is deprecated and will be removed in 7.0, as Universal Analytics (ga.js) has been shut down by Google.')
             ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('tracking_id')->defaultNull()->end()
@@ -26,6 +28,7 @@ return static function (DefinitionConfigurator $definition): void {
                 ->end()
             ->end()
             ->arrayNode('google_tags_manager')
+            ->setDeprecated('leapt/core-bundle', '6.5', 'The "%node%" option at path "%path%" is deprecated and will be removed in 7.0, add the official Google Tag Manager snippet to your templates instead.')
             ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('id')->defaultNull()->end()

@@ -178,6 +178,8 @@ Multibyte safe equivalent of PHP's native `lcfirst` function.
 More filters & functions exist but are not documented yet. You can find them in the following files:
 
 * [FacebookExtension](https://github.com/leapt/core-bundle/tree/4.x/src/Twig/Extension/FacebookExtension.php)
+  (deprecated since 6.5, will be removed in 7.0)
 * [GoogleExtension](https://github.com/leapt/core-bundle/tree/4.x/src/Twig/Extension/GoogleExtension.php)
+  (deprecated since 6.5, will be removed in 7.0)
 
 PRs welcome :)
