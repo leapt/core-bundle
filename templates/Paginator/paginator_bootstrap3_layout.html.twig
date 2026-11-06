@@ -1,5 +1,6 @@
 {# paginator widget block #}
 {% block paginator_widget %}
+{% deprecated 'Bootstrap 3 templates are deprecated and will be removed in 7.0, use the Bootstrap 5 ones instead.' package='leapt/core-bundle' version='6.5' %}
 {% if paginator.pageCount > 1 %}
     <ul class="pagination">
         <li{% if paginator.page == 1 %} class="disabled"{% endif %}>

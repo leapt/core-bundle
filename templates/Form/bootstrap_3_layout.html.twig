@@ -1,6 +1,7 @@
 {% extends '@LeaptCore/Form/form_core_layout.html.twig' %}
 
 {% block leapt_core_file_widget %}
+    {%- deprecated 'Bootstrap 3 templates are deprecated and will be removed in 7.0, use the Bootstrap 5 ones instead.' package='leapt/core-bundle' version='6.5' -%}
     {{- form_widget(form.file) -}}
     {{ form_errors(form.file) }}
 
@@ -22,6 +23,7 @@
 {% endblock %}
 
 {% block leapt_core_image_widget %}
+    {%- deprecated 'Bootstrap 3 templates are deprecated and will be removed in 7.0, use the Bootstrap 5 ones instead.' package='leapt/core-bundle' version='6.5' -%}
     {{- form_widget(form.file) -}}
     {{ form_errors(form.file) }}
 

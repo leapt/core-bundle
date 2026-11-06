@@ -54,7 +54,7 @@ The `paginator_widget` function will render the pagination, if there are more th
 Three pagination templates are provided by the bundle (but you can of course create your own):
 
 - `@LeaptCore/Paginator/paginator_default_layout.html.twig` (default)
-- `@LeaptCore/Paginator/paginator_bootstrap3_layout.html.twig`
+- `@LeaptCore/Paginator/paginator_bootstrap3_layout.html.twig` (deprecated since 6.5, will be removed in 7.0)
 - `@LeaptCore/Paginator/paginator_bootstrap4_layout.html.twig`
 - `@LeaptCore/Paginator/paginator_bootstrap5_layout.html.twig`
 
