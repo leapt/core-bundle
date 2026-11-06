@@ -8,7 +8,7 @@
 Since version 4.1.0 of the bundle, there are several form layouts available for the form types provided by the bundle:
 
 - `@LeaptCore/Form/form_layout.html.twig`
-- `@LeaptCore/Form/bootstrap_3_layout.html.twig`
+- `@LeaptCore/Form/bootstrap_3_layout.html.twig` (deprecated since 6.5, will be removed in 7.0)
 - `@LeaptCore/Form/bootstrap_4_layout.html.twig`
 - `@LeaptCore/Form/bootstrap_5_layout.html.twig`
 

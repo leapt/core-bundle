@@ -9,6 +9,10 @@
 * Deprecated the `GoogleExtension` class
 * Deprecated the Facebook SDK integration (`facebook_sdk_code` Twig function, `FacebookExtension` class,
   `leapt_core.facebook` configuration), as it relies on an outdated SDK version; it will be removed in 7.0
+* Deprecated the Bootstrap 3 templates (`@LeaptCore/Datalist/datalist_bootstrap3_grid_layout.html.twig`,
+  `@LeaptCore/Datalist/datalist_bootstrap3_tiled_layout.html.twig`, `@LeaptCore/Form/bootstrap_3_layout.html.twig` &
+  `@LeaptCore/Paginator/paginator_bootstrap3_layout.html.twig`); they will be removed in 7.0, use the Bootstrap 5
+  ones instead
 
 6.4.0
 -----

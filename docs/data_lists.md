@@ -106,8 +106,8 @@ of course create your own. Here are the templates provided by the bundle:
 
 - `@LeaptCore/Datalist/datalist_grid_layout.html.twig` (default)
 - `@LeaptCore/Datalist/datalist_tiled_layout.html.twig`
-- `@LeaptCore/Datalist/datalist_bootstrap3_grid_layout.html.twig`
-- `@LeaptCore/Datalist/datalist_bootstrap3_tiled_layout.html.twig`
+- `@LeaptCore/Datalist/datalist_bootstrap3_grid_layout.html.twig` (deprecated since 6.5, will be removed in 7.0)
+- `@LeaptCore/Datalist/datalist_bootstrap3_tiled_layout.html.twig` (deprecated since 6.5, will be removed in 7.0)
 - `@LeaptCore/Datalist/datalist_bootstrap4_grid_layout.html.twig`
 - `@LeaptCore/Datalist/datalist_bootstrap4_tiled_layout.html.twig`
 - `@LeaptCore/Datalist/datalist_bootstrap5_grid_layout.html.twig`

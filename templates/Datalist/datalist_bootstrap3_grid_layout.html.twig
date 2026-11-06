@@ -1,5 +1,6 @@
 {# datalist grid block #}
 {% block datalist %}
+    {% deprecated 'Bootstrap 3 templates are deprecated and will be removed in 7.0, use the Bootstrap 5 ones instead.' package='leapt/core-bundle' version='6.5' %}
 
     {% if datalist.option('filters_on_top') %}
         {% if datalist.filterable or datalist.searchable %}
