@@ -130,54 +130,6 @@ parameters:
 
 		-
 			rawMessage: '''
-				Call to deprecated method getExpressionParser() of class Twig\Parser:
-				since Twig 3.21
-			'''
-			identifier: method.deprecated
-			count: 3
-			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
-
-		-
-			rawMessage: 'Call to function method_exists() with Twig\Parser and ''parseExpression'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 3
-			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
-
-		-
-			rawMessage: '''
-				Call to method parseExpression() of deprecated class Twig\ExpressionParser:
-				since Twig 3.21
-			'''
-			identifier: method.deprecatedClass
-			count: 3
-			path: src/Twig/TokenParser/DatalistThemeTokenParser.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method getExpressionParser() of class Twig\Parser:
-				since Twig 3.21
-			'''
-			identifier: method.deprecated
-			count: 3
-			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
-
-		-
-			rawMessage: 'Call to function method_exists() with Twig\Parser and ''parseExpression'' will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 3
-			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
-
-		-
-			rawMessage: '''
-				Call to method parseExpression() of deprecated class Twig\ExpressionParser:
-				since Twig 3.21
-			'''
-			identifier: method.deprecatedClass
-			count: 3
-			path: src/Twig/TokenParser/PaginatorThemeTokenParser.php
-
-		-
-			rawMessage: '''
 				Return type of method Leapt\CoreBundle\Tests\LeaptCoreTestingKernel::registerBundles() has typehint with deprecated interface Symfony\Component\HttpKernel\Bundle\BundleInterface:
 				since Symfony 8.1, use Symfony\Component\DependencyInjection\Kernel\BundleInterface instead
 			'''
