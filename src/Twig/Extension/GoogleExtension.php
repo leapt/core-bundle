@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Leapt\CoreBundle\Twig\Extension;
 
+use Twig\DeprecatedCallableInfo;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+/**
+ * @deprecated since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+ */
 class GoogleExtension extends AbstractExtension
 {
     public const INVALID_DOMAIN_NAME_EXCEPTION = 10;
@@ -26,9 +30,9 @@ class GoogleExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('analytics_tracking_code', [$this, 'getAnalyticsTrackingCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new TwigFunction('analytics_tracking_commerce', [$this, 'getAnalyticsCommerce'], ['is_safe' => ['html'], 'needs_environment' => true]),
-            new TwigFunction('tags_manager_code', [$this, 'getTagsManagerCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('analytics_tracking_code', [$this, 'getAnalyticsTrackingCode'], ['is_safe' => ['html'], 'needs_environment' => true, 'deprecation_info' => new DeprecatedCallableInfo('leapt/core-bundle', '6.5')]),
+            new TwigFunction('analytics_tracking_commerce', [$this, 'getAnalyticsCommerce'], ['is_safe' => ['html'], 'needs_environment' => true, 'deprecation_info' => new DeprecatedCallableInfo('leapt/core-bundle', '6.5')]),
+            new TwigFunction('tags_manager_code', [$this, 'getTagsManagerCode'], ['is_safe' => ['html'], 'needs_environment' => true, 'deprecation_info' => new DeprecatedCallableInfo('leapt/core-bundle', '6.5')]),
         ];
     }
 

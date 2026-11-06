@@ -4,14 +4,14 @@
 # config/packages/leapt_core.yaml
 leapt_core:
     upload_dir: '%kernel.project_dir%/public'
-    google_analytics:
+    google_analytics: # deprecated since 6.5, will be removed in 7.0
         tracking_id: null
         domain_name: auto
         allow_linker: false
         debug: false
-    google_tags_manager:
+    google_tags_manager: # deprecated since 6.5, will be removed in 7.0
         id: null
-    facebook:
+    facebook: # deprecated since 6.5, will be removed in 7.0
         app_id: null
     paginator:
         template: '@LeaptCore/Paginator/paginator_default_layout.html.twig'

@@ -199,6 +199,78 @@ parameters:
 
 		-
 			rawMessage: '''
+				Call to method __construct() of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
+				Call to method getAccountId() of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
+				Call to method getAllowLinker() of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: method.deprecatedClass
+			count: 5
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
+				Call to method getAnalyticsTrackingCode() of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: method.deprecatedClass
+			count: 4
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
+				Call to method getDomainName() of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: method.deprecatedClass
+			count: 5
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
+				Call to method setAllowLinker() of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: method.deprecatedClass
+			count: 2
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
+				Call to method setDomainName() of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: method.deprecatedClass
+			count: 4
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Leapt\CoreBundle\Twig\Extension\GoogleExtension:
+				since leapt/core-bundle 6.5, will be removed in 7.0, add the official Google tag (gtag.js) or Google Tag Manager snippet to your templates instead
+			'''
+			identifier: new.deprecatedClass
+			count: 2
+			path: tests/Twig/Extension/GoogleExtensionTest.php
+
+		-
+			rawMessage: '''
 				Call to deprecated method initialize() of class Symfony\Component\Validator\ConstraintValidator:
 				since Symfony 8.1, use "validateInContext()" instead
 			'''
