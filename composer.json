@@ -1,11 +1,36 @@
 {
     "name": "leapt/core-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony LeaptCoreBundle",
-    "keywords": ["Utility"],
+    "description": "Symfony bundle providing datalists, paginators, file uploads, RSS feeds, sitemaps, reCAPTCHA, honeypot and Twig utilities",
+    "keywords": [
+        "symfony",
+        "bundle",
+        "datalist",
+        "paginator",
+        "file upload",
+        "flysystem",
+        "rss",
+        "atom",
+        "feed",
+        "sitemap",
+        "recaptcha",
+        "honeypot",
+        "twig",
+        "easyadmin",
+        "utility"
+    ],
     "homepage": "https://github.com/leapt/core-bundle",
     "license": "MIT",
+    "support": {
+        "issues": "https://github.com/leapt/core-bundle/issues",
+        "source": "https://github.com/leapt/core-bundle",
+        "docs": "https://core-bundle.leapt.dev"
+    },
     "authors": [
+        {
+            "name": "Jonathan Scheiber",
+            "homepage": "https://github.com/jmsche"
+        },
         {
             "name": "Pierre Vanliefland",
             "email": "pierre@snowcap.be"
