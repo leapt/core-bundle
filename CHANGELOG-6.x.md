@@ -13,6 +13,11 @@
   `@LeaptCore/Datalist/datalist_bootstrap3_tiled_layout.html.twig`, `@LeaptCore/Form/bootstrap_3_layout.html.twig` &
   `@LeaptCore/Paginator/paginator_bootstrap3_layout.html.twig`); they will be removed in 7.0, use the Bootstrap 5
   ones instead
+* Fixed `RecaptchaValidator` (reCAPTCHA v2) sending the private key in the query string of the verification request:
+  the request is now sent as a POST, with the parameters in its body
+* Fixed `RecaptchaValidator` throwing a `TypeError` (or a PHP warning) when the reCAPTCHA server cannot be reached or
+  returns an invalid response: the value is now considered invalid
+* Added a 10 seconds timeout to the `RecaptchaValidator` verification request
 
 6.4.0
 -----
